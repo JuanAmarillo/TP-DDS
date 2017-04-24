@@ -1,5 +1,7 @@
 package ui.windows;
 
+import java.awt.Color;
+
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Panel;
@@ -17,8 +19,12 @@ public class CargaDataWindow extends SimpleWindow<CargaDataVM> {
 	@Override
 	protected void addActions(Panel panelActions) {
 		panelActions.setLayout(new ColumnLayout(1));
-		new Button(panelActions).setCaption("Cargar cuentas"); // onClick(this::cargarCuentas);
-		new Button(panelActions).setCaption("Consultar valores de cuentas"); // onClick(this::verCuentas);
+		new Button(panelActions).setCaption("Cargar cuentas").onClick(this::cargarCuenta).setBackground(Color.lightGray)
+				.setWidth(350);
+		; // onClick(this::cargarCuentas);
+		new Button(panelActions).setCaption("Consultar valores de cuentas").onClick(this::verCuentas)
+				.setBackground(Color.lightGray).setWidth(350);
+		; // onClick(this::verCuentas);
 
 	}
 
@@ -27,5 +33,11 @@ public class CargaDataWindow extends SimpleWindow<CargaDataVM> {
 		// TODO Auto-generated method stub
 		this.setTitle("");
 
+	}
+
+	public void cargarCuenta() {
+	}
+
+	public void verCuentas() {
 	}
 }
