@@ -13,13 +13,12 @@ public class CargaDataWindow extends SimpleWindow<CargaDataVM> {
 
 	public CargaDataWindow(WindowOwner parent) {
 		super(parent, new CargaDataVM());
-		this.setMinHeight(250);
 	}
 
 	@Override
 	protected void addActions(Panel panelActions) {
 		panelActions.setLayout(new ColumnLayout(1));
-		new Button(panelActions).setCaption("Cargar cuentas").onClick(this::cargarCuenta).setBackground(Color.lightGray)
+		new Button(panelActions).setCaption("Cargar cuentas").onClick(this::cargarCuentas).setBackground(Color.lightGray)
 				.setWidth(350);
 		; // onClick(this::cargarCuentas);
 		new Button(panelActions).setCaption("Consultar valores de cuentas").onClick(this::verCuentas)
@@ -31,11 +30,12 @@ public class CargaDataWindow extends SimpleWindow<CargaDataVM> {
 	@Override
 	protected void createFormPanel(Panel formPanel) {
 		// TODO Auto-generated method stub
-		this.setTitle("");
+		this.setTitle("Inversiones");
 
 	}
 
-	public void cargarCuenta() {
+	public void cargarCuentas() {
+		ViewUtils.nuevaPantalla(new CargarCuentaWindow(this));
 	}
 
 	public void verCuentas() {
