@@ -1,5 +1,8 @@
 package domain;
 
+import org.joda.time.LocalDate;
+
 public class Cuenta {
-	int valor;
+	private LocalDate fecha;
+	private int valor;
 }

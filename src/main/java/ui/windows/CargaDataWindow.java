@@ -18,22 +18,17 @@ public class CargaDataWindow extends SimpleWindow<CargaDataVM> {
 	@Override
 	protected void addActions(Panel panelActions) {
 		panelActions.setLayout(new ColumnLayout(1));
-		new Button(panelActions).setCaption("Cargar cuentas").onClick(this::cargarCuentas).setBackground(Color.lightGray)
-				.setWidth(350);
-		; // onClick(this::cargarCuentas);
+		new Button(panelActions).setCaption("Cargar cuentas").onClick(this::cargarCuentas)
+				.setBackground(Color.lightGray).setWidth(350);
 		new Button(panelActions).setCaption("Consultar valores de cuentas").onClick(this::verCuentas)
 				.setBackground(Color.lightGray).setWidth(350);
-		; // onClick(this::verCuentas);
-
 	}
 
 	@Override
 	protected void createFormPanel(Panel formPanel) {
-		// TODO Auto-generated method stub
 		this.setTitle("Inversiones");
-
 	}
-
+	
 	public void cargarCuentas() {
 		ViewUtils.nuevaPantalla(new CargarCuentaWindow(this));
 	}
