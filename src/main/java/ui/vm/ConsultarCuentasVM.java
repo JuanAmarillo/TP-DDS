@@ -12,11 +12,12 @@ public class ConsultarCuentasVM {
 
 	private List<Empresa> empresas;
 	private Empresa empresaSeleccionada;
-	private LocalDate periodo;
+	private List<LocalDate> periodos;
+	private LocalDate periodoSeleccionado;
 
 	public ConsultarCuentasVM() {
 		super();
-		//this.empresas = cargarEmpresasDelArchivo
+		// this.empresas = cargarEmpresasDelArchivo
 	}
 
 	public List<Empresa> getEmpresas() {
@@ -31,11 +32,20 @@ public class ConsultarCuentasVM {
 		this.empresaSeleccionada = empresaSeleccionada;
 	}
 
-	public LocalDate getPeriodo() {
-		return periodo;
+	public List<LocalDate> getPeriodos() {
+		return periodos;
 	}
 
-	public void setPeriodo(LocalDate periodo) {
-		this.periodo = periodo;
+	public void setPeriodos(List<LocalDate> periodos) {
+		this.periodos = periodos;
 	}
+
+	public LocalDate getPeriodoSeleccionado() {
+		return periodoSeleccionado;
+	}
+
+	public void setPeriodoSeleccionado(LocalDate periodoSeleccionado) {
+		this.periodoSeleccionado = periodoSeleccionado;
+	}
+
 }
