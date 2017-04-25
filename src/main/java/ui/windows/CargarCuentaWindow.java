@@ -1,5 +1,6 @@
 package ui.windows;
 import org.uqbar.arena.layout.ColumnLayout;
+import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.FileSelector;
@@ -34,7 +35,8 @@ public class CargarCuentaWindow extends Dialog<CargarCuentaVM>{
 	}
 	@Override
 	protected void addActions(Panel panelActions){
-		panelActions.setLayout(new ColumnLayout(1));
+		panelActions.setLayout(new HorizontalLayout());
+		new Button(panelActions).setCaption("Volver").onClick(this::accept).setAsDefault();
 		new Button(panelActions).setCaption("Cargar").onClick(this::cargarCuenta);
 	}
 	public void cargarCuenta() {
