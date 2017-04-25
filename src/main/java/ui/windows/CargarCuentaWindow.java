@@ -27,6 +27,10 @@ public class CargarCuentaWindow extends Dialog<CargarCuentaVM>{
 		
 		new Label(form).setText("Seleccione archivo");
 		new FileSelector(form).setCaption("Examinar").bindValueToProperty("filePath");
+		
+		new Label(form).bindValueToProperty("filePath");
+		
+		
 	}
 	@Override
 	protected void addActions(Panel panelActions){

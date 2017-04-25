@@ -34,5 +34,6 @@ public class CargaDataWindow extends SimpleWindow<CargaDataVM> {
 	}
 
 	public void verCuentas() {
+		ViewUtils.nuevaPantalla(new ConsultarCuentasWindow(this));
 	}
 }

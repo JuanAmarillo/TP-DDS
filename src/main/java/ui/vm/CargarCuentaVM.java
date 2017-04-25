@@ -14,6 +14,9 @@ public class CargarCuentaVM {
 	public String getFilePath() {
 		return filePath;
 	}
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
 
 	public String getNombreCuenta() {
 		return nombreCuenta;
