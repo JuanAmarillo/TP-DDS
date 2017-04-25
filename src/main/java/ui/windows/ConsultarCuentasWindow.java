@@ -35,9 +35,12 @@ public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasVM> {
 	}
 
 	protected void addActions(Panel actions) {
-		// new
-		// Button(actions).setCaption("Consultar").onClick(this::verDatosCuentas);
+		new Button(actions).setCaption("Consultar").onClick(this::verDatosCuentas);
 		new Button(actions).setCaption("Volver").onClick(this::accept).setAsDefault();
+	}
+
+	protected void verDatosCuentas() {
+		
 	}
 
 }
