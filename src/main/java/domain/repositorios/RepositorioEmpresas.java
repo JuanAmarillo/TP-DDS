@@ -20,18 +20,20 @@ public class RepositorioEmpresas {
 		return empresasCargadas;
 	}
 	
-	public static Empresa getEmpresa(Empresa empresa){
+	/*public static Empresa getEmpresa(Empresa empresa){
 		return empresasCargadas.stream().filter(unaEmpresa -> unaEmpresa.equals(empresa)).findFirst().get();
-	}
+	}*/
 	
 	public static List<Cuenta> getCuentasSegun(Empresa empresa,LocalDate periodo){
-		return getEmpresa(empresa).getCuentas().stream().filter(unaCuenta -> unaCuenta.getPeriodo().equals(periodo))
+		return empresa.getCuentas().stream().filter(unaCuenta -> unaCuenta.getPeriodo().equals(periodo))
 				.collect(Collectors.toList());
 	}
+	
 	public static Set<LocalDate> getPeriodosDe(Empresa empresa){
-		return getEmpresa(empresa).getCuentas().stream().map(unaCuenta -> unaCuenta.getPeriodo())
+		return empresa.getCuentas().stream().map(unaCuenta -> unaCuenta.getPeriodo())
 				.collect(Collectors.toSet());
 	}
+	
 	public static Set<LocalDate> getPeriodos(){
 		Set<LocalDate> periodos = new HashSet<LocalDate>();
 		empresasCargadas.stream().forEach(unaEmpresa ->periodos.addAll(getPeriodosDe(unaEmpresa)));
@@ -51,9 +53,8 @@ public class RepositorioEmpresas {
 		empresas.add(unaEmpresa);
 		
 		return empresas;
-		
-		
 	}
+	
 	public static Cuenta agregarCuentaDePrueba(String nombre, int balance, LocalDate periodo){
 		Cuenta unaCuenta = new Cuenta();
 		unaCuenta.setNombre(nombre);
