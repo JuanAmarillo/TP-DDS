@@ -16,9 +16,28 @@ import domain.Periodo;
 
 public class RepositorioEmpresas {
 	private static List<Empresa> empresasCargadas;
+	private static RepositorioEmpresas instance = null;
 	
+	public static RepositorioEmpresas getInstance()
+	{
+		if(instance==null)
+		{
+			empresasCargadas = new ArrayList<Empresa>();
+			instance = new RepositorioEmpresas();
+		}
+		return instance;
+	}
+	
+	public static void resetSingleton(){
+	    instance = null;
+	}
+	
+	public void agregarEmpresa(Empresa empresa){
+		this.getInstance().empresasCargadas.add(empresa);
+	}
+
 	public static List<Empresa> getEmpresasCargadas() {
-		return empresasCargadas;
+		return instance.empresasCargadas;
 	}
 		
 	public static List<Cuenta> getCuentasSegun(Empresa empresa,Periodo periodo){

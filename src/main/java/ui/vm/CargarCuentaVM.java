@@ -1,5 +1,10 @@
 package ui.vm;
+import java.io.IOException;
+
 import org.uqbar.commons.utils.Observable;
+
+import domain.repositorios.RepositorioEmpresas;
+import util.LevantaArchivo;
 
 @Observable
 public class CargarCuentaVM {
@@ -24,6 +29,10 @@ public class CargarCuentaVM {
 
 	public void setNombreCuenta(String nombreCuenta) {
 		this.nombreCuenta = nombreCuenta;
+	}
+
+	public void cargarCuenta() throws IOException{
+		RepositorioEmpresas.getInstance().agregarEmpresa(LevantaArchivo.cargarArchivo(filePath));		
 	}
 
 }

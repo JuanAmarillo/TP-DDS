@@ -3,6 +3,7 @@ package domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.uqbar.commons.utils.Observable;
 
 @Observable

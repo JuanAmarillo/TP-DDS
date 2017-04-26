@@ -1,5 +1,7 @@
 package ui.windows;
 
+import java.io.IOException;
+
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.widgets.Button;
@@ -21,10 +23,7 @@ public class CargarCuentaWindow extends Dialog<CargarCuentaVM> {
 	protected void createFormPanel(Panel formPanel) {
 		Panel form = new Panel(formPanel);
 		form.setLayout(new ColumnLayout(2));
-		this.setTitle("Cargar cuenta");
-
-		new Label(form).setText("Ingrese nombre de cuenta");
-		new TextBox(form).setWidth(150).bindValueToProperty("nombreCuenta");
+		this.setTitle("Cargar cuentas de una empresa");
 
 		new Label(form).setText("Seleccione archivo");
 		new FileSelector(form).setCaption("Examinar").bindValueToProperty("filePath");
@@ -41,7 +40,15 @@ public class CargarCuentaWindow extends Dialog<CargarCuentaVM> {
 	}
 
 	public void cargarCuenta() {
-
+		try
+		{
+			this.getModelObject().cargarCuenta();
+		}
+		catch(IOException e) 
+		{
+			this.showWarning(e.toString());
+		}
+		
 	}
 
 }

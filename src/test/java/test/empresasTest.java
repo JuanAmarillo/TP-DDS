@@ -32,7 +32,7 @@ public class empresasTest{
 		Cuenta unaCuenta = new Cuenta();
 		unaCuenta.setNombre(nombre);
 		unaCuenta.setBalance(balance);
-		unaCuenta.setPeriodo(periodo);
+		//unaCuenta.setPeriodo(periodo);
 		return unaCuenta;
 	}
 }

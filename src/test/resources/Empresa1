@@ -1,21 +1,17 @@
 {
-  "empresa": [
+  "nombre": "Coca-Cola",
+  "cuentas": [
     {
-      "nombre": {Coca-Cola},
-      "cuenta": [
-        {
-          "nombre": {FDS},
-          "periodo_inicio": {2017-01-01},
-	  "periodo_fin":{2017-06-30},
-          "balance": {98}
-        },
-	{
-          "nombre": {EBITDA},
-          "periodo_inicio": {2017-01-01},
-	  "periodo_fin":{2017-12-31},
-          "balance": {10000}
-        }
-      ]
+      "nombre": "FDS",
+      "periodo_inicio": "2017-01-01",
+      "periodo_fin": "2017-06-30",
+      "balance": 98
+    },
+    {
+      "nombre": "EBITDA",
+      "periodo_inicio": "2017-01-01",
+      "periodo_fin": "2017-06-30",
+      "balance": 10000
     }
   ]
 }

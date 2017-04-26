@@ -1,3 +1,4 @@
+package application;
 import org.uqbar.arena.Application;
 import org.uqbar.arena.windows.Window;
 

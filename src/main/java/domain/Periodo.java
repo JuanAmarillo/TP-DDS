@@ -9,9 +9,7 @@ public class Periodo {
 	private LocalDate finPeriodo;
 	private String periodo;
 	
-	
-
-	public Periodo(LocalDate inicio,LocalDate fin){
+	public Periodo(LocalDate inicio, LocalDate fin){
 		this.setInicioPeriodo(inicio);
 		this.setFinPeriodo(fin);
 		this.periodo = inicio.toString() + " - " + fin.toString();
