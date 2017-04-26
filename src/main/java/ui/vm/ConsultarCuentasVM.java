@@ -17,7 +17,7 @@ public class ConsultarCuentasVM {
 	private LocalDate periodoSeleccionado;
 
 	public ConsultarCuentasVM() {
-		this.empresas = RepositorioEmpresas.getEmpresas();
+		this.empresas = RepositorioEmpresas.getEmpresasCargadas();
 	}
 
 	public List<Empresa> getEmpresas() {

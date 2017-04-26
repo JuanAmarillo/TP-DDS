@@ -1,7 +1,9 @@
 package domain;
 
 import org.joda.time.LocalDate;
+import org.uqbar.commons.utils.Observable;
 
+@Observable
 public class Cuenta {
 	private String nombre;
 	private LocalDate periodo;
