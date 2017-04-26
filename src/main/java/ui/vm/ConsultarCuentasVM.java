@@ -34,13 +34,11 @@ public class ConsultarCuentasVM {
 		this.empresaSeleccionada = empresaSeleccionada;
 	}
 
+
 	public Set<LocalDate> getPeriodos() {
 		return periodos;
 	}
 
-	public void setPeriodos(Set<LocalDate> periodos) {
-		this.periodos = periodos;
-	}
 
 	public LocalDate getPeriodoSeleccionado() {
 		return periodoSeleccionado;

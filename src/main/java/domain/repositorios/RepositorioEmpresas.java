@@ -1,6 +1,7 @@
 package domain.repositorios;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collector;
@@ -27,9 +28,14 @@ public class RepositorioEmpresas {
 		return getEmpresa(empresa).getCuentas().stream().filter(unaCuenta -> unaCuenta.getPeriodo().equals(periodo))
 				.collect(Collectors.toList());
 	}
-	public static Set<LocalDate> getPeriodos(){
-		return empresasCargadas.get(0).getCuentas().stream().map(unaCuenta -> unaCuenta.getPeriodo())
+	public static Set<LocalDate> getPeriodosDe(Empresa empresa){
+		return getEmpresa(empresa).getCuentas().stream().map(unaCuenta -> unaCuenta.getPeriodo())
 				.collect(Collectors.toSet());
+	}
+	public static Set<LocalDate> getPeriodos(){
+		Set<LocalDate> periodos = new HashSet<LocalDate>();
+		empresasCargadas.stream().forEach(unaEmpresa ->periodos.addAll(getPeriodosDe(unaEmpresa)));
+		return periodos;
 	}
 	
 	public static List<Empresa> datosDePrueba(){
