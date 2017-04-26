@@ -10,6 +10,7 @@ import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 
 import domain.Empresa;
+import domain.Periodo;
 import ui.vm.ConsultarCuentasVM;
 
 public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasVM> {
@@ -29,8 +30,8 @@ public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasVM> {
 		selectorEmpresa.bindValueToProperty("empresaSeleccionada");
 
 		new Label(form).setText("Periodo");
-		Selector<LocalDate> selectorPeriodo = new Selector<LocalDate>(form).allowNull(false);
-		selectorPeriodo.bindItemsToProperty("periodos");
+		Selector<Periodo> selectorPeriodo = new Selector<Periodo>(form).allowNull(false);
+		selectorPeriodo.bindItemsToProperty("periodos").adaptWith(Periodo.class, "periodo");
 		selectorPeriodo.bindValueToProperty("periodoSeleccionado");
 	}
 

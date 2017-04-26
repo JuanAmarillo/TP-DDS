@@ -1,0 +1,15 @@
+{
+  "empresa": [
+    {
+      "nombre": {Coca-Cola},
+      "cuenta": [
+        {
+          "nombre": {FDS},
+          "periodo_inicio": {},
+	  "periodo_fin":{},
+          "balance": {}
+        }
+      ]
+    }
+  ]
+}

@@ -6,7 +6,7 @@ import org.uqbar.commons.utils.Observable;
 @Observable
 public class Cuenta {
 	private String nombre;
-	private LocalDate periodo;
+	private Periodo periodo;
 	private int balance;
 	
 	public String getNombre() {
@@ -15,10 +15,10 @@ public class Cuenta {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	public LocalDate getPeriodo() {
+	public Periodo getPeriodo() {
 		return periodo;
 	}
-	public void setPeriodo(LocalDate periodo) {
+	public void setPeriodo(Periodo periodo) {
 		this.periodo = periodo;
 	}
 	public int getBalance() {

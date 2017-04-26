@@ -7,6 +7,7 @@ import org.joda.time.LocalDate;
 import org.uqbar.commons.utils.Observable;
 
 import domain.Empresa;
+import domain.Periodo;
 import domain.repositorios.RepositorioEmpresas;
 
 @Observable
@@ -14,8 +15,8 @@ public class ConsultarCuentasVM {
 
 	private List<Empresa> empresas;
 	private Empresa empresaSeleccionada;
-	private Set<LocalDate> periodos;
-	private LocalDate periodoSeleccionado;
+	private Set<Periodo> periodos;
+	private Periodo periodoSeleccionado;
 
 	public ConsultarCuentasVM() {
 		this.empresas = RepositorioEmpresas.getEmpresasCargadas();
@@ -34,15 +35,15 @@ public class ConsultarCuentasVM {
 		this.empresaSeleccionada = empresaSeleccionada;
 	}
 
-	public Set<LocalDate> getPeriodos() {
+	public Set<Periodo> getPeriodos() {
 		return periodos;
 	}
 
-	public LocalDate getPeriodoSeleccionado() {
+	public Periodo getPeriodoSeleccionado() {
 		return periodoSeleccionado;
 	}
 
-	public void setPeriodoSeleccionado(LocalDate periodoSeleccionado) {
+	public void setPeriodoSeleccionado(Periodo periodoSeleccionado) {
 		this.periodoSeleccionado = periodoSeleccionado;
 	}
 

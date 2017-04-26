@@ -7,6 +7,7 @@ import org.uqbar.commons.utils.Observable;
 
 import domain.Cuenta;
 import domain.Empresa;
+import domain.Periodo;
 import domain.repositorios.RepositorioEmpresas;
 
 @Observable
@@ -14,7 +15,7 @@ public class DatosCuentaVM {
 	private List<Cuenta> cuentas;
 	private Cuenta cuentaSeleccionada;
 	
-	public DatosCuentaVM(Empresa empresa, LocalDate periodo) {
+	public DatosCuentaVM(Empresa empresa, Periodo periodo) {
 		this.cuentas = RepositorioEmpresas.getCuentasSegun(empresa, periodo);
 	}
 	public List<Cuenta> getCuentas() {

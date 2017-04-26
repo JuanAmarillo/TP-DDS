@@ -11,11 +11,12 @@ import org.uqbar.arena.windows.WindowOwner;
 
 import domain.Cuenta;
 import domain.Empresa;
+import domain.Periodo;
 import ui.vm.DatosCuentaVM;
 
 public class DatosCuentaWindow extends Dialog<DatosCuentaVM>{
 
-	public DatosCuentaWindow(WindowOwner owner, Empresa empresa, LocalDate periodo){
+	public DatosCuentaWindow(WindowOwner owner, Empresa empresa, Periodo periodo){
 		super(owner, new DatosCuentaVM(empresa,periodo));
 	}
 
@@ -29,7 +30,7 @@ public class DatosCuentaWindow extends Dialog<DatosCuentaVM>{
 		cuentas.bindItemsToProperty("cuentas");
 		cuentas.bindValueToProperty("cuentaSeleccionada");
 		
-		new Column<Cuenta>(cuentas).setTitle("Nombre").setFixedSize(150).bindContentsToProperty("nombre");
+		new Column<Cuenta>(cuentas).setTitle("Nombre de la cuenta").setFixedSize(150).bindContentsToProperty("nombre");
 		new Column<Cuenta>(cuentas).setTitle("Balance").setFixedSize(150).bindContentsToProperty("balance");
 		
 	}
