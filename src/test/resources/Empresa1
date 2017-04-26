@@ -5,9 +5,15 @@
       "cuenta": [
         {
           "nombre": {FDS},
-          "periodo_inicio": {},
-	  "periodo_fin":{},
-          "balance": {}
+          "periodo_inicio": {2017-01-01},
+	  "periodo_fin":{2017-06-30},
+          "balance": {98}
+        },
+	{
+          "nombre": {EBITDA},
+          "periodo_inicio": {2017-01-01},
+	  "periodo_fin":{2017-12-31},
+          "balance": {10000}
         }
       ]
     }

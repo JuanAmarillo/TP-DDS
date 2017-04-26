@@ -7,7 +7,7 @@ import org.uqbar.commons.utils.Observable;
 public class Cuenta {
 	private String nombre;
 	private Periodo periodo;
-	private int balance;
+	private Float balance;
 	
 	public String getNombre() {
 		return nombre;
@@ -21,10 +21,10 @@ public class Cuenta {
 	public void setPeriodo(Periodo periodo) {
 		this.periodo = periodo;
 	}
-	public int getBalance() {
+	public Float getBalance() {
 		return balance;
 	}
-	public void setBalance(int balance) {
+	public void setBalance(Float balance) {
 		this.balance = balance;
 	}
 	
