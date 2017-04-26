@@ -1,6 +1,5 @@
 package ui.windows;
 
-import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.widgets.Button;
@@ -30,10 +29,9 @@ public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasVM> {
 		selectorEmpresa.bindValueToProperty("empresaSeleccionada");
 
 		new Label(form).setText("Periodo");
-		Selector<DateTime> selectorPeriodo = new Selector<DateTime>(form).allowNull(false);
-		
+		Selector<LocalDate> selectorPeriodo = new Selector<LocalDate>(form).allowNull(false);
 		selectorPeriodo.bindItemsToProperty("periodos");
-		selectorEmpresa.bindValueToProperty("periodoSeleccionado");
+		selectorPeriodo.bindValueToProperty("periodoSeleccionado");
 	}
 
 	protected void addActions(Panel actions) {
@@ -43,7 +41,7 @@ public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasVM> {
 
 	protected void verDatosCuentas() {
 		ViewUtils.nuevaPantalla(new DatosCuentaWindow(this, this.getModelObject().getEmpresaSeleccionada(),
-				new LocalDate(2017,12,04)/*this.getModelObject().getPeriodoSeleccionado()*/));
+				this.getModelObject().getPeriodoSeleccionado()));
 	}
 
 }
