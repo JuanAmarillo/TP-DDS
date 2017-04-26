@@ -19,8 +19,8 @@ public class ConsultarCuentasVM {
 	private Periodo periodoSeleccionado;
 
 	public ConsultarCuentasVM() {
-		this.empresas = RepositorioEmpresas.getEmpresasCargadas();
-		this.periodos = RepositorioEmpresas.getPeriodos();
+		this.empresas = RepositorioEmpresas.getInstance().getEmpresasCargadas();
+		this.periodos = RepositorioEmpresas.getInstance().getPeriodos();
 	}
 
 	public List<Empresa> getEmpresas() {

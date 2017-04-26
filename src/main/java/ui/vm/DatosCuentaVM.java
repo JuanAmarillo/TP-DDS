@@ -16,7 +16,7 @@ public class DatosCuentaVM {
 	private Cuenta cuentaSeleccionada;
 	
 	public DatosCuentaVM(Empresa empresa, Periodo periodo) {
-		this.cuentas = RepositorioEmpresas.getCuentasSegun(empresa, periodo);
+		this.cuentas = empresa.getCuentasSegun(periodo);
 	}
 	public List<Cuenta> getCuentas() {
 		return cuentas;

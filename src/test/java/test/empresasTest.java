@@ -1,11 +1,15 @@
 package test;
 import domain.*;
+import domain.repositorios.RepositorioEmpresas;
+import junit.framework.Assert;
+import util.LevantaArchivo;
 
 import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,4 +39,25 @@ public class empresasTest{
 		//unaCuenta.setPeriodo(periodo);
 		return unaCuenta;
 	}
+	
+	@Before
+	public void init(){
+		try{
+		RepositorioEmpresas.getInstance().agregarEmpresa(LevantaArchivo.cargarArchivo("src/test/resources/Empresa1.json"));
+		}
+		catch(IOException e){e.printStackTrace();}
+	}
+	
+	@Test
+	public void seCargoCocaColaTest(){
+		assertEquals(1, RepositorioEmpresas.getInstance().getEmpresasCargadas().size());
+	}
+	
+	@Test
+	public void cocaColaTieneDosCuentas(){
+		assertEquals(2, RepositorioEmpresas.getInstance().getEmpresasCargadas().get(0).getCuentas().size());
+	}
+	
+	
+	
 }

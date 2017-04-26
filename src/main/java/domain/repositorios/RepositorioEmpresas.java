@@ -33,26 +33,16 @@ public class RepositorioEmpresas {
 	}
 	
 	public void agregarEmpresa(Empresa empresa){
-		this.getInstance().empresasCargadas.add(empresa);
+		this.getInstance().getEmpresasCargadas().add(empresa);
 	}
 
-	public static List<Empresa> getEmpresasCargadas() {
-		return instance.empresasCargadas;
-	}
-		
-	public static List<Cuenta> getCuentasSegun(Empresa empresa,Periodo periodo){
-		return empresa.getCuentas().stream().filter(unaCuenta -> unaCuenta.getPeriodo().equals(periodo))
-				.collect(Collectors.toList());
+	public List<Empresa> getEmpresasCargadas() {
+		return getInstance().empresasCargadas;
 	}
 	
-	public static Set<Periodo> getPeriodosDe(Empresa empresa){
-		return empresa.getCuentas().stream().map(unaCuenta -> unaCuenta.getPeriodo())
-				.collect(Collectors.toSet());
-	}
-	
-	public static Set<Periodo> getPeriodos(){
+	public Set<Periodo> getPeriodos(){
 		Set<Periodo> periodos = new HashSet<Periodo>();
-		empresasCargadas.stream().forEach(unaEmpresa ->periodos.addAll(getPeriodosDe(unaEmpresa)));
+		empresasCargadas.stream().forEach(unaEmpresa ->periodos.addAll(unaEmpresa.getPeriodos()));
 		return periodos;
 	}
 }
