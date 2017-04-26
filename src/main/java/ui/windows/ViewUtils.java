@@ -2,9 +2,9 @@ package ui.windows;
 import org.uqbar.arena.windows.Dialog;
 
 public class ViewUtils {
-	static void nuevaPantalla(DatosCuentasWindow datosCuentasWindow){
-		datosCuentasWindow.open();
-		datosCuentasWindow.onAccept(() -> {});
+	static void nuevaPantalla(Dialog <DatosCuentaWindow> datosCuentaWindow){
+		datosCuentaWindow.open();
+		datosCuentaWindow.onAccept(() -> {});
 	}
 
 }
