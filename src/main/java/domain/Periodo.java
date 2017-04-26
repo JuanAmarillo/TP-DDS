@@ -40,7 +40,6 @@ public class Periodo {
         return !super.equals(obj);
     }
 	
-	@Override
     public int hashCode() {
         return getPeriodo().hashCode();
     }
