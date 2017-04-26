@@ -1,21 +1,17 @@
 {
-  "empresa": [
+  "nombre": "Pepsi-co",
+  "cuentas": [
     {
-      "nombre": {Pepsi-Co},
-      "cuenta": [
-        {
-          "nombre": {FDS},
-          "periodo_inicio": {2015-01-01},
-	  "periodo_fin":{2015-06-30},
-          "balance": {0}
-        },
-	{
-          "nombre": {EBITDA},
-          "periodo_inicio": {2015-01-01},
-	  "periodo_fin":{2015-12-31},
-          "balance": {-3000}
-        }
-      ]
+      "nombre": "FDS",
+      "periodo_inicio": "2017-01-01",
+      "periodo_fin": "2017-06-30",
+      "balance": 0
+    },
+    {
+      "nombre": "EBITDA",
+      "periodo_inicio": "2017-01-01",
+      "periodo_fin": "2017-12-30",
+      "balance": -10000
     }
   ]
 }
