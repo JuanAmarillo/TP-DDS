@@ -27,6 +27,4 @@ public class Cuenta {
 	public void setBalance(Float balance) {
 		this.balance = balance;
 	}
-	
-	
 }
