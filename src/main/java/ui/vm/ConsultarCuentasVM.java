@@ -1,6 +1,7 @@
 package ui.vm;
 
 import java.util.List;
+import java.util.Set;
 
 import org.joda.time.LocalDate;
 import org.uqbar.commons.utils.Observable;
@@ -13,11 +14,12 @@ public class ConsultarCuentasVM {
 
 	private List<Empresa> empresas;
 	private Empresa empresaSeleccionada;
-	private List<LocalDate> periodos;
+	private Set<LocalDate> periodos;
 	private LocalDate periodoSeleccionado;
 
 	public ConsultarCuentasVM() {
 		this.empresas = RepositorioEmpresas.getEmpresasCargadas();
+		this.periodos = RepositorioEmpresas.getPeriodos();
 	}
 
 	public List<Empresa> getEmpresas() {
@@ -32,11 +34,11 @@ public class ConsultarCuentasVM {
 		this.empresaSeleccionada = empresaSeleccionada;
 	}
 
-	public List<LocalDate> getPeriodos() {
+	public Set<LocalDate> getPeriodos() {
 		return periodos;
 	}
 
-	public void setPeriodos(List<LocalDate> periodos) {
+	public void setPeriodos(Set<LocalDate> periodos) {
 		this.periodos = periodos;
 	}
 

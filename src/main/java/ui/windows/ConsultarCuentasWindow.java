@@ -31,9 +31,9 @@ public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasVM> {
 
 		new Label(form).setText("Periodo");
 		Selector<DateTime> selectorPeriodo = new Selector<DateTime>(form).allowNull(false);
-		/*
+		
 		selectorPeriodo.bindItemsToProperty("periodos");
-		selectorEmpresa.bindValueToProperty("periodoSeleccionado");*/
+		selectorEmpresa.bindValueToProperty("periodoSeleccionado");
 	}
 
 	protected void addActions(Panel actions) {

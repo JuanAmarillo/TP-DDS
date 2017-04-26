@@ -2,12 +2,12 @@ package domain.repositorios;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.joda.time.LocalDate;
-import org.joda.time.LocalTime;
-import org.uqbar.commons.utils.Observable;
+import org.junit.experimental.theories.Theories;
 
 import domain.Cuenta;
 import domain.Empresa;
@@ -27,17 +27,18 @@ public class RepositorioEmpresas {
 		return getEmpresa(empresa).getCuentas().stream().filter(unaCuenta -> unaCuenta.getPeriodo().equals(periodo))
 				.collect(Collectors.toList());
 	}
+	public static Set<LocalDate> getPeriodos(){
+		return empresasCargadas.get(0).getCuentas().stream().map(unaCuenta -> unaCuenta.getPeriodo())
+				.collect(Collectors.toSet());
+	}
 	
 	public static List<Empresa> datosDePrueba(){
 		List<Empresa> empresas = new ArrayList<Empresa>();
-		Empresa unaEmpresa = new Empresa();
 		List<Cuenta> cuentas = new ArrayList<Cuenta>();
-		Cuenta unaCuenta = new Cuenta();
+		Empresa unaEmpresa = new Empresa();
 		
-		unaCuenta.setNombre("ROE");
-		unaCuenta.setBalance(102);
-		unaCuenta.setPeriodo(new LocalDate(2017,12,04));
-		cuentas.add(unaCuenta);
+		cuentas.add(agregarCuentaDePrueba("ROE", 102, new LocalDate(2017,12,04)));
+		cuentas.add(agregarCuentaDePrueba("ROA", 90, new LocalDate(2017,12,04)));
 		
 		unaEmpresa.setNombre("Google");
 		unaEmpresa.setCuentas(cuentas);
@@ -46,6 +47,13 @@ public class RepositorioEmpresas {
 		return empresas;
 		
 		
+	}
+	public static Cuenta agregarCuentaDePrueba(String nombre, int balance, LocalDate periodo){
+		Cuenta unaCuenta = new Cuenta();
+		unaCuenta.setNombre(nombre);
+		unaCuenta.setBalance(balance);
+		unaCuenta.setPeriodo(periodo);
+		return unaCuenta;
 	}
 	
 }
