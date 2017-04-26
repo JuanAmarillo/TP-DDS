@@ -26,10 +26,14 @@ public class empresasTest{
 	
 	Empresa cocaCola;
 	
+	public List<Empresa> getListaEmpresas(){
+		return RepositorioEmpresas.getInstance().getEmpresasCargadas();
+	}
+	
 	@Before
 	public void init(){
 		cargarArchivo("Empresa1.json");
-		cocaCola= RepositorioEmpresas.getInstance().getEmpresasCargadas().get(0);
+		cocaCola= getListaEmpresas().get(0);
 	}
 	
 	@After
@@ -39,7 +43,7 @@ public class empresasTest{
 	
 	@Test
 	public void seCargoCocaColaTest(){
-		assertEquals(1, RepositorioEmpresas.getInstance().getEmpresasCargadas().size());
+		assertEquals(1, getListaEmpresas().size());
 	}
 	
 	@Test
@@ -56,9 +60,8 @@ public class empresasTest{
 	
 	@Test
 	public void cargarPepsiCoTest(){
-		cargarArchivo("Empresa2.json");
-		List<Empresa> lista = RepositorioEmpresas.getInstance().getEmpresasCargadas();
-		assertEquals(2, lista.size());
+		cargarArchivo("Empresa2.json");;
+		assertEquals(2, getListaEmpresas().size());
 	}
 	
 }
