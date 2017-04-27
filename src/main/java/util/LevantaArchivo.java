@@ -11,7 +11,6 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 public class LevantaArchivo {
 	private static  List<String> archivosCargados = new ArrayList<>();
-	private static LevantaArchivo instance = null;
 	
 	public static Empresa cargarArchivo(String filepath) throws IOException {
 		if(!getArchivosCargados().contains(filepath)) {
@@ -27,21 +26,11 @@ public class LevantaArchivo {
 		}
 	}
 	
-	@SuppressWarnings("static-access")
 	public static  List<String> getArchivosCargados() {
-		return getInstance().archivosCargados;
+		return archivosCargados;
 	}
 	
-	public static LevantaArchivo getInstance() {
-		if(instance==null)
-		{
-			archivosCargados = new ArrayList<String>();
-			instance = new LevantaArchivo();
-		}
-		return instance;
-	}
-	
-	public static void resetSingleton() {
-		instance = null;
+	public static void resetFiles() {
+		archivosCargados = new ArrayList<>();
 	}
 }

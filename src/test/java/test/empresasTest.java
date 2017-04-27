@@ -36,13 +36,13 @@ public class empresasTest{
 	@Before
 	public void init() {
 		cargarArchivo("Empresa1.json");
-		cocaCola= getListaEmpresas().get(0);
+		cocaCola = getListaEmpresas().get(0);
 	}
 	
 	@After
 	public void finalize() {
 		RepositorioEmpresas.resetSingleton();
-		LevantaArchivo.resetSingleton();
+		LevantaArchivo.resetFiles();
 	}
 	
 	@Test
