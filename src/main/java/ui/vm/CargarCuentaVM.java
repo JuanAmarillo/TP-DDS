@@ -1,4 +1,5 @@
 package ui.vm;
+
 import java.io.IOException;
 
 import org.uqbar.commons.utils.Observable;
@@ -8,17 +9,18 @@ import util.LevantaArchivo;
 
 @Observable
 public class CargarCuentaVM {
-	
+
 	private String filePath;
 	private String nombreCuenta;
-	
-	public CargarCuentaVM(){
+
+	public CargarCuentaVM() {
 		super();
 	}
 
 	public String getFilePath() {
 		return filePath;
 	}
+
 	public void setFilePath(String filePath) {
 		this.filePath = filePath;
 	}
@@ -31,8 +33,8 @@ public class CargarCuentaVM {
 		this.nombreCuenta = nombreCuenta;
 	}
 
-	public void cargarCuenta() throws IOException{
-		RepositorioEmpresas.getInstance().agregarEmpresa(LevantaArchivo.cargarArchivo(filePath));		
+	public void cargarCuenta() throws IOException {
+		RepositorioEmpresas.getInstance().agregarEmpresa(LevantaArchivo.cargarArchivo(filePath));
 	}
 
 }

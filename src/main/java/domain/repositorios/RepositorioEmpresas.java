@@ -17,32 +17,30 @@ import domain.Periodo;
 public class RepositorioEmpresas {
 	private static List<Empresa> empresasCargadas;
 	private static RepositorioEmpresas instance = null;
-	
-	public static RepositorioEmpresas getInstance()
-	{
-		if(instance==null)
-		{
+
+	public static RepositorioEmpresas getInstance() {
+		if (instance == null) {
 			empresasCargadas = new ArrayList<Empresa>();
 			instance = new RepositorioEmpresas();
 		}
 		return instance;
 	}
-	
-	public static void resetSingleton(){
-	    instance = null;
+
+	public static void resetSingleton() {
+		instance = null;
 	}
-	
-	public void agregarEmpresa(Empresa empresa){
+
+	public void agregarEmpresa(Empresa empresa) {
 		this.getInstance().getEmpresasCargadas().add(empresa);
 	}
 
 	public List<Empresa> getEmpresasCargadas() {
 		return getInstance().empresasCargadas;
 	}
-	
-	public Set<Periodo> getPeriodos(){
+
+	public Set<Periodo> getPeriodos() {
 		Set<Periodo> periodos = new HashSet<Periodo>();
-		empresasCargadas.stream().forEach(unaEmpresa ->periodos.addAll(unaEmpresa.getPeriodos()));
+		empresasCargadas.stream().forEach(unaEmpresa -> periodos.addAll(unaEmpresa.getPeriodos()));
 		return periodos;
 	}
 }

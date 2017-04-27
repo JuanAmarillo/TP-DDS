@@ -12,13 +12,12 @@ import org.uqbar.commons.utils.Observable;
 public class Empresa {
 	private String nombre;
 	private List<Cuenta> cuentas = new ArrayList<>();
-	//private List<Indicador> indicadores = new ArrayList<>();
-	
-	public String getNombre(){
+
+	public String getNombre() {
 		return nombre;
 	}
-	
-	public void setNombre(String nombre){
+
+	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
@@ -29,14 +28,13 @@ public class Empresa {
 	public void setCuentas(List<Cuenta> cuentas) {
 		this.cuentas = cuentas;
 	}
-	
-	public List<Cuenta> getCuentasSegun(Periodo periodo){
+
+	public List<Cuenta> getCuentasSegun(Periodo periodo) {
 		return this.getCuentas().stream().filter(unaCuenta -> unaCuenta.getPeriodo().equals(periodo))
 				.collect(Collectors.toList());
 	}
-	
-	public Set<Periodo> getPeriodos(){
-		return this.getCuentas().stream().map(unaCuenta -> unaCuenta.getPeriodo())
-				.collect(Collectors.toSet());
+
+	public Set<Periodo> getPeriodos() {
+		return this.getCuentas().stream().map(unaCuenta -> unaCuenta.getPeriodo()).collect(Collectors.toSet());
 	}
 }

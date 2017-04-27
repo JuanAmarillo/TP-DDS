@@ -40,15 +40,12 @@ public class CargarCuentaWindow extends Dialog<CargarCuentaVM> {
 	}
 
 	public void cargarCuenta() {
-		try
-		{
+		try {
 			this.getModelObject().cargarCuenta();
-		}
-		catch(IOException e) 
-		{
+		} catch (IOException e) {
 			this.showWarning(e.toString());
 		}
-		
+
 	}
 
 }

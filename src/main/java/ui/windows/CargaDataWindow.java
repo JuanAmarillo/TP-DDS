@@ -20,9 +20,9 @@ public class CargaDataWindow extends SimpleWindow<CargaDataVM> {
 	protected void createFormPanel(Panel formPanel) {
 		this.setTitle("Inversiones");
 		new Label(formPanel).setText("Hector Inversiones").setFontSize(25);
-		
+
 	}
-	
+
 	@Override
 	protected void addActions(Panel panelActions) {
 		panelActions.setLayout(new ColumnLayout(1));
@@ -32,7 +32,6 @@ public class CargaDataWindow extends SimpleWindow<CargaDataVM> {
 				.setBackground(Color.lightGray).setWidth(350);
 	}
 
-	
 	public void cargarCuentas() {
 		ViewUtils.nuevaPantalla(new CargarCuentaWindow(this));
 	}
