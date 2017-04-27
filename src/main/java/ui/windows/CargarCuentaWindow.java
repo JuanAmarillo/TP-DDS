@@ -41,8 +41,7 @@ public class CargarCuentaWindow extends Dialog<CargarCuentaVM> {
 	}
 
 	public void cargarCuenta() {
-		try
-		{
+		try {
 			this.getModelObject().cargarCuenta();
 			this.showInfo("Se ha cargado con éxito el archivo");
 		}
@@ -54,7 +53,6 @@ public class CargarCuentaWindow extends Dialog<CargarCuentaVM> {
 		{
 			this.showWarning("El archivo ya está cargado");
 		}
-		
 	}
 
 }

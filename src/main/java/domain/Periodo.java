@@ -8,8 +8,8 @@ public class Periodo {
 	private LocalDate inicioPeriodo;
 	private LocalDate finPeriodo;
 	private String periodo;
-	
-	public Periodo(LocalDate inicio, LocalDate fin){
+
+	public Periodo(LocalDate inicio, LocalDate fin) {
 		this.setInicioPeriodo(inicio);
 		this.setFinPeriodo(fin);
 		this.periodo = inicio.toString() + " - " + fin.toString();
@@ -30,10 +30,11 @@ public class Periodo {
 	public void setFinPeriodo(LocalDate finPeriodo) {
 		this.finPeriodo = finPeriodo;
 	}
-	
+
 	public String getPeriodo() {
 		return periodo;
 	}
+	
 	/*
 	@Override
     public boolean equals(Object obj) {
@@ -43,4 +44,5 @@ public class Periodo {
     public int hashCode() {
         return getPeriodo().hashCode();
     }*/
+
 }

@@ -14,19 +14,23 @@ import domain.repositorios.RepositorioEmpresas;
 public class DatosCuentaVM {
 	private List<Cuenta> cuentas;
 	private Cuenta cuentaSeleccionada;
-	
+
 	public DatosCuentaVM(Empresa empresa, Periodo periodo) {
 		this.cuentas = empresa.getCuentasSegun(periodo);
 	}
+
 	public List<Cuenta> getCuentas() {
 		return cuentas;
 	}
+
 	public void setCuentas(List<Cuenta> cuentas) {
 		this.cuentas = cuentas;
 	}
+
 	public Cuenta getCuentaSeleccionada() {
 		return cuentaSeleccionada;
 	}
+
 	public void setCuentaSeleccionada(Cuenta cuentaSeleccionada) {
 		this.cuentaSeleccionada = cuentaSeleccionada;
 	}

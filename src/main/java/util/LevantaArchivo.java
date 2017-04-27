@@ -1,4 +1,5 @@
 package util;
+
 import domain.*;
 import domain.repositorios.RepositorioEmpresas;
 
@@ -11,7 +12,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 public class LevantaArchivo {
 	
-	private static List<String> archivosCargados = new ArrayList<>();
+	private static  List<String> archivosCargados = new ArrayList<>();
 	private static LevantaArchivo instance = null;
 	
 	public static Empresa cargarArchivo(String filepath) throws IOException{
@@ -28,6 +29,10 @@ public class LevantaArchivo {
 		}
 	}
 	
+	public static  List<String> getArchivosCargados(){
+		return getInstance().archivosCargados;
+	}
+	
 	public static LevantaArchivo getInstance()
 	{
 		if(instance==null)
@@ -40,9 +45,5 @@ public class LevantaArchivo {
 	
 	public static void resetSingleton(){
 		instance = null;
-	}
-	
-	private static List<String> getArchivosCargados() {
-		return getInstance().archivosCargados;
 	}
 }

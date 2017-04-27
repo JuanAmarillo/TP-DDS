@@ -14,25 +14,25 @@ import domain.Empresa;
 import domain.Periodo;
 import ui.vm.DatosCuentaVM;
 
-public class DatosCuentaWindow extends Dialog<DatosCuentaVM>{
+public class DatosCuentaWindow extends Dialog<DatosCuentaVM> {
 
-	public DatosCuentaWindow(WindowOwner owner, Empresa empresa, Periodo periodo){
-		super(owner, new DatosCuentaVM(empresa,periodo));
+	public DatosCuentaWindow(WindowOwner owner, Empresa empresa, Periodo periodo) {
+		super(owner, new DatosCuentaVM(empresa, periodo));
 	}
 
 	@Override
 	protected void createFormPanel(Panel formPanel) {
 		Panel form = new Panel(formPanel);
 		form.setLayout(new HorizontalLayout());
-		
-		Table<Cuenta> cuentas = new Table<Cuenta>(form,Cuenta.class);
+
+		Table<Cuenta> cuentas = new Table<Cuenta>(form, Cuenta.class);
 		cuentas.setWidth(300);
 		cuentas.bindItemsToProperty("cuentas");
 		cuentas.bindValueToProperty("cuentaSeleccionada");
-		
+
 		new Column<Cuenta>(cuentas).setTitle("Nombre de la cuenta").setFixedSize(150).bindContentsToProperty("nombre");
 		new Column<Cuenta>(cuentas).setTitle("Balance").setFixedSize(150).bindContentsToProperty("balance");
-		
+
 	}
 
 }
