@@ -34,7 +34,7 @@ public class Periodo {
 	public String getPeriodo() {
 		return periodo;
 	}
-	
+	/*
 	@Override
     public boolean equals(Object obj) {
         return !super.equals(obj);
@@ -42,5 +42,5 @@ public class Periodo {
 	
     public int hashCode() {
         return getPeriodo().hashCode();
-    }
+    }*/
 }

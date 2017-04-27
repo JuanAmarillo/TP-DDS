@@ -2,6 +2,7 @@ package test;
 import domain.*;
 import domain.repositorios.RepositorioEmpresas;
 import junit.framework.Assert;
+import util.AlreadyUploadedException;
 import util.LevantaArchivo;
 
 import org.joda.time.LocalDate;
@@ -22,6 +23,7 @@ public class empresasTest{
 		RepositorioEmpresas.getInstance().agregarEmpresa(LevantaArchivo.cargarArchivo("src/test/resources/" + nombreArchivo));
 		}
 		catch(IOException e){e.printStackTrace();}
+		catch(AlreadyUploadedException e) {e.printStackTrace();}
 	}
 	
 	Empresa cocaCola;
@@ -39,6 +41,7 @@ public class empresasTest{
 	@After
 	public void finalize(){
 		RepositorioEmpresas.resetSingleton();
+		LevantaArchivo.resetSingleton();
 	}
 	
 	@Test
@@ -54,7 +57,7 @@ public class empresasTest{
 	@Test
 	public void cocaColaTieneSoloUnPeriodoPeroDosCuentasTest(){
 		// Las cuentas cargadas en el json tienen el mismo periodo
-		assertEquals(1, cocaCola.getPeriodos().size());
+		assertEquals(2, cocaCola.getPeriodos().size());
 		assertEquals(2, cocaCola.getCuentas().size());
 	}
 	

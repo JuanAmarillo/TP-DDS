@@ -33,11 +33,11 @@ public class RepositorioEmpresas {
 	}
 	
 	public void agregarEmpresa(Empresa empresa){
-		this.getInstance().getEmpresasCargadas().add(empresa);
+		this.getEmpresasCargadas().add(empresa);
 	}
 
 	public List<Empresa> getEmpresasCargadas() {
-		return getInstance().empresasCargadas;
+		return empresasCargadas;
 	}
 	
 	public Set<Periodo> getPeriodos(){

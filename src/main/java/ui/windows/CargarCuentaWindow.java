@@ -12,6 +12,7 @@ import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.arena.windows.Dialog;
 import ui.vm.CargarCuentaVM;
+import util.AlreadyUploadedException;
 
 public class CargarCuentaWindow extends Dialog<CargarCuentaVM> {
 
@@ -43,10 +44,15 @@ public class CargarCuentaWindow extends Dialog<CargarCuentaVM> {
 		try
 		{
 			this.getModelObject().cargarCuenta();
+			this.showInfo("Se ha cargado con éxito el archivo");
 		}
 		catch(IOException e) 
 		{
 			this.showWarning(e.toString());
+		}
+		catch(AlreadyUploadedException e)
+		{
+			this.showWarning("El archivo ya está cargado");
 		}
 		
 	}
