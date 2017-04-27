@@ -1,7 +1,5 @@
 package ui.windows;
 
-import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.tables.Column;
@@ -14,6 +12,7 @@ import domain.Empresa;
 import domain.Periodo;
 import ui.vm.DatosCuentaVM;
 
+@SuppressWarnings("serial")
 public class DatosCuentaWindow extends Dialog<DatosCuentaVM> {
 
 	public DatosCuentaWindow(WindowOwner owner, Empresa empresa, Periodo periodo) {
@@ -32,7 +31,5 @@ public class DatosCuentaWindow extends Dialog<DatosCuentaVM> {
 
 		new Column<Cuenta>(cuentas).setTitle("Nombre de la cuenta").setFixedSize(150).bindContentsToProperty("nombre");
 		new Column<Cuenta>(cuentas).setTitle("Balance").setFixedSize(150).bindContentsToProperty("balance");
-
 	}
-
 }

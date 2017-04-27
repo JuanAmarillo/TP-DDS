@@ -3,7 +3,6 @@ package ui.vm;
 import java.util.List;
 import java.util.Set;
 
-import org.joda.time.LocalDate;
 import org.uqbar.commons.utils.Observable;
 
 import domain.Empresa;
@@ -46,5 +45,4 @@ public class ConsultarCuentasVM {
 	public void setPeriodoSeleccionado(Periodo periodoSeleccionado) {
 		this.periodoSeleccionado = periodoSeleccionado;
 	}
-
 }

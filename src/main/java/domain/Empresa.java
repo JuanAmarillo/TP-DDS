@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.uqbar.commons.utils.Observable;
 
 @Observable

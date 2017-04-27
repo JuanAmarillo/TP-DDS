@@ -33,7 +33,7 @@ public class CargarCuentaVM {
 		this.nombreCuenta = nombreCuenta;
 	}
 
-	public void cargarCuenta() throws IOException {
+	public void cargarEmpresa() throws IOException {
 		RepositorioEmpresas.getInstance().agregarEmpresa(LevantaArchivo.cargarArchivo(filePath));
 	}
 

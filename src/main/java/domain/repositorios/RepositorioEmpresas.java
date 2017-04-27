@@ -4,13 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
-import org.joda.time.LocalDate;
-import org.junit.experimental.theories.Theories;
-
-import domain.Cuenta;
 import domain.Empresa;
 import domain.Periodo;
 

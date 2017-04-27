@@ -1,6 +1,5 @@
 package ui.windows;
 
-import org.joda.time.LocalDate;
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
@@ -13,6 +12,7 @@ import domain.Empresa;
 import domain.Periodo;
 import ui.vm.ConsultarCuentasVM;
 
+@SuppressWarnings("serial")
 public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasVM> {
 
 	public ConsultarCuentasWindow(WindowOwner parent) {
@@ -41,8 +41,7 @@ public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasVM> {
 	}
 
 	protected void verDatosCuentas() {
-		ViewUtils.nuevaPantalla(new DatosCuentaWindow(this, this.getModelObject().getEmpresaSeleccionada(),
-				this.getModelObject().getPeriodoSeleccionado()));
+		ViewUtils.nuevaPantalla(new DatosCuentaWindow(this, this.getModelObject().getEmpresaSeleccionada(),	this.getModelObject().getPeriodoSeleccionado()));
 	}
 
 }

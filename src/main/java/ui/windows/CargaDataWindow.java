@@ -10,6 +10,7 @@ import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 import ui.vm.CargaDataVM;
 
+@SuppressWarnings("serial")
 public class CargaDataWindow extends SimpleWindow<CargaDataVM> {
 
 	public CargaDataWindow(WindowOwner parent) {

@@ -2,7 +2,6 @@ package domain;
 
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.annotate.JsonTypeName;
 import org.joda.time.LocalDate;
 import org.uqbar.commons.utils.Observable;
 
