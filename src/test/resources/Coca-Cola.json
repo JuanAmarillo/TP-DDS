@@ -3,14 +3,12 @@
   "cuentas": [
     {
       "nombre": "FDS",
-      "periodo_inicio": "2017-01-01",
-      "periodo_fin": "2017-06-30",
+      "periodo": "2017-06-30 - 2017-12-31",
       "balance": 98
     },
     {
       "nombre": "EBITDA",
-      "periodo_inicio": "2017-01-01",
-      "periodo_fin": "2017-06-30",
+      "periodo": "2do Semestre",
       "balance": 10000
     }
   ]

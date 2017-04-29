@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import domain.Empresa;
+import exceptions.NoExisteLaEmpresaException;
 
 
 public class RepositorioEmpresas {
@@ -40,13 +41,18 @@ public class RepositorioEmpresas {
 		return periodos;
 	}
 	
-	public Empresa obtenerEmpresaYaCargada(Empresa aBuscar){
+	public Empresa getEmpresaCargada(Empresa aBuscar){
 		try {
-			Empresa aDevolver = this.getEmpresasCargadas().stream().filter(emp -> emp.getNombre() == aBuscar.getNombre()).collect(Collectors.toList()).get(0);
+			Empresa aDevolver = this.getEmpresasCargadas().stream().filter(emp -> emp.esLaMismaEmpresaQue(aBuscar)).collect(Collectors.toList()).get(0);
 			return aDevolver;
 		}
 		catch (IndexOutOfBoundsException e) {
-			return new Empresa();
+			throw new NoExisteLaEmpresaException();
 		}
+	}
+
+	public boolean yaEstaCargada(Empresa empresaLeida) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

@@ -1,0 +1,15 @@
+{
+  "nombre": "Coca-Cola",
+  "cuentas": [
+    {
+      "nombre": "ROE",
+      "periodo": "1er Semestre",
+      "balance": 98
+    },
+    {
+      "nombre": "ROA",
+      "periodo": "2do Semestre",
+      "balance": 10000
+    }
+  ]
+}

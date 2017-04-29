@@ -34,7 +34,7 @@ public class CargarCuentaVM {
 	}
 
 	public void cargarEmpresa() throws IOException {
-		RepositorioEmpresas.getInstance().agregarEmpresa((new LevantaArchivo()).cargarArchivo(filePath));
+		(new LevantaArchivo()).cargarArchivo(filePath);
 	}
 
 }

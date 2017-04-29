@@ -38,4 +38,9 @@ public class Empresa {
 	public Set<String> getPeriodos() {
 		return this.getCuentas().stream().map(unaCuenta -> unaCuenta.getPeriodo()).collect(Collectors.toSet());
 	}
+	
+	public Boolean esLaMismaEmpresaQue(Empresa empresa) {
+		return this.getNombre().equals(empresa.getNombre());
+	}
+	
 }

@@ -1,17 +1,19 @@
 package util;
 
 import domain.*;
-import domain.repositorios.RepositorioEmpresas;
 
 import java.io.File;
 import java.io.IOException;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import domain.repositorios.RepositorioEmpresas;
+import exceptions.NoExisteLaEmpresaException;
+
 public class LevantaArchivo {
 	
 	public Empresa cargarArchivo(String filepath) throws IOException {
 		Empresa aDevolver = getEmpresaDelArchivo(filepath);
-		verifyEmpresa(aDevolver);
+		loadEmpresa(aDevolver);
 		return aDevolver;
 	}
 
@@ -21,13 +23,13 @@ public class LevantaArchivo {
 		return aDevolver;
 	}
 	
-	public void verifyEmpresa(Empresa empresaLeida) {
-		Empresa yaEstaCargada = RepositorioEmpresas.getInstance().obtenerEmpresaYaCargada(empresaLeida);
-		if(yaEstaCargada.getNombre() == null) {
+	public void loadEmpresa(Empresa empresaLeida) {
+		try {
+			Empresa empresa = RepositorioEmpresas.getInstance().getEmpresaCargada(empresaLeida);
+			
+		}
+		catch(NoExisteLaEmpresaException e) {
 			RepositorioEmpresas.getInstance().agregarEmpresa(empresaLeida);
 		}
-		else if (!yaEstaCargada.getCuentas().containsAll(empresaLeida.getCuentas())) {
-			yaEstaCargada.getCuentas().addAll(empresaLeida.getCuentas());
-		}			
 	}
 }

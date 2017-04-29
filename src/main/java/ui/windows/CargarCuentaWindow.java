@@ -9,9 +9,11 @@ import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.FileSelector;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.windows.WindowOwner;
+
+import exceptions.AlreadyUploadedException;
+
 import org.uqbar.arena.windows.Dialog;
 import ui.vm.CargarCuentaVM;
-import util.AlreadyUploadedException;
 
 @SuppressWarnings("serial")
 public class CargarCuentaWindow extends Dialog<CargarCuentaVM> {
