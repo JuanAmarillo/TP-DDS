@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import domain.Empresa;
-import domain.Periodo;
+import domain.interfaces.Periodo;
+
 
 public class RepositorioEmpresas {
 	private static List<Empresa> empresasCargadas;
@@ -37,5 +39,15 @@ public class RepositorioEmpresas {
 		Set<Periodo> periodos = new HashSet<Periodo>();
 		empresasCargadas.stream().forEach(unaEmpresa -> periodos.addAll(unaEmpresa.getPeriodos()));
 		return periodos;
+	}
+	
+	public Empresa obtenerEmpresaYaCargada(Empresa aBuscar){
+		try {
+			Empresa aDevolver = this.getEmpresasCargadas().stream().filter(emp -> emp.getNombre() == aBuscar.getNombre()).collect(Collectors.toList()).get(0);
+			return aDevolver;
+		}
+		catch (IndexOutOfBoundsException e) {
+			return new Empresa();
+		}
 	}
 }

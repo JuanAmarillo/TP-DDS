@@ -5,6 +5,8 @@ import org.codehaus.jackson.annotate.JsonProperty;
 import org.joda.time.LocalDate;
 import org.uqbar.commons.utils.Observable;
 
+import domain.interfaces.Periodo;
+
 @Observable
 public class Cuenta {
 	private String nombre;
@@ -18,7 +20,7 @@ public class Cuenta {
 				  @JsonProperty("balance") Float balance)
 	{
 		setNombre(nombre);
-		setPeriodo(new Periodo(periodo_inicio,periodo_fin));
+		setPeriodo(new PeriodoDeCalendario(periodo_inicio,periodo_fin));
 		setBalance(balance);
 	}
 	

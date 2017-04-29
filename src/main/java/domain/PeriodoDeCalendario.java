@@ -3,13 +3,15 @@ package domain;
 import org.joda.time.LocalDate;
 import org.uqbar.commons.utils.Observable;
 
+import domain.interfaces.Periodo;
+
 @Observable
-public class Periodo {
+public class PeriodoDeCalendario implements Periodo{
 	private LocalDate inicioPeriodo;
 	private LocalDate finPeriodo;
 	private String periodo;
 
-	public Periodo(LocalDate inicio, LocalDate fin) {
+	public PeriodoDeCalendario(LocalDate inicio, LocalDate fin) {
 		this.setInicioPeriodo(inicio);
 		this.setFinPeriodo(fin);
 		this.periodo = inicio.toString() + " - " + fin.toString();
@@ -34,15 +36,5 @@ public class Periodo {
 	public String getPeriodo() {
 		return periodo;
 	}
-	
-	/*
-	@Override
-    public boolean equals(Object obj) {
-        return !super.equals(obj);
-    }
-	
-    public int hashCode() {
-        return getPeriodo().hashCode();
-    }*/
 
 }

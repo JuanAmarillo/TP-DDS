@@ -17,7 +17,7 @@ public class empresasTest{
 		
 	private void cargarArchivo(String nombreArchivo) {
 		try{
-			RepositorioEmpresas.getInstance().agregarEmpresa(LevantaArchivo.cargarArchivo("src/test/resources/" + nombreArchivo));
+			RepositorioEmpresas.getInstance().agregarEmpresa((new LevantaArchivo()).cargarArchivo("src/test/resources/" + nombreArchivo));
 		}
 		catch(IOException e) {
 			e.printStackTrace();
@@ -42,12 +42,18 @@ public class empresasTest{
 	@After
 	public void finalize() {
 		RepositorioEmpresas.resetSingleton();
-		LevantaArchivo.resetFiles();
 	}
 	
 	@Test
 	public void seCargoCocaColaTest() {
 		assertEquals(1, getListaEmpresas().size());
+	}
+
+	@Test
+	public void testSeCargaCorrectamentePepsi() throws IOException {
+		Empresa pepsiCo = ((new LevantaArchivo()).getEmpresaDelArchivo("Empresa2.json"));
+		assertEquals("Pepsi-co",pepsiCo.getNombre());
+		assertEquals(2,pepsiCo.getCuentas().size());
 	}
 	
 	@Test
@@ -62,10 +68,23 @@ public class empresasTest{
 		assertEquals(2, cocaCola.getCuentas().size());
 	}
 	
+	@Test(expected=IndexOutOfBoundsException.class)
+	public void testObtenerEmpresaNoCargada(){
+		Empresa empresa = new Empresa();
+		empresa.setNombre("Pirulo");
+		RepositorioEmpresas.getInstance().obtenerEmpresaYaCargada(empresa);
+	}
+	
 	@Test
-	public void cargarPepsiCoTest() {
-		cargarArchivo("Empresa2.json");;
-		assertEquals(2, getListaEmpresas().size());
+	public void testRecargaDeUnaMismaEmpresaNoAgregaCuentas() {
+		cargarArchivo("Empresa1.json");
+		assertEquals(2, cocaCola.getCuentas().size());
+	}
+	
+	@Test
+	public void testMismaEmpresaAgregaCuentasDistintas() {
+		cargarArchivo("Empresa3.json");
+		assertEquals(4, cocaCola.getCuentas().size());
 	}
 	
 }

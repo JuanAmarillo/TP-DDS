@@ -6,7 +6,7 @@ import java.util.Set;
 import org.uqbar.commons.utils.Observable;
 
 import domain.Empresa;
-import domain.Periodo;
+import domain.interfaces.Periodo;
 import domain.repositorios.RepositorioEmpresas;
 
 @Observable

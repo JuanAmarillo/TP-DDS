@@ -9,7 +9,7 @@ import org.uqbar.arena.windows.WindowOwner;
 
 import domain.Cuenta;
 import domain.Empresa;
-import domain.Periodo;
+import domain.interfaces.Periodo;
 import ui.vm.DatosCuentaVM;
 
 @SuppressWarnings("serial")

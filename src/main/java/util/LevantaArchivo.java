@@ -1,36 +1,33 @@
 package util;
 
 import domain.*;
+import domain.repositorios.RepositorioEmpresas;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
 import org.codehaus.jackson.map.ObjectMapper;
 
 public class LevantaArchivo {
-	private static  List<String> archivosCargados = new ArrayList<>();
 	
-	public static Empresa cargarArchivo(String filepath) throws IOException {
-		if(!getArchivosCargados().contains(filepath)) {
-			getArchivosCargados().add(filepath);
-			ObjectMapper mapper = new ObjectMapper();
-			File file = new File(filepath);
-			Empresa aDevolver = mapper.readValue(file, Empresa.class);
-			return aDevolver;
-		}
-		else
-		{
-			throw new AlreadyUploadedException();
-		}
+	public Empresa cargarArchivo(String filepath) throws IOException {
+		Empresa aDevolver = getEmpresaDelArchivo(filepath);
+		verifyEmpresa(aDevolver);
+		return aDevolver;
+	}
+
+	public Empresa getEmpresaDelArchivo(String filepath) throws IOException {
+		ObjectMapper mapper = new ObjectMapper();
+		Empresa aDevolver = mapper.readValue(new File(filepath), Empresa.class);
+		return aDevolver;
 	}
 	
-	public static  List<String> getArchivosCargados() {
-		return archivosCargados;
-	}
-	
-	public static void resetFiles() {
-		archivosCargados = new ArrayList<>();
+	public void verifyEmpresa(Empresa empresaLeida) {
+		Empresa yaEstaCargada = RepositorioEmpresas.getInstance().obtenerEmpresaYaCargada(empresaLeida);
+		if(yaEstaCargada.getNombre() == null) {
+			RepositorioEmpresas.getInstance().agregarEmpresa(empresaLeida);
+		}
+		else if (!yaEstaCargada.getCuentas().containsAll(empresaLeida.getCuentas())) {
+			yaEstaCargada.getCuentas().addAll(empresaLeida.getCuentas());
+		}			
 	}
 }

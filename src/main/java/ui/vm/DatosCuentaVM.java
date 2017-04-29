@@ -6,7 +6,7 @@ import org.uqbar.commons.utils.Observable;
 
 import domain.Cuenta;
 import domain.Empresa;
-import domain.Periodo;
+import domain.interfaces.Periodo;
 
 @Observable
 public class DatosCuentaVM {
