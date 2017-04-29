@@ -9,14 +9,13 @@ import org.uqbar.arena.windows.WindowOwner;
 
 import domain.Cuenta;
 import domain.Empresa;
-import domain.interfaces.Periodo;
 import ui.vm.DatosCuentaVM;
 
 @SuppressWarnings("serial")
 public class DatosCuentaWindow extends Dialog<DatosCuentaVM> {
 
-	public DatosCuentaWindow(WindowOwner owner, Empresa empresa, Periodo periodo) {
-		super(owner, new DatosCuentaVM(empresa, periodo));
+	public DatosCuentaWindow(WindowOwner owner, Empresa empresa, String string) {
+		super(owner, new DatosCuentaVM(empresa, string));
 	}
 
 	@Override

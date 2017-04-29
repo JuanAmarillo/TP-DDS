@@ -7,7 +7,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import domain.Empresa;
-import domain.interfaces.Periodo;
 
 
 public class RepositorioEmpresas {
@@ -35,8 +34,8 @@ public class RepositorioEmpresas {
 		return empresasCargadas;
 	}
 
-	public Set<Periodo> getPeriodos() {
-		Set<Periodo> periodos = new HashSet<Periodo>();
+	public Set<String> getPeriodos() {
+		Set<String> periodos = new HashSet<String>();
 		empresasCargadas.stream().forEach(unaEmpresa -> periodos.addAll(unaEmpresa.getPeriodos()));
 		return periodos;
 	}

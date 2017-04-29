@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 
 import org.uqbar.commons.utils.Observable;
 
-import domain.interfaces.Periodo;
 
 @Observable
 public class Empresa {
@@ -31,12 +30,12 @@ public class Empresa {
 		this.cuentas = cuentas;
 	}
 
-	public List<Cuenta> getCuentasSegun(Periodo periodo) {
-		return this.getCuentas().stream().filter(unaCuenta -> unaCuenta.getPeriodo().equals(periodo))
+	public List<Cuenta> getCuentasSegun(String string) {
+		return this.getCuentas().stream().filter(unaCuenta -> unaCuenta.getPeriodo().equals(string))
 				.collect(Collectors.toList());
 	}
 
-	public Set<Periodo> getPeriodos() {
+	public Set<String> getPeriodos() {
 		return this.getCuentas().stream().map(unaCuenta -> unaCuenta.getPeriodo()).collect(Collectors.toSet());
 	}
 }

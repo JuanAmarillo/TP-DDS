@@ -6,7 +6,6 @@ import java.util.Set;
 import org.uqbar.commons.utils.Observable;
 
 import domain.Empresa;
-import domain.interfaces.Periodo;
 import domain.repositorios.RepositorioEmpresas;
 
 @Observable
@@ -14,8 +13,8 @@ public class ConsultarCuentasVM {
 
 	private List<Empresa> empresas;
 	private Empresa empresaSeleccionada;
-	private Set<Periodo> periodos;
-	private Periodo periodoSeleccionado;
+	private Set<String> periodos;
+	private String periodoSeleccionado;
 
 	public ConsultarCuentasVM() {
 		this.empresas = RepositorioEmpresas.getInstance().getEmpresasCargadas();
@@ -34,15 +33,15 @@ public class ConsultarCuentasVM {
 		this.empresaSeleccionada = empresaSeleccionada;
 	}
 
-	public Set<Periodo> getPeriodos() {
+	public Set<String> getPeriodos() {
 		return periodos;
 	}
 
-	public Periodo getPeriodoSeleccionado() {
+	public String getPeriodoSeleccionado() {
 		return periodoSeleccionado;
 	}
 
-	public void setPeriodoSeleccionado(Periodo periodoSeleccionado) {
+	public void setPeriodoSeleccionado(String periodoSeleccionado) {
 		this.periodoSeleccionado = periodoSeleccionado;
 	}
 }
