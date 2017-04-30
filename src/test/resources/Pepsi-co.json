@@ -3,12 +3,12 @@
   "cuentas": [
     {
       "nombre": "FDS",
-      "periodo": "2017-06-30",
+      "periodo": "2017",
       "balance": 0
     },
     {
       "nombre": "EBITDA",
-      "periodo": "2017-12-30",
+      "periodo": "2017",
       "balance": -10000
     }
   ]

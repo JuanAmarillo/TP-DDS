@@ -23,6 +23,11 @@ public class empresasTest{
 	
 	public Empresa cocaCola;
 	
+	private void mostrarNombreCuentas(String string) {
+		Empresa empresa = obtenerEmpresa(string);
+		empresa.getCuentas().forEach(cuenta -> System.out.println(cuenta.getNombre()));
+	}
+	
 	private void cargarArchivo(String nombreArchivo) {
 		try{
 			(new LevantaArchivo()).cargarArchivo("src/test/resources/" + nombreArchivo);
@@ -37,6 +42,13 @@ public class empresasTest{
 	
 	public List<Empresa> getListaEmpresas() {
 		return RepositorioEmpresas.getInstance().getEmpresasCargadas();
+	}
+	
+	private Empresa obtenerEmpresa(String nombreEmpresa) {
+		Empresa empresa = new Empresa();
+		empresa.setNombre(nombreEmpresa);
+		Empresa aDevolver = RepositorioEmpresas.getInstance().getEmpresaCargada(empresa);
+		return aDevolver;
 	}
 
 	@Before
@@ -53,6 +65,7 @@ public class empresasTest{
 	@Test
 	public void seCargoCocaColaTest() {
 		assertEquals(1, getListaEmpresas().size());
+		assertEquals(2, cocaCola.getCuentas().size());
 	}
 
 	@Test
@@ -78,12 +91,14 @@ public class empresasTest{
 	}
 	
 	@Test
-	public void cocaColaTieneSoloUnPeriodoPeroDosCuentasTest() {
-		// Las cuentas cargadas en el json tienen el mismo periodo PREGUNTAR
-		assertEquals(2, cocaCola.getPeriodos().size());
-		assertEquals(2, cocaCola.getCuentas().size());
+	public void testPepsiCoTieneSoloUnPeriodoPeroDosCuentasTest() {
+		cargarArchivo("Pepsi-co.json");
+		Empresa pepsi = obtenerEmpresa("Pepsi-co");
+		assertEquals(2, pepsi.getCuentas().size());
+		assertEquals(1, pepsi.getPeriodos().size());
+
 	}
-	
+
 	@Test(expected=NoExisteLaEmpresaException.class)
 	public void testObtenerEmpresaNoCargada(){
 		Empresa empresa = new Empresa();
@@ -94,7 +109,9 @@ public class empresasTest{
 	@Test
 	public void testRecargaDeUnaMismaEmpresaNoAgregaCuentas() {
 		cargarArchivo("Coca-Cola.json");
+		mostrarNombreCuentas("Coca-Cola");
 		assertEquals(2, cocaCola.getCuentas().size());
+		
 	}
 	
 	@Test
@@ -102,5 +119,7 @@ public class empresasTest{
 		cargarArchivo("Coca-Cola 2.json");
 		assertEquals(4, cocaCola.getCuentas().size());
 	}
+
+	
 	
 }

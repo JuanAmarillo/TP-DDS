@@ -25,7 +25,7 @@ public class RepositorioEmpresas {
 	public static void resetSingleton() {
 		instance = null;
 	}
-	
+
 	public void agregarEmpresa(Empresa empresa){
 		this.getEmpresasCargadas().add(empresa);
 
@@ -40,7 +40,7 @@ public class RepositorioEmpresas {
 		empresasCargadas.stream().forEach(unaEmpresa -> periodos.addAll(unaEmpresa.getPeriodos()));
 		return periodos;
 	}
-	
+
 	public Empresa getEmpresaCargada(Empresa aBuscar){
 		try {
 			Empresa aDevolver = this.getEmpresasCargadas().stream().filter(emp -> emp.esLaMismaEmpresaQue(aBuscar)).collect(Collectors.toList()).get(0);
@@ -50,9 +50,5 @@ public class RepositorioEmpresas {
 			throw new NoExisteLaEmpresaException();
 		}
 	}
-
-	public boolean yaEstaCargada(Empresa empresaLeida) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 }
