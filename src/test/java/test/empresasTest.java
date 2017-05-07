@@ -86,7 +86,7 @@ public class empresasTest{
 	}
 	
 	@Test
-	public void cocaColaTieneDosCuentasTest() {
+	public void testCocaColaTieneDosCuentas() {
 		assertEquals(2, cocaCola.getCuentas().size());
 	}
 	

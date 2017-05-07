@@ -26,9 +26,8 @@ public class LevantaArchivo {
 	public void loadEmpresa(Empresa empresaLeida) {
 		try {
 			Empresa empresa = RepositorioEmpresas.getInstance().getEmpresaCargada(empresaLeida);
-			if(!(empresa.getCuentas().contains(empresaLeida.getCuentas()))) {
-				empresa.getCuentas().addAll(empresaLeida.getCuentas());
-			}
+			if(!empresa.tieneLasCuentasDe(empresaLeida))
+				empresa.agregarCuentasDe(empresaLeida);
 		}
 		catch(NoExisteLaEmpresaException e) {
 			RepositorioEmpresas.getInstance().agregarEmpresa(empresaLeida);

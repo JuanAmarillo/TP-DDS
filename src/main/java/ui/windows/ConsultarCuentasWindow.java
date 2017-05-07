@@ -30,6 +30,7 @@ public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasVM> {
 
 		new Label(form).setText("Periodo");
 		Selector<String> selectorPeriodo = new Selector<String>(form).allowNull(false);
+		selectorPeriodo.setWidth(150);
 		selectorPeriodo.bindItemsToProperty("periodos");
 		selectorPeriodo.bindValueToProperty("periodoSeleccionado");
 	}

@@ -30,6 +30,7 @@ public class RepositorioEmpresas {
 		this.getEmpresasCargadas().add(empresa);
 
 	}
+	
 
 	public List<Empresa> getEmpresasCargadas() {
 		return empresasCargadas;

@@ -29,10 +29,14 @@ public class Empresa {
 	public void setCuentas(Set<Cuenta> cuentas) {
 		this.cuentas = cuentas;
 	}
+	
+	public void agregarCuentasDe(Empresa unaEmpresa){
+		this.getCuentas().addAll(unaEmpresa.getCuentas());
+	}
 
-	public List<Cuenta> getCuentasSegun(String string) {
-		return this.getCuentas().stream().filter(unaCuenta -> unaCuenta.getPeriodo().equals(string))
-				.collect(Collectors.toList());
+	public Set<Cuenta> getCuentasSegun(String periodo) {
+		return this.getCuentas().stream().filter(unaCuenta -> unaCuenta.getPeriodo().equals(periodo))
+				.collect(Collectors.toSet());
 	}
 
 	public Set<String> getPeriodos() {
@@ -41,6 +45,10 @@ public class Empresa {
 	
 	public Boolean esLaMismaEmpresaQue(Empresa empresa) {
 		return this.getNombre().equals(empresa.getNombre());
+	}
+	
+	public Boolean tieneLasCuentasDe(Empresa unaEmpresa){
+		return this.getCuentas().contains(unaEmpresa.getCuentas());
 	}
 	
 }

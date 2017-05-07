@@ -16,9 +16,9 @@ public class ConsultarCuentasVM {
 	private Set<String> periodos;
 	private String periodoSeleccionado;
 
+
 	public ConsultarCuentasVM() {
 		this.empresas = RepositorioEmpresas.getInstance().getEmpresasCargadas();
-		this.periodos = RepositorioEmpresas.getInstance().getPeriodos();
 	}
 
 	public List<Empresa> getEmpresas() {
@@ -31,6 +31,8 @@ public class ConsultarCuentasVM {
 
 	public void setEmpresaSeleccionada(Empresa empresaSeleccionada) {
 		this.empresaSeleccionada = empresaSeleccionada;
+		this.periodos = empresaSeleccionada.getPeriodos();
+		
 	}
 
 	public Set<String> getPeriodos() {
@@ -39,6 +41,7 @@ public class ConsultarCuentasVM {
 
 	public String getPeriodoSeleccionado() {
 		return periodoSeleccionado;
+
 	}
 
 	public void setPeriodoSeleccionado(String periodoSeleccionado) {

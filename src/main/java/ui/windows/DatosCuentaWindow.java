@@ -28,7 +28,7 @@ public class DatosCuentaWindow extends Dialog<DatosCuentaVM> {
 		cuentas.bindItemsToProperty("cuentas");
 		cuentas.bindValueToProperty("cuentaSeleccionada");
 
-		new Column<Cuenta>(cuentas).setTitle("Nombre de la cuenta").setFixedSize(150).bindContentsToProperty("nombre");
+		new Column<Cuenta>(cuentas).setTitle("Cuenta").setFixedSize(150).bindContentsToProperty("nombre");
 		new Column<Cuenta>(cuentas).setTitle("Balance").setFixedSize(150).bindContentsToProperty("balance");
 	}
 }

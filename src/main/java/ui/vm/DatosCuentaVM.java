@@ -1,6 +1,7 @@
 package ui.vm;
 
 import java.util.List;
+import java.util.Set;
 
 import org.uqbar.commons.utils.Observable;
 
@@ -9,18 +10,18 @@ import domain.Empresa;
 
 @Observable
 public class DatosCuentaVM {
-	private List<Cuenta> cuentas;
+	private Set<Cuenta> cuentas;
 	private Cuenta cuentaSeleccionada;
 
-	public DatosCuentaVM(Empresa empresa, String string) {
-		this.cuentas = empresa.getCuentasSegun(string);
+	public DatosCuentaVM(Empresa empresa, String periodo) {
+		this.cuentas = empresa.getCuentasSegun(periodo);
 	}
 
-	public List<Cuenta> getCuentas() {
+	public Set<Cuenta> getCuentas() {
 		return cuentas;
 	}
 
-	public void setCuentas(List<Cuenta> cuentas) {
+	public void setCuentas(Set<Cuenta> cuentas) {
 		this.cuentas = cuentas;
 	}
 
