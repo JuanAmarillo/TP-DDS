@@ -1,6 +1,5 @@
 package domain;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,9 +28,20 @@ public class Empresa {
 	public void setCuentas(Set<Cuenta> cuentas) {
 		this.cuentas = cuentas;
 	}
+
+	public void agregarCuentas(Set<Cuenta> cuentas){
+		cuentas.stream().forEach(cuenta -> checkCuenta(cuenta));
+	}
 	
-	public void agregarCuentasDe(Empresa unaEmpresa){
-		this.getCuentas().addAll(unaEmpresa.getCuentas());
+	private void checkCuenta(Cuenta cuenta) {
+		if(noContieneLaCuenta(cuenta)) {
+			cuentas.add(cuenta);
+		}
+	}
+
+	private boolean noContieneLaCuenta(Cuenta cuenta) {
+		long count = cuentas.stream().filter(cuentita -> cuenta.esIgualA(cuentita)).count();
+		return count == 0;
 	}
 
 	public Set<Cuenta> getCuentasSegun(String periodo) {

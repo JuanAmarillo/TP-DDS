@@ -7,14 +7,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import domain.repositorios.RepositorioEmpresas;
-import exceptions.AlreadyUploadedException;
-import exceptions.NoExisteLaEmpresaException;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,7 +21,8 @@ public class empresasTest{
 	
 	private void mostrarNombreCuentas(String string) {
 		Empresa empresa = obtenerEmpresa(string);
-		empresa.getCuentas().forEach(cuenta -> System.out.println(cuenta.getNombre()));
+		empresa.getCuentas().forEach(cuenta -> {System.out.println(cuenta.getNombre());
+												System.out.println(cuenta.getPeriodo());});
 	}
 	
 	private void cargarArchivo(String nombreArchivo) {
@@ -35,26 +32,21 @@ public class empresasTest{
 		catch(IOException e) {
 			e.printStackTrace();
 		}
-		catch(AlreadyUploadedException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public List<Empresa> getListaEmpresas() {
-		return RepositorioEmpresas.getInstance().getEmpresasCargadas();
+		return RepositorioEmpresas.instance().getEmpresasCargadas();
 	}
 	
 	private Empresa obtenerEmpresa(String nombreEmpresa) {
-		Empresa empresa = new Empresa();
-		empresa.setNombre(nombreEmpresa);
-		Empresa aDevolver = RepositorioEmpresas.getInstance().getEmpresaCargada(empresa);
+		Empresa aDevolver = RepositorioEmpresas.instance().buscarEmpresa(nombreEmpresa).get(0);
 		return aDevolver;
 	}
 
 	@Before
 	public void init() {
 		cargarArchivo("Coca-Cola.json");
-		cocaCola = getListaEmpresas().get(0);
+		cocaCola = obtenerEmpresa("Coca-Cola");
 	}
 
 	@After
@@ -80,7 +72,7 @@ public class empresasTest{
 		cargarArchivo("Pepsi-co.json");
 		Empresa emp = new Empresa();
 		emp.setNombre("Pepsi-co");
-		Empresa pepsiCo = RepositorioEmpresas.getInstance().getEmpresaCargada(emp);
+		Empresa pepsiCo = RepositorioEmpresas.instance().buscarEmpresa(emp.getNombre()).get(0);
 		assertEquals("Pepsi-co",pepsiCo.getNombre());
 		assertEquals(2,pepsiCo.getCuentas().size());
 	}
@@ -99,11 +91,11 @@ public class empresasTest{
 
 	}
 
-	@Test(expected=NoExisteLaEmpresaException.class)
+	@Test
 	public void testObtenerEmpresaNoCargada(){
 		Empresa empresa = new Empresa();
 		empresa.setNombre("Pirulo");
-		RepositorioEmpresas.getInstance().getEmpresaCargada(empresa);
+		assertEquals(0, RepositorioEmpresas.instance().buscarEmpresa(empresa.getNombre()).size());
 	}
 	
 	@Test
@@ -111,7 +103,6 @@ public class empresasTest{
 		cargarArchivo("Coca-Cola.json");
 		mostrarNombreCuentas("Coca-Cola");
 		assertEquals(2, cocaCola.getCuentas().size());
-		
 	}
 	
 	@Test

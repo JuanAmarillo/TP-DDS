@@ -10,8 +10,6 @@ import org.uqbar.arena.widgets.FileSelector;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.windows.WindowOwner;
 
-import exceptions.AlreadyUploadedException;
-
 import org.uqbar.arena.windows.Dialog;
 import ui.vm.CargarCuentaVM;
 
@@ -48,9 +46,6 @@ public class CargarCuentaWindow extends Dialog<CargarCuentaVM> {
 		}
 		catch(IOException e) {
 			this.showWarning(e.toString());
-		}
-		catch(AlreadyUploadedException e) {
-			this.showWarning("El archivo ya está cargado");
 		}
 	}
 

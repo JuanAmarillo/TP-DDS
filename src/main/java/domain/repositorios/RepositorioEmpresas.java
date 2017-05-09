@@ -7,14 +7,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import domain.Empresa;
-import exceptions.NoExisteLaEmpresaException;
 
 
 public class RepositorioEmpresas {
 	private static List<Empresa> empresasCargadas;
 	private static RepositorioEmpresas instance = null;
 
-	public static RepositorioEmpresas getInstance() {
+	public static RepositorioEmpresas instance() {
 		if (instance == null) {
 			empresasCargadas = new ArrayList<Empresa>();
 			instance = new RepositorioEmpresas();
@@ -28,7 +27,6 @@ public class RepositorioEmpresas {
 
 	public void agregarEmpresa(Empresa empresa){
 		this.getEmpresasCargadas().add(empresa);
-
 	}
 	
 
@@ -42,14 +40,27 @@ public class RepositorioEmpresas {
 		return periodos;
 	}
 
-	public Empresa getEmpresaCargada(Empresa aBuscar){
-		try {
-			Empresa aDevolver = this.getEmpresasCargadas().stream().filter(emp -> emp.esLaMismaEmpresaQue(aBuscar)).collect(Collectors.toList()).get(0);
-			return aDevolver;
+	public void loadEmpresa(Empresa empresaLeida) {
+		if(existeLaEmpresa(empresaLeida.getNombre())) {
+			agregarCuentas(empresaLeida);
 		}
-		catch (IndexOutOfBoundsException e) {
-			throw new NoExisteLaEmpresaException();
+		else {
+			agregarEmpresa(empresaLeida); 
 		}
+	}
+
+	private void agregarCuentas(Empresa empresaLeida) {
+		Empresa empresa = buscarEmpresa(empresaLeida.getNombre()).get(0);
+		empresa.agregarCuentas(empresaLeida.getCuentas());
+	}
+
+	private boolean existeLaEmpresa(String nombre) {
+		int booleano = buscarEmpresa(nombre).size();
+		return (booleano > 0) ? true : false;
+	}
+
+	public List<Empresa> buscarEmpresa(String nombre) {
+		return empresasCargadas.stream().filter(empresa -> empresa.getNombre().equals(nombre)).collect(Collectors.toList());
 	}
 	
 }

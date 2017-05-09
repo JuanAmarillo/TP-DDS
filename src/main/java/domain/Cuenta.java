@@ -43,4 +43,8 @@ public class Cuenta {
 	public void setBalance(Float balance) {
 		this.balance = balance;
 	}
+
+	public Boolean esIgualA(Cuenta cuenta) {
+		return (cuenta.getBalance() == this.balance && cuenta.getNombre() == this.nombre && cuenta.getPeriodo() == this.periodo);
+	}
 }

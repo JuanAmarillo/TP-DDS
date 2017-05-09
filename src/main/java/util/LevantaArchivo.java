@@ -7,13 +7,12 @@ import java.io.IOException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import domain.repositorios.RepositorioEmpresas;
-import exceptions.NoExisteLaEmpresaException;
 
 public class LevantaArchivo {
 	
 	public Empresa cargarArchivo(String filepath) throws IOException {
 		Empresa aDevolver = getEmpresaDelArchivo(filepath);
-		loadEmpresa(aDevolver);
+		RepositorioEmpresas.instance().loadEmpresa(aDevolver);
 		return aDevolver;
 	}
 
@@ -23,14 +22,5 @@ public class LevantaArchivo {
 		return aDevolver;
 	}
 	
-	public void loadEmpresa(Empresa empresaLeida) {
-		try {
-			Empresa empresa = RepositorioEmpresas.getInstance().getEmpresaCargada(empresaLeida);
-			if(!empresa.tieneLasCuentasDe(empresaLeida))
-				empresa.agregarCuentasDe(empresaLeida);
-		}
-		catch(NoExisteLaEmpresaException e) {
-			RepositorioEmpresas.getInstance().agregarEmpresa(empresaLeida);
-		}
-	}
+	
 }

@@ -18,7 +18,7 @@ public class ConsultarCuentasVM {
 
 
 	public ConsultarCuentasVM() {
-		this.empresas = RepositorioEmpresas.getInstance().getEmpresasCargadas();
+		this.empresas = RepositorioEmpresas.instance().getEmpresasCargadas();
 	}
 
 	public List<Empresa> getEmpresas() {
