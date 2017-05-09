@@ -1,12 +1,12 @@
 package test;
 import domain.*;
-import util.LevantaArchivo;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import domain.repositorios.RepositorioEmpresas;
+import externos.LevantaArchivo;
 
 import static org.junit.Assert.*;
 

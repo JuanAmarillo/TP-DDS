@@ -5,7 +5,7 @@ import java.io.IOException;
 import org.uqbar.commons.utils.Observable;
 
 import domain.repositorios.RepositorioEmpresas;
-import util.LevantaArchivo;
+import externos.LevantaArchivo;
 
 @Observable
 public class CargarCuentaVM {

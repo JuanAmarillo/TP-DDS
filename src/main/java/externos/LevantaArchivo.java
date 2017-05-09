@@ -1,19 +1,19 @@
-package util;
+package externos;
 
 import domain.*;
 
 import java.io.File;
 import java.io.IOException;
 import org.codehaus.jackson.map.ObjectMapper;
+import interfaces.*;
 
 import domain.repositorios.RepositorioEmpresas;
 
-public class LevantaArchivo {
+public class LevantaArchivo implements FileLoader {
 	
-	public Empresa cargarArchivo(String filepath) throws IOException {
+	public void cargarArchivo(String filepath) throws IOException {
 		Empresa aDevolver = getEmpresaDelArchivo(filepath);
 		RepositorioEmpresas.instance().loadEmpresa(aDevolver);
-		return aDevolver;
 	}
 
 	public Empresa getEmpresaDelArchivo(String filepath) throws IOException {
