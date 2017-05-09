@@ -34,14 +34,13 @@ public class Empresa {
 	}
 	
 	private void checkCuenta(Cuenta cuenta) {
-		if(noContieneLaCuenta(cuenta)) {
+		if(contieneLaCuenta(cuenta)) {
 			cuentas.add(cuenta);
 		}
 	}
 
-	private boolean noContieneLaCuenta(Cuenta cuenta) {
-		long count = cuentas.stream().filter(cuentita -> cuenta.esIgualA(cuentita)).count();
-		return count == 0;
+	private boolean contieneLaCuenta(Cuenta cuenta) {
+		return cuentas.stream().anyMatch(cuentita -> cuenta.esIgualA(cuentita));
 	}
 
 	public Set<Cuenta> getCuentasSegun(String periodo) {
