@@ -45,7 +45,7 @@ public class CargarCuentaWindow extends Dialog<CargarCuentaVM> {
 			this.showInfo("Se ha cargado con éxito el archivo");
 		}
 		catch(IOException e) {
-			this.showWarning(e.toString());
+			this.showWarning("El archivo seleccionado posee un formato incorrecto");
 		}
 	}
 
