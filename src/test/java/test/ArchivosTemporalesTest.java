@@ -21,7 +21,7 @@ public class ArchivosTemporalesTest {
 	@SuppressWarnings("deprecation")
 	@Before
 	public void escrituraArchivo() throws IOException {
-		final File archivoCocaCola = tempFolder.newFile("coca-cola.json");
+		final File archivoCocaCola = tempFolder.newFile("coca-cola-temporal.json");
 		FileUtils.writeStringToFile(archivoCocaCola, "{"
 				+ " nombre"
 				+ ":"
