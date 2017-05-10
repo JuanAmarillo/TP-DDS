@@ -3,9 +3,11 @@ package ui.vm;
 import java.util.List;
 import java.util.Set;
 
+import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import domain.repositorios.RepositorioEmpresas;
+import domain.Cuenta;
 import domain.Empresa;
 
 @Observable
@@ -13,12 +15,13 @@ public class ConsultarCuentasVM {
 
 	private List<Empresa> empresas;
 	private Empresa empresaSeleccionada;
-	private Set<String> periodos;
 	private String periodoSeleccionado;
+	private Cuenta cuentaSeleccionada;
 
 
 	public ConsultarCuentasVM() {
 		this.empresas = RepositorioEmpresas.instance().getEmpresasCargadas();
+		this.setEmpresaSeleccionada(this.empresas.get(0));
 	}
 
 	public List<Empresa> getEmpresas() {
@@ -31,12 +34,12 @@ public class ConsultarCuentasVM {
 
 	public void setEmpresaSeleccionada(Empresa empresaSeleccionada) {
 		this.empresaSeleccionada = empresaSeleccionada;
-		this.periodos = empresaSeleccionada.getPeriodos();
+		ObservableUtils.firePropertyChanged(this, "periodos");
 		
 	}
 
 	public Set<String> getPeriodos() {
-		return periodos;
+		return empresaSeleccionada.getPeriodos();
 	}
 
 	public String getPeriodoSeleccionado() {
@@ -46,5 +49,18 @@ public class ConsultarCuentasVM {
 
 	public void setPeriodoSeleccionado(String periodoSeleccionado) {
 		this.periodoSeleccionado = periodoSeleccionado;
+		ObservableUtils.firePropertyChanged(this, "cuentas");
+	}
+
+	public Set<Cuenta> getCuentas(){
+		return empresaSeleccionada.getCuentasSegun(periodoSeleccionado);
+	}
+	
+	public Cuenta getCuentaSeleccionada() {
+		return cuentaSeleccionada;
+	}
+
+	public void setCuentaSeleccionada(Cuenta cuentaSeleccionada) {
+		this.cuentaSeleccionada = cuentaSeleccionada;
 	}
 }

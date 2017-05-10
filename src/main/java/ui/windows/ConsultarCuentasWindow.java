@@ -1,13 +1,17 @@
 package ui.windows;
 
 import org.uqbar.arena.layout.ColumnLayout;
+import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
+import org.uqbar.arena.widgets.tables.Column;
+import org.uqbar.arena.widgets.tables.Table;
 import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 
+import domain.Cuenta;
 import domain.Empresa;
 import ui.vm.ConsultarCuentasVM;
 
@@ -20,6 +24,24 @@ public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasVM> {
 
 	@Override
 	protected void createFormPanel(Panel formPanel) {
+		this.TablaCuentas(formPanel);
+		this.selectorEmpresasPeriodos(formPanel);
+		
+	}
+	
+	protected void TablaCuentas(Panel formPanel){
+		Panel formTabla = new Panel(formPanel);
+		formTabla.setLayout(new HorizontalLayout());
+		
+		Table<Cuenta> cuentas = new Table<Cuenta>(formTabla, Cuenta.class);
+		cuentas.bindItemsToProperty("cuentas");
+		cuentas.bindValueToProperty("cuentaSeleccionada");
+		
+		new Column<Cuenta>(cuentas).setTitle("Cuenta").setFixedSize(150).bindContentsToProperty("nombre");
+		new Column<Cuenta>(cuentas).setTitle("Balance").setFixedSize(150).bindContentsToProperty("balance");
+	}
+	
+	protected void selectorEmpresasPeriodos(Panel formPanel){
 		Panel form = new Panel(formPanel);
 		form.setLayout(new ColumnLayout(2));
 
@@ -36,12 +58,7 @@ public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasVM> {
 	}
 
 	protected void addActions(Panel actions) {
-		new Button(actions).setCaption("Consultar").onClick(this::verDatosCuentas);
 		new Button(actions).setCaption("Volver").onClick(this::accept).setAsDefault();
-	}
-
-	protected void verDatosCuentas() {
-		ViewUtils.nuevaPantalla(new DatosCuentaWindow(this, this.getModelObject().getEmpresaSeleccionada(),	this.getModelObject().getPeriodoSeleccionado()));
 	}
 
 }

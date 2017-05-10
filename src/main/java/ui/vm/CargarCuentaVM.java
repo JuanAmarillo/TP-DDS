@@ -4,7 +4,6 @@ import java.io.IOException;
 
 import org.uqbar.commons.utils.Observable;
 
-import domain.repositorios.RepositorioEmpresas;
 import externos.LevantaArchivo;
 
 @Observable
@@ -34,7 +33,7 @@ public class CargarCuentaVM {
 	}
 
 	public void cargarEmpresa() throws IOException {
-		(new LevantaArchivo()).cargarArchivo(filePath);
+		new LevantaArchivo().cargarArchivo(filePath);
 	}
 
 }
