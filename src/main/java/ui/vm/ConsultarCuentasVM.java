@@ -6,9 +6,9 @@ import java.util.Set;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
-import domain.repositorios.RepositorioEmpresas;
 import domain.Cuenta;
 import domain.Empresa;
+import domain.repositorios.RepositorioEmpresas;
 
 @Observable
 public class ConsultarCuentasVM {

@@ -1,13 +1,12 @@
 package externos;
 
 import domain.*;
+import domain.repositorios.RepositorioEmpresas;
 
 import java.io.File;
 import java.io.IOException;
 import org.codehaus.jackson.map.ObjectMapper;
 import interfaces.*;
-
-import domain.repositorios.RepositorioEmpresas;
 
 public class LevantaArchivo implements FileLoader {
 	
