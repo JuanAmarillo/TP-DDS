@@ -8,13 +8,12 @@ import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
-import ui.vm.CargaDataVM;
 
 @SuppressWarnings("serial")
-public class CargaDataWindow extends SimpleWindow<CargaDataVM> {
+public class CargaDataWindow extends SimpleWindow<Object> {
 
 	public CargaDataWindow(WindowOwner parent) {
-		super(parent, new CargaDataVM());
+		super(parent, new Object());
 	}
 
 	@Override
