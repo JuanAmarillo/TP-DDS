@@ -45,6 +45,6 @@ public class Cuenta {
 	}
 
 	public Boolean esIgualA(Cuenta cuenta) {
-		return (cuenta.getBalance() == this.balance && cuenta.getNombre() == this.nombre && cuenta.getPeriodo() == this.periodo);
+		return (cuenta.getBalance().equals(this.balance) && cuenta.getNombre().equals(this.nombre) && cuenta.getPeriodo().equals(this.periodo));
 	}
 }

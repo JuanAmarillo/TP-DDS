@@ -30,17 +30,15 @@ public class Empresa {
 	}
 
 	public void agregarCuentas(Set<Cuenta> cuentas){
-		cuentas.stream().forEach(cuenta -> checkCuenta(cuenta));
+		this.cuentas.addAll(cuentasSinRepetidos(cuentas));
 	}
 	
-	private void checkCuenta(Cuenta cuenta) {
-		if(contieneLaCuenta(cuenta)) {
-			cuentas.add(cuenta);
-		}
+	public Set<Cuenta> cuentasSinRepetidos(Set<Cuenta> cuentas){
+		return cuentas.stream().filter(cuenta ->  !contieneLaCuenta(cuenta)).collect(Collectors.toSet());
 	}
 
-	private boolean contieneLaCuenta(Cuenta cuenta) {
-		return cuentas.stream().anyMatch(cuentita -> cuenta.esIgualA(cuentita));
+	public boolean contieneLaCuenta(Cuenta cuenta) {
+		return cuentas.stream().anyMatch(cuentita -> cuentita.esIgualA(cuenta));
 	}
 
 	public Set<Cuenta> getCuentasSegun(String periodo) {

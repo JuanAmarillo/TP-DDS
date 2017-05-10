@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.hamcrest.core.IsNull;
+
 import domain.Empresa;
 
 
@@ -34,33 +36,25 @@ public class RepositorioEmpresas {
 		return empresasCargadas;
 	}
 
-	public Set<String> getPeriodos() {
-		Set<String> periodos = new HashSet<String>();
-		empresasCargadas.stream().forEach(unaEmpresa -> periodos.addAll(unaEmpresa.getPeriodos()));
-		return periodos;
-	}
 
 	public void loadEmpresa(Empresa empresaLeida) {
-		if(existeLaEmpresa(empresaLeida.getNombre())) {
+		if(existeLaEmpresa(empresaLeida)) 
 			agregarCuentas(empresaLeida);
-		}
-		else {
+		else 
 			agregarEmpresa(empresaLeida); 
-		}
 	}
 
 	private void agregarCuentas(Empresa empresaLeida) {
-		Empresa empresa = buscarEmpresa(empresaLeida.getNombre()).get(0);
+		Empresa empresa = buscarEmpresa(empresaLeida.getNombre());
 		empresa.agregarCuentas(empresaLeida.getCuentas());
 	}
 
-	private boolean existeLaEmpresa(String nombre) {
-		int booleano = buscarEmpresa(nombre).size();
-		return (booleano > 0) ? true : false;
+	private boolean existeLaEmpresa(Empresa empresa) {
+		return empresasCargadas.stream().anyMatch(unaEmpresa->unaEmpresa.getNombre().equals(empresa.getNombre()));
 	}
 
-	public List<Empresa> buscarEmpresa(String nombre) {
-		return empresasCargadas.stream().filter(empresa -> empresa.getNombre().equals(nombre)).collect(Collectors.toList());
+	public Empresa buscarEmpresa(String nombre) {
+		return empresasCargadas.stream().filter(empresa -> empresa.getNombre().equals(nombre)).findFirst().orElse(null);
 	}
 	
 }

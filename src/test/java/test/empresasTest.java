@@ -27,7 +27,7 @@ public class empresasTest{
 	
 	private void cargarArchivo(String nombreArchivo) {
 		try{
-			(new LevantaArchivo()).cargarArchivo("src/test/resources/" + nombreArchivo);
+			new LevantaArchivo().cargarArchivo("src/test/resources/" + nombreArchivo);
 		}
 		catch(IOException e) {
 			e.printStackTrace();
@@ -39,7 +39,7 @@ public class empresasTest{
 	}
 	
 	private Empresa obtenerEmpresa(String nombreEmpresa) {
-		Empresa aDevolver = RepositorioEmpresas.instance().buscarEmpresa(nombreEmpresa).get(0);
+		Empresa aDevolver = RepositorioEmpresas.instance().buscarEmpresa(nombreEmpresa);
 		return aDevolver;
 	}
 
@@ -55,7 +55,7 @@ public class empresasTest{
 	}
 
 	@Test
-	public void seCargoCocaColaTest() {
+	public void testSeCargoCocaCola() {
 		assertEquals(1, getListaEmpresas().size());
 		assertEquals(2, cocaCola.getCuentas().size());
 	}
@@ -72,7 +72,7 @@ public class empresasTest{
 		cargarArchivo("Pepsi-co.json");
 		Empresa emp = new Empresa();
 		emp.setNombre("Pepsi-co");
-		Empresa pepsiCo = RepositorioEmpresas.instance().buscarEmpresa(emp.getNombre()).get(0);
+		Empresa pepsiCo = RepositorioEmpresas.instance().buscarEmpresa(emp.getNombre());
 		assertEquals("Pepsi-co",pepsiCo.getNombre());
 		assertEquals(2,pepsiCo.getCuentas().size());
 	}
@@ -95,13 +95,12 @@ public class empresasTest{
 	public void testObtenerEmpresaNoCargada(){
 		Empresa empresa = new Empresa();
 		empresa.setNombre("Pirulo");
-		assertEquals(0, RepositorioEmpresas.instance().buscarEmpresa(empresa.getNombre()).size());
+		assertEquals(null, RepositorioEmpresas.instance().buscarEmpresa(empresa.getNombre()));
 	}
 	
 	@Test
 	public void testRecargaDeUnaMismaEmpresaNoAgregaCuentas() {
 		cargarArchivo("Coca-Cola.json");
-		mostrarNombreCuentas("Coca-Cola");
 		assertEquals(2, cocaCola.getCuentas().size());
 	}
 	
@@ -110,7 +109,11 @@ public class empresasTest{
 		cargarArchivo("Coca-Cola 2.json");
 		assertEquals(4, cocaCola.getCuentas().size());
 	}
-
 	
+	@Test
+	public void testNoCargaDosVecesLaMismaEmpresa(){
+		cargarArchivo("Coca-Cola.json");
+		assertEquals(1, getListaEmpresas().size());
+	}
 	
 }
