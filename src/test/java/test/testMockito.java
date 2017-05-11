@@ -20,10 +20,11 @@ import externos.LevantaArchivo;
 public class testMockito {
 	public Empresa empresaMockeadaA;
 	public Empresa empresaMockeadaB;
-	public Cuenta cuentita;
-	public Set<Cuenta> cuentas = new HashSet<>();
 	
 	private void prepararEmpresa() {
+		empresaMockeadaB =  new Empresa();
+		Cuenta cuentita = new Cuenta();
+		Set<Cuenta> cuentas = new HashSet<>();
 		cuentita.setNombre("ZZZ");
 		cuentita.setPeriodo("periodo");
 		cuentita.setBalance(12345.6f);
@@ -31,16 +32,17 @@ public class testMockito {
 		cuentas.add(cuentita);
 		empresaMockeadaB.setCuentas(cuentas);
 	}
-	
+		
 	LevantaArchivo loader = mock(LevantaArchivo.class);
-	when(loader.getEmpresaDelArchivo(anyString())).thenReturn(empresaMockeadaB);
 	
-	private void cargarArchivo(String ruta) {
-		try {
+	private void cargarArchivo(String ruta) throws IOException{ 
+	
+		loader.cargarArchivo(ruta);
+	/*	try {
 			loader.cargarArchivo(ruta);
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	public List<Empresa> getListaEmpresas() {
@@ -51,29 +53,26 @@ public class testMockito {
 		Empresa aDevolver = RepositorioEmpresas.instance().buscarEmpresa(nombreEmpresa);
 		return aDevolver;
 	}
-
+	
 	@Before
-	public void init() {
-		cargarArchivo("ruta-loca");
-		empresaMockeadaA = obtenerEmpresa("Mocka-Cola");
+	public void init() throws IOException {
+		prepararEmpresa();
+		when(loader.getEmpresaDelArchivo(anyString())).thenReturn(empresaMockeadaB);
+
+		//loader.cargarArchivo("ruta-loca");
+		empresaMockeadaA = loader.getEmpresaDelArchivo("Mocka-Cola");
+		RepositorioEmpresas.instance().agregarEmpresa(empresaMockeadaA);
 	}
 	
 	@After
 	public void finalize() {
 		RepositorioEmpresas.resetSingleton();
 	}
-/*	
-	@Test
-	public void testAAA() {
-	LevantaArchivo loader = mock(LevantaArchivo.class);
-	when(loader.getEmpresaDelArchivo(anyString())).thenReturn(empresaMockeadaB);
-		
-	}
-*/
+
 	@Test
 	public void testSeCargoElMock() {
-		assertEquals(1, getListaEmpresas().size());
 		assertEquals(1, empresaMockeadaA.getCuentas().size());
+		assertEquals(1, getListaEmpresas().size());
 	}
 
 	@Test
@@ -96,13 +95,13 @@ public class testMockito {
 	}
 
 	@Test
-	public void testRecargaDeUnaMismaEmpresaNoAgregaCuentas() {
+	public void testRecargaDeUnaMismaEmpresaNoAgregaCuentas() throws IOException {
 		cargarArchivo("ruta-loca");
 		assertEquals(1, empresaMockeadaA.getCuentas().size());
 	}
 
 	@Test
-	public void testNoCargaDosVecesLaMismaEmpresa() {
+	public void testNoCargaDosVecesLaMismaEmpresa() throws IOException {
 		cargarArchivo("ruta-loca");
 		assertEquals(1, getListaEmpresas().size());
 	}

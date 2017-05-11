@@ -25,9 +25,9 @@ public class CargarCuentaWindow extends Dialog<CargarCuentaVM> {
 		Panel form = new Panel(formPanel);
 		form.setLayout(new ColumnLayout(2));
 		this.setTitle("Cargar cuentas de una empresa");
-
+		
 		new Label(form).setText("Seleccione archivo");
-		new FileSelector(form).setCaption("Examinar").bindValueToProperty("filePath");
+		new FileSelector(form).path("src/test/resources").setCaption("Examinar").bindValueToProperty("filePath");
 
 		new Label(form).bindValueToProperty("filePath");
 	}
