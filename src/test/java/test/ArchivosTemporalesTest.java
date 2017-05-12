@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -29,6 +30,11 @@ public class ArchivosTemporalesTest {
 		final File archivoCocaCola = tempFolder.newFile(filename);
 		FileUtils.writeStringToFile(archivoCocaCola, "{ \"nombre\" : \"Coca-Cola\", \"cuentas\": [{\"nombre\" : \"FDS\", \"periodo\": \"2017-06-30 - 2017-12-31\", \"balance\": 98 },"
 				+ "{\"nombre\": \"EBITDA\",\"periodo\": \"2do semestre\", \"balance\": 10000}]}");
+	}
+	
+	@After
+	public void paraDespues() {
+		RepositorioEmpresas.resetSingleton();
 	}
 	
 	@Test
