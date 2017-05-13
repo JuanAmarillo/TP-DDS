@@ -10,12 +10,12 @@ import org.uqbar.commons.utils.Observable;
 public class Cuenta {
 	private String nombre;
 	private String periodo;
-	private Float balance;
+	private Double balance;
 	
 	@JsonCreator
 	public Cuenta(@JsonProperty("nombre") String nombre,
 				  @JsonProperty("periodo") String periodo,
-				  @JsonProperty("balance") Float balance)
+				  @JsonProperty("balance") Double balance)
 	{
 		setNombre(nombre);
 		setPeriodo(periodo);
@@ -37,10 +37,10 @@ public class Cuenta {
 	public void setPeriodo(String periodo) {
 		this.periodo = periodo;
 	}
-	public Float getBalance() {
+	public Double getBalance() {
 		return balance;
 	}
-	public void setBalance(Float balance) {
+	public void setBalance(Double balance) {
 		this.balance = balance;
 	}
 

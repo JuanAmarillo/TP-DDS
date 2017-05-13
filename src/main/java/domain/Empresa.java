@@ -54,8 +54,12 @@ public class Empresa {
 		return this.getNombre().equals(empresa.getNombre());
 	}
 	
-	public Boolean tieneLasCuentasDe(Empresa unaEmpresa){
+	public Boolean tieneLasCuentasDe(Empresa unaEmpresa) {
 		return this.getCuentas().contains(unaEmpresa.getCuentas());
+	}
+
+	public Double getValorDeLaCuenta(String cuenta) {
+		return cuentas.stream().filter(c -> c.getNombre().equals(cuenta)).findFirst().get().getBalance();
 	}
 	
 }

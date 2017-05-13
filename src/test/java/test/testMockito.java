@@ -27,7 +27,7 @@ public class testMockito {
 		Set<Cuenta> cuentas = new HashSet<>();
 		cuentita.setNombre("ZZZ");
 		cuentita.setPeriodo("periodo");
-		cuentita.setBalance(12345.6f);
+		cuentita.setBalance(new Double(12345.6));
 		empresaMockeadaB.setNombre("Mocka-Cola");
 		cuentas.add(cuentita);
 		empresaMockeadaB.setCuentas(cuentas);
