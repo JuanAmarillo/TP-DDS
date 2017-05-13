@@ -48,11 +48,11 @@ public class ParseadorDeIndicadores {
 	}
 	
 	public String obtenerSiguiente() {
-		int inicioToken = ecuacionAParsear.indexOf("_");
+		int inicioToken = ecuacionAParsear.indexOf("'");
 		int finToken;
 		if (inicioToken != -1) {
 			ecuacionAParsear = ecuacionAParsear.substring(inicioToken+1);
-			finToken =  ecuacionAParsear.indexOf("_");
+			finToken =  ecuacionAParsear.indexOf("'");
 			String token = ecuacionAParsear.substring(0, finToken);
 			ecuacionAParsear = ecuacionAParsear.substring(finToken+1);
 			return token;

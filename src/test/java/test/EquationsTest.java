@@ -41,8 +41,8 @@ public class EquationsTest {
 		paraProbar.add("ROE");
 		paraProbar.add("ROI");
 		paraProbar.add("ROA");
-		ecuacionDePrueba = "Ind = _ROE_ + 50 - _ROI_ * _ROA_";
-		ecuacionSencilla = "Ind = _ROA_ -20";
+		ecuacionDePrueba = "Ind = 'ROE' + 50 - 'ROI' * 'ROA'";
+		ecuacionSencilla = "Ind = 'ROA' -20";
 		prepararEmpresa();
 	}
 	
