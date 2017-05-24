@@ -69,6 +69,12 @@ public class EquationsTest {
 		indicador.ecuacion = "( ( 22 + 5 - 2) *4) / 50  ";
 		assertTrue(analizador.scan(indicador).parser(null).equals(2.0));
 	}
+	@Test
+	public void  testIndicadorNoDaPrioridadALaMultiplicacion(){
+		Indicador indicador = new Indicador();
+		indicador.ecuacion = "2 * 50 - 40 ";
+		assertFalse(analizador.scan(indicador).parser(null).equals(60));
+	}
 	
 	@Test
 	public void testIndicadorConCuentas(){
