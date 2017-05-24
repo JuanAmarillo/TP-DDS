@@ -22,7 +22,7 @@ public class Cuenta {
 		setBalance(balance);
 	}
 	
-	public Cuenta(){};
+	//public Cuenta(){};
 	
 	public String getNombre() {
 		return nombre;
@@ -45,6 +45,10 @@ public class Cuenta {
 	}
 
 	public Boolean esIgualA(Cuenta cuenta) {
-		return (cuenta.getBalance().equals(this.balance) && cuenta.getNombre().equals(this.nombre) && cuenta.getPeriodo().equals(this.periodo));
+		return (cuenta.getBalance().equals(this.balance) && suNombreEs(cuenta.getNombre()) && cuenta.getPeriodo().equals(this.periodo));
+	}
+	
+	public Boolean suNombreEs(String cuenta){
+		return this.getNombre().equals(cuenta);
 	}
 }

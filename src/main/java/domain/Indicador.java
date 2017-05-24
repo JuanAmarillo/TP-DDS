@@ -17,6 +17,9 @@ public class Indicador {
 	public void setNombreIndicador(String nombreIndicador) {
 		this.nombreIndicador = nombreIndicador;
 	}
+	public boolean suNombreEs(String indicador) {
+		return this.nombreIndicador.equals(indicador);
+	}
 	
 	
 }
