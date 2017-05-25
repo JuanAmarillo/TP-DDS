@@ -19,12 +19,12 @@ public class AnalizadorDeIndicadores {
 	public AnalizadorDeIndicadores scan(Indicador indicador) {
 		generarTokens(indicador);
 		eliminarEspaciosInnecesarios();
-		//lexemas.forEach(lexema-> System.out.println(lexema));
+		lexemas.forEach(lexema-> System.out.println(lexema));
 		return this;
 	}
 	
 	public void generarTokens(Indicador indicador){
-		String[] tokens = indicador.ecuacion.split("(?<=[+-//(//)//*])|(?=[+-//(//)//*])");
+		String[] tokens = indicador.ecuacion.split("(?<=[-+()*/])|(?=[-+()*/])");
 		lexemas = new LinkedList<String>(Arrays.asList(tokens));
 	}
 	
@@ -45,7 +45,7 @@ public class AnalizadorDeIndicadores {
 		
 		if( token.matches("([ ]*[a-zA-Z]+[ ]*)+"))
 			return seguirSiNoEstaVacio(valorDe(token));
-		if(token.matches("[ ]*[0-9]+[ ]*"))
+		if(token.matches("[0-9]+([//.][0-9]+)?"))
 			return seguirSiNoEstaVacio(Double.parseDouble(token));
 		
 		switch(token){

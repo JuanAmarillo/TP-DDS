@@ -62,18 +62,24 @@ public class EquationsTest {
 		cargarIndicadores();
 	}
 	
-	
 	@Test
 	public void testIndicadorSinVariables(){
 		Indicador indicador = new Indicador();
-		indicador.ecuacion = "( ( 22 + 5 - 2) *4) / 50  ";
-		assertTrue(analizador.scan(indicador).parser(null).equals(2.0));
+		indicador.ecuacion = "((2-5)*(5-3))/((2*3) - 8) ";
+		assertTrue(analizador.scan(indicador).parser(null).equals(3.0));
 	}
 	@Test
-	public void  testIndicadorNoDaPrioridadALaMultiplicacion(){
+	public void  testNoDaPrioridadALaMultiplicacion(){
 		Indicador indicador = new Indicador();
 		indicador.ecuacion = "2 * 50 - 40 ";
 		assertFalse(analizador.scan(indicador).parser(null).equals(60));
+	}
+	@Test
+	public void testAceptaNumerosConComa(){
+		Indicador indicador = new Indicador();
+		indicador.ecuacion = "1.5 + 2.5 ";
+		System.out.println(analizador.scan(indicador).parser(null));
+		assertTrue(analizador.scan(indicador).parser(null).equals(4.0));
 	}
 	
 	@Test
