@@ -111,6 +111,12 @@ public class EquationsTest {
 		indicador.ecuacion = "2+3/";
 		analizador.scan(indicador).parser(null);
 	}
+	@Test(expected=RuntimeException.class)
+	public void testIndicadorConCuentaOIndicadorFaltanteFalla(){
+		Indicador indicador = new Indicador();
+		indicador.ecuacion = "No existo :p";
+		analizador.scan(indicador).parser(null);
+	}
 	
 }
 	

@@ -16,7 +16,7 @@ public class AnalizadorDeIndicadores {
 	public AnalizadorDeIndicadores scan(Indicador indicador) {
 		generarTokens(indicador.ecuacion);
 		eliminarEspaciosInnecesarios();
-		lexemas.forEach(lexema-> System.out.println(lexema));
+		//lexemas.forEach(lexema-> System.out.println(lexema));
 		return this;
 	}
 	
