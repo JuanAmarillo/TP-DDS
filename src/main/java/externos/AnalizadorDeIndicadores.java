@@ -1,30 +1,27 @@
 package externos;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import domain.Empresa;
 import domain.Indicador;
 import domain.repositorios.RepositorioIndicadores;
-import scala.collection.parallel.ParIterableLike.Collect;
 
 public class AnalizadorDeIndicadores {
 	private Empresa empresa;
 	private List<String> lexemas;
 	
 	public AnalizadorDeIndicadores scan(Indicador indicador) {
-		generarTokens(indicador);
+		generarTokens(indicador.ecuacion);
 		eliminarEspaciosInnecesarios();
 		lexemas.forEach(lexema-> System.out.println(lexema));
 		return this;
 	}
 	
-	public void generarTokens(Indicador indicador){
-		String[] tokens = indicador.ecuacion.split("(?<=[-+()*/])|(?=[-+()*/])");
+	public void generarTokens(String ecuacion){
+		String[] tokens = ecuacion.split("(?<=[-+()*/])|(?=[-+()*/])");
 		lexemas = new LinkedList<String>(Arrays.asList(tokens));
 	}
 	
@@ -35,49 +32,103 @@ public class AnalizadorDeIndicadores {
 	
 	public  Double parser(Empresa empresa){
 		this.empresa = empresa;
-		return seguirSiNoEstaVacio(0.0);
+		return analizarSiguienteToken(0.0,false);
 		
 	}
 	
-	private Double analisisSintactico(Double valor){
+	private Double analisisSintactico(Double valor,boolean anteriorFueOperador){
 		String token = lexemas.get(0);
 		lexemas.remove(0);
 		
-		if( token.matches("([ ]*[a-zA-Z]+[ ]*)+"))
-			return seguirSiNoEstaVacio(valorDe(token));
-		if(token.matches("[0-9]+([//.][0-9]+)?"))
-			return seguirSiNoEstaVacio(Double.parseDouble(token));
+		if(esUnTexto(token))
+			return palabra(token, valor);
+		if(esUnNumero(token))
+			return numero(token,valor);
+		if(esUnParentesis(token))
+			return parentesis(token,valor);
+		if(esUnOperador(token))
+			return operador(token,valor,anteriorFueOperador);
 		
-		switch(token){
-		case "+":
-			return valor + seguirSiNoEstaVacio(0.0);
-		case "-":
-			return valor - seguirSiNoEstaVacio(0.0);
-		case "*":
-			return valor * seguirSiNoEstaVacio(0.0);
-		case "/":
-			return valor / seguirSiNoEstaVacio(0.0);
+		throw new RuntimeException("Invalid token");
+	}
+	
+	private boolean esUnTexto(String token){
+		return token.matches("([ ]*[a-zA-Z]+[ ]*)+");
+	}
+	
+	private boolean esUnNumero(String token){
+		return token.matches("[0-9]+([.][0-9]+)?");
+	}
+	
+	private boolean esUnParentesis(String token){
+		return token.matches("[()]");
+	}
+	
+	private boolean esUnOperador(String token){
+		return token.matches("[-+*/]");
+	}
+	
+	private Double palabra(String token,Double valor){
+		return analizarSiguienteToken(valorDe(token),false);
+	}
+	
+	private Double numero(String token,Double valor){
+		return analizarSiguienteToken(Double.parseDouble(token),false);
+	}
+	
+	private Double parentesis(String token,Double valor){
+		switch (token) {
 		case "(":
-			return seguirSiNoEstaVacio(seguirSiNoEstaVacio(0.0));
+			return analizarSiguienteToken(analizarSiguienteToken(0.0,false),false);
 		case ")":
 			return valor;
 		}
-		
 		return 0.0;
-		
 	}
 	
-	private Double seguirSiNoEstaVacio(Double valor){
-		if(lexemas.isEmpty())
-			return valor;
+	private Double operador(String token,Double valor,boolean anteriorFueOperador){
+		if(anteriorFueOperador)
+			throw new RuntimeException("Doble Operador");
+		
+		switch(token){
+		case "+":
+			return valor + analizarSiguienteToken(0.0,true);
+		case "-":
+			return valor - analizarSiguienteToken(0.0,true);
+		case "*":
+			return valor * analizarSiguienteToken(0.0,true);
+		case "/":
+			return valor / analizarSiguienteToken(0.0,true);
+		}
+		
+		return 0.0;
+	}
+	
+	private Double analizarSiguienteToken(Double valor,boolean anteriorFueOperador){
+		if(lexemas.isEmpty()){
+			if(anteriorFueOperador)
+				throw new RuntimeException("falta Operando");
+			else
+				return valor;
+		}
 		else
-			return analisisSintactico(valor);
+			return analisisSintactico(valor,anteriorFueOperador);
+	}
+	
+	private boolean esUnaCuenta(String cuenta){
+		return empresa.contieneLaCuenta(cuenta);
+	}
+	
+	private boolean esUnIndicador(String indicador){
+		return RepositorioIndicadores.instance().contieneElIndicador(indicador);
 	}
 	
 	private Double valorDe(String cuentaOIndicador){
-		if(empresa.contieneLaCuenta(cuentaOIndicador))
+		if(esUnaCuenta(cuentaOIndicador))
 			return empresa.getValorDeLaCuenta(cuentaOIndicador);
-		else
+		if(esUnIndicador(cuentaOIndicador))
 			return RepositorioIndicadores.instance().getValorDelIndicador(empresa,cuentaOIndicador);
+		
+		throw new RuntimeException("Invalid token");
 	}
 }

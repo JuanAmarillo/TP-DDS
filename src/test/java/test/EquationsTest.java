@@ -16,7 +16,9 @@ import domain.Indicador;
 import domain.repositorios.RepositorioIndicadores;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import externos.AnalizadorDeIndicadores;
-import externos.ParseadorDeIndicadores;;
+import externos.ParseadorDeIndicadores;
+import junit.framework.Assert;
+import junit.framework.AssertionFailedError;;
 
 public class EquationsTest {
 	Empresa empresaMockeadaB;
@@ -78,7 +80,6 @@ public class EquationsTest {
 	public void testAceptaNumerosConComa(){
 		Indicador indicador = new Indicador();
 		indicador.ecuacion = "1.5 + 2.5 ";
-		System.out.println(analizador.scan(indicador).parser(null));
 		assertTrue(analizador.scan(indicador).parser(null).equals(4.0));
 	}
 	
@@ -86,12 +87,30 @@ public class EquationsTest {
 	public void testIndicadorConCuentas(){
 		assertTrue(analizador.scan(pasivoCorriente).parser(empresaMockeadaB).equals(70.0));
 	}
+	
 	@Test
 	public void testIndicadorConIndicadores(){
 		assertTrue(analizador.scan(pruebaAcida).parser(empresaMockeadaB).equals(3.0));
 		
 	}
-	
+	@Test(expected=RuntimeException.class)
+	public void testIndicadorConDobleOperadorFalla(){
+		Indicador indicador = new Indicador();
+		indicador.ecuacion = "2++3";
+		analizador.scan(indicador).parser(null);
+	}
+	@Test(expected=RuntimeException.class)
+	public void testIndicadorConOperadorIncorrectoFalla(){
+		Indicador indicador = new Indicador();
+		indicador.ecuacion = "2!3";
+		analizador.scan(indicador).parser(null);
+	}
+	@Test(expected=RuntimeException.class)
+	public void testIndicadorConOperandoFaltanteFalla(){
+		Indicador indicador = new Indicador();
+		indicador.ecuacion = "2+3/";
+		analizador.scan(indicador).parser(null);
+	}
 	
 }
 	

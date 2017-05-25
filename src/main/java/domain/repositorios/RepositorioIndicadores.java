@@ -41,4 +41,8 @@ public class RepositorioIndicadores {
 				.get();
 	}
 
+	public boolean contieneElIndicador(String indicador) {
+		return getIndicadoresCargados().stream().anyMatch(unIndicador -> unIndicador.suNombreEs(indicador));
+	}
+
 }
