@@ -94,21 +94,9 @@ public class EquationsTest {
 		
 	}
 	@Test(expected=RuntimeException.class)
-	public void testIndicadorConDobleOperadorFalla(){
-		Indicador indicador = new Indicador();
-		indicador.ecuacion = "2++3";
-		analizador.scan(indicador).parser(null);
-	}
-	@Test(expected=RuntimeException.class)
 	public void testIndicadorConOperadorIncorrectoFalla(){
 		Indicador indicador = new Indicador();
 		indicador.ecuacion = "2!3";
-		analizador.scan(indicador).parser(null);
-	}
-	@Test(expected=RuntimeException.class)
-	public void testIndicadorConOperandoFaltanteFalla(){
-		Indicador indicador = new Indicador();
-		indicador.ecuacion = "2+3/";
 		analizador.scan(indicador).parser(null);
 	}
 	@Test(expected=RuntimeException.class)

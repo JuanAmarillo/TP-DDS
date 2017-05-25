@@ -32,11 +32,11 @@ public class AnalizadorDeIndicadores {
 	
 	public  Double parser(Empresa empresa){
 		this.empresa = empresa;
-		return analizarSiguienteToken(0.0,false);
+		return analizarSiguienteToken(0.0);
 		
 	}
 	
-	private Double analisisSintactico(Double valor,boolean anteriorFueOperador){
+	private Double analisisTokens(Double valor){
 		String token = lexemas.get(0);
 		lexemas.remove(0);
 		
@@ -44,10 +44,10 @@ public class AnalizadorDeIndicadores {
 			return palabra(token, valor);
 		if(esUnNumero(token))
 			return numero(token,valor);
+		if(esUnOperador(token))
+			return operador(token,valor);
 		if(esUnParentesis(token))
 			return parentesis(token,valor);
-		if(esUnOperador(token))
-			return operador(token,valor,anteriorFueOperador);
 		
 		throw new RuntimeException("Invalid token");
 	}
@@ -69,50 +69,43 @@ public class AnalizadorDeIndicadores {
 	}
 	
 	private Double palabra(String token,Double valor){
-		return analizarSiguienteToken(valorDe(token),false);
+		return analizarSiguienteToken(valorDe(token));
 	}
 	
 	private Double numero(String token,Double valor){
-		return analizarSiguienteToken(Double.parseDouble(token),false);
+		return analizarSiguienteToken(Double.parseDouble(token));
 	}
 	
 	private Double parentesis(String token,Double valor){
 		switch (token) {
 		case "(":
-			return analizarSiguienteToken(analizarSiguienteToken(0.0,false),false);
+			return analizarSiguienteToken(analizarSiguienteToken(0.0));
 		case ")":
 			return valor;
 		}
 		return 0.0;
 	}
 	
-	private Double operador(String token,Double valor,boolean anteriorFueOperador){
-		if(anteriorFueOperador)
-			throw new RuntimeException("Doble Operador");
-		
+	private Double operador(String token,Double valor){
 		switch(token){
 		case "+":
-			return valor + analizarSiguienteToken(0.0,true);
+			return valor + analizarSiguienteToken(0.0);
 		case "-":
-			return valor - analizarSiguienteToken(0.0,true);
+			return valor - analizarSiguienteToken(0.0);
 		case "*":
-			return valor * analizarSiguienteToken(0.0,true);
+			return valor * analizarSiguienteToken(0.0);
 		case "/":
-			return valor / analizarSiguienteToken(0.0,true);
+			return valor / analizarSiguienteToken(0.0);
 		}
 		
 		return 0.0;
 	}
 	
-	private Double analizarSiguienteToken(Double valor,boolean anteriorFueOperador){
-		if(lexemas.isEmpty()){
-			if(anteriorFueOperador)
-				throw new RuntimeException("falta Operando");
-			else
-				return valor;
-		}
+	private Double analizarSiguienteToken(Double valor){
+		if(lexemas.isEmpty())
+			return valor;
 		else
-			return analisisSintactico(valor,anteriorFueOperador);
+			return analisisTokens(valor);
 	}
 	
 	private boolean esUnaCuenta(String cuenta){
