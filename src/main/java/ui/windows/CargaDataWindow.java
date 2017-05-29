@@ -30,6 +30,8 @@ public class CargaDataWindow extends SimpleWindow<Object> {
 				.setBackground(Color.lightGray).setWidth(350);
 		new Button(panelActions).setCaption("Consultar valores de cuentas").onClick(this::verCuentas)
 				.setBackground(Color.lightGray).setWidth(350);
+		new Button(panelActions).setCaption("Cargar indicadores").onClick(this::cargarIndicadores)
+				.setBackground(Color.lightGray).setWidth(350);
 	}
 
 	public void cargarCuentas() {
@@ -39,4 +41,9 @@ public class CargaDataWindow extends SimpleWindow<Object> {
 	public void verCuentas() {
 		ViewUtils.nuevaPantalla(new ConsultarCuentasWindow(this));
 	}
+	
+	public void cargarIndicadores(){
+		ViewUtils.nuevaPantalla(new CargarIndicadorWindow(this));
+	}
+	
 }
