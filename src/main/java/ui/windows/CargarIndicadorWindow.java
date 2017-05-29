@@ -12,6 +12,7 @@ import org.uqbar.arena.windows.WindowOwner;
 
 import ui.vm.CargarIndicadorVM;
 
+@SuppressWarnings("serial")
 public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 	public CargarIndicadorWindow(WindowOwner parent) {
 		super(parent, new CargarIndicadorVM());
