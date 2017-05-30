@@ -6,8 +6,7 @@ import java.util.Set;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
-import domain.Cuenta;
-import domain.Empresa;
+import domain.*;
 import domain.repositorios.RepositorioEmpresas;
 
 @Observable
@@ -17,6 +16,8 @@ public class ConsultarCuentasVM {
 	private Empresa empresaSeleccionada;
 	private String periodoSeleccionado;
 	private Cuenta cuentaSeleccionada;
+	private List<Indicador> indicadores;
+	private Indicador indicadorSeleccionado;
 
 	public ConsultarCuentasVM() {
 		this.empresas = RepositorioEmpresas.instance().getEmpresasCargadas();
@@ -62,4 +63,21 @@ public class ConsultarCuentasVM {
 	public void setCuentaSeleccionada(Cuenta cuentaSeleccionada) {
 		this.cuentaSeleccionada = cuentaSeleccionada;
 	}
+	
+	public List<Indicador> getIndicadores() {
+		return indicadores;
+	}
+
+	public void setIndicadores(List<Indicador> indicadores) {
+		this.indicadores = indicadores;
+	}
+
+	public Indicador getIndicadorSeleccionado() {
+		return indicadorSeleccionado;
+	}
+
+	public void setIndicadorSeleccionado(Indicador indicadorSeleccionado) {
+		this.indicadorSeleccionado = indicadorSeleccionado;
+	}
+
 }

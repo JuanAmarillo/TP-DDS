@@ -26,10 +26,11 @@ public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 		this.setTitle("Cargar indicador");
 
 		new Label(form).setText("Cargar indicador personalizado");
-		new TextBox(form).setWidth(250).bindValueToProperty("indicador");
+		//new TextBox(form).setWidth(250).bindValueToProperty("indicador");
 
 		new Label(form).setText("Seleccione archivo");
-		new FileSelector(form).path("src/test/resources").setCaption("Examinar").bindValueToProperty("filepath");
+		new FileSelector(form).path("src/test/resources").setCaption("Examinar").bindValueToProperty("filePath");
+		new Label(form).bindValueToProperty("filePath");
 	}
 
 	@Override
@@ -60,6 +61,7 @@ public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 	/*
 	 * Cuando se carga el indicador, tendría que verificarse que no esté ya
 	 * cargado, y si no estaba, agregarlo. El LevantaArchivos está acoplado
-	 * exclusivamente a empresas.  */
+	 * exclusivamente a empresas.
+	 */
 
 }

@@ -2,14 +2,11 @@ package externos;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import domain.Empresa;
 import domain.Indicador;
-import net.objecthunter.exp4j.Expression;
-import net.objecthunter.exp4j.ExpressionBuilder;
 
 public class ParseadorDeIndicadores {
 

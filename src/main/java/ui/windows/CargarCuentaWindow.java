@@ -13,7 +13,6 @@ import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.arena.windows.Dialog;
 import ui.vm.CargarCuentaVM;
 
-
 public class CargarCuentaWindow extends Dialog<CargarCuentaVM> {
 
 	public CargarCuentaWindow(WindowOwner parent) {
@@ -25,10 +24,9 @@ public class CargarCuentaWindow extends Dialog<CargarCuentaVM> {
 		Panel form = new Panel(formPanel);
 		form.setLayout(new ColumnLayout(2));
 		this.setTitle("Cargar cuentas de una empresa");
-		
+
 		new Label(form).setText("Seleccione archivo");
 		new FileSelector(form).path("src/test/resources").setCaption("Examinar").bindValueToProperty("filePath");
-
 		new Label(form).bindValueToProperty("filePath");
 	}
 
@@ -43,8 +41,7 @@ public class CargarCuentaWindow extends Dialog<CargarCuentaVM> {
 		try {
 			this.getModelObject().cargarEmpresa();
 			this.showInfo("Se ha cargado con éxito el archivo");
-		}
-		catch(IOException e) {
+		} catch (IOException e) {
 			this.showWarning("El archivo seleccionado posee un formato incorrecto");
 		}
 	}
