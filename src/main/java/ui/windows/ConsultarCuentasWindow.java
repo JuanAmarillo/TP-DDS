@@ -3,6 +3,7 @@ package ui.windows;
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.widgets.Button;
+import org.uqbar.arena.widgets.CheckBox;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
@@ -55,10 +56,10 @@ public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasVM> {
 		selectorPeriodo.bindItemsToProperty("periodos");
 		selectorPeriodo.bindValueToProperty("periodoSeleccionado");
 
-		new Label(form).setText("Indicador");
-		Selector<String> selectorIndicador = new Selector<String>(form).allowNull(false);
-		selectorIndicador.bindItemsToProperty("indicadores").adaptWith(Indicador.class, "nombreIndicador");
-		selectorIndicador.bindValueToProperty("indicadorSeleccionado");
+		new Label(form).setText("Indicadores");
+		
+		CheckBox checkIndicadores = new CheckBox(form);
+		//checkIndicadores.
 		
 	}
 

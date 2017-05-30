@@ -15,6 +15,7 @@ import ui.vm.CargarIndicadorVM;
 
 @SuppressWarnings("serial")
 public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
+
 	public CargarIndicadorWindow(WindowOwner parent) {
 		super(parent, new CargarIndicadorVM());
 	}
@@ -26,7 +27,8 @@ public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 		this.setTitle("Cargar indicador");
 
 		new Label(form).setText("Cargar indicador personalizado");
-		//new TextBox(form).setWidth(250).bindValueToProperty("indicador");
+		new TextBox(form).setWidth(250);
+		// Bindear el textbox para agregar un indicador
 
 		new Label(form).setText("Seleccione archivo");
 		new FileSelector(form).path("src/test/resources").setCaption("Examinar").bindValueToProperty("filePath");

@@ -22,13 +22,13 @@ public class RepositorioIndicadores {
 	public static void resetSingleton() {
 		instance = null;
 	}
-
+	
+	public void agregarIndicador(Indicador indicador) {
+		RepositorioIndicadores.getIndicadoresCargados().add(indicador);
+	}
+	
 	public static List<Indicador> getIndicadoresCargados() {
 		return indicadoresCargados;
-	}
-
-	public void agregarIndicador(Indicador indicador) {
-		getIndicadoresCargados().add(indicador);
 	}
 
 	public Double getValorDelIndicador(Empresa empresa, String indicador) {

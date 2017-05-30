@@ -13,12 +13,11 @@ public class LevantaArchivoIndicadores implements FileLoader {
 
 	@Override
 	public void cargarArchivo(String filepath) throws IOException {
-		// TODO Auto-generated method stub
 		Indicador aDevolver = getIndicadorDelArchivo(filepath);
 		RepositorioIndicadores.instance().agregarIndicador(aDevolver);
 	}
-	
-	public Indicador getIndicadorDelArchivo(String filepath) throws IOException{
+
+	public Indicador getIndicadorDelArchivo(String filepath) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		Indicador aDevolver = mapper.readValue(new File(filepath), Indicador.class);
 		return aDevolver;

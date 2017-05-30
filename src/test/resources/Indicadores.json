@@ -1,4 +1,17 @@
 {
-	"nombreIndicador":"Pasivo Corriente",
-	"ecuacion": "Deudas Bancarias + Deudas Comerciales + Deudas del Estado"
-}
+	"indicadores":[
+		{
+		"nombreIndicador":"Prueba Acida",
+		"ecuacion":"(Caja y bancos + Inversiones) / Pasivo Corriente"
+		}
+		{
+		"nombreIndicador":"Pasivo Corriente",
+		"ecuacion":"Deudas Bancarias + Deudas Comerciales + Deudas del Estado"
+		}
+		{
+		"nombreIndicador":"Cualquiera",
+		"ecuacion":"FDS+10"
+		}
+		]
+}	
+

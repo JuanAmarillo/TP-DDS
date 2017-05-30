@@ -39,6 +39,7 @@ public class CargarIndicadorVM {
 
 	public void cargarIndicador() throws IOException {
 		RepositorioIndicadores.instance().agregarIndicador(indicador);
+		//Cómo se puede agregar el indicador manual al archivo?
 	}
 
 }
