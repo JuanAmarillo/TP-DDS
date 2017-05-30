@@ -18,7 +18,6 @@ public class ConsultarCuentasVM {
 	private String periodoSeleccionado;
 	private Cuenta cuentaSeleccionada;
 
-
 	public ConsultarCuentasVM() {
 		this.empresas = RepositorioEmpresas.instance().getEmpresasCargadas();
 		this.setEmpresaSeleccionada(this.empresas.get(0));
@@ -35,7 +34,7 @@ public class ConsultarCuentasVM {
 	public void setEmpresaSeleccionada(Empresa empresaSeleccionada) {
 		this.empresaSeleccionada = empresaSeleccionada;
 		ObservableUtils.firePropertyChanged(this, "periodos");
-		
+
 	}
 
 	public Set<String> getPeriodos() {
@@ -52,10 +51,10 @@ public class ConsultarCuentasVM {
 		ObservableUtils.firePropertyChanged(this, "cuentas");
 	}
 
-	public Set<Cuenta> getCuentas(){
+	public Set<Cuenta> getCuentas() {
 		return empresaSeleccionada.getCuentasSegun(periodoSeleccionado);
 	}
-	
+
 	public Cuenta getCuentaSeleccionada() {
 		return cuentaSeleccionada;
 	}
