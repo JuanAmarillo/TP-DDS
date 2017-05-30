@@ -43,55 +43,6 @@ public class empresasTest {
 		RepositorioEmpresas.resetSingleton();
 	}
 
-	@Test
-	public void testSeCargoCocaCola() {
-		assertEquals(1, getListaEmpresas().size());
-		assertEquals(2, cocaCola.getCuentas().size());
-	}
-
-	@Test
-	public void testBuscaAUnaEmpresaCargada() {
-		Empresa empresa = new Empresa();
-		empresa.setNombre("Coca-Cola");
-		assertTrue(getListaEmpresas().stream().anyMatch(emp -> emp.getNombre().equals(empresa.getNombre())));
-	}
-
-	@Test
-	public void testSeCargaCorrectamentePepsi() throws IOException {
-		cargarArchivo("Pepsi-co.json");
-		Empresa emp = new Empresa();
-		emp.setNombre("Pepsi-co");
-		Empresa pepsiCo = RepositorioEmpresas.instance().buscarEmpresa(emp.getNombre());
-		assertEquals("Pepsi-co", pepsiCo.getNombre());
-		assertEquals(2, pepsiCo.getCuentas().size());
-	}
-
-	@Test
-	public void testCocaColaTieneDosCuentas() {
-		assertEquals(2, cocaCola.getCuentas().size());
-	}
-
-	@Test
-	public void testPepsiCoTieneSoloUnPeriodoPeroDosCuentasTest() {
-		cargarArchivo("Pepsi-co.json");
-		Empresa pepsi = obtenerEmpresa("Pepsi-co");
-		assertEquals(2, pepsi.getCuentas().size());
-		assertEquals(1, pepsi.getPeriodos().size());
-
-	}
-
-	@Test
-	public void testObtenerEmpresaNoCargada() {
-		Empresa empresa = new Empresa();
-		empresa.setNombre("Pirulo");
-		assertEquals(null, RepositorioEmpresas.instance().buscarEmpresa(empresa.getNombre()));
-	}
-
-	@Test
-	public void testRecargaDeUnaMismaEmpresaNoAgregaCuentas() {
-		cargarArchivo("Coca-Cola.json");
-		assertEquals(2, cocaCola.getCuentas().size());
-	}
 
 	@Test
 	public void testMismaEmpresaAgregaCuentasDistintas() {
@@ -99,10 +50,5 @@ public class empresasTest {
 		assertEquals(4, cocaCola.getCuentas().size());
 	}
 
-	@Test
-	public void testNoCargaDosVecesLaMismaEmpresa() {
-		cargarArchivo("Coca-Cola.json");
-		assertEquals(1, getListaEmpresas().size());
-	}
 
 }

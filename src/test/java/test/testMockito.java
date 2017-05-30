@@ -18,49 +18,39 @@ import domain.repositorios.RepositorioEmpresas;
 import externos.LevantaArchivo;
 
 public class testMockito {
-	public Empresa empresaMockeadaA;
-	public Empresa empresaMockeadaB;
-	
-	private void prepararEmpresa() {
-		empresaMockeadaB =  new Empresa();
-		empresaMockeadaB.setNombre("Mocka-Cola");
+	public Empresa empresaA;
+	public Empresa empresaB;
+	public Empresa empresaC;
+
+	private void prepararEmpresaB() {
+		empresaB = new Empresa();
+		empresaB.setNombre("Mocka-Cola");
 		Set<Cuenta> cuentas = new HashSet<>();
-		Cuenta cuentita = new Cuenta("ZZZ","periodo",12345.6);
+		Cuenta cuentita = new Cuenta("ZZZ", "periodo", 12345.6);
+		Cuenta cuentitaBis = new Cuenta("XXX", "periodo", 1000.0);
 		cuentas.add(cuentita);
-		empresaMockeadaB.setCuentas(cuentas);
+		cuentas.add(cuentitaBis);
+		empresaB.setCuentas(cuentas);
 	}
-		
+
 	LevantaArchivo loader = mock(LevantaArchivo.class);
-	
-	private void cargarArchivo(String ruta) throws IOException{ 
-	
+
+	private void cargarArchivo(String ruta) throws IOException {
 		loader.cargarArchivo(ruta);
-	/*	try {
-			loader.cargarArchivo(ruta);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}*/
 	}
 
 	public List<Empresa> getListaEmpresas() {
 		return RepositorioEmpresas.instance().getEmpresasCargadas();
 	}
 
-	private Empresa obtenerEmpresa(String nombreEmpresa) {
-		Empresa aDevolver = RepositorioEmpresas.instance().buscarEmpresa(nombreEmpresa);
-		return aDevolver;
-	}
-	
 	@Before
 	public void init() throws IOException {
-		prepararEmpresa();
-		when(loader.getEmpresaDelArchivo(anyString())).thenReturn(empresaMockeadaB);
-
-		//loader.cargarArchivo("ruta-loca");
-		empresaMockeadaA = loader.getEmpresaDelArchivo("Mocka-Cola");
-		RepositorioEmpresas.instance().agregarEmpresa(empresaMockeadaA);
+		prepararEmpresaB();
+		when(loader.getEmpresaDelArchivo(anyString())).thenReturn(empresaB);
+		empresaA = loader.getEmpresaDelArchivo("Mocka-Cola");
+		RepositorioEmpresas.instance().agregarEmpresa(empresaA);
 	}
-	
+
 	@After
 	public void finalize() {
 		RepositorioEmpresas.resetSingleton();
@@ -68,8 +58,17 @@ public class testMockito {
 
 	@Test
 	public void testSeCargoElMock() {
-		assertEquals(1, empresaMockeadaA.getCuentas().size());
 		assertEquals(1, getListaEmpresas().size());
+	}
+
+	@Test
+	public void testSeCargaronCuentasDelMock() {
+		assertEquals(2, empresaA.getCuentas().size());
+	}
+
+	@Test
+	public void testSeCargoUnSoloPeriodoYDosCuentas() {
+		assertEquals(1, empresaA.getPeriodos().size());
 	}
 
 	@Test
@@ -77,11 +76,6 @@ public class testMockito {
 		Empresa empresa = new Empresa();
 		empresa.setNombre("Mocka-Cola");
 		assertTrue(getListaEmpresas().stream().anyMatch(emp -> emp.getNombre().equals(empresa.getNombre())));
-	}
-
-	@Test
-	public void testMockaTieneUnaCuenta() {
-		assertEquals(1, empresaMockeadaA.getCuentas().size());
 	}
 
 	@Test
@@ -94,7 +88,7 @@ public class testMockito {
 	@Test
 	public void testRecargaDeUnaMismaEmpresaNoAgregaCuentas() throws IOException {
 		cargarArchivo("ruta-loca");
-		assertEquals(1, empresaMockeadaA.getCuentas().size());
+		assertEquals(2, empresaA.getCuentas().size());
 	}
 
 	@Test
