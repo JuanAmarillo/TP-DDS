@@ -1,5 +1,7 @@
 package ui.windows;
 
+import java.io.IOException;
+
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.widgets.Button;
@@ -26,13 +28,30 @@ public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 
 		new Label(form).setText("Cargar indicador personalizado");
 		new TextBox(form).setWidth(250).bindValueToProperty("indicador");
+		
+		new Label(form).setText("Seleccione archivo");
+		new FileSelector(form).path("src/test/resources").setCaption("Examinar").bindValueToProperty("filepath");
 	}
 
 	@Override
 	protected void addActions(Panel panelActions) {
 		panelActions.setLayout(new HorizontalLayout());
 		new Button(panelActions).setCaption("Volver").onClick(this::accept).setAsDefault();
-		//new Button(panelActions).setCaption("Cargar").onClick(this::null);
+		new Button(panelActions).setCaption("Cargar").onClick(this::cargarIndicador);
 	}
 
+	public void cargarIndicador(){
+		try{
+			this.getModelObject().cargarIndicador();
+			this.showInfo("El indicador se ha cargado con éxito");
+		}
+		catch(IOException e){
+			this.showWarning("El indicador ingresado es incorrecto");
+		}
+	}
+/*
+Cuando se carga el indicador, tendría que verificarse que no esté ya cargado, y si no estaba, agregarlo
+El LevantaArchivos está acoplado exclusivamente a empresas aparte
+*/
+	
 }
