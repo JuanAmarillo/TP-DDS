@@ -13,10 +13,14 @@ public class AnalizadorDeIndicadores {
 	private Empresa empresa;
 	private List<String> lexemas;
 	
+	public AnalizadorDeIndicadores(Empresa empresa){
+		this.empresa = empresa;
+	}
+	
 	public AnalizadorDeIndicadores scan(Indicador indicador) {
 		generarTokens(indicador.ecuacion);
 		eliminarEspaciosInnecesarios();
-		//lexemas.forEach(lexema-> System.out.println(lexema));
+		//lexemas.forEach(lexema-> System.out.println(lexema)); 
 		return this;
 	}
 	
@@ -30,15 +34,12 @@ public class AnalizadorDeIndicadores {
 				.collect(Collectors.toList());
 	}
 	
-	public  Double parser(Empresa empresa){
-		this.empresa = empresa;
+	public  Double parser(){
 		return analizarSiguienteToken(0.0);
-		
 	}
 	
 	private Double analisisTokens(Double valor){
-		String token = lexemas.get(0);
-		lexemas.remove(0);
+		String token = obtenerSiguienteToken();
 		
 		if(esUnTexto(token))
 			return palabra(token, valor);
@@ -50,6 +51,12 @@ public class AnalizadorDeIndicadores {
 			return parentesis(token,valor);
 		
 		throw new RuntimeException("Invalid token");
+	}
+	
+	private String obtenerSiguienteToken(){
+		String token = lexemas.get(0);
+		lexemas.remove(0);
+		return token;
 	}
 	
 	private boolean esUnTexto(String token){

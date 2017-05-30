@@ -33,7 +33,7 @@ public class RepositorioIndicadores {
 
 	public Double getValorDelIndicador(Empresa empresa, String indicador) {
 		Indicador indicadorBuscado = buscarIndicador(indicador);
-		return new AnalizadorDeIndicadores().scan(indicadorBuscado).parser(empresa);
+		return new AnalizadorDeIndicadores(empresa).scan(indicadorBuscado).parser();
 	}
 	
 	private Indicador buscarIndicador(String indicador) {

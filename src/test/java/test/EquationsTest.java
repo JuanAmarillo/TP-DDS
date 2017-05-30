@@ -40,6 +40,8 @@ public class EquationsTest {
 	}
 
 	private void cargarIndicadores() {
+		analizador = new AnalizadorDeIndicadores(empresaMockeadaB);
+		
 		pasivoCorriente = new Indicador();
 		pasivoCorriente.nombreIndicador = "Pasivo Corriente";
 		pasivoCorriente.ecuacion = "Deudas Bancarias + Deudas Comerciales + Deudas del Estado";
@@ -53,7 +55,6 @@ public class EquationsTest {
 
 	@Before
 	public void init() {
-		analizador = new AnalizadorDeIndicadores();
 		prepararEmpresa();
 		cargarIndicadores();
 	}
@@ -62,31 +63,31 @@ public class EquationsTest {
 	public void testIndicadorSinVariables() {
 		Indicador indicador = new Indicador();
 		indicador.ecuacion = "((2-5)*(5-3))/((2*3) - 8) ";
-		assertTrue(analizador.scan(indicador).parser(null).equals(3.0));
+		assertTrue(analizador.scan(indicador).parser().equals(3.0));
 	}
 
 	@Test
 	public void testNoDaPrioridadALaMultiplicacion() {
 		Indicador indicador = new Indicador();
 		indicador.ecuacion = "2 * 50 - 40 ";
-		assertFalse(analizador.scan(indicador).parser(null).equals(60));
+		assertFalse(analizador.scan(indicador).parser().equals(60));
 	}
 
 	@Test
 	public void testAceptaNumerosConComa() {
 		Indicador indicador = new Indicador();
 		indicador.ecuacion = "1.5 + 2.5 ";
-		assertTrue(analizador.scan(indicador).parser(null).equals(4.0));
+		assertTrue(analizador.scan(indicador).parser().equals(4.0));
 	}
 
 	@Test
 	public void testIndicadorConCuentas() {
-		assertTrue(analizador.scan(pasivoCorriente).parser(empresaMockeadaB).equals(70.0));
+		assertTrue(analizador.scan(pasivoCorriente).parser().equals(70.0));
 	}
 
 	@Test
 	public void testIndicadorConIndicadores() {
-		assertTrue(analizador.scan(pruebaAcida).parser(empresaMockeadaB).equals(3.0));
+		assertTrue(analizador.scan(pruebaAcida).parser().equals(3.0));
 
 	}
 
@@ -94,14 +95,14 @@ public class EquationsTest {
 	public void testIndicadorConOperadorIncorrectoFalla() {
 		Indicador indicador = new Indicador();
 		indicador.ecuacion = "2!3";
-		analizador.scan(indicador).parser(null);
+		analizador.scan(indicador).parser();
 	}
 
 	@Test(expected = RuntimeException.class)
 	public void testIndicadorConCuentaOIndicadorFaltanteFalla() {
 		Indicador indicador = new Indicador();
 		indicador.ecuacion = "No existo :p";
-		analizador.scan(indicador).parser(null);
+		analizador.scan(indicador).parser();
 	}
 	
 	
