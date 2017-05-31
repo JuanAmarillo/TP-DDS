@@ -24,11 +24,19 @@ public class IndicadoresTest {
 		RepositorioIndicadores.resetSingleton();
 	}
 	
-	public Indicador cargarIndicadorYBuscarlo(String indicador){
+	public void cargarIndicador(String indicador){
 		indicadorVM.setIndicador(indicador);
 		indicadorVM.cargarIndicador();
+	}
+	
+	public Indicador buscarIndicador(String indicador){
 		String[] partesDelIndicador = indicador.split("=");
 		return RepositorioIndicadores.instance().buscarIndicador(partesDelIndicador[0].trim());
+	}
+	
+	public Indicador cargarIndicadorYBuscarlo(String indicador){
+		cargarIndicador(indicador);
+		return buscarIndicador(indicador);
 	}
 	
 	@Test
