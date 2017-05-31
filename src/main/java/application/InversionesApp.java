@@ -1,13 +1,22 @@
 package application;
 
+import java.io.IOException;
+
 import org.uqbar.arena.Application;
 import org.uqbar.arena.windows.Window;
+import externos.LevantaArchivoIndicadores;
 
 import ui.windows.CargaDataWindow;
 
 public class InversionesApp extends Application {
 	public static void main(String[] args) {
-		new InversionesApp().start();		
+		try {
+			new LevantaArchivoIndicadores().cargarArchivo("src/test/resources/Indicadores.json");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		new InversionesApp().start();
+
 	}
 
 	@Override
