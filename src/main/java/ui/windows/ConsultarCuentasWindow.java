@@ -56,11 +56,6 @@ public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasVM> {
 		selectorPeriodo.bindItemsToProperty("periodos");
 		selectorPeriodo.bindValueToProperty("periodoSeleccionado");
 
-		new Label(form).setText("Indicadores");
-		
-		CheckBox checkIndicadores = new CheckBox(form);
-		//checkIndicadores.
-		
 	}
 
 	protected void addActions(Panel actions) {

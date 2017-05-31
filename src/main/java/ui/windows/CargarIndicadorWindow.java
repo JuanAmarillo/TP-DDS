@@ -30,9 +30,6 @@ public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 		new TextBox(form).setWidth(250);
 		// Bindear el textbox para agregar un indicador
 
-		new Label(form).setText("Seleccione archivo");
-		new FileSelector(form).path("src/test/resources").setCaption("Examinar").bindValueToProperty("filePath");
-		new Label(form).bindValueToProperty("filePath");
 	}
 
 	@Override
@@ -40,7 +37,6 @@ public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 		panelActions.setLayout(new HorizontalLayout());
 		new Button(panelActions).setCaption("Volver").onClick(this::accept).setAsDefault();
 		new Button(panelActions).setCaption("Cargar indicador").onClick(this::cargarIndicador);
-		new Button(panelActions).setCaption("Cargar archivo").onClick(this::cargarArchivoIndicadores);
 	}
 
 	public void cargarIndicador() {
@@ -51,19 +47,4 @@ public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 			this.showWarning("No se pudo cargar el indicador");
 		}
 	}
-
-	public void cargarArchivoIndicadores() {
-		try {
-			this.getModelObject().cargarArchivoIndicadores();
-			this.showInfo("El archivo se ha cargado con éxito");
-		} catch (IOException e) {
-			this.showWarning("El archivo seleccionado es incorrecto");
-		}
-	}
-	/*
-	 * Cuando se carga el indicador, tendría que verificarse que no esté ya
-	 * cargado, y si no estaba, agregarlo. El LevantaArchivos está acoplado
-	 * exclusivamente a empresas.
-	 */
-
 }
