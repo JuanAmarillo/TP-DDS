@@ -43,12 +43,12 @@ public class EquationsTest {
 		analizador = new AnalizadorDeIndicadores(empresaMockeadaB);
 		
 		pasivoCorriente = new Indicador();
-		pasivoCorriente.nombreIndicador = "Pasivo Corriente";
+		pasivoCorriente.nombre = "Pasivo Corriente";
 		pasivoCorriente.ecuacion = "Deudas Bancarias + Deudas Comerciales + Deudas del Estado";
 		RepositorioIndicadores.instance().agregarIndicador(pasivoCorriente);
 
 		pruebaAcida = new Indicador();
-		pruebaAcida.nombreIndicador = "Prueba Acida";
+		pruebaAcida.nombre = "Prueba Acida";
 		pruebaAcida.ecuacion = "(Caja y bancos + Inversiones) / Pasivo Corriente";
 		RepositorioIndicadores.instance().agregarIndicador(pruebaAcida);
 	}

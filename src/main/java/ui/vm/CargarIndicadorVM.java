@@ -38,34 +38,8 @@ public class CargarIndicadorVM {
 	}
 
 	public void cargarIndicador()  {
-		Indicador indicador = armarIndicador();
-		validarIndicador(indicador);
-		RepositorioIndicadores.instance().agregarIndicador(indicador);
+		RepositorioIndicadores.instance().agregarIndicadorAPartirDe(indicador);
 		ObservableUtils.firePropertyChanged(this, "indicadores");
-	}
-	
-	private void validarIndicador(Indicador indicador){
-		ecuacionContieneAlNombre(indicador);
-		indicadorExistente(indicador);
-		new AnalizadorDeIndicadores(null).scan(indicador).parser();
-	}
-	
-	private void indicadorExistente(Indicador indicador) {
-		if(RepositorioIndicadores.instance().contieneElIndicador(indicador.nombreIndicador))
-			throw new RuntimeException("El indicador ya existe");
-	}
-
-	private void ecuacionContieneAlNombre(Indicador indicador){
-		if(indicador.ecuacion.contains(indicador.nombreIndicador))
-			throw new RuntimeException("El indicador no puede llamarse a si mismo");
-	}
-	
-	public Indicador armarIndicador(){
-		String[] partesDelIndicador = indicador.split("=");
-		Indicador indicador = new Indicador();
-		indicador.setNombreIndicador(partesDelIndicador[0].trim());
-		indicador.setEcuacion(partesDelIndicador[1]);
-		return indicador;
 	}
 
 }

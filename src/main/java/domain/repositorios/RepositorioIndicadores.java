@@ -24,30 +24,48 @@ public class RepositorioIndicadores {
 		instance = null;
 	}
 	
-	public void agregarIndicador(Indicador indicador) {
-		RepositorioIndicadores.instance().getIndicadoresCargados().add(indicador);
-	}
-	
 	public List<Indicador> getIndicadoresCargados() {
 		return indicadoresCargados;
 	}
+	
+	public void agregarIndicadorAPartirDe(String indicador) {
+		Indicador indicadorACargar = Indicador.armarApartirDe(indicador);
+		validarIndicador(indicadorACargar);
+		agregarIndicador(indicadorACargar);
+	}
+	
+	public void agregarIndicador(Indicador indicador){
+		RepositorioIndicadores.instance().getIndicadoresCargados().add(indicador);
+	}
+	
+	private void validarIndicador(Indicador indicador){
+		indicador.ecuacionContieneAlNombre();
+		indicadorExistente(indicador);
+		new AnalizadorDeIndicadores(null).scan(indicador).parser();
+	}
+	
+	private void indicadorExistente(Indicador indicador) {
+		if(contieneElIndicador(indicador.nombre))
+			throw new RuntimeException("El indicador ya existe");
+	}
+	
 
 	public Double getValorDelIndicador(Empresa empresa, String indicador) {
 		Indicador indicadorBuscado = buscarIndicador(indicador);
 		return new AnalizadorDeIndicadores(empresa).scan(indicadorBuscado).parser();
 	}
 	
-	public Indicador buscarIndicador(String indicador) {
-		return getIndicadoresCargados().stream().filter(unIndicador -> unIndicador.suNombreEs(indicador)).findFirst()
+	public Indicador buscarIndicador(String nombre) {
+		return getIndicadoresCargados().stream().filter(unIndicador -> unIndicador.suNombreEs(nombre)).findFirst()
 				.get();
 	}
 
-	public boolean contieneElIndicador(String indicador) {
-		return getIndicadoresCargados().stream().anyMatch(unIndicador -> unIndicador.suNombreEs(indicador));
+	public boolean contieneElIndicador(String nombre) {
+		return getIndicadoresCargados().stream().anyMatch(unIndicador -> unIndicador.suNombreEs(nombre));
 	}
 
 	public List<String> getNombresDeIndicadores() {
-		return getIndicadoresCargados().stream().map(unIndicador->unIndicador.nombreIndicador).collect(Collectors.toList());
+		return getIndicadoresCargados().stream().map(unIndicador->unIndicador.nombre).collect(Collectors.toList());
 	}
 
 }

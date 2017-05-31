@@ -11,12 +11,11 @@ import domain.repositorios.RepositorioIndicadores;
 import ui.vm.CargarIndicadorVM;
 
 public class IndicadoresTest {
-	CargarIndicadorVM indicadorVM;
 	Indicador indicadorBuscado;
 	
 	@Before
 	public void init(){
-		this.indicadorVM = new CargarIndicadorVM();
+		
 
 	}
 	@After
@@ -25,13 +24,12 @@ public class IndicadoresTest {
 	}
 	
 	public void cargarIndicador(String indicador){
-		indicadorVM.setIndicador(indicador);
-		indicadorVM.cargarIndicador();
+		RepositorioIndicadores.instance().agregarIndicadorAPartirDe(indicador);
 	}
 	
 	public Indicador buscarIndicador(String indicador){
-		String[] partesDelIndicador = indicador.split("=");
-		return RepositorioIndicadores.instance().buscarIndicador(partesDelIndicador[0].trim());
+		String nombre = Indicador.getNombre(indicador);
+		return RepositorioIndicadores.instance().buscarIndicador(nombre);
 	}
 	
 	public Indicador cargarIndicadorYBuscarlo(String indicador){
@@ -42,7 +40,7 @@ public class IndicadoresTest {
 	@Test
 	public void testSeCargaUnIndicador(){
 		indicadorBuscado = cargarIndicadorYBuscarlo("Juanito y los Clonosaurios = dinousarios + clonacion");
-		assertEquals(indicadorBuscado.nombreIndicador, "Juanito y los Clonosaurios");
+		assertEquals(indicadorBuscado.nombre, "Juanito y los Clonosaurios");
 		assertEquals(indicadorBuscado.ecuacion, " dinousarios + clonacion");
 	}
 	
