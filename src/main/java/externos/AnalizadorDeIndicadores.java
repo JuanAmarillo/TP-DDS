@@ -115,14 +115,6 @@ public class AnalizadorDeIndicadores {
 			return analisisTokens(valor);
 	}
 	
-	private boolean esUnaCuenta(String cuenta){
-		return empresa.contieneLaCuenta(cuenta);
-	}
-	
-	private boolean esUnIndicador(String indicador){
-		return RepositorioIndicadores.instance().contieneElIndicador(indicador);
-	}
-	
 	private Double valorDe(String cuentaOIndicador){
 		if(esUnaCuenta(cuentaOIndicador))
 			return empresa.getValorDeLaCuenta(cuentaOIndicador);
@@ -131,4 +123,13 @@ public class AnalizadorDeIndicadores {
 		
 		throw new RuntimeException("Invalid token");
 	}
+	
+	private boolean esUnaCuenta(String cuenta){
+		return empresa.contieneLaCuenta(cuenta);
+	}
+	
+	private boolean esUnIndicador(String indicador){
+		return RepositorioIndicadores.instance().contieneElIndicador(indicador);
+	}
+	
 }

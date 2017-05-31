@@ -6,22 +6,23 @@ import org.uqbar.commons.utils.Observable;
 
 import domain.Indicador;
 import domain.repositorios.RepositorioIndicadores;
+import externos.AnalizadorDeIndicadores;
 import externos.LevantaArchivoIndicadores;
 
 @Observable
 public class CargarIndicadorVM {
-	public Indicador indicador;
+	public String indicador;
 	public String filePath;
 
 	public CargarIndicadorVM() {
 		super();
 	}
 
-	public Indicador getIndicador() {
+	public String getIndicador() {
 		return indicador;
 	}
 
-	public void setIndicador(Indicador indicador) {
+	public void setIndicador(String indicador) {
 		this.indicador = indicador;
 	}
 
@@ -38,8 +39,21 @@ public class CargarIndicadorVM {
 	}
 
 	public void cargarIndicador() throws IOException {
-		RepositorioIndicadores.instance().agregarIndicador(indicador);
-		//Cómo se puede agregar el indicador manual al archivo?
+		try{
+			Indicador indicador = armarIndicador();
+			new AnalizadorDeIndicadores(null).scan(indicador).parser();
+			RepositorioIndicadores.instance().agregarIndicador(indicador);
+		}catch(RuntimeException e){
+			//Mandar mensaje de errorS
+		}
+	}
+	
+	public Indicador armarIndicador(){
+		String[] partesDelIndicador = indicador.split("=");
+		Indicador indicador = new Indicador();
+		indicador.nombreIndicador = partesDelIndicador[0].trim();
+		indicador.ecuacion = partesDelIndicador[1];
+		return indicador;
 	}
 
 }
