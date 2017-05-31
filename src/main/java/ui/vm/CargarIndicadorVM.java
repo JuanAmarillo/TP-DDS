@@ -40,13 +40,9 @@ public class CargarIndicadorVM {
 	}
 
 	public void cargarIndicador() {
-		try{
-			Indicador indicador = armarIndicador();
-			validarIndicador(indicador);
-			RepositorioIndicadores.instance().agregarIndicador(indicador);
-		}catch(RuntimeException e){
-			//Mandar mensaje de errorS
-		}
+		Indicador indicador = armarIndicador();
+		validarIndicador(indicador);
+		RepositorioIndicadores.instance().agregarIndicador(indicador);
 	}
 	
 	public void validarIndicador(Indicador indicador){
