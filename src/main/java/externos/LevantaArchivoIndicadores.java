@@ -9,7 +9,7 @@ import domain.Indicador;
 import domain.repositorios.RepositorioIndicadores;
 import interfaces.FileLoader;
 
-public class LevantaArchivoIndicadores implements FileLoader {
+public class LevantaArchivoIndicadores implements FileLoader<String> {
 
 	@Override
 	public void cargarArchivo(String filepath) throws IOException {

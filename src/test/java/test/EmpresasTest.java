@@ -5,19 +5,20 @@ import domain.repositorios.RepositorioEmpresas;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import externos.LevantaArchivo;
+import externos.LevantaArchivoEmpresa;
+
 import static org.junit.Assert.*;
 import java.io.IOException;
 import java.util.List;
 
-public class empresasTest {
+public class EmpresasTest {
 	// Auxiliares
 
 	public Empresa cocaCola;
 
 	private void cargarArchivo(String nombreArchivo) {
 		try {
-			new LevantaArchivo().cargarArchivo("src/test/resources/" + nombreArchivo);
+			new LevantaArchivoEmpresa().cargarArchivo("src/test/resources/" + nombreArchivo);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

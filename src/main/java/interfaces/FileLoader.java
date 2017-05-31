@@ -2,6 +2,6 @@ package interfaces;
 
 import java.io.IOException;
 
-public interface FileLoader {
-	public void cargarArchivo(String direccion) throws IOException;
+public interface FileLoader<T> {
+	public void cargarArchivo(T lugarDeCarga) throws IOException;
 }

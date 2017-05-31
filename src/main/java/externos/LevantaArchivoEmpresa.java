@@ -8,10 +8,10 @@ import java.io.IOException;
 import org.codehaus.jackson.map.ObjectMapper;
 import interfaces.*;
 
-public class LevantaArchivo implements FileLoader {
+public class LevantaArchivoEmpresa implements FileLoader<String> {
 	
 	public void cargarArchivo(String filepath) throws IOException {
-		Empresa aDevolver = getEmpresaDelArchivo(filepath);
+		Empresa aDevolver = getEmpresaDelArchivo((String) filepath);
 		RepositorioEmpresas.instance().loadEmpresa(aDevolver);
 	}
 

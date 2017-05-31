@@ -15,9 +15,9 @@ import org.junit.Test;
 
 import domain.*;
 import domain.repositorios.RepositorioEmpresas;
-import externos.LevantaArchivo;
+import externos.LevantaArchivoEmpresa;
 
-public class testMockito {
+public class MockitoTest {
 	public Empresa empresaA;
 	public Empresa empresaB;
 	public Empresa empresaC;
@@ -33,7 +33,7 @@ public class testMockito {
 		empresaB.setCuentas(cuentas);
 	}
 
-	LevantaArchivo loader = mock(LevantaArchivo.class);
+	LevantaArchivoEmpresa loader = mock(LevantaArchivoEmpresa.class);
 
 	private void cargarArchivo(String ruta) throws IOException {
 		loader.cargarArchivo(ruta);

@@ -3,8 +3,7 @@ package ui.vm;
 import java.io.IOException;
 
 import org.uqbar.commons.utils.Observable;
-
-import externos.LevantaArchivo;
+import externos.LevantaArchivoEmpresa;
 
 @Observable
 public class CargarCuentaVM {
@@ -33,7 +32,7 @@ public class CargarCuentaVM {
 	}
 
 	public void cargarEmpresa() throws IOException {
-		new LevantaArchivo().cargarArchivo(filePath);
+		new LevantaArchivoEmpresa().cargarArchivo(filePath);
 	}
 
 }
