@@ -42,9 +42,9 @@ public class AnalizadorDeIndicadores {
 		String token = obtenerSiguienteToken();
 		
 		if(esUnTexto(token))
-			return palabra(token, valor);
+			return palabra(token);
 		if(esUnNumero(token))
-			return numero(token,valor);
+			return numero(token);
 		if(esUnOperador(token))
 			return operador(token,valor);
 		if(esUnParentesis(token))
@@ -75,11 +75,11 @@ public class AnalizadorDeIndicadores {
 		return token.matches("[-+*/]");
 	}
 	
-	private Double palabra(String token,Double valor){
+	private Double palabra(String token){
 		return analizarSiguienteToken(valorDe(token));
 	}
 	
-	private Double numero(String token,Double valor){
+	private Double numero(String token){
 		return analizarSiguienteToken(Double.parseDouble(token));
 	}
 	
@@ -116,6 +116,8 @@ public class AnalizadorDeIndicadores {
 	}
 	
 	private Double valorDe(String cuentaOIndicador){
+		if(empresa == null)
+			return 0.0;
 		if(esUnaCuenta(cuentaOIndicador))
 			return empresa.getValorDeLaCuenta(cuentaOIndicador);
 		if(esUnIndicador(cuentaOIndicador))

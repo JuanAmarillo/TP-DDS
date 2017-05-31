@@ -1,8 +1,9 @@
 package ui.vm;
 
 import java.io.IOException;
+import java.util.List;
 
-import org.eclipse.ui.dialogs.TwoPaneElementSelector;
+import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import domain.Indicador;
@@ -15,9 +16,8 @@ public class CargarIndicadorVM {
 	public String indicador;
 	public String filePath;
 
-	public CargarIndicadorVM() {
-		super();
-	}
+	public List<String> indicadores;
+	public String indicadorSeleccionado;
 
 	public String getIndicador() {
 		return indicador;
@@ -34,6 +34,18 @@ public class CargarIndicadorVM {
 	public void setFilepath(String filepath) {
 		this.filePath = filepath;
 	}
+	
+	public List<String> getIndicadores() {
+		return RepositorioIndicadores.instance().getNombresDeIndicadores();
+	}
+	
+	public String getIndicadorSeleccionado() {
+		return indicadorSeleccionado;
+	}
+	
+	public void setIndicadorSeleccionado(String indicadorSeleccionado) {
+		this.indicadorSeleccionado = indicadorSeleccionado;
+	}
 
 	public void cargarArchivoIndicadores() throws IOException {
 		new LevantaArchivoIndicadores().cargarArchivo(filePath);
@@ -43,6 +55,7 @@ public class CargarIndicadorVM {
 		Indicador indicador = armarIndicador();
 		validarIndicador(indicador);
 		RepositorioIndicadores.instance().agregarIndicador(indicador);
+		ObservableUtils.firePropertyChanged(this, "indicadores");
 	}
 	
 	public void validarIndicador(Indicador indicador){

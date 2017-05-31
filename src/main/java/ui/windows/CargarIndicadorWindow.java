@@ -4,13 +4,17 @@ import java.io.IOException;
 
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.layout.HorizontalLayout;
+import org.uqbar.arena.layout.VerticalLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.FileSelector;
 import org.uqbar.arena.widgets.Label;
+import org.uqbar.arena.widgets.List;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
+
+import domain.Indicador;
 import ui.vm.CargarIndicadorVM;
 
 @SuppressWarnings("serial")
@@ -22,29 +26,48 @@ public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 
 	@Override
 	protected void createFormPanel(Panel formPanel) {
-		Panel form = new Panel(formPanel);
-		form.setLayout(new ColumnLayout(2));
-		this.setTitle("Cargar indicador");
-
-		new Label(form).setText("Cargar indicador personalizado");
-		new TextBox(form).setWidth(250);
-		// Bindear el textbox para agregar un indicador
+		Panel indicadoresPanel = new Panel(formPanel);
+		indicadoresPanel.setLayout(new HorizontalLayout());
+		
+		this.listaIndicadores(indicadoresPanel);
+		this.indicadorPersonalizado(indicadoresPanel);
 
 	}
+	
+	public void listaIndicadores(Panel indicadoresPanel){
+		Panel form = new Panel(indicadoresPanel);
+		new Label(form).setText("Indicadores Cargados");
+		List<Indicador> indicadores = new List<Indicador>(form);
+		indicadores.setWidth(150);
+		indicadores.setHeight(100);
+		indicadores.bindItemsToProperty("indicadores");
+		indicadores.bindValueToProperty("indicadorSeleccionado");
+	}
+	
+	public void indicadorPersonalizado(Panel indicadoresPanel){
+		Panel form = new Panel(indicadoresPanel);
+		form.setLayout(new ColumnLayout(1));
 
+		new Label(form).setText("Indicador personalizado");
+		new TextBox(form).setWidth(250).bindValueToProperty("indicador");
+		new Button(form).setCaption("Cargar indicador  ").onClick(this::cargarIndicador);
+		new Button(form).setCaption("Eliminar indicador").onClick(this::eliminarIndicador);
+	}
+	
 	@Override
 	protected void addActions(Panel panelActions) {
-		panelActions.setLayout(new HorizontalLayout());
 		new Button(panelActions).setCaption("Volver").onClick(this::accept).setAsDefault();
-		new Button(panelActions).setCaption("Cargar indicador").onClick(this::cargarIndicador);
 	}
 
+	public void eliminarIndicador(){
+		
+	}
+	
 	public void cargarIndicador() {
 		try {
 			this.getModelObject().cargarIndicador();
-			this.showInfo("El indicador se ha cargado con éxito");
 		} catch (RuntimeException e) {
-			this.showWarning("No se pudo cargar el indicador");
+			this.showWarning(e.getMessage());
 		}
 	}
 }

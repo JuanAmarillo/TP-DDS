@@ -2,6 +2,7 @@ package domain.repositorios;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import domain.Empresa;
 import domain.Indicador;
@@ -24,10 +25,10 @@ public class RepositorioIndicadores {
 	}
 	
 	public void agregarIndicador(Indicador indicador) {
-		RepositorioIndicadores.getIndicadoresCargados().add(indicador);
+		RepositorioIndicadores.instance().getIndicadoresCargados().add(indicador);
 	}
 	
-	public static List<Indicador> getIndicadoresCargados() {
+	public List<Indicador> getIndicadoresCargados() {
 		return indicadoresCargados;
 	}
 
@@ -43,6 +44,10 @@ public class RepositorioIndicadores {
 
 	public boolean contieneElIndicador(String indicador) {
 		return getIndicadoresCargados().stream().anyMatch(unIndicador -> unIndicador.suNombreEs(indicador));
+	}
+
+	public List<String> getNombresDeIndicadores() {
+		return getIndicadoresCargados().stream().map(unIndicador->unIndicador.nombreIndicador).collect(Collectors.toList());
 	}
 
 }
