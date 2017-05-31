@@ -2,6 +2,7 @@ package ui.vm;
 
 import java.io.IOException;
 
+import org.eclipse.ui.dialogs.TwoPaneElementSelector;
 import org.uqbar.commons.utils.Observable;
 
 import domain.Indicador;
@@ -38,14 +39,20 @@ public class CargarIndicadorVM {
 		new LevantaArchivoIndicadores().cargarArchivo(filePath);
 	}
 
-	public void cargarIndicador() throws IOException {
+	public void cargarIndicador() {
 		try{
 			Indicador indicador = armarIndicador();
-			new AnalizadorDeIndicadores(null).scan(indicador).parser();
+			validarIndicador(indicador);
 			RepositorioIndicadores.instance().agregarIndicador(indicador);
 		}catch(RuntimeException e){
 			//Mandar mensaje de errorS
 		}
+	}
+	
+	public void validarIndicador(Indicador indicador){
+		if(indicador.ecuacion.contains(indicador.nombreIndicador))
+			throw new RuntimeException("El indicador no puede llamarse a si mismo");
+		new AnalizadorDeIndicadores(null).scan(indicador).parser();
 	}
 	
 	public Indicador armarIndicador(){
