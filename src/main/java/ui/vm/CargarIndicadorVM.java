@@ -1,6 +1,5 @@
 package ui.vm;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.uqbar.commons.model.ObservableUtils;
@@ -14,7 +13,6 @@ import externos.LevantaArchivoIndicadores;
 @Observable
 public class CargarIndicadorVM {
 	public String indicador;
-	public String filePath;
 
 	public List<String> indicadores;
 	public String indicadorSeleccionado;
@@ -25,14 +23,6 @@ public class CargarIndicadorVM {
 
 	public void setIndicador(String indicador) {
 		this.indicador = indicador;
-	}
-
-	public String getFilePath() {
-		return filePath;
-	}
-
-	public void setFilepath(String filepath) {
-		this.filePath = filepath;
 	}
 	
 	public List<String> getIndicadores() {
@@ -47,10 +37,6 @@ public class CargarIndicadorVM {
 		this.indicadorSeleccionado = indicadorSeleccionado;
 	}
 
-	public void cargarArchivoIndicadores() throws IOException {
-		new LevantaArchivoIndicadores().cargarArchivo(filePath);
-	}
-
 	public void cargarIndicador()  {
 		Indicador indicador = armarIndicador();
 		validarIndicador(indicador);
@@ -58,10 +44,20 @@ public class CargarIndicadorVM {
 		ObservableUtils.firePropertyChanged(this, "indicadores");
 	}
 	
-	public void validarIndicador(Indicador indicador){
+	private void validarIndicador(Indicador indicador){
+		ecuacionContieneAlNombre(indicador);
+		indicadorExistente(indicador);
+		new AnalizadorDeIndicadores(null).scan(indicador).parser();
+	}
+	
+	private void indicadorExistente(Indicador indicador) {
+		if(RepositorioIndicadores.instance().contieneElIndicador(indicador.nombreIndicador))
+			throw new RuntimeException("El indicador ya existe");
+	}
+
+	private void ecuacionContieneAlNombre(Indicador indicador){
 		if(indicador.ecuacion.contains(indicador.nombreIndicador))
 			throw new RuntimeException("El indicador no puede llamarse a si mismo");
-		new AnalizadorDeIndicadores(null).scan(indicador).parser();
 	}
 	
 	public Indicador armarIndicador(){

@@ -105,6 +105,5 @@ public class EquationsTest {
 		analizador.scan(indicador).parser();
 	}
 	
-	
 
 }

@@ -37,7 +37,7 @@ public class RepositorioIndicadores {
 		return new AnalizadorDeIndicadores(empresa).scan(indicadorBuscado).parser();
 	}
 	
-	private Indicador buscarIndicador(String indicador) {
+	public Indicador buscarIndicador(String indicador) {
 		return getIndicadoresCargados().stream().filter(unIndicador -> unIndicador.suNombreEs(indicador)).findFirst()
 				.get();
 	}
