@@ -39,7 +39,7 @@ public class CargarIndicadorVM {
 		new LevantaArchivoIndicadores().cargarArchivo(filePath);
 	}
 
-	public void cargarIndicador() {
+	public void cargarIndicador()  {
 		Indicador indicador = armarIndicador();
 		validarIndicador(indicador);
 		RepositorioIndicadores.instance().agregarIndicador(indicador);
@@ -54,8 +54,8 @@ public class CargarIndicadorVM {
 	public Indicador armarIndicador(){
 		String[] partesDelIndicador = indicador.split("=");
 		Indicador indicador = new Indicador();
-		indicador.nombreIndicador = partesDelIndicador[0].trim();
-		indicador.ecuacion = partesDelIndicador[1];
+		indicador.setNombreIndicador(partesDelIndicador[0].trim());
+		indicador.setEcuacion(partesDelIndicador[1]);
 		return indicador;
 	}
 

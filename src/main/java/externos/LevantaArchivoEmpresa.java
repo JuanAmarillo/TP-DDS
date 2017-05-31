@@ -11,7 +11,7 @@ import interfaces.*;
 public class LevantaArchivoEmpresa implements FileLoader<String> {
 	
 	public void cargarArchivo(String filepath) throws IOException {
-		Empresa aDevolver = getEmpresaDelArchivo((String) filepath);
+		Empresa aDevolver = getEmpresaDelArchivo(filepath);
 		RepositorioEmpresas.instance().loadEmpresa(aDevolver);
 	}
 
