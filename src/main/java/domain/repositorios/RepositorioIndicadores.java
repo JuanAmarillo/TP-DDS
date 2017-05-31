@@ -46,6 +46,13 @@ public class RepositorioIndicadores {
 	public void agregarIndicador(Indicador indicador) {
 		RepositorioIndicadores.instance().getIndicadoresCargados().add(indicador);
 	}
+	
+	public void agregarIndicadores(List<Indicador>Indicadores) {
+		for(Indicador indicador: Indicadores){
+			agregarIndicador(indicador);
+		}
+			
+	}
 
 	private void validarIndicador(Indicador indicador) {
 		indicador.ecuacionContieneAlNombre();
