@@ -35,9 +35,17 @@ public class Indicador {
 	}
 	
 	public static String[] separarIndicadorEnPartes(String indicador){
-		return indicador.split("=");
+		String[] partesDelIndicador =  indicador.split("=");
+		return indicadorSiTieneUnaAsignacion(partesDelIndicador);
 	}
 	
+	private static String[] indicadorSiTieneUnaAsignacion(String[] partesDelIndicador) {
+		if(partesDelIndicador.length == 2)
+			return partesDelIndicador;
+		else
+			throw new RuntimeException("El indicador debe tener solo una asignacion");
+	}
+
 	public static Indicador armarApartirDe(String indicador){
 		Indicador unIndicador = new Indicador();
 		unIndicador.setNombreIndicador(getNombre(indicador));

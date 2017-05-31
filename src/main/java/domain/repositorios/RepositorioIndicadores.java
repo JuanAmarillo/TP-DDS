@@ -65,7 +65,7 @@ public class RepositorioIndicadores {
 
 	public Indicador buscarIndicador(String nombre) {
 		return getIndicadoresCargados().stream().filter(unIndicador -> unIndicador.suNombreEs(nombre)).findFirst()
-				.get();
+				.orElseThrow(()-> new RuntimeException("Seleccione un indicador a borrar"));
 	}
 
 	public boolean contieneElIndicador(String nombre) {

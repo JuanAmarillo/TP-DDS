@@ -55,21 +55,36 @@ public class IndicadoresTest {
 		assertEquals(0,RepositorioIndicadores.instance().getIndicadoresCargados().size());
 
 	}
+	
+	@Test(expected = RuntimeException.class)
+	public void testBorrrarUnIndicadorNoExistenteFalla(){
+		eliminarIndicador("No te escucho soy de palo tengo orejas de pescado = 2");
+	}
 
 	@Test(expected = RuntimeException.class)
 	public void testIndicadorConElMismoNombreEnSuEcuacionFalla() {
-		cargarIndicadorYBuscarlo("indicador = indicador    ");
+		cargarIndicadorYBuscarlo("indicador = indicador  +3  ");
 	}
 
 	@Test(expected = RuntimeException.class)
 	public void testIndicadorConOperacionInvalidaFalla() {
-		cargarIndicadorYBuscarlo("Buenos = !malos");
+		cargarIndicador("Buenos = !malos");
+	}
+	
+	@Test(expected = RuntimeException.class)
+	public void testIndicadorConVariasAsignacionesFalla(){
+		cargarIndicador("Indicador = soy el verdadero = yo soy el verdadero");
+	}
+	
+	@Test(expected = RuntimeException.class)
+	public void testIndicadorSinAsignacionFalla(){
+		cargarIndicador("hola");
 	}
 
 	@Test(expected = RuntimeException.class)
 	public void testAgregarUnIndicadorYaExistenteFalla() {
-		cargarIndicadorYBuscarlo("Legislacion = basura");
-		cargarIndicadorYBuscarlo("Legislacion = mas basura");
+		cargarIndicador("Legislacion = basura");
+		cargarIndicador("Legislacion = mas basura");
 	}
 
 }
