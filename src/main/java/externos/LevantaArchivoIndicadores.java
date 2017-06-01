@@ -4,6 +4,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.util.List;
@@ -28,18 +31,40 @@ public class LevantaArchivoIndicadores implements FileLoader<String> {
 		return indicadoresADevolver;
 	}
 
-	public void agregarIndicadorAlJson(Indicador ind) throws IOException{
-		DatosIndicadores inds = new DatosIndicadores();
-		inds.getIndicadores().addAll(RepositorioIndicadores.instance().getIndicadoresCargados());
-		inds.getIndicadores().add(ind);
+	public void actualizarArchivoJson() throws IOException{
+		DatosIndicadores inds = obtenerIndicadores();
+		String jsonIndicadores = obtenerJsonCompleto(inds);
+		borrarArchivoAnterior();
+		crearArchivoNuevo(jsonIndicadores);
+	}
+
+	private String obtenerJsonCompleto(DatosIndicadores inds)
+			throws IOException, JsonGenerationException, JsonMappingException {
 		ObjectMapper mapper = new ObjectMapper();
+		mapper.setVisibilityChecker(mapper.getSerializationConfig().getDefaultVisibilityChecker()
+                .withFieldVisibility(JsonAutoDetect.Visibility.ANY)
+                .withGetterVisibility(JsonAutoDetect.Visibility.NONE)
+                .withSetterVisibility(JsonAutoDetect.Visibility.NONE)
+                .withCreatorVisibility(JsonAutoDetect.Visibility.NONE));
 		String jsonIndicadores = mapper.writeValueAsString(inds);
-		System.out.println(fp);
-		File file = new File(fp);
-		file.delete();
+		return jsonIndicadores;
+	}
+
+	private void crearArchivoNuevo(String jsonIndicadores) throws IOException {
 		FileWriter f = new FileWriter(fp,false);
 		f.write(jsonIndicadores);
 		f.close();
+	}
+
+	private DatosIndicadores obtenerIndicadores() {
+		DatosIndicadores inds = new DatosIndicadores();
+		inds.getIndicadores().addAll(RepositorioIndicadores.instance().getIndicadoresCargados());
+		return inds;
+	}
+
+	private void borrarArchivoAnterior() {
+		File file = new File(fp);
+		file.delete();
 	}
 
 }

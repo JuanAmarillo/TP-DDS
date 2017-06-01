@@ -39,9 +39,9 @@ public class ConsultarCuentasVM {
 	public void setEmpresaSeleccionada(Empresa empresaSeleccionada) {
 		this.empresaSeleccionada = empresaSeleccionada;
 		ObservableUtils.firePropertyChanged(this, "periodos");
-
+		ObservableUtils.firePropertyChanged(this, "calcularValores");
 	}
-
+	
 	public Set<String> getPeriodos() {
 		return empresaSeleccionada.getPeriodos();
 	}

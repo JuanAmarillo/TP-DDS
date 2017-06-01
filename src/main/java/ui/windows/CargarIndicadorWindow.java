@@ -60,8 +60,8 @@ public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 	public void eliminarIndicador() {
 		try {
 			this.getModelObject().eliminarIndicador();
-		} catch (RuntimeException e) {
-			this.showWarning(e.getMessage());
+		} catch (IOException e) {
+			this.showWarning("La eliminacion no se realizo con exito");
 		}
 
 	}
@@ -69,8 +69,8 @@ public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 	public void cargarIndicador() {
 		try {
 			this.getModelObject().cargarIndicador();
-		} catch (RuntimeException | IOException e) {
-			e.printStackTrace();
+		} catch (IOException e) {
+			this.showWarning("El nuevo indicador no se ha cargado con exito");
 		}
 	}
 }
