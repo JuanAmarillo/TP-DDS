@@ -5,12 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 
-import com.google.common.io.Files;
-
-import java.util.Arrays;
 import java.util.List;
 import domain.Indicador;
 import domain.repositorios.RepositorioIndicadores;
