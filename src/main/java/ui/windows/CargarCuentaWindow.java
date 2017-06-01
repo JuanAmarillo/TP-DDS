@@ -13,6 +13,7 @@ import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.arena.windows.Dialog;
 import ui.vm.CargarCuentaVM;
 
+@SuppressWarnings("serial")
 public class CargarCuentaWindow extends Dialog<CargarCuentaVM> {
 
 	public CargarCuentaWindow(WindowOwner parent) {

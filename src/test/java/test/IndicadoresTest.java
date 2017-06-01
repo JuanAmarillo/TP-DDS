@@ -2,16 +2,9 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
-import domain.Cuenta;
 import domain.Empresa;
 import domain.Indicador;
 import domain.repositorios.RepositorioIndicadores;
