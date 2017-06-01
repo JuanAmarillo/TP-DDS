@@ -1,13 +1,16 @@
 package domain;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.uqbar.commons.utils.Observable;
 import domain.Empresa;
 import externos.AnalizadorDeIndicadores;
 
 @Observable
 public class Indicador {
-	public String ecuacion;
 	public String nombre;
+	public String ecuacion;
+
+	@JsonIgnore
 	public Double valor;
 
 	public String getEcuacion() {

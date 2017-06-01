@@ -1,5 +1,7 @@
 package ui.windows;
 
+import java.io.IOException;
+
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.widgets.Button;
@@ -67,8 +69,8 @@ public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 	public void cargarIndicador() {
 		try {
 			this.getModelObject().cargarIndicador();
-		} catch (RuntimeException e) {
-			this.showWarning(e.getMessage());
+		} catch (RuntimeException | IOException e) {
+			e.printStackTrace();
 		}
 	}
 }

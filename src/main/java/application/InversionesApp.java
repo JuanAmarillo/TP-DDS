@@ -11,7 +11,7 @@ import ui.windows.CargaDataWindow;
 public class InversionesApp extends Application {
 	public static void main(String[] args) {
 		try {
-			new LevantaArchivoIndicadores().cargarArchivo("src/test/resources/Indicadores.json");
+			new LevantaArchivoIndicadores().cargarArchivo("");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

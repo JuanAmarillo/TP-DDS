@@ -1,11 +1,14 @@
 package ui.vm;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
+import domain.Indicador;
 import domain.repositorios.RepositorioIndicadores;
+import externos.LevantaArchivoIndicadores;
 
 @Observable
 public class CargarIndicadorVM {
@@ -34,8 +37,9 @@ public class CargarIndicadorVM {
 		this.indicadorSeleccionado = indicadorSeleccionado;
 	}
 
-	public void cargarIndicador() {
-		RepositorioIndicadores.instance().agregarIndicadorAPartirDe(indicador);
+	public void cargarIndicador() throws IOException{
+		Indicador ind = RepositorioIndicadores.instance().agregarIndicadorAPartirDe(indicador);
+		new LevantaArchivoIndicadores().agregarIndicadorAlJson(ind);
 		ObservableUtils.firePropertyChanged(this, "indicadores");
 	}
 

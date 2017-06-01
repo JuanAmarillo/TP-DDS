@@ -28,10 +28,11 @@ public class RepositorioIndicadores {
 		return indicadoresCargados;
 	}
 
-	public void agregarIndicadorAPartirDe(String indicador) {
+	public Indicador agregarIndicadorAPartirDe(String indicador) {
 		Indicador indicadorACargar = Indicador.armarApartirDe(indicador);
 		validarIndicador(indicadorACargar);
 		agregarIndicador(indicadorACargar);
+		return indicadorACargar;
 	}
 	
 	public void eliminarIndicadorAPartirDe(String nombre) {
