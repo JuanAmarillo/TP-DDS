@@ -1,1 +1,29 @@
-{"indicadores":[{"nombre":"Prueba Acida","ecuacion":"(Caja y bancos + Inversiones) / Pasivo Corriente","changeSupport":{"propertyChangeListeners":[]}},{"nombre":"Pasivo Corriente","ecuacion":"Deudas Bancarias + Deudas Comerciales + Deudas del Estado","changeSupport":{"propertyChangeListeners":[]}},{"nombre":"Cualquiera","ecuacion":"FDS+10","changeSupport":{"propertyChangeListeners":[]}},{"nombre":"a","ecuacion":" 23","changeSupport":{"propertyChangeListeners":[]}},{"nombre":"a","ecuacion":" 23","changeSupport":{"propertyChangeListeners":[]}}]}
+{
+ 	"indicadores":[
+ 	"indicadores":[
+ 		{
+ 		{
+-		"nombreIndicador":"Prueba Acida",
++		"nombre":"Prueba Acida",
+ 		"ecuacion":"(Caja y bancos + Inversiones) / Pasivo Corriente"
+ 		"ecuacion":"(Caja y bancos + Inversiones) / Pasivo Corriente"
+ 		},
+ 		},
+ 		{
+ 		{
+-		"nombreIndicador":"Pasivo Corriente",
++		"nombre":"Pasivo Corriente",
+ 		"ecuacion":"Deudas Bancarias + Deudas Comerciales + Deudas del Estado"
+ 		"ecuacion":"Deudas Bancarias + Deudas Comerciales + Deudas del Estado"
+ 		},
+ 		},
+ 		{
+ 		{
+-		"nombreIndicador":"Cualquiera",
++		"nombre":"Cualquiera",
+ 		"ecuacion":"FDS+10"
+ 		"ecuacion":"FDS+10"
+ 		}
+ 		}
+ 	]
+ 	]
