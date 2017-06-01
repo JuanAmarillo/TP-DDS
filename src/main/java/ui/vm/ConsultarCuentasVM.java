@@ -19,7 +19,7 @@ public class ConsultarCuentasVM {
 	private Cuenta cuentaSeleccionada;
 	private List<Indicador> indicadores;
 	private Indicador indicadorSeleccionado;
-	//private Double valor;
+	
 		
 
 	public ConsultarCuentasVM() {
@@ -54,10 +54,8 @@ public class ConsultarCuentasVM {
 	public void setPeriodoSeleccionado(String periodoSeleccionado) {
 		this.periodoSeleccionado = periodoSeleccionado;
 		ObservableUtils.firePropertyChanged(this, "cuentas");
+		indicadores.forEach(indicador-> indicador.setValor(empresaSeleccionada, periodoSeleccionado));
 		
-		for(Indicador indicador: indicadores){
-			indicador.setValor(empresaSeleccionada,periodoSeleccionado);
-		}
 	}
 
 	public Set<Cuenta> getCuentas() {
@@ -83,13 +81,6 @@ public class ConsultarCuentasVM {
 	public void setIndicadorSeleccionado(Indicador indicadorSeleccionado) {
 		this.indicadorSeleccionado = indicadorSeleccionado;
 	}
-/*
-	public Double getValor() {
-		return valor;
-	}
 
-	public void setValor(Double valor) {
-		this.valor = valor;
-	}*/
 
 }

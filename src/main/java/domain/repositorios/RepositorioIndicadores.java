@@ -48,10 +48,7 @@ public class RepositorioIndicadores {
 	}
 	
 	public void agregarIndicadores(List<Indicador>Indicadores) {
-		for(Indicador indicador: Indicadores){
-			agregarIndicador(indicador);
-		}
-			
+		Indicadores.forEach(indicador-> agregarIndicador(indicador));
 	}
 
 	private void validarIndicador(Indicador indicador) {
