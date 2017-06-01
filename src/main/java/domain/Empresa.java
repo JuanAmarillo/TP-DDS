@@ -40,8 +40,8 @@ public class Empresa {
 		return cuentas.stream().anyMatch(cuentita -> cuentita.esIgualA(cuenta));
 	}
 	
-	public boolean contieneLaCuenta(String nombre){
-		return  cuentas.stream().anyMatch(cuenta -> cuenta.suNombreEs(nombre));
+	public boolean contieneLaCuentaDePeriodo(String nombre,String periodo){
+		return  cuentas.stream().anyMatch(cuenta -> cuenta.deNombre(nombre) && cuenta.dePeriodo(periodo));
 	}
 
 	public Set<Cuenta> getCuentasSegun(String periodo) {
@@ -57,13 +57,9 @@ public class Empresa {
 		return this.getNombre().equals(empresa.getNombre());
 	}
 
-	public Double getValorDeLaCuenta(String cuenta) {
-		return cuentas.stream().filter(c -> c.getNombre().equals(cuenta)).findFirst().get().getBalance();
-	}
-
-	public Double getValorDelIndicador(String indicador) {
-		//Falta implementar
-		return 0.0;
+	public Double getValorDeLaCuenta(String nombre,String periodo) {
+		return cuentas.stream().filter(cuenta -> cuenta.deNombre(nombre) && cuenta.dePeriodo(periodo)).findFirst().
+				get().getBalance();
 	}
 	
 	

@@ -57,7 +57,7 @@ public class RepositorioIndicadores {
 	private void validarIndicador(Indicador indicador) {
 		indicador.ecuacionContieneAlNombre();
 		indicadorExistente(indicador);
-		new AnalizadorDeIndicadores(null).scan(indicador).parser();
+		new AnalizadorDeIndicadores(null,null).scan(indicador).parser();
 	}
 
 	private void indicadorExistente(Indicador indicador) {
@@ -65,9 +65,9 @@ public class RepositorioIndicadores {
 			throw new RuntimeException("El indicador ya existe");
 	}
 
-	public Double getValorDelIndicador(Empresa empresa, String indicador) {
+	public Double getValorDelIndicador(Empresa empresa, String indicador,String periodo) {
 		Indicador indicadorBuscado = buscarIndicador(indicador);
-		return new AnalizadorDeIndicadores(empresa).scan(indicadorBuscado).parser();
+		return new AnalizadorDeIndicadores(empresa,periodo).scan(indicadorBuscado).parser();
 	}
 
 	public Indicador buscarIndicador(String nombre) {

@@ -11,10 +11,12 @@ import domain.repositorios.RepositorioIndicadores;
 
 public class AnalizadorDeIndicadores {
 	private Empresa empresa;
+	private String periodo;
 	private List<String> lexemas;
 	
-	public AnalizadorDeIndicadores(Empresa empresa){
+	public AnalizadorDeIndicadores(Empresa empresa,String periodo){
 		this.empresa = empresa;
+		this.periodo = periodo;
 	}
 	
 	public AnalizadorDeIndicadores scan(Indicador indicador) {
@@ -119,15 +121,15 @@ public class AnalizadorDeIndicadores {
 		if(empresa == null)
 			return 0.0;
 		if(esUnaCuenta(cuentaOIndicador))
-			return empresa.getValorDeLaCuenta(cuentaOIndicador);
+			return empresa.getValorDeLaCuenta(cuentaOIndicador,periodo);
 		if(esUnIndicador(cuentaOIndicador))
-			return RepositorioIndicadores.instance().getValorDelIndicador(empresa,cuentaOIndicador);
+			return RepositorioIndicadores.instance().getValorDelIndicador(empresa,cuentaOIndicador,periodo);
 		
 		throw new RuntimeException("Invalid token");
 	}
 	
 	private boolean esUnaCuenta(String cuenta){
-		return empresa.contieneLaCuenta(cuenta);
+		return empresa.contieneLaCuentaDePeriodo(cuenta, periodo);
 	}
 	
 	private boolean esUnIndicador(String indicador){

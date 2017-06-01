@@ -30,8 +30,8 @@ public class Indicador {
 		return valor;
 	}
 	
-	public void setValor(Empresa empresa) {
-		this.valor = new AnalizadorDeIndicadores(empresa).scan(this).parser();
+	public void setValor(Empresa empresa,String periodo) {
+		this.valor = new AnalizadorDeIndicadores(empresa,periodo).scan(this).parser();
 	}
 		
 	public boolean suNombreEs(String indicador) {

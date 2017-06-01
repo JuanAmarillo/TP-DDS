@@ -4,7 +4,8 @@ import java.io.File;
 import java.io.IOException;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import java.util.Arrays;
+import org.codehaus.jackson.type.TypeReference;
+
 import java.util.List;
 import domain.Indicador;
 import domain.repositorios.RepositorioIndicadores;

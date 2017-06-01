@@ -45,11 +45,18 @@ public class Cuenta {
 	}
 
 	public Boolean esIgualA(Cuenta cuenta) {
-		return (cuenta.getBalance().equals(this.balance) && suNombreEs(cuenta.getNombre())
-				&& cuenta.getPeriodo().equals(this.periodo));
+		return (deBalance(cuenta.getBalance()) && deNombre(cuenta.getNombre())&& dePeriodo(cuenta.getPeriodo()));
 	}
 
-	public Boolean suNombreEs(String cuenta) {
-		return this.getNombre().equals(cuenta);
+	public Boolean deNombre(String nombre) {
+		return this.getNombre().equals(nombre);
+	}
+
+	public boolean dePeriodo(String periodo) {
+		return this.getPeriodo().equals(periodo);
+	}
+	
+	public boolean deBalance(Double balance){
+		return this.getBalance().equals(balance);
 	}
 }
