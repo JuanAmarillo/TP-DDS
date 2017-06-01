@@ -4,8 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.type.TypeReference;
-
+import java.util.Arrays;
 import java.util.List;
 import domain.Indicador;
 import domain.repositorios.RepositorioIndicadores;
@@ -22,7 +21,7 @@ public class LevantaArchivoIndicadores implements FileLoader<String> {
 
 	public List<Indicador> getIndicadoresDelArchivo(String filepath) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
-		List<Indicador> indicadoresADevolver = mapper.readValue(new File(filepath), new TypeReference<List<Indicador>>(){});
+		List<Indicador> indicadoresADevolver = Arrays.asList(mapper.readValue(new File(filepath), Indicador[].class));
 		return indicadoresADevolver;
 	}
 

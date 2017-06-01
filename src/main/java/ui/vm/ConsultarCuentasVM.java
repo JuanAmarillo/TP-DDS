@@ -8,6 +8,7 @@ import org.uqbar.commons.utils.Observable;
 
 import domain.*;
 import domain.repositorios.RepositorioEmpresas;
+import domain.repositorios.RepositorioIndicadores;
 
 @Observable
 public class ConsultarCuentasVM {
@@ -18,10 +19,13 @@ public class ConsultarCuentasVM {
 	private Cuenta cuentaSeleccionada;
 	private List<Indicador> indicadores;
 	private Indicador indicadorSeleccionado;
+	//private Double valor;
+		
 
 	public ConsultarCuentasVM() {
 		this.empresas = RepositorioEmpresas.instance().getEmpresasCargadas();
 		this.setEmpresaSeleccionada(this.empresas.get(0));
+		this.indicadores = RepositorioIndicadores.instance().getIndicadoresCargados();
 	}
 
 	public List<Empresa> getEmpresas() {
@@ -50,6 +54,9 @@ public class ConsultarCuentasVM {
 	public void setPeriodoSeleccionado(String periodoSeleccionado) {
 		this.periodoSeleccionado = periodoSeleccionado;
 		ObservableUtils.firePropertyChanged(this, "cuentas");
+		for(Indicador indicador: indicadores){
+			indicador.setValor(empresaSeleccionada);
+		}
 	}
 
 	public Set<Cuenta> getCuentas() {
@@ -68,10 +75,6 @@ public class ConsultarCuentasVM {
 		return indicadores;
 	}
 
-	public void setIndicadores(List<Indicador> indicadores) {
-		this.indicadores = indicadores;
-	}
-
 	public Indicador getIndicadorSeleccionado() {
 		return indicadorSeleccionado;
 	}
@@ -79,5 +82,13 @@ public class ConsultarCuentasVM {
 	public void setIndicadorSeleccionado(Indicador indicadorSeleccionado) {
 		this.indicadorSeleccionado = indicadorSeleccionado;
 	}
+/*
+	public Double getValor() {
+		return valor;
+	}
+
+	public void setValor(Double valor) {
+		this.valor = valor;
+	}*/
 
 }

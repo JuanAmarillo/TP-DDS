@@ -1,8 +1,14 @@
 package domain;
 
+import org.uqbar.commons.utils.Observable;
+import domain.Empresa;
+import externos.AnalizadorDeIndicadores;
+
+@Observable
 public class Indicador {
 	public String ecuacion;
 	public String nombre;
+	public Double valor;
 
 	public String getEcuacion() {
 		return ecuacion;
@@ -19,7 +25,15 @@ public class Indicador {
 	public void setNombreIndicador(String nombre) {
 		this.nombre = nombre;
 	}
-
+	
+	public Double getValor() {
+		return valor;
+	}
+	
+	public void setValor(Empresa empresa) {
+		this.valor = new AnalizadorDeIndicadores(empresa).scan(this).parser();
+	}
+		
 	public boolean suNombreEs(String indicador) {
 		return this.nombre.equals(indicador);
 	}

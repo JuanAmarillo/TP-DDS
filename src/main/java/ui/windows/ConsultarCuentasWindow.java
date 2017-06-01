@@ -12,6 +12,7 @@ import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 
 import domain.Cuenta;
+import domain.Indicador;
 import domain.Empresa;
 import ui.vm.ConsultarCuentasVM;
 
@@ -25,6 +26,7 @@ public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasVM> {
 	@Override
 	protected void createFormPanel(Panel formPanel) {
 		this.TablaCuentas(formPanel);
+		this.TablaIndicadores(formPanel);
 		this.selectorEmpresasPeriodos(formPanel);
 
 	}
@@ -39,6 +41,18 @@ public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasVM> {
 
 		new Column<Cuenta>(cuentas).setTitle("Cuenta").setFixedSize(150).bindContentsToProperty("nombre");
 		new Column<Cuenta>(cuentas).setTitle("Balance").setFixedSize(150).bindContentsToProperty("balance");
+	}
+	
+	protected void TablaIndicadores(Panel formPanel) {
+		Panel formTabla = new Panel(formPanel);
+		formTabla.setLayout(new HorizontalLayout());
+
+		Table<Indicador> indicadores = new Table<Indicador>(formTabla, Indicador.class);
+		indicadores.bindItemsToProperty("indicadores");
+		indicadores.bindValueToProperty("indicadorSeleccionado");
+
+		new Column<Indicador>(indicadores).setTitle("Indicador").setFixedSize(150).bindContentsToProperty("nombre");
+		new Column<Indicador>(indicadores).setTitle("Valor").setFixedSize(150).bindContentsToProperty("valor");
 	}
 
 	protected void selectorEmpresasPeriodos(Panel formPanel) {
