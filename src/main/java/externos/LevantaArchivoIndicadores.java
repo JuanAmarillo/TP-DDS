@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import domain.Indicador;
 import domain.repositorios.RepositorioIndicadores;
+import etc.DatosIndicadores;
 import interfaces.FileLoader;
 
 public class LevantaArchivoIndicadores implements FileLoader<String> {
@@ -15,13 +16,13 @@ public class LevantaArchivoIndicadores implements FileLoader<String> {
 
 	@Override
 	public void cargarArchivo(String filepath) throws IOException {
-		List<Indicador>indicadoresADevolver = getIndicadoresDelArchivo(filepath);
+		List<Indicador>indicadoresADevolver = getIndicadoresDelArchivo(filepath).getIndicadores();
 		RepositorioIndicadores.instance().agregarIndicadores(indicadoresADevolver);
 	}
 
-	public List<Indicador> getIndicadoresDelArchivo(String filepath) throws IOException {
+	public DatosIndicadores getIndicadoresDelArchivo(String filepath) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
-		List<Indicador> indicadoresADevolver = Arrays.asList(mapper.readValue(new File(filepath), Indicador[].class));
+		DatosIndicadores indicadoresADevolver = mapper.readValue(new File(filepath), DatosIndicadores.class);
 		return indicadoresADevolver;
 	}
 
