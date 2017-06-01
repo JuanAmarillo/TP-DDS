@@ -38,16 +38,7 @@ public class IndicadoresTest {
 		cargarIndicador(indicador);
 		return buscarIndicador(indicador);
 	}
-
-	@Before
-	public void init() {
-		emp = new Empresa();
-		Cuenta c = new Cuenta("FDS", "2do Semestre", 500.0);
-		Set<Cuenta> cuentas = new HashSet<Cuenta>();
-		cuentas.add(c);
-		emp.agregarCuentas(cuentas);
-	}
-
+	
 	@After
 	public void finalize() {
 		RepositorioIndicadores.resetSingleton();
