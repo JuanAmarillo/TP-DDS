@@ -84,11 +84,4 @@ public class IndicadoresTest {
 		cargarIndicador("Legislacion = basura");
 		cargarIndicador("Legislacion = mas basura");
 	}
-	
-	@Test(expected = RuntimeException.class)
-	public void testNoAdmiteRepetidos() {
-		cargarIndicador("a = 23");
-		cargarIndicador("a = 24");
-		assertEquals(1,RepositorioIndicadores.instance().getIndicadoresCargados().size());
-	}
 }

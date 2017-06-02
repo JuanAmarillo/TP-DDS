@@ -117,7 +117,7 @@ public class AnalizadorDeIndicadores {
 			return analisisTokens(valor);
 	}
 	
-	private Double valorDe(String cuentaOIndicador){
+	public Double valorDe(String cuentaOIndicador){
 		if(empresa == null)
 			return 0.0;
 		if(esUnaCuenta(cuentaOIndicador))
