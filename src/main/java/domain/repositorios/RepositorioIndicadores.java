@@ -17,6 +17,7 @@ public class RepositorioIndicadores {
 	public static RepositorioIndicadores instance() {
 		if (instance == null) {
 			indicadoresCargados = new ArrayList<Indicador>();
+			agregarPredeterminados();
 			instance = new RepositorioIndicadores();
 		}
 		return instance;
@@ -96,7 +97,7 @@ public class RepositorioIndicadores {
 		return getIndicadoresCargados().stream().map(unIndicador -> unIndicador.getNombre()).collect(Collectors.toList());
 	}
 
-	public void agregarPredeterminados() {
+	public static void agregarPredeterminados() {
 		indicadoresCargados.add(new Pers_Sencillo());
 		indicadoresCargados.add(new Pers_SoloNumeros());
 	}
