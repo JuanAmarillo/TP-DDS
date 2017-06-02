@@ -48,7 +48,7 @@ public class ActualizaArchivos {
 
 	private static DatosIndicadores obtenerIndicadores() {
 		DatosIndicadores inds = new DatosIndicadores();
-		inds.getIndicadores().addAll(RepositorioIndicadores.instance().getIndicadoresCargados());
+		inds.setIndicadores(RepositorioIndicadores.instance().obtenerCustoms());
 		return inds;
 	}
 

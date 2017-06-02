@@ -12,7 +12,7 @@ import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 
 import domain.Cuenta;
-import domain.Indicador;
+import domain.indicadores.IndicadorCustom;
 import domain.Empresa;
 import ui.vm.ConsultarCuentasVM;
 
@@ -47,12 +47,12 @@ public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasVM> {
 		Panel formTabla = new Panel(formPanel);
 		formTabla.setLayout(new HorizontalLayout());
 
-		Table<Indicador> indicadores = new Table<Indicador>(formTabla, Indicador.class);
+		Table<IndicadorCustom> indicadores = new Table<IndicadorCustom>(formTabla, IndicadorCustom.class);
 		indicadores.bindItemsToProperty("indicadores");
 		indicadores.bindValueToProperty("indicadorSeleccionado");
 
-		new Column<Indicador>(indicadores).setTitle("Indicador").setFixedSize(150).bindContentsToProperty("nombre");
-		new Column<Indicador>(indicadores).setTitle("Valor").setFixedSize(150).bindContentsToProperty("valor");
+		new Column<IndicadorCustom>(indicadores).setTitle("Indicador").setFixedSize(150).bindContentsToProperty("nombre");
+		new Column<IndicadorCustom>(indicadores).setTitle("Valor").setFixedSize(150).bindContentsToProperty("valor");
 	}
 
 	protected void selectorEmpresasPeriodos(Panel formPanel) {

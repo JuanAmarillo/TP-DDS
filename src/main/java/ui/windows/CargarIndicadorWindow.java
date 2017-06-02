@@ -12,7 +12,7 @@ import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 
-import domain.Indicador;
+import domain.indicadores.IndicadorCustom;
 import ui.vm.CargarIndicadorVM;
 
 @SuppressWarnings("serial")
@@ -35,7 +35,7 @@ public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 	public void listaIndicadores(Panel indicadoresPanel) {
 		Panel form = new Panel(indicadoresPanel);
 		new Label(form).setText("Indicadores Cargados");
-		List<Indicador> indicadores = new List<Indicador>(form);
+		List<IndicadorCustom> indicadores = new List<IndicadorCustom>(form);
 		indicadores.setWidth(150);
 		indicadores.setHeight(100);
 		indicadores.bindItemsToProperty("indicadores");

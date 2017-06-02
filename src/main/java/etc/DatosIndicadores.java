@@ -3,7 +3,8 @@ package etc;
 import java.util.ArrayList;
 import java.util.List;
 
-import domain.Indicador;
+import domain.indicadores.IndicadorCustom;
+import interfaces.Indicador;
 
 public class DatosIndicadores {
 	List<Indicador> indicadores;

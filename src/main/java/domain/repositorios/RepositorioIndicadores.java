@@ -5,7 +5,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import domain.Empresa;
-import domain.Indicador;
+import domain.indicadores.IndicadorCustom;
+import exceptions.NoSePuedeBorrarUnPredeterminadoException;
+import interfaces.Indicador;
 import externos.AnalizadorDeIndicadores;
 
 public class RepositorioIndicadores {
@@ -27,9 +29,9 @@ public class RepositorioIndicadores {
 	public List<Indicador> getIndicadoresCargados() {
 		return indicadoresCargados;
 	}
-
-	public Indicador agregarIndicadorAPartirDe(String indicador) {
-		Indicador indicadorACargar = Indicador.armarApartirDe(indicador);
+	
+	public IndicadorCustom agregarIndicadorAPartirDe(String indicador) {
+		IndicadorCustom indicadorACargar = IndicadorCustom.armarApartirDe(indicador);
 		validarIndicador(indicadorACargar);
 		agregarIndicador(indicadorACargar);
 		return indicadorACargar;
@@ -39,33 +41,46 @@ public class RepositorioIndicadores {
 		Indicador indicadorASacar = this.buscarIndicador(nombre);
 		eliminarIndicador(indicadorASacar);
 	}
-
-	public void eliminarIndicador(Indicador indicador) {
-		RepositorioIndicadores.instance().getIndicadoresCargados().remove(indicador);
+	
+	public void eliminarIndicador(Indicador indicador) throws NoSePuedeBorrarUnPredeterminadoException{
+		if(indicador.esCustom()) {
+			RepositorioIndicadores.instance().getIndicadoresCargados().remove(indicador);
+		}
+		else {
+			throw new NoSePuedeBorrarUnPredeterminadoException();
+		}
+	}
+	
+	public List<Indicador> obtenerCustoms() {
+		List<Indicador> lista = new ArrayList<Indicador>();
+		lista.addAll(indicadoresCargados.stream().filter(ind -> ind.esCustom()).collect(Collectors.toList()));
+		return lista;
 	}
 
-	public void agregarIndicador(Indicador indicador) {
+	public void agregarIndicador(IndicadorCustom indicador) {
 		RepositorioIndicadores.instance().getIndicadoresCargados().add(indicador);
 	}
 	
-	public void agregarIndicadores(List<Indicador>Indicadores) {
-		Indicadores.forEach(indicador-> agregarIndicador(indicador));
+	public void agregarIndicadores(List<Indicador> indicadores) {
+		indicadoresCargados.addAll(indicadores);
 	}
 
-	private void validarIndicador(Indicador indicador) {
+	private void validarIndicador(IndicadorCustom indicador) {
 		indicador.ecuacionContieneAlNombre();
 		indicadorExistente(indicador);
 		new AnalizadorDeIndicadores(null,null).scan(indicador).parser();
 	}
 
-	private void indicadorExistente(Indicador indicador) {
+	private void indicadorExistente(IndicadorCustom indicador) {
 		if (contieneElIndicador(indicador.nombre))
 			throw new RuntimeException("El indicador ya existe");
 	}
 
 	public Double getValorDelIndicador(Empresa empresa, String indicador,String periodo) {
 		Indicador indicadorBuscado = buscarIndicador(indicador);
-		return new AnalizadorDeIndicadores(empresa,periodo).scan(indicadorBuscado).parser();
+		// ACA CAMBIA LA FORMA DEL CALCULO DEL INDICADOR
+		//return new AnalizadorDeIndicadores(empresa,periodo).scan(indicadorBuscado).parser();
+		return indicadorBuscado.calcularIndicador(empresa, periodo);
 	}
 
 	public Indicador buscarIndicador(String nombre) {
@@ -78,7 +93,7 @@ public class RepositorioIndicadores {
 	}
 
 	public List<String> getNombresDeIndicadores() {
-		return getIndicadoresCargados().stream().map(unIndicador -> unIndicador.nombre).collect(Collectors.toList());
+		return getIndicadoresCargados().stream().map(unIndicador -> unIndicador.getNombre()).collect(Collectors.toList());
 	}
 
 }

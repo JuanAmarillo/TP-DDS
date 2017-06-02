@@ -7,8 +7,10 @@ import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import domain.*;
+import domain.indicadores.IndicadorCustom;
 import domain.repositorios.RepositorioEmpresas;
 import domain.repositorios.RepositorioIndicadores;
+import interfaces.Indicador;
 
 @Observable
 public class ConsultarCuentasVM {
@@ -18,7 +20,7 @@ public class ConsultarCuentasVM {
 	private String periodoSeleccionado;
 	private Cuenta cuentaSeleccionada;
 	private List<Indicador> indicadores;
-	private Indicador indicadorSeleccionado;
+	private IndicadorCustom indicadorSeleccionado;
 	
 		
 
@@ -53,7 +55,7 @@ public class ConsultarCuentasVM {
 	public void setPeriodoSeleccionado(String periodoSeleccionado) {
 		this.periodoSeleccionado = periodoSeleccionado;
 		ObservableUtils.firePropertyChanged(this, "cuentas");
-		indicadores.forEach(indicador-> indicador.setValor(empresaSeleccionada, periodoSeleccionado));
+		//indicadores.forEach(indicador-> indicador.setValor(empresaSeleccionada, periodoSeleccionado));
 		
 	}
 
@@ -73,11 +75,11 @@ public class ConsultarCuentasVM {
 		return indicadores;
 	}
 
-	public Indicador getIndicadorSeleccionado() {
+	public IndicadorCustom getIndicadorSeleccionado() {
 		return indicadorSeleccionado;
 	}
 
-	public void setIndicadorSeleccionado(Indicador indicadorSeleccionado) {
+	public void setIndicadorSeleccionado(IndicadorCustom indicadorSeleccionado) {
 		this.indicadorSeleccionado = indicadorSeleccionado;
 	}
 

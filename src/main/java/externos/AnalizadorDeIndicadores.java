@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import domain.Empresa;
-import domain.Indicador;
+import domain.indicadores.IndicadorCustom;
 import domain.repositorios.RepositorioIndicadores;
 
 public class AnalizadorDeIndicadores {
@@ -19,7 +19,7 @@ public class AnalizadorDeIndicadores {
 		this.periodo = periodo;
 	}
 	
-	public AnalizadorDeIndicadores scan(Indicador indicador) {
+	public AnalizadorDeIndicadores scan(IndicadorCustom indicador) {
 		generarTokens(indicador.ecuacion);
 		eliminarEspaciosInnecesarios();
 		//lexemas.forEach(lexema-> System.out.println(lexema)); 

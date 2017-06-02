@@ -1,19 +1,16 @@
 package externos;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 
-import org.codehaus.jackson.JsonGenerationException;
-import org.codehaus.jackson.annotate.JsonAutoDetect;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.util.List;
-import domain.Indicador;
+import domain.indicadores.IndicadorCustom;
 import domain.repositorios.RepositorioIndicadores;
 import etc.DatosIndicadores;
 import interfaces.FileLoader;
+import interfaces.Indicador;
 
 public class LevantaArchivoIndicadores implements FileLoader<String> {
 	

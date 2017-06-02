@@ -6,8 +6,9 @@ import org.junit.After;
 import org.junit.Test;
 
 import domain.Empresa;
-import domain.Indicador;
+import domain.indicadores.IndicadorCustom;
 import domain.repositorios.RepositorioIndicadores;
+import interfaces.Indicador;
 
 public class IndicadoresTest {
 	
@@ -23,7 +24,7 @@ public class IndicadoresTest {
 	}
 
 	public Indicador buscarIndicador(String indicador) {
-		String nombre = Indicador.getNombre(indicador);
+		String nombre = IndicadorCustom.getNombre(indicador);
 		return RepositorioIndicadores.instance().buscarIndicador(nombre);
 	}
 
@@ -40,8 +41,8 @@ public class IndicadoresTest {
 	@Test
 	public void testSeCargaUnIndicador() {
 		indicadorBuscado = cargarIndicadorYBuscarlo("Juanito y los Clonosaurios = dinousarios + clonacion");
-		assertEquals(indicadorBuscado.nombre, "Juanito y los Clonosaurios");
-		assertEquals(indicadorBuscado.ecuacion, " dinousarios + clonacion");
+		assertEquals(indicadorBuscado.getNombre(), "Juanito y los Clonosaurios");
+		assertEquals(indicadorBuscado.getEcuacion(), " dinousarios + clonacion");
 		assertEquals(1, RepositorioIndicadores.instance().getIndicadoresCargados().size());
 	}
 

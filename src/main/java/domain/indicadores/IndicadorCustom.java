@@ -1,42 +1,28 @@
-package domain;
+package domain.indicadores;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.uqbar.commons.utils.Observable;
+
 import domain.Empresa;
+
+import interfaces.Indicador;
+
 import externos.AnalizadorDeIndicadores;
 
 @Observable
-public class Indicador {
+public class IndicadorCustom implements Indicador{
 	public String nombre;
 	public String ecuacion;
 
 	@JsonIgnore
 	public Double valor;
-
-	public String getEcuacion() {
-		return ecuacion;
-	}
-
-	public void setEcuacion(String ecuacion) {
-		this.ecuacion = ecuacion;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombreIndicador(String nombre) {
-		this.nombre = nombre;
+	
+	// METODO PARA RESPETAR LA INTERFACE
+	public Double calcularIndicador(Empresa emp, String periodo) {
+		Double resultado = 0.0;
+		return resultado;
 	}
 	
-	public Double getValor() {
-		return valor;
-	}
-	
-	public void setValor(Empresa empresa,String periodo) {
-		this.valor = new AnalizadorDeIndicadores(empresa,periodo).scan(this).parser();
-	}
-		
 	public boolean suNombreEs(String indicador) {
 		return this.nombre.equals(indicador);
 	}
@@ -63,8 +49,8 @@ public class Indicador {
 			throw new RuntimeException("El indicador debe tener solo una asignacion");
 	}
 
-	public static Indicador armarApartirDe(String indicador){
-		Indicador unIndicador = new Indicador();
+	public static IndicadorCustom armarApartirDe(String indicador){
+		IndicadorCustom unIndicador = new IndicadorCustom();
 		unIndicador.setNombreIndicador(getNombre(indicador));
 		unIndicador.setEcuacion(getEcuacion(indicador));
 		return unIndicador;
@@ -74,5 +60,36 @@ public class Indicador {
 		if(ecuacion.contains(nombre))
 			throw new RuntimeException("El indicador no puede llamarse a si mismo");
 	}
+	
+	// SETTERS Y GETTERS //
+	
+		public String getEcuacion() {
+			return ecuacion;
+		}
+
+		public void setEcuacion(String ecuacion) {
+			this.ecuacion = ecuacion;
+		}
+
+		public String getNombre() {
+			return nombre;
+		}
+
+		public void setNombreIndicador(String nombre) {
+			this.nombre = nombre;
+		}
+		
+		public Double getValor() {
+			return valor;
+		}
+		
+		public void setValor(Empresa empresa,String periodo) {
+			this.valor = new AnalizadorDeIndicadores(empresa,periodo).scan(this).parser();
+		}
+
+		@Override
+		public boolean esCustom() {
+			return true;
+		}
 
 }

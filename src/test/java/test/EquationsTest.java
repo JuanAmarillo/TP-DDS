@@ -11,14 +11,14 @@ import org.junit.Test;
 
 import domain.Cuenta;
 import domain.Empresa;
-import domain.Indicador;
+import domain.indicadores.IndicadorCustom;
 import domain.repositorios.RepositorioIndicadores;
 import externos.AnalizadorDeIndicadores;;
 
 public class EquationsTest {
 	Empresa empresaMockeadaB;
-	Indicador pasivoCorriente;
-	Indicador pruebaAcida;
+	IndicadorCustom pasivoCorriente;
+	IndicadorCustom pruebaAcida;
 	AnalizadorDeIndicadores analizador;
 
 	private void prepararEmpresa() {
@@ -42,12 +42,12 @@ public class EquationsTest {
 	private void cargarIndicadores() {
 		analizador = new AnalizadorDeIndicadores(empresaMockeadaB,"2017");
 		
-		pasivoCorriente = new Indicador();
+		pasivoCorriente = new IndicadorCustom();
 		pasivoCorriente.nombre = "Pasivo Corriente";
 		pasivoCorriente.ecuacion = "Deudas Bancarias + Deudas Comerciales + Deudas del Estado";
 		RepositorioIndicadores.instance().agregarIndicador(pasivoCorriente);
 
-		pruebaAcida = new Indicador();
+		pruebaAcida = new IndicadorCustom();
 		pruebaAcida.nombre = "Prueba Acida";
 		pruebaAcida.ecuacion = "(Caja y bancos + Inversiones) / Pasivo Corriente";
 		RepositorioIndicadores.instance().agregarIndicador(pruebaAcida);
@@ -61,21 +61,21 @@ public class EquationsTest {
 
 	@Test
 	public void testIndicadorSinVariables() {
-		Indicador indicador = new Indicador();
+		IndicadorCustom indicador = new IndicadorCustom();
 		indicador.ecuacion = "((2-5)*(5-3))/((2*3) - 8) ";
 		assertTrue(analizador.scan(indicador).parser().equals(3.0));
 	}
 
 	@Test
 	public void testNoDaPrioridadALaMultiplicacion() {
-		Indicador indicador = new Indicador();
+		IndicadorCustom indicador = new IndicadorCustom();
 		indicador.ecuacion = "2 * 50 - 40 ";
 		assertFalse(analizador.scan(indicador).parser().equals(60));
 	}
 
 	@Test
 	public void testAceptaNumerosConComa() {
-		Indicador indicador = new Indicador();
+		IndicadorCustom indicador = new IndicadorCustom();
 		indicador.ecuacion = "1.5 + 2.5 ";
 		assertTrue(analizador.scan(indicador).parser().equals(4.0));
 	}
@@ -93,14 +93,14 @@ public class EquationsTest {
 
 	@Test(expected = RuntimeException.class)
 	public void testIndicadorConOperadorIncorrectoFalla() {
-		Indicador indicador = new Indicador();
+		IndicadorCustom indicador = new IndicadorCustom();
 		indicador.ecuacion = "2!3";
 		analizador.scan(indicador).parser();
 	}
 
 	@Test(expected = RuntimeException.class)
 	public void testIndicadorConCuentaOIndicadorFaltanteFalla() {
-		Indicador indicador = new Indicador();
+		IndicadorCustom indicador = new IndicadorCustom();
 		indicador.ecuacion = "No existo :p";
 		analizador.scan(indicador).parser();
 	}
