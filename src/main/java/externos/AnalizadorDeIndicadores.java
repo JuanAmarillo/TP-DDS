@@ -124,7 +124,7 @@ public class AnalizadorDeIndicadores {
 			return empresa.getValorDeLaCuenta(cuentaOIndicador,periodo);
 		if(esUnIndicador(cuentaOIndicador))
 			return RepositorioIndicadores.instance().getValorDelIndicador(empresa,cuentaOIndicador,periodo);
-		
+	
 		throw new RuntimeException("Invalid token");
 	}
 	

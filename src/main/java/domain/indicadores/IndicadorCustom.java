@@ -18,9 +18,8 @@ public class IndicadorCustom implements Indicador{
 	public Double valor;
 	
 	// METODO PARA RESPETAR LA INTERFACE
-	public Double calcularIndicador(Empresa emp, String periodo) {
-		Double resultado = 0.0;
-		return resultado;
+	public Double calcularIndicador(Empresa empresa, String periodo) {
+		return new AnalizadorDeIndicadores(empresa, periodo).scan(this).parser();
 	}
 	
 	public boolean suNombreEs(String indicador) {

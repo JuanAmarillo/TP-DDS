@@ -87,7 +87,6 @@ public class EquationsTest {
 
 	@Test
 	public void testIndicadorConIndicadores() {
-		System.out.println(analizador.scan(pruebaAcida).parser());
 		assertTrue(analizador.scan(pruebaAcida).parser().equals(3.0));
 	}
 
