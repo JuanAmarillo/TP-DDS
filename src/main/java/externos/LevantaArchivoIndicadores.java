@@ -16,7 +16,7 @@ public class LevantaArchivoIndicadores implements FileLoader<String> {
 	
 	@Override
 	public void cargarArchivo(String filepath) throws IOException {
-		List<Indicador>indicadoresADevolver = getIndicadoresDelArchivo(filepath).getIndicadores();
+		List<IndicadorCustom>indicadoresADevolver = getIndicadoresDelArchivo(filepath).getIndicadores();
 		RepositorioIndicadores.instance().agregarIndicadores(indicadoresADevolver);
 	}
 

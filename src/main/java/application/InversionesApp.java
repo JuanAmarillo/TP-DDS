@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.uqbar.arena.Application;
 import org.uqbar.arena.windows.Window;
 
+import domain.repositorios.RepositorioIndicadores;
 import externos.ActualizaArchivos;
 import externos.LevantaArchivoIndicadores;
 
@@ -17,6 +18,7 @@ public class InversionesApp extends Application {
 	public static void main(String[] args) {
 		try {
 			new LevantaArchivoIndicadores().cargarArchivo(fp);
+			RepositorioIndicadores.instance().agregarPredeterminados();
 			ActualizaArchivos.setFilepath(fp);
 		} catch (IOException e) {
 			e.printStackTrace();

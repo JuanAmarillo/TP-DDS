@@ -6,7 +6,7 @@ public abstract class IndicadorPredeterminado implements Indicador{
 	
 	@Override
 	public boolean suNombreEs(String nombre) {
-		return nombreIndicador.equals(nombre);
+		return getNombreIndicador().equals(nombre);
 	}
 
 	@Override
@@ -16,6 +16,14 @@ public abstract class IndicadorPredeterminado implements Indicador{
 
 	@Override
 	public String getNombre() {
+		return getNombreIndicador();
+	}
+
+	public String getNombreIndicador() {
 		return nombreIndicador;
+	}
+
+	public void setNombreIndicador(String nombreIndicador) {
+		this.nombreIndicador = nombreIndicador;
 	}
 }

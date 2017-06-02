@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import domain.Empresa;
-import domain.indicadores.IndicadorCustom;
+import domain.indicadores.*;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import interfaces.Indicador;
 import externos.AnalizadorDeIndicadores;
@@ -51,9 +51,9 @@ public class RepositorioIndicadores {
 		}
 	}
 	
-	public List<Indicador> obtenerCustoms() {
-		List<Indicador> lista = new ArrayList<Indicador>();
-		lista.addAll(indicadoresCargados.stream().filter(ind -> ind.esCustom()).collect(Collectors.toList()));
+	public List<IndicadorCustom> obtenerCustoms() {
+		List<IndicadorCustom> lista = new ArrayList<IndicadorCustom>();
+		lista.addAll(indicadoresCargados.stream().filter(ind -> ind.esCustom()).map(ind -> (IndicadorCustom) ind).collect(Collectors.toList()));
 		return lista;
 	}
 
@@ -61,8 +61,8 @@ public class RepositorioIndicadores {
 		RepositorioIndicadores.instance().getIndicadoresCargados().add(indicador);
 	}
 	
-	public void agregarIndicadores(List<Indicador> indicadores) {
-		indicadoresCargados.addAll(indicadores);
+	public void agregarIndicadores(List<IndicadorCustom> indicadoresADevolver) {
+		indicadoresCargados.addAll(indicadoresADevolver);
 	}
 
 	private void validarIndicador(IndicadorCustom indicador) {
@@ -94,6 +94,11 @@ public class RepositorioIndicadores {
 
 	public List<String> getNombresDeIndicadores() {
 		return getIndicadoresCargados().stream().map(unIndicador -> unIndicador.getNombre()).collect(Collectors.toList());
+	}
+
+	public void agregarPredeterminados() {
+		indicadoresCargados.add(new Pers_Sencillo());
+		indicadoresCargados.add(new Pers_SoloNumeros());
 	}
 
 }

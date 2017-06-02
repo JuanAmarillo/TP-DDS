@@ -8,6 +8,10 @@ public class Pers_Sencillo extends IndicadorPredeterminado{
 	
 	private double a;
 	
+	public Pers_Sencillo() {
+		setNombreIndicador("Pers_Sencillo");
+	}
+	
 	@Override
 	public Double calcularIndicador(Empresa emp, String periodo) {
 		asignarAVariables(emp,periodo);

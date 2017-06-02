@@ -7,16 +7,16 @@ import domain.indicadores.IndicadorCustom;
 import interfaces.Indicador;
 
 public class DatosIndicadores {
-	List<Indicador> indicadores;
+	List<IndicadorCustom> indicadores;
 	
 	public DatosIndicadores() {
-		indicadores = new ArrayList<Indicador>();
+		indicadores = new ArrayList<IndicadorCustom>();
 	}
 	
-	public List<Indicador> getIndicadores() {
+	public List<IndicadorCustom> getIndicadores() {
 		return indicadores;
 	}
-	public void setIndicadores(List<Indicador> indicadores) {
+	public void setIndicadores(List<IndicadorCustom> indicadores) {
 		this.indicadores = indicadores;
 	}
 	

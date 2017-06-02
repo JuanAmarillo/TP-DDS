@@ -5,6 +5,10 @@ import interfaces.IndicadorPredeterminado;
 
 public class Pers_SoloNumeros extends IndicadorPredeterminado{
 
+	public Pers_SoloNumeros() {
+		setNombreIndicador("PruebaSoloNumeros");
+	}
+	
 	@Override
 	public Double calcularIndicador(Empresa emp, String periodo) {
 		asignarAVariables(emp,periodo);
