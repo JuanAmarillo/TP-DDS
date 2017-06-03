@@ -4,8 +4,8 @@ import domain.Empresa;
 
 public class Division extends Operador{
 
-	public Division(Token operandoUno, Token operandoDos) {
-		super(operandoUno, operandoDos);
+	public Division() {
+		super();
 	}
 
 

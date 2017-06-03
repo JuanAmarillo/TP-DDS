@@ -6,8 +6,8 @@ public class Suma extends Operador{
 	Token operandoUno;
 	Token operandoDos;
 	
-	public Suma(Token operandoUno, Token operandoDos) {
-		super(operandoUno, operandoDos);
+	public Suma() {
+		super();
 	}
 	
 	public double calcularValor(Empresa empresa, String periodo){

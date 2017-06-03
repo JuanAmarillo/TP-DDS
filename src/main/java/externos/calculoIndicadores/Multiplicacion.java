@@ -4,8 +4,8 @@ import domain.Empresa;
 
 public class Multiplicacion extends Operador {
 
-	public Multiplicacion(Token operandoUno, Token operandoDos) {
-		super(operandoUno, operandoDos);
+	public Multiplicacion() {
+		super();
 	}
 
 	public double calcularValor(Empresa empresa, String periodo) {

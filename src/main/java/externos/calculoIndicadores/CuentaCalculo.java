@@ -2,10 +2,11 @@ package externos.calculoIndicadores;
 
 import domain.Empresa;
 
-public class CuentaCalculo implements Token{
+public class CuentaCalculo extends Token{
 	private String nombre;
 	
 	public CuentaCalculo(String nombre){
+		this.prioridad = 1;
 		this.nombre = nombre;
 	}
 	
