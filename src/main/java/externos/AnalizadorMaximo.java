@@ -104,13 +104,16 @@ public class AnalizadorMaximo {
 		if(token.getPrioridad() == 1){
 			lexemas.offer(token);
 		}
-		else{
-			if(operadores.peek().getPrioridad() <= token.getPrioridad())
-				lexemas.offer(operadores.pop());
-			
-			operadores.push(token);
-			
-		}
+		else
+			ingresarOperador(token);
+	
+	}
+	
+	private void ingresarOperador(Token token){
+		if(operadores.peek().getPrioridad() >= token.getPrioridad())
+			lexemas.offer(operadores.pop());
+		
+		operadores.push(token);
 	}
 	
 	
