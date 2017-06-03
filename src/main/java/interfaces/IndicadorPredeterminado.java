@@ -1,12 +1,14 @@
 package interfaces;
 
+import domain.Empresa;
+
 public abstract class IndicadorPredeterminado implements Indicador{
 	
 	private String nombreIndicador;
 	
 	@Override
 	public boolean suNombreEs(String nombre) {
-		return getNombreIndicador().equals(nombre);
+		return getNombre().equals(nombre);
 	}
 
 	@Override
@@ -14,12 +16,17 @@ public abstract class IndicadorPredeterminado implements Indicador{
 		return false;
 	}
 
-	@Override
-	public String getNombre() {
-		return getNombreIndicador();
+	
+	
+	public Double calcularIndicador(Empresa emp, String periodo) {
+		asignarAVariables(emp,periodo);
+		return calculo();
 	}
-
-	public String getNombreIndicador() {
+	
+	public abstract void asignarAVariables(Empresa emp, String periodo);
+	public abstract Double calculo();
+	
+	public String getNombre() {
 		return nombreIndicador;
 	}
 

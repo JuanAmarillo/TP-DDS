@@ -64,7 +64,6 @@ public class EquationsTest {
 	@After
 	public void finalize() {
 		RepositorioIndicadores.resetSingleton();
-		RepositorioIndicadores.agregarPredeterminados();
 	}
 
 	@Test
