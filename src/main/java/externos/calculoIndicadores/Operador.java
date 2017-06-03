@@ -6,15 +6,11 @@ public abstract class Operador extends Token {
 	Token operandoUno;
 	Token operandoDos;
 	
-	public Operador(){
-		this.prioridad = 2;
-	}
 	
-	public void asignarOperandos(Token operandoUno,Token operandoDos){
-		this.prioridad = 2;
+	public void asignarOperandos(Token operandoDos,Token operandoUno){
 		this.operandoUno = operandoUno;
 		this.operandoDos = operandoDos;
 	}
 	
-	abstract public double calcularValor(Empresa empresa, String periodo);
+	abstract public Double calcularValor(Empresa empresa, String periodo);
 }

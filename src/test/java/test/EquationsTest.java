@@ -15,7 +15,9 @@ import domain.Cuenta;
 import domain.Empresa;
 import domain.indicadores.IndicadorCustom;
 import domain.repositorios.RepositorioIndicadores;
-import externos.AnalizadorDeIndicadores;;
+import externos.AnalizadorDeIndicadores;
+import externos.AnalizadorMaximo;
+import externos.calculoIndicadores.*;;
 
 public class EquationsTest {
 	Empresa empresaMockeadaB;
@@ -74,10 +76,12 @@ public class EquationsTest {
 	}
 
 	@Test
-	public void testNoDaPrioridadALaMultiplicacion() {
+	public void testDaPrioridadALosOperadores() {
 		IndicadorCustom indicador = new IndicadorCustom();
-		indicador.ecuacion = "2 * 50 - 40 ";
-		assertFalse(analizador.scan(indicador).parser().equals(60));
+		indicador.ecuacion = "5 - 50 * 2 + 3/3 - 1 + 2 *3 ";
+	
+		Double valor = new AnalizadorMaximo().scan(indicador).compilar().calcularValor(empresaMockeadaB, "2017");
+		assertTrue(valor.equals(-101.0));
 	}
 
 	@Test

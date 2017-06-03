@@ -10,7 +10,7 @@ public class Numero extends Token {
 		this.valor = valor;
 	}
 	
-	public double calcularValor(Empresa empresa, String periodo) {
+	public Double calcularValor(Empresa empresa, String periodo) {
 		return valor;
 	}
 	

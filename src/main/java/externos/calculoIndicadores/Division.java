@@ -6,10 +6,11 @@ public class Division extends Operador{
 
 	public Division() {
 		super();
+		this.prioridad = 3;
 	}
 
 
-	public double calcularValor(Empresa empresa, String periodo) {
+	public Double calcularValor(Empresa empresa, String periodo) {
 		return operandoUno.calcularValor(empresa, periodo) / operandoDos.calcularValor(empresa, periodo) ;
 	}
 	

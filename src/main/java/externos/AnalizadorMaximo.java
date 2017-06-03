@@ -16,35 +16,38 @@ import externos.calculoIndicadores.*;
 public class AnalizadorMaximo {
 	private Empresa empresa;
 	private String periodo;
+	private List<String> tokens;
 	private Stack<Token> lexemas;
 	private Stack<Token> operadores;
 	
 	
-	public AnalizadorMaximo(Empresa empresa,String periodo){
-		this.empresa = empresa;
-		this.periodo = periodo;
+	public AnalizadorMaximo(){
+		this.operadores = new Stack<Token>();
+		this.lexemas =  new Stack<Token>();
 	}
 	
 	public AnalizadorMaximo scan(IndicadorCustom indicador) {
-		List<String> tokens;
-		tokens  = generarTokens(indicador.ecuacion);
-		tokens  = eliminarEspaciosInnecesarios(tokens);
-		
-		List<Token> lexemas = asignarTokens(tokens);  
-		armarArbolDeSintaxis(lexemas);
-		
+		generarTokens(indicador.ecuacion);
+		eliminarEspaciosInnecesarios();
+		//tokens.forEach(lexema-> System.out.println(lexema)); 
 		return this;
 	}
 	
-	
-	public List<String> generarTokens(String ecuacion){
-		String[] tokens = ecuacion.split("(?<=[-+()*/])|(?=[-+()*/])");
-		return new LinkedList<String>(Arrays.asList(tokens));
+	public Token compilar(){
+		List<Token> tokens = asignarTokens(this.tokens);  
+		armarArbolDeSintaxis(tokens);
+		return lexemas.pop();
 	}
 	
-	public List<String> eliminarEspaciosInnecesarios(List<String> tokens){
-		return tokens.stream().map(unToken -> unToken.trim()).filter(unToken -> !unToken.isEmpty())
-				.collect(Collectors.toList());
+	
+	public void generarTokens(String ecuacion){
+		String[] tokens = ecuacion.split("(?<=[-+()*/])|(?=[-+()*/])");
+		this.tokens =  new LinkedList<String>(Arrays.asList(tokens));
+	}
+	
+	public void eliminarEspaciosInnecesarios(){
+		this.tokens = tokens.stream().map(unToken -> unToken.trim()).filter(unToken -> !unToken.isEmpty())
+						.collect(Collectors.toList());
 	}
 	
 	private List<Token> asignarTokens(List<String> tokens){
@@ -102,6 +105,9 @@ public class AnalizadorMaximo {
 	
 	private void armarArbolDeSintaxis(List<Token> tokens){
 		tokens.stream().forEach(unToken -> ingresarA(unToken));
+		operadores.forEach(lexema-> System.out.println(lexema));
+		System.out.println(" ");
+		lexemas.forEach(lexema-> System.out.println(lexema)); 
 		armarOperadoresRestantes();
 	}
 	
@@ -114,7 +120,7 @@ public class AnalizadorMaximo {
 	}
 	
 	private void ingresarOperador(Token token){
-		if(!operadores.isEmpty())
+		if(!operadores.empty())
 			if(operadores.peek().getPrioridad() >= token.getPrioridad())
 				armarOperador();
 		

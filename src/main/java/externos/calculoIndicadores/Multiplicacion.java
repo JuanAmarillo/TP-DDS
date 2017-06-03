@@ -6,9 +6,10 @@ public class Multiplicacion extends Operador {
 
 	public Multiplicacion() {
 		super();
+		this.prioridad = 3;
 	}
 
-	public double calcularValor(Empresa empresa, String periodo) {
+	public Double calcularValor(Empresa empresa, String periodo) {
 		return operandoUno.calcularValor(empresa, periodo) * operandoDos.calcularValor(empresa, periodo);
 	}
 

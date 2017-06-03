@@ -9,5 +9,6 @@ public abstract class Token {
 		return this.prioridad;
 	}
 	
-	abstract public double calcularValor(Empresa empresa, String periodo);
+	abstract public Double calcularValor(Empresa empresa, String periodo);
+
 }

@@ -10,7 +10,7 @@ public class CuentaCalculo extends Token{
 		this.nombre = nombre;
 	}
 	
-	public double calcularValor(Empresa empresa, String periodo) {
+	public Double calcularValor(Empresa empresa, String periodo) {
 		return empresa.getValorDeLaCuenta(nombre, periodo);
 		
 	}
