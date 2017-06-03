@@ -16,7 +16,7 @@ import externos.calculoIndicadores.*;
 public class AnalizadorMaximo {
 	private Empresa empresa;
 	private String periodo;
-	private Queue<Token> lexemas;
+	private Stack<Token> lexemas;
 	private Stack<Token> operadores;
 	
 	
@@ -29,9 +29,13 @@ public class AnalizadorMaximo {
 		List<String> tokens;
 		tokens  = generarTokens(indicador.ecuacion);
 		tokens  = eliminarEspaciosInnecesarios(tokens);
+		
 		List<Token> lexemas = asignarTokens(tokens);  
+		armarArbolDeSintaxis(lexemas);
+		
 		return this;
 	}
+	
 	
 	public List<String> generarTokens(String ecuacion){
 		String[] tokens = ecuacion.split("(?<=[-+()*/])|(?=[-+()*/])");
@@ -96,27 +100,39 @@ public class AnalizadorMaximo {
 		return null;
 	}
 	
-	private void transformarANotacionPolacaInversa(List<Token> tokens){
+	private void armarArbolDeSintaxis(List<Token> tokens){
 		tokens.stream().forEach(unToken -> ingresarA(unToken));
+		armarOperadoresRestantes();
 	}
 	
 	private void ingresarA(Token token){
-		if(token.getPrioridad() == 1){
-			lexemas.offer(token);
-		}
+		if(token.getPrioridad() == 1)
+			lexemas.push(token);
 		else
 			ingresarOperador(token);
 	
 	}
 	
 	private void ingresarOperador(Token token){
-		if(operadores.peek().getPrioridad() >= token.getPrioridad())
-			lexemas.offer(operadores.pop());
+		if(!operadores.isEmpty())
+			if(operadores.peek().getPrioridad() >= token.getPrioridad())
+				armarOperador();
 		
 		operadores.push(token);
 	}
 	
+	private void armarOperador(){
+		Token operandoUno  = lexemas.pop();
+		Token operandoDos  = lexemas.pop();
+		Operador operador  = (Operador) operadores.pop();
+		operador.asignarOperandos(operandoUno, operandoDos);
+		lexemas.push(operador);
+	}
 	
-	
+	private void armarOperadoresRestantes(){
+		while(!operadores.empty()){
+			armarOperador();
+		}
+	}
 	
 }
