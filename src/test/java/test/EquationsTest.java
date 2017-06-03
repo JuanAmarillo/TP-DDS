@@ -1,11 +1,13 @@
 package test;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -58,6 +60,12 @@ public class EquationsTest {
 		prepararEmpresa();
 		cargarIndicadores();
 	}
+	
+	@After
+	public void finalize() {
+		RepositorioIndicadores.resetSingleton();
+		RepositorioIndicadores.agregarPredeterminados();
+	}
 
 	@Test
 	public void testIndicadorSinVariables() {
@@ -104,5 +112,10 @@ public class EquationsTest {
 		analizador.scan(indicador).parser();
 	}
 	
+	@Test
+	public void testSeCalculanLosIndicadoresDeFormaPolimorfica() {
+		double sumaDeLosIndicadores = RepositorioIndicadores.instance().getIndicadoresCargados().stream().mapToDouble(ind -> ind.calcularIndicador(empresaMockeadaB, "2017")).sum();
+		assertEquals(73.0 + 23.0 + 173.0,sumaDeLosIndicadores,0.0);
+	}
 
 }

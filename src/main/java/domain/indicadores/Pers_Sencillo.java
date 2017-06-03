@@ -6,7 +6,7 @@ import interfaces.IndicadorPredeterminado;
 
 public class Pers_Sencillo extends IndicadorPredeterminado{
 	
-	private double a;
+	private double cajaYBancos;
 	
 	public Pers_Sencillo() {
 		setNombreIndicador("Pers_Sencillo");
@@ -15,7 +15,7 @@ public class Pers_Sencillo extends IndicadorPredeterminado{
 	@Override
 	public Double calcularIndicador(Empresa emp, String periodo) {
 		asignarAVariables(emp,periodo);
-		return a + 23;
+		return cajaYBancos + 23;
 	}
 
 	@Override
@@ -24,6 +24,6 @@ public class Pers_Sencillo extends IndicadorPredeterminado{
 	}
 
 	private void asignarAVariables(Empresa emp, String periodo) {
-		a = new AnalizadorDeIndicadores(emp, periodo).valorDe("a");
+		cajaYBancos = new AnalizadorDeIndicadores(emp, periodo).valorDe("Caja y bancos");
 	}	
 }
