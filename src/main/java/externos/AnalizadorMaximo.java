@@ -3,6 +3,8 @@ package externos;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import java.util.Stack;
 import java.util.stream.Collectors;
 
 import domain.Cuenta;
@@ -14,7 +16,9 @@ import externos.calculoIndicadores.*;
 public class AnalizadorMaximo {
 	private Empresa empresa;
 	private String periodo;
-	private List<Token> lexemas;
+	private Queue<Token> lexemas;
+	private Stack<Token> operadores;
+	
 	
 	public AnalizadorMaximo(Empresa empresa,String periodo){
 		this.empresa = empresa;
@@ -25,7 +29,7 @@ public class AnalizadorMaximo {
 		List<String> tokens;
 		tokens  = generarTokens(indicador.ecuacion);
 		tokens  = eliminarEspaciosInnecesarios(tokens);
-		lexemas = asignarToken(tokens);  
+		List<Token> lexemas = asignarTokens(tokens);  
 		return this;
 	}
 	
@@ -39,11 +43,11 @@ public class AnalizadorMaximo {
 				.collect(Collectors.toList());
 	}
 	
-	public List<Token> asignarToken(List<String> tokens){
+	private List<Token> asignarTokens(List<String> tokens){
 		return tokens.stream().map(unToken -> asignarToken(unToken)).collect(Collectors.toList());
 	}
 	
-	public Token asignarToken(String token){
+	private Token asignarToken(String token){
 		if(esUnNumero(token))
 			return new Numero(Double.parseDouble(token));
 		if(esUnOperador(token))
@@ -91,6 +95,25 @@ public class AnalizadorMaximo {
 		
 		return null;
 	}
+	
+	private void transformarANotacionPolacaInversa(List<Token> tokens){
+		tokens.stream().forEach(unToken -> ingresarA(unToken));
+	}
+	
+	private void ingresarA(Token token){
+		if(token.getPrioridad() == 1){
+			lexemas.offer(token);
+		}
+		else{
+			if(operadores.peek().getPrioridad() <= token.getPrioridad())
+				lexemas.offer(operadores.pop());
+			
+			operadores.push(token);
+			
+		}
+	}
+	
+	
 	
 	
 }
