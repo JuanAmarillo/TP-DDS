@@ -9,17 +9,15 @@ public class Pers_SoloNumeros extends IndicadorPredeterminado{
 		setNombreIndicador("PruebaSoloNumeros");
 	}
 	
-	@Override
-	public Double calcularIndicador(Empresa emp, String periodo) {
-		asignarAVariables(emp,periodo);
+	public Double calculo() {
 		return 23.0;
-	}
+	}	
 
+	public void asignarAVariables(Empresa emp, String periodo) {
+	}	
+	
 	@Override
 	public String getEcuacion() {
 		return "23.0";
 	}
-
-	private void asignarAVariables(Empresa emp, String periodo) {
-	}	
 }

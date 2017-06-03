@@ -30,19 +30,19 @@ public class RepositorioIndicadores {
 	public List<Indicador> getIndicadoresCargados() {
 		return indicadoresCargados;
 	}
-	
+
 	public IndicadorCustom agregarIndicadorAPartirDe(String indicador) {
 		IndicadorCustom indicadorACargar = IndicadorCustom.armarApartirDe(indicador);
 		validarIndicador(indicadorACargar);
 		agregarIndicador(indicadorACargar);
 		return indicadorACargar;
 	}
-	
+
 	public void eliminarIndicadorAPartirDe(String nombre) {
 		Indicador indicadorASacar = this.buscarIndicador(nombre);
 		eliminarIndicador(indicadorASacar);
 	}
-	
+
 	public void eliminarIndicador(Indicador indicador) throws NoSePuedeBorrarUnPredeterminadoException{
 		if(indicador.esCustom()) {
 			RepositorioIndicadores.instance().getIndicadoresCargados().remove(indicador);
@@ -51,7 +51,7 @@ public class RepositorioIndicadores {
 			throw new NoSePuedeBorrarUnPredeterminadoException();
 		}
 	}
-	
+
 	public List<IndicadorCustom> obtenerCustoms() {
 		List<IndicadorCustom> lista = new ArrayList<IndicadorCustom>();
 		lista.addAll(indicadoresCargados.stream().filter(ind -> ind.esCustom()).map(ind -> (IndicadorCustom) ind).collect(Collectors.toList()));
@@ -61,7 +61,7 @@ public class RepositorioIndicadores {
 	public void agregarIndicador(IndicadorCustom indicador) {
 		RepositorioIndicadores.instance().getIndicadoresCargados().add(indicador);
 	}
-	
+
 	public void agregarIndicadores(List<IndicadorCustom> indicadoresADevolver) {
 		indicadoresCargados.addAll(indicadoresADevolver);
 	}
@@ -75,13 +75,6 @@ public class RepositorioIndicadores {
 	private void indicadorExistente(IndicadorCustom indicador) {
 		if (contieneElIndicador(indicador.nombre))
 			throw new RuntimeException("El indicador ya existe");
-	}
-
-	public Double getValorDelIndicador(Empresa empresa, String indicador,String periodo) {
-		Indicador indicadorBuscado = buscarIndicador(indicador);
-		// ACA CAMBIA LA FORMA DEL CALCULO DEL INDICADOR
-		//return new AnalizadorDeIndicadores(empresa,periodo).scan(indicadorBuscado).parser();
-		return indicadorBuscado.calcularIndicador(empresa, periodo);
 	}
 
 	public Indicador buscarIndicador(String nombre) {
@@ -101,5 +94,4 @@ public class RepositorioIndicadores {
 		indicadoresCargados.add(new Pers_Sencillo());
 		indicadoresCargados.add(new Pers_SoloNumeros());
 	}
-
 }
