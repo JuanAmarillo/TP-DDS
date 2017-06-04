@@ -6,7 +6,7 @@ public class Division extends Operador{
 
 	public Division() {
 		super();
-		this.prioridad = 3;
+		this.prioridad = 4;
 	}
 
 

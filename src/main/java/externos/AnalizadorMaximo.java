@@ -59,6 +59,8 @@ public class AnalizadorMaximo {
 			return new Numero(Double.parseDouble(token));
 		if(esUnOperador(token))
 			return operador(token);
+		if(esUnParentesis(token))
+			return parentesis(token);
 		if(esUnaCuenta(token))
 			return new CuentaCalculo(token);
 		if(esUnIndicador(token))
@@ -67,6 +69,7 @@ public class AnalizadorMaximo {
 		throw new RuntimeException("Invalid token");
 	}
 	
+
 	private boolean esUnNumero(String token){
 		return token.matches("[0-9]+([.][0-9]+)?");
 	}
@@ -103,28 +106,63 @@ public class AnalizadorMaximo {
 		return null;
 	}
 	
+	private Token parentesis(String token) {
+		switch(token){
+		case "(":
+			return new ParentesisIzquierdo();
+		case ")":
+			return new ParentesisDerecho();
+		}
+		
+		return null;
+	}
+	
 	private void armarArbolDeSintaxis(List<Token> tokens){
 		tokens.stream().forEach(unToken -> ingresarA(unToken));
-		operadores.forEach(lexema-> System.out.println(lexema));
-		System.out.println(" ");
-		lexemas.forEach(lexema-> System.out.println(lexema)); 
 		armarOperadoresRestantes();
 	}
 	
 	private void ingresarA(Token token){
-		if(token.getPrioridad() == 1)
+		if(esUnaConstante(token))
 			lexemas.push(token);
-		else
+		if(esUnOperador(token))
 			ingresarOperador(token);
+		if(esUnParentesisIzquierdo(token))
+			operadores.push(token);
+		if(esUnParentesisDerecho(token))
+			armarOperadoresDelParentesis();
 	
 	}
 	
+	private boolean esUnaConstante(Token token) {
+		return token.getPrioridad() == 0;
+	}
+	
+	private boolean esUnOperador(Token token){
+		return token.getPrioridad() > 2;
+	}
+	
+	private boolean esUnParentesisDerecho(Token token) {
+		return token.getPrioridad() == 1;
+	}
+	
+	private boolean esUnParentesisIzquierdo(Token token) {
+		return token.getPrioridad() == 2;
+	}
+	
 	private void ingresarOperador(Token token){
-		if(!operadores.empty())
+		if(!operadores.empty()){
 			if(operadores.peek().getPrioridad() >= token.getPrioridad())
 				armarOperador();
-		
+		}
 		operadores.push(token);
+	}
+
+	
+	private void armarOperadoresDelParentesis(){
+		while(!esUnParentesisIzquierdo(operadores.peek()))
+			armarOperador();
+		operadores.pop();
 	}
 	
 	private void armarOperador(){
@@ -136,9 +174,9 @@ public class AnalizadorMaximo {
 	}
 	
 	private void armarOperadoresRestantes(){
-		while(!operadores.empty()){
+		while(!operadores.empty())
 			armarOperador();
-		}
+		
 	}
 	
 }

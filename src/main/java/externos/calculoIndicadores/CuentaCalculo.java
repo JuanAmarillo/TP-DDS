@@ -6,7 +6,7 @@ public class CuentaCalculo extends Token{
 	private String nombre;
 	
 	public CuentaCalculo(String nombre){
-		this.prioridad = 1;
+		this.prioridad = 0;
 		this.nombre = nombre;
 	}
 	

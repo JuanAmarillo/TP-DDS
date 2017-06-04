@@ -6,7 +6,7 @@ public class Suma extends Operador{
 	
 	public Suma() {
 		super();
-		this.prioridad = 2;
+		this.prioridad = 3;
 	}
 	
 	public Double calcularValor(Empresa empresa, String periodo){

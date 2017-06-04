@@ -83,6 +83,16 @@ public class EquationsTest {
 		Double valor = new AnalizadorMaximo().scan(indicador).compilar().calcularValor(empresaMockeadaB, "2017");
 		assertTrue(valor.equals(-101.0));
 	}
+	
+	@Test
+	public void testDaPrioridadALosParentesis(){
+		IndicadorCustom indicador = new IndicadorCustom();
+		indicador.ecuacion = "(2*(3+4) + (5+2))/3";
+	
+		Double valor = new AnalizadorMaximo().scan(indicador).compilar().calcularValor(empresaMockeadaB, "2017");;
+		assertTrue(valor.equals(7.0));
+	}
+
 
 	@Test
 	public void testAceptaNumerosConComa() {

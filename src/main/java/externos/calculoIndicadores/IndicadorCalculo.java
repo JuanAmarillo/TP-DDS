@@ -7,8 +7,12 @@ public class IndicadorCalculo extends Token {
 	private String indicador;
 	
 	public IndicadorCalculo(String indicador){
-		this.prioridad = 1;
+		this.prioridad = 0;
 		this.indicador = indicador;
+	}
+	
+	public String getIndicador(){
+		return this.indicador;
 	}
 	 
 	public Double calcularValor(Empresa empresa, String periodo) {

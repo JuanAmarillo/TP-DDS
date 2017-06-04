@@ -6,7 +6,7 @@ public class Resta extends Operador {
 
 	public Resta() {
 		super();
-		this.prioridad = 2;
+		this.prioridad = 3;
 	}
 
 	public Double calcularValor(Empresa empresa, String periodo) {

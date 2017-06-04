@@ -6,7 +6,7 @@ public class Numero extends Token {
 	private Double valor;
 	
 	public Numero(double valor){
-		this.prioridad = 1;
+		this.prioridad = 0;
 		this.valor = valor;
 	}
 	
