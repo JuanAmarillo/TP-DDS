@@ -2,6 +2,7 @@ package externos.calculoIndicadores;
 
 import domain.Empresa;
 import domain.repositorios.RepositorioIndicadores;
+import interfaces.Indicador;
 
 public class IndicadorCalculo extends Token {
 	private String indicador;
@@ -16,8 +17,8 @@ public class IndicadorCalculo extends Token {
 	}
 	 
 	public Double calcularValor(Empresa empresa, String periodo) {
-		//return RepositorioIndicadores.instance().getValorDelIndicador(empresa, indicador, periodo);
-		return 10.0;
+		Indicador indicador = RepositorioIndicadores.instance().buscarIndicador(this.indicador);
+		return indicador.calcularIndicador(empresa, periodo);
 	}
 	
 	

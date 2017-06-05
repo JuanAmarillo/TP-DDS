@@ -24,6 +24,7 @@ public class EquationsTest {
 	IndicadorCustom pasivoCorriente;
 	IndicadorCustom pruebaAcida;
 	AnalizadorDeIndicadores analizador;
+	AnalizadorMaximo analizadorMax;
 
 	private void prepararEmpresa() {
 		empresaMockeadaB = new Empresa();
@@ -44,6 +45,7 @@ public class EquationsTest {
 	}
 
 	private void cargarIndicadores() {
+		analizadorMax = new AnalizadorMaximo(empresaMockeadaB,"2017");
 		analizador = new AnalizadorDeIndicadores(empresaMockeadaB,"2017");
 		
 		pasivoCorriente = new IndicadorCustom();
@@ -69,19 +71,12 @@ public class EquationsTest {
 	}
 
 	@Test
-	public void testIndicadorSinVariables() {
-		IndicadorCustom indicador = new IndicadorCustom();
-		indicador.ecuacion = "((2-5)*(5-3))/((2*3) - 8) ";
-		assertTrue(analizador.scan(indicador).parser().equals(3.0));
-	}
-
-	@Test
 	public void testDaPrioridadALosOperadores() {
 		IndicadorCustom indicador = new IndicadorCustom();
 		indicador.ecuacion = "5 - 50 * 2 + 3/3 - 1 + 2 *3 ";
 	
-		Double valor = new AnalizadorMaximo().scan(indicador).compilar().calcularValor(empresaMockeadaB, "2017");
-		assertTrue(valor.equals(-101.0));
+		Token token = analizadorMax.scan(indicador).compilar();
+		assertTrue(token.calcularValor(empresaMockeadaB, "2017").equals(-101.0));
 	}
 	
 	@Test
@@ -89,8 +84,8 @@ public class EquationsTest {
 		IndicadorCustom indicador = new IndicadorCustom();
 		indicador.ecuacion = "(2*(3+4) + (5+2))/3";
 	
-		Double valor = new AnalizadorMaximo().scan(indicador).compilar().calcularValor(empresaMockeadaB, "2017");;
-		assertTrue(valor.equals(7.0));
+		Token token = analizadorMax.scan(indicador).compilar();
+		assertTrue(token.calcularValor(empresaMockeadaB, "2017").equals(7.0));
 	}
 
 
@@ -98,17 +93,20 @@ public class EquationsTest {
 	public void testAceptaNumerosConComa() {
 		IndicadorCustom indicador = new IndicadorCustom();
 		indicador.ecuacion = "1.5 + 2.5 ";
-		assertTrue(analizador.scan(indicador).parser().equals(4.0));
+		Token token = analizadorMax.scan(indicador).compilar();
+		assertTrue(token.calcularValor(empresaMockeadaB, "2017").equals(4.0));
 	}
 
 	@Test
 	public void testIndicadorConCuentas() {
-		assertTrue(analizador.scan(pasivoCorriente).parser().equals(70.0));
+		Token token = analizadorMax.scan(pasivoCorriente).compilar();
+		assertTrue(token.calcularValor(empresaMockeadaB, "2017").equals(70.0));
 	}
 
 	@Test
 	public void testIndicadorConIndicadores() {
-		assertTrue(analizador.scan(pruebaAcida).parser().equals(3.0));
+		Token token = analizadorMax.scan(pruebaAcida).compilar();
+		assertTrue(token.calcularValor(empresaMockeadaB, "2017").equals(3.0));
 	}
 
 	@Test(expected = RuntimeException.class)

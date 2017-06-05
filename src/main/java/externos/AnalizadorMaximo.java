@@ -21,7 +21,9 @@ public class AnalizadorMaximo {
 	private Stack<Token> operadores;
 	
 	
-	public AnalizadorMaximo(){
+	public AnalizadorMaximo(Empresa empresa, String periodo){
+		this.empresa = empresa;
+		this.periodo = periodo;
 		this.operadores = new Stack<Token>();
 		this.lexemas =  new Stack<Token>();
 	}
@@ -43,7 +45,7 @@ public class AnalizadorMaximo {
 				.collect(Collectors.toList());
 	}
 	
-	public Token compilar(){ 
+	public Token compilar(){
 		armarArbolDeSintaxis();
 		return lexemas.pop();
 	}
@@ -63,11 +65,10 @@ public class AnalizadorMaximo {
 			parentesisIzquierdo();
 		if(esUnParentesisDerecho(token))
 			parentesisDerecho();
-		/*
 		if(esUnaCuenta(token))
 			cuenta(token);
 		if(esUnIndicador(token))
-			indicador(token);*/
+			indicador(token);
 	}
 	
 
@@ -141,11 +142,14 @@ public class AnalizadorMaximo {
 	
 	
 	private void ingresarOperador(Token token){
-		if(!operadores.empty()){
-			if(operadores.peek().getPrioridad() >= token.getPrioridad())
+		if(!operadores.empty() && anteriorTieneMayorPrioridad(token))
 				armarOperador();
-		}
+		
 		operadores.push(token);
+	}
+
+	private boolean anteriorTieneMayorPrioridad(Token token) {
+		return operadores.peek().getPrioridad() >= token.getPrioridad();
 	}
 
 	

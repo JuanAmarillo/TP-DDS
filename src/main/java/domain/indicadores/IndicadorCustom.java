@@ -8,6 +8,7 @@ import domain.Empresa;
 import interfaces.Indicador;
 
 import externos.AnalizadorDeIndicadores;
+import externos.AnalizadorMaximo;
 
 @Observable
 public class IndicadorCustom implements Indicador{
@@ -19,7 +20,7 @@ public class IndicadorCustom implements Indicador{
 	
 	// METODO PARA RESPETAR LA INTERFACE
 	public Double calcularIndicador(Empresa empresa, String periodo) {
-		return new AnalizadorDeIndicadores(empresa, periodo).scan(this).parser();
+		return new AnalizadorMaximo(empresa, periodo).scan(this).compilar().calcularValor(empresa, periodo);
 	}
 	
 	public boolean suNombreEs(String indicador) {
