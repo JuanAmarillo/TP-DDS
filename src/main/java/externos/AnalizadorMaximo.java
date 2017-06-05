@@ -33,13 +33,6 @@ public class AnalizadorMaximo {
 		return this;
 	}
 	
-	public Token compilar(){
-		List<Token> tokens = asignarTokens(this.tokens);  
-		armarArbolDeSintaxis(tokens);
-		return lexemas.pop();
-	}
-	
-	
 	public void generarTokens(String ecuacion){
 		String[] tokens = ecuacion.split("(?<=[-+()*/])|(?=[-+()*/])");
 		this.tokens =  new LinkedList<String>(Arrays.asList(tokens));
@@ -47,26 +40,34 @@ public class AnalizadorMaximo {
 	
 	public void eliminarEspaciosInnecesarios(){
 		this.tokens = tokens.stream().map(unToken -> unToken.trim()).filter(unToken -> !unToken.isEmpty())
-						.collect(Collectors.toList());
+				.collect(Collectors.toList());
 	}
 	
-	private List<Token> asignarTokens(List<String> tokens){
-		return tokens.stream().map(unToken -> asignarToken(unToken)).collect(Collectors.toList());
+	public Token compilar(){ 
+		armarArbolDeSintaxis();
+		return lexemas.pop();
 	}
 	
-	private Token asignarToken(String token){
+	
+	private void armarArbolDeSintaxis(){
+		tokens.stream().forEach(unToken -> asignarToken(unToken));
+		armarOperadoresRestantes();
+	}
+	
+	private void asignarToken(String token){
 		if(esUnNumero(token))
-			return new Numero(Double.parseDouble(token));
+			numero(token);
 		if(esUnOperador(token))
-			return operador(token);
-		if(esUnParentesis(token))
-			return parentesis(token);
+			operador(token);
+		if(esUnParentesisIzquierdo(token))
+			parentesisIzquierdo();
+		if(esUnParentesisDerecho(token))
+			parentesisDerecho();
+		/*
 		if(esUnaCuenta(token))
-			return new CuentaCalculo(token);
+			cuenta(token);
 		if(esUnIndicador(token))
-			return new IndicadorCalculo(token);
-		
-		throw new RuntimeException("Invalid token");
+			indicador(token);*/
 	}
 	
 
@@ -74,14 +75,17 @@ public class AnalizadorMaximo {
 		return token.matches("[0-9]+([.][0-9]+)?");
 	}
 	
-	private boolean esUnParentesis(String token){
-		return token.matches("[()]");
+	private boolean esUnParentesisIzquierdo(String token){
+		return token.matches("[(]");
+	}
+	
+	private boolean esUnParentesisDerecho(String token){
+		return token.matches("[)]");
 	}
 	
 	private boolean esUnOperador(String token){
 		return token.matches("[-+*/]");
 	}
-	
 	
 	private boolean esUnaCuenta(String cuenta){
 		return empresa.contieneLaCuentaDePeriodo(cuenta, periodo);
@@ -91,64 +95,50 @@ public class AnalizadorMaximo {
 		return RepositorioIndicadores.instance().contieneElIndicador(indicador);
 	}
 	
-	private Token operador(String token){
+	private void numero(String token){
+		Token numero = new Numero(Double.parseDouble(token));
+		lexemas.push(numero);
+	}
+	
+	private void operador(String token){
+		Token operador = null;
 		switch(token){
 		case "+":
-			return new Suma();
+			operador =  new Suma();
+			break;
 		case "-":
-			return new Resta();
+			operador =  new Resta();
+			break;
 		case "*":
-			return new Multiplicacion();
+			operador =  new Multiplicacion();
+			break;
 		case "/":
-			return new Division();
+			operador =  new Division();
+			break;
 		}
 		
-		return null;
+		ingresarOperador(operador);
 	}
 	
-	private Token parentesis(String token) {
-		switch(token){
-		case "(":
-			return new ParentesisIzquierdo();
-		case ")":
-			return new ParentesisDerecho();
-		}
-		
-		return null;
+	private void parentesisIzquierdo(){
+		Token parentesisIzquierdo = new ParentesisIzquierdo();
+		operadores.push(parentesisIzquierdo);
 	}
 	
-	private void armarArbolDeSintaxis(List<Token> tokens){
-		tokens.stream().forEach(unToken -> ingresarA(unToken));
-		armarOperadoresRestantes();
+	private void parentesisDerecho(){
+		armarOperadoresDelParentesis();
 	}
 	
-	private void ingresarA(Token token){
-		if(esUnaConstante(token))
-			lexemas.push(token);
-		if(esUnOperador(token))
-			ingresarOperador(token);
-		if(esUnParentesisIzquierdo(token))
-			operadores.push(token);
-		if(esUnParentesisDerecho(token))
-			armarOperadoresDelParentesis();
-	
+	private void cuenta(String token){
+		Token cuenta = new CuentaCalculo(token);
+		lexemas.push(cuenta);
 	}
 	
-	private boolean esUnaConstante(Token token) {
-		return token.getPrioridad() == 0;
+	private void indicador(String token){
+		Token indicador = new IndicadorCalculo(token);
+		lexemas.push(indicador);
 	}
 	
-	private boolean esUnOperador(Token token){
-		return token.getPrioridad() > 2;
-	}
-	
-	private boolean esUnParentesisDerecho(Token token) {
-		return token.getPrioridad() == 1;
-	}
-	
-	private boolean esUnParentesisIzquierdo(Token token) {
-		return token.getPrioridad() == 2;
-	}
 	
 	private void ingresarOperador(Token token){
 		if(!operadores.empty()){
@@ -163,6 +153,10 @@ public class AnalizadorMaximo {
 		while(!esUnParentesisIzquierdo(operadores.peek()))
 			armarOperador();
 		operadores.pop();
+	}
+	
+	private boolean esUnParentesisIzquierdo(Token token) {
+		return token.getPrioridad() == 2;
 	}
 	
 	private void armarOperador(){

@@ -17,7 +17,7 @@ public class IndicadorCalculo extends Token {
 	 
 	public Double calcularValor(Empresa empresa, String periodo) {
 		//return RepositorioIndicadores.instance().getValorDelIndicador(empresa, indicador, periodo);
-		return 1.0;
+		return 10.0;
 	}
 	
 	
