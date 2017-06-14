@@ -1,15 +1,9 @@
 package ui.windows;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 import org.uqbar.commons.utils.Observable;
 
 import domain.Empresa;
-import domain.indicadores.*;
-import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import interfaces.Indicador;
-import externos.AnalizadorDeIndicadores;
 
 @Observable
 public class CalculadorDeIndicador {

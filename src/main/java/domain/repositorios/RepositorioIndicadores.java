@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import domain.Empresa;
 import domain.indicadores.*;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import interfaces.Indicador;

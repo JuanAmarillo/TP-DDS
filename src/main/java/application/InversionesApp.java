@@ -5,7 +5,6 @@ import java.io.IOException;
 import org.uqbar.arena.Application;
 import org.uqbar.arena.windows.Window;
 
-import domain.repositorios.RepositorioIndicadores;
 import externos.ActualizaArchivos;
 import externos.LevantaArchivoIndicadores;
 

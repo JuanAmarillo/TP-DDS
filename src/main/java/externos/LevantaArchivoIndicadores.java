@@ -10,7 +10,6 @@ import domain.indicadores.IndicadorCustom;
 import domain.repositorios.RepositorioIndicadores;
 import etc.DatosIndicadores;
 import interfaces.FileLoader;
-import interfaces.Indicador;
 
 public class LevantaArchivoIndicadores implements FileLoader<String> {
 	

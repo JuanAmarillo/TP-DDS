@@ -12,7 +12,6 @@ import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 
 import domain.Cuenta;
-//import domain.indicadores.IndicadorCustom;
 import ui.windows.CalculadorDeIndicador;
 import domain.Empresa;
 import ui.vm.ConsultarCuentasVM;

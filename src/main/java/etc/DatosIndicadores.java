@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import domain.indicadores.IndicadorCustom;
-import interfaces.Indicador;
 
 public class DatosIndicadores {
 	List<IndicadorCustom> indicadores;
