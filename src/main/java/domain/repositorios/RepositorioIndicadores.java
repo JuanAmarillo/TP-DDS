@@ -9,6 +9,7 @@ import domain.indicadores.*;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import interfaces.Indicador;
 import externos.AnalizadorDeIndicadores;
+import ui.windows.CalculadorDeIndicador;
 
 public class RepositorioIndicadores {
 	private static List<Indicador> indicadoresCargados;
@@ -93,5 +94,11 @@ public class RepositorioIndicadores {
 	public static void agregarPredeterminados() {
 		indicadoresCargados.add(new Pers_Sencillo());
 		indicadoresCargados.add(new Pers_SoloNumeros());
+	}
+	
+	public List<CalculadorDeIndicador> generarCalculadores() {
+		ArrayList<CalculadorDeIndicador> calculadores = new ArrayList<CalculadorDeIndicador>();
+		indicadoresCargados.forEach(indicador -> calculadores.add(new CalculadorDeIndicador(indicador)));
+		return calculadores;
 	}
 }

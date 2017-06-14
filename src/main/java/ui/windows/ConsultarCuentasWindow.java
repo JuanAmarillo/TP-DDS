@@ -12,7 +12,8 @@ import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 
 import domain.Cuenta;
-import domain.indicadores.IndicadorCustom;
+//import domain.indicadores.IndicadorCustom;
+import ui.windows.CalculadorDeIndicador;
 import domain.Empresa;
 import ui.vm.ConsultarCuentasVM;
 
@@ -47,12 +48,12 @@ public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasVM> {
 		Panel formTabla = new Panel(formPanel);
 		formTabla.setLayout(new HorizontalLayout());
 
-		Table<IndicadorCustom> indicadores = new Table<IndicadorCustom>(formTabla, IndicadorCustom.class);
-		indicadores.bindItemsToProperty("indicadores");
-		indicadores.bindValueToProperty("indicadorSeleccionado");
+		Table<CalculadorDeIndicador> calculadores = new Table<CalculadorDeIndicador>(formTabla, CalculadorDeIndicador.class);
+		calculadores.bindItemsToProperty("calculadores");
+		calculadores.bindValueToProperty("calculadorSeleccionado");
 
-		new Column<IndicadorCustom>(indicadores).setTitle("Indicador").setFixedSize(150).bindContentsToProperty("nombre");
-		new Column<IndicadorCustom>(indicadores).setTitle("Valor").setFixedSize(150).bindContentsToProperty("valor");
+		new Column<CalculadorDeIndicador>(calculadores).setTitle("Indicador").setFixedSize(150).bindContentsToProperty("nombre");
+		new Column<CalculadorDeIndicador>(calculadores).setTitle("Valor").setFixedSize(150).bindContentsToProperty("valor");
 	}
 
 	protected void selectorEmpresasPeriodos(Panel formPanel) {

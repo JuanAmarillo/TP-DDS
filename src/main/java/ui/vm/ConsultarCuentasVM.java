@@ -7,10 +7,11 @@ import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import domain.*;
-import domain.indicadores.IndicadorCustom;
+//import domain.indicadores.IndicadorCustom;
 import domain.repositorios.RepositorioEmpresas;
 import domain.repositorios.RepositorioIndicadores;
-import interfaces.Indicador;
+//import interfaces.Indicador;
+import ui.windows.CalculadorDeIndicador;
 
 @Observable
 public class ConsultarCuentasVM {
@@ -19,15 +20,15 @@ public class ConsultarCuentasVM {
 	private Empresa empresaSeleccionada;
 	private String periodoSeleccionado;
 	private Cuenta cuentaSeleccionada;
-	private List<Indicador> indicadores;
-	private IndicadorCustom indicadorSeleccionado;
+	private List<CalculadorDeIndicador> calculadores;
+	private CalculadorDeIndicador calculadorSeleccionado;
 	
 		
 
 	public ConsultarCuentasVM() {
 		this.empresas = RepositorioEmpresas.instance().getEmpresasCargadas();
 		this.setEmpresaSeleccionada(this.empresas.get(0));
-		this.indicadores = RepositorioIndicadores.instance().getIndicadoresCargados();
+		this.calculadores = RepositorioIndicadores.instance().generarCalculadores();
 	}
 
 	public List<Empresa> getEmpresas() {
@@ -55,7 +56,7 @@ public class ConsultarCuentasVM {
 	public void setPeriodoSeleccionado(String periodoSeleccionado) {
 		this.periodoSeleccionado = periodoSeleccionado;
 		ObservableUtils.firePropertyChanged(this, "cuentas");
-		//indicadores.forEach(indicador-> indicador.setValor(empresaSeleccionada, periodoSeleccionado));
+		calculadores.forEach(calculador-> calculador.setValor(empresaSeleccionada, periodoSeleccionado));
 		
 	}
 
@@ -71,16 +72,16 @@ public class ConsultarCuentasVM {
 		this.cuentaSeleccionada = cuentaSeleccionada;
 	}
 	
-	public List<Indicador> getIndicadores() {
-		return indicadores;
+	public List<CalculadorDeIndicador> getCalculadores() {
+		return calculadores;
 	}
 
-	public IndicadorCustom getIndicadorSeleccionado() {
-		return indicadorSeleccionado;
+	public CalculadorDeIndicador getCalculadorSeleccionado() {
+		return calculadorSeleccionado;
 	}
 
-	public void setIndicadorSeleccionado(IndicadorCustom indicadorSeleccionado) {
-		this.indicadorSeleccionado = indicadorSeleccionado;
+	public void setCalculadorSeleccionado(CalculadorDeIndicador calculadorSeleccionado) {
+		this.calculadorSeleccionado = calculadorSeleccionado;
 	}
 
 
