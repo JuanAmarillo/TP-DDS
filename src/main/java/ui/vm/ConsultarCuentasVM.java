@@ -54,7 +54,7 @@ public class ConsultarCuentasVM {
 	public void setPeriodoSeleccionado(String periodoSeleccionado) {
 		this.periodoSeleccionado = periodoSeleccionado;
 		ObservableUtils.firePropertyChanged(this, "cuentas");
-		ObservableUtils.firePropertyChanged(this, "calculadores");
+		this.setCalculadores(empresaSeleccionada, periodoSeleccionado);
 		calculadores.forEach(calculador-> calculador.setValor(empresaSeleccionada, periodoSeleccionado));
 		
 	}
