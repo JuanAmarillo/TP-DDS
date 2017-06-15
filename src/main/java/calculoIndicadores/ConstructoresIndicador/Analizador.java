@@ -43,5 +43,9 @@ public class Analizador {
 	public Token compilar(){
 		return new Compilador(empresa, periodo, tokens).compilar();
 	}
+	
+	public Boolean sePuedeCalcular(){
+		return new AnalisisSemantico(empresa,periodo,tokens).sePuedeCalcular();
+	}
 
 }
