@@ -1,7 +1,7 @@
 package domain.indicadores;
 
+import calculoIndicadores.ConstructoresIndicador.Analizador;
 import domain.Empresa;
-import externos.AnalizadorDeIndicadores;
 import interfaces.IndicadorPredeterminado;
 
 public class Pers_Sencillo extends IndicadorPredeterminado{
@@ -17,7 +17,7 @@ public class Pers_Sencillo extends IndicadorPredeterminado{
 	}
 
 	public void asignarAVariables(Empresa emp, String periodo) {
-		cajaYBancos = new AnalizadorDeIndicadores(emp, periodo).valorDe("Caja y bancos");
+		cajaYBancos = new Analizador(emp, periodo).scan("Caja y bancos").compilar().calcularValor(emp, periodo);
 	}	
 	
 	public String getEcuacion() {

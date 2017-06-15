@@ -41,15 +41,7 @@ public class Analizador {
 	}
 	
 	public Token compilar(){
-		return new Compilador(empresa, periodo, tokensSinLaAsignacion()).compilar();
-	}
-
-	private List<String> tokensSinLaAsignacion() {
-		return tokens.subList(2, ultimoIndiceDeTokens()); //este java que no tiene takeRight
-	}
-
-	private int ultimoIndiceDeTokens() {
-		return tokens.size()-1;
+		return new Compilador(empresa, periodo, tokens).compilar();
 	}
 
 }

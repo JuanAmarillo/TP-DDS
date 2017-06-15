@@ -3,12 +3,11 @@ package domain.indicadores;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.uqbar.commons.utils.Observable;
 
+import calculoIndicadores.ConstructoresIndicador.Analizador;
 import domain.Empresa;
 
 import interfaces.Indicador;
 
-import externos.AnalizadorDeIndicadores;
-import externos.AnalizadorMaximo;
 
 @Observable
 public class IndicadorCustom implements Indicador{
@@ -20,7 +19,7 @@ public class IndicadorCustom implements Indicador{
 	
 	// METODO PARA RESPETAR LA INTERFACE
 	public Double calcularIndicador(Empresa empresa, String periodo) {
-		return new AnalizadorMaximo(empresa, periodo).scan(this).compilar().calcularValor(empresa, periodo);
+		return new Analizador(empresa, periodo).scan(ecuacion).compilar().calcularValor(empresa, periodo);
 	}
 	
 	public boolean suNombreEs(String indicador) {
@@ -84,7 +83,7 @@ public class IndicadorCustom implements Indicador{
 		}
 		
 		public void setValor(Empresa empresa,String periodo) {
-			this.valor = new AnalizadorDeIndicadores(empresa,periodo).scan(this).parser();
+			this.valor = new Analizador(empresa,periodo).scan(ecuacion).compilar().calcularValor(empresa, periodo);
 		}
 
 		@Override

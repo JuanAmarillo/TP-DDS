@@ -11,21 +11,19 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import calculoIndicadores.Token;
 import calculoIndicadores.ConstructoresIndicador.Analizador;
 import domain.Cuenta;
 import domain.Empresa;
 import domain.indicadores.IndicadorCustom;
 import domain.repositorios.RepositorioIndicadores;
-import externos.AnalizadorDeIndicadores;
-import externos.AnalizadorMaximo;
-import externos.calculoIndicadores.*;;
+
 
 public class EquationsTest {
 	Empresa empresaMockeadaB;
 	IndicadorCustom pasivoCorriente;
 	IndicadorCustom pruebaAcida;
-	AnalizadorDeIndicadores analizador;
-	AnalizadorMaximo analizadorMax;
+	Analizador analizador;
 
 	private void prepararEmpresa() {
 		empresaMockeadaB = new Empresa();
@@ -46,8 +44,7 @@ public class EquationsTest {
 	}
 
 	private void cargarIndicadores() {
-		analizadorMax = new AnalizadorMaximo(empresaMockeadaB,"2017");
-		analizador = new AnalizadorDeIndicadores(empresaMockeadaB,"2017");
+		analizador = new Analizador(empresaMockeadaB,"2017");
 		
 		pasivoCorriente = new IndicadorCustom();
 		pasivoCorriente.nombre = "Pasivo Corriente";
@@ -73,54 +70,50 @@ public class EquationsTest {
 
 	@Test
 	public void testDaPrioridadALosOperadores() {
-		IndicadorCustom indicador = new IndicadorCustom();
-		indicador.ecuacion = "5 - 50 * 2 + 3/3 - 1 + 2 *3 ";
+		String indicador = "5 - 50 * 2 + 3/3 - 1 + 2 *3 ";
 	
-		Token token = analizadorMax.scan(indicador).compilar();
+		Token token = analizador.scan(indicador).compilar();
 		assertTrue(token.calcularValor(empresaMockeadaB, "2017").equals(-101.0));
 	}
 	
 	@Test
 	public void testDaPrioridadALosParentesis(){
-		IndicadorCustom indicador = new IndicadorCustom();
-		indicador.ecuacion = "(2*(3+4) + (5+2))/3";
+		String indicador = "(2*(3+4) + (5+2))/3";
 	
-		Token token = analizadorMax.scan(indicador).compilar();
+		Token token = analizador.scan(indicador).compilar();
 		assertTrue(token.calcularValor(empresaMockeadaB, "2017").equals(7.0));
 	}
 
 
 	@Test
 	public void testAceptaNumerosConComa() {
-		IndicadorCustom indicador = new IndicadorCustom();
-		indicador.ecuacion = "1.5 + 2.5 ";
-		Token token = analizadorMax.scan(indicador).compilar();
+		String indicador = "1.5 + 2.5 ";
+		Token token = analizador.scan(indicador).compilar();
 		assertTrue(token.calcularValor(empresaMockeadaB, "2017").equals(4.0));
 	}
 
 	@Test
 	public void testIndicadorConCuentas() {
-		Token token = analizadorMax.scan(pasivoCorriente).compilar();
+		Token token = analizador.scan(pasivoCorriente.ecuacion).compilar();
 		assertTrue(token.calcularValor(empresaMockeadaB, "2017").equals(70.0));
 	}
 
 	@Test
 	public void testIndicadorConIndicadores() {
-		Token token = analizadorMax.scan(pruebaAcida).compilar();
+		Token token = analizador.scan(pruebaAcida.ecuacion).compilar();
 		assertTrue(token.calcularValor(empresaMockeadaB, "2017").equals(3.0));
 	}
 
+	
 	@Test(expected = RuntimeException.class)
 	public void testIndicadorConOperadorIncorrectoFalla() {
-		IndicadorCustom indicador = new IndicadorCustom();
-		indicador.ecuacion = "2!3";
+		String indicador = "rompe = 2!3";
 		analizador.scan(indicador).parser();
 	}
 
 	@Test(expected = RuntimeException.class)
 	public void testIndicadorConCuentaOIndicadorFaltanteFalla() {
-		IndicadorCustom indicador = new IndicadorCustom();
-		indicador.ecuacion = "No existo :p";
+		String indicador = "No existo :p";
 		analizador.scan(indicador).parser();
 	}
 	

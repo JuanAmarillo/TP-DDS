@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import calculoIndicadores.ConstructoresIndicador.Analizador;
 import domain.indicadores.*;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import interfaces.Indicador;
-import externos.AnalizadorDeIndicadores;
 import ui.windows.CalculadorDeIndicador;
 
 public class RepositorioIndicadores {
@@ -32,8 +32,9 @@ public class RepositorioIndicadores {
 	}
 
 	public IndicadorCustom agregarIndicadorAPartirDe(String indicador) {
+		analizarSintacticamente(indicador);
 		IndicadorCustom indicadorACargar = IndicadorCustom.armarApartirDe(indicador);
-		validarIndicador(indicadorACargar);
+		indicadorExistente(indicadorACargar);
 		agregarIndicador(indicadorACargar);
 		return indicadorACargar;
 	}
@@ -66,10 +67,8 @@ public class RepositorioIndicadores {
 		indicadoresCargados.addAll(indicadoresADevolver);
 	}
 
-	private void validarIndicador(IndicadorCustom indicador) {
-		indicador.ecuacionContieneAlNombre();
-		indicadorExistente(indicador);
-		new AnalizadorDeIndicadores(null,null).scan(indicador).parser();
+	private Boolean analizarSintacticamente(String indicador) {
+		return new Analizador(null,null).scan(indicador).parser();
 	}
 
 	private void indicadorExistente(IndicadorCustom indicador) {
