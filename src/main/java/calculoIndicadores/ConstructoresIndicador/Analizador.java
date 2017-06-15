@@ -22,7 +22,7 @@ public class Analizador {
 	public Analizador scan(String indicador) {
 		generarTokens(indicador);
 		eliminarEspaciosInnecesarios();
-		tokens.forEach(lexema-> System.out.println(lexema)); 
+		//tokens.forEach(lexema-> System.out.println(lexema)); 
 		return this;
 	}
 	

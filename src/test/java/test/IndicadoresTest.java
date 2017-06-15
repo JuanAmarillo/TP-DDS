@@ -8,6 +8,7 @@ import org.junit.Test;
 import domain.Empresa;
 import domain.indicadores.IndicadorCustom;
 import domain.repositorios.RepositorioIndicadores;
+import exceptions.ParsingException;
 import interfaces.Indicador;
 
 public class IndicadoresTest {
@@ -59,25 +60,31 @@ public class IndicadoresTest {
 		eliminarIndicador("No te escucho soy de palo tengo orejas de pescado = 2");
 	}
 
-	@Test(expected = RuntimeException.class)
+	@Test(expected = ParsingException.class)
 	public void testIndicadorConElMismoNombreEnSuEcuacionFalla() {
 		cargarIndicadorYBuscarlo("indicador = indicador  +3  ");
 	}
 
-	@Test(expected = RuntimeException.class)
+	@Test(expected = ParsingException.class)
 	public void testIndicadorConOperacionInvalidaFalla() {
 		cargarIndicador("Buenos = !malos");
 	}
 	
-	@Test(expected = RuntimeException.class)
+	@Test(expected = ParsingException.class)
 	public void testIndicadorConVariasAsignacionesFalla(){
 		cargarIndicador("Indicador = soy el verdadero = yo soy el verdadero");
 	}
 	
-	@Test(expected = RuntimeException.class)
+	@Test(expected = ParsingException.class)
 	public void testIndicadorSinAsignacionFalla(){
 		cargarIndicador("hola");
 	}
+	
+	@Test(expected = ParsingException.class)
+	public void testIndicadorConParentesisFaltanteFalla(){
+		cargarIndicador("hola = ((2+5)*3");
+	}
+	
 
 	@Test(expected = RuntimeException.class)
 	public void testAgregarUnIndicadorYaExistenteFalla() {
