@@ -25,12 +25,13 @@ public class IndicadorCustom implements Indicador{
 	}
 	
 	public boolean esCalculable(Empresa empresa, String periodo) {
-		try {
-			calcularIndicador(empresa, periodo);
-			return true;
-		} catch (EmptyStackException e) {
-			return false;
-		}
+//		try {
+//			calcularIndicador(empresa, periodo);
+//			return true;
+//		} catch (EmptyStackException e) {
+//			return false;
+//		}
+		return new Analizador(empresa, periodo).scan(ecuacion).sePuedeCalcular();
 	}
 	
 	public boolean suNombreEs(String indicador) {
