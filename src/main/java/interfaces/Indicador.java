@@ -13,5 +13,7 @@ public interface Indicador {
 	public String getNombre();
 
 	public Object getEcuacion();
+	
+	public boolean esCalculable(Empresa empresa, String periodo);
 
 }

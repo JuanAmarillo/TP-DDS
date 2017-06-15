@@ -26,7 +26,7 @@ public class ConsultarCuentasVM {
 	public ConsultarCuentasVM() {
 		this.empresas = RepositorioEmpresas.instance().getEmpresasCargadas();
 		this.setEmpresaSeleccionada(this.empresas.get(0));
-		this.calculadores = RepositorioIndicadores.instance().generarCalculadores();
+		//this.calculadores = RepositorioIndicadores.instance().generarCalculadores();
 	}
 
 	public List<Empresa> getEmpresas() {
@@ -54,6 +54,7 @@ public class ConsultarCuentasVM {
 	public void setPeriodoSeleccionado(String periodoSeleccionado) {
 		this.periodoSeleccionado = periodoSeleccionado;
 		ObservableUtils.firePropertyChanged(this, "cuentas");
+		ObservableUtils.firePropertyChanged(this, "calculadores");
 		calculadores.forEach(calculador-> calculador.setValor(empresaSeleccionada, periodoSeleccionado));
 		
 	}
@@ -72,6 +73,10 @@ public class ConsultarCuentasVM {
 	
 	public List<CalculadorDeIndicador> getCalculadores() {
 		return calculadores;
+	}
+	
+	public void setCalculadores(Empresa empresa, String periodo) {
+		this.calculadores = RepositorioIndicadores.instance().generarCalculadores(empresa, periodo);
 	}
 
 	public CalculadorDeIndicador getCalculadorSeleccionado() {

@@ -15,6 +15,11 @@ public abstract class IndicadorPredeterminado implements Indicador{
 	public boolean esCustom() {
 		return false;
 	}
+	
+	@Override
+	public boolean esCalculable(Empresa empresa, String periodo) {
+		return false;
+	}
 
 	
 	

@@ -1,6 +1,8 @@
 package domain.indicadores;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import java.util.EmptyStackException;
+
 import org.uqbar.commons.utils.Observable;
 
 import calculoIndicadores.ConstructoresIndicador.Analizador;
@@ -20,6 +22,15 @@ public class IndicadorCustom implements Indicador{
 	// METODO PARA RESPETAR LA INTERFACE
 	public Double calcularIndicador(Empresa empresa, String periodo) {
 		return new Analizador(empresa, periodo).scan(ecuacion).compilar().calcularValor(empresa, periodo);
+	}
+	
+	public boolean esCalculable(Empresa empresa, String periodo) {
+		try {
+			calcularIndicador(empresa, periodo);
+			return true;
+		} catch (EmptyStackException e) {
+			return false;
+		}
 	}
 	
 	public boolean suNombreEs(String indicador) {
