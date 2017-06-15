@@ -11,6 +11,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import calculoIndicadores.ConstructoresIndicador.Analizador;
 import domain.Cuenta;
 import domain.Empresa;
 import domain.indicadores.IndicadorCustom;
@@ -121,6 +122,14 @@ public class EquationsTest {
 		IndicadorCustom indicador = new IndicadorCustom();
 		indicador.ecuacion = "No existo :p";
 		analizador.scan(indicador).parser();
+	}
+	
+	@Test
+	public void testNuevoParserFunciona(){
+		assertTrue(new Analizador(empresaMockeadaB, "2017").scan("hola = 2 + 5").parser());
+		assertTrue(new Analizador(empresaMockeadaB, "2017").scan("hola = ((2+2) * chau)").parser());
+		assertFalse(new Analizador(empresaMockeadaB, "2017").scan("hola = (2 + chau").parser());
+		assertFalse(new Analizador(empresaMockeadaB, "2017").scan("hola = hola").parser());
 	}
 	
 	@Test
