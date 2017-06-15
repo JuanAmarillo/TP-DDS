@@ -1,7 +1,6 @@
 package calculoIndicadores.ConstructoresIndicador;
 
 import java.util.List;
-import domain.Empresa;
 
 public class Parser extends OperacionesDisponibles {
 	private String nombreIndicador;
@@ -26,16 +25,16 @@ public class Parser extends OperacionesDisponibles {
 	private Boolean segundoToken() {
 		String siguienteToken = obtenerSiguienteToken();
 		if(hayToken(siguienteToken))
-			return igualdad(obtenerSiguienteToken());
+			return igualdad(siguienteToken);
 		else
 			throw new RuntimeException("Debe haber una igualdad");
 	}
 	
 	private Boolean igualdad(String token){
-		if(esUnaIgualidad(token)){
+		if(esUnaIgualdad(token)){
 			return terminal();
 		}
-		throw new RuntimeException("Debe haber una igualdad");
+		throw new RuntimeException("No puede haber operaciones antes de la igualdad");
 	}
 	
 	private Boolean numero(String token){

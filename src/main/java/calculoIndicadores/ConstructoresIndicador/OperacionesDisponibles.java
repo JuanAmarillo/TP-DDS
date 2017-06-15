@@ -46,8 +46,8 @@ abstract class OperacionesDisponibles {
 		return RepositorioIndicadores.instance().contieneElIndicador(indicador);
 	}
 	
-	protected boolean esUnaIgualidad(String token){
-		return token.matches("[=]");
+	protected boolean esUnaIgualdad(String token){
+		return token.equals("=");
 	}
 	
 }
