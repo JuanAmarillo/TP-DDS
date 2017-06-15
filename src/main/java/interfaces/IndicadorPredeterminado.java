@@ -18,7 +18,7 @@ public abstract class IndicadorPredeterminado implements Indicador{
 	
 	@Override
 	public boolean esCalculable(Empresa empresa, String periodo) {
-		return false;
+		return true;
 	}
 
 	
