@@ -20,7 +20,9 @@ public class Compilador extends OperacionesDisponibles{
 	private Stack<Token> operadores;
 
 	protected Compilador(Empresa empresa, String periodo, List<String> tokens) {
-		super(empresa, periodo, tokens);
+		super(tokens);
+		this.empresa = empresa;
+		this.periodo = periodo;
 		this.operadores = new Stack<Token>();
 		this.lexemas =  new Stack<Token>();
 	}

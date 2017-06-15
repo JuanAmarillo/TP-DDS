@@ -37,7 +37,7 @@ public class Analizador {
 	}
 	
 	public Boolean parser(){
-		return new Parser(empresa, periodo, tokens).parsear();
+		return new Parser(tokens).parsear();
 	}
 	
 	public Token compilar(){

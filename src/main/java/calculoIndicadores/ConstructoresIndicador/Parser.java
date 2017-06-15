@@ -7,8 +7,8 @@ public class Parser extends OperacionesDisponibles {
 	private String nombreIndicador;
 	private Integer parentesisAbiertos = 0;
 
-	protected Parser(Empresa empresa, String periodo, List<String> tokens) {
-		super(empresa, periodo, tokens);
+	protected Parser(List<String> tokens) {
+		super(tokens);
 	}
 
 	public  Boolean parsear(){
@@ -18,9 +18,17 @@ public class Parser extends OperacionesDisponibles {
 	private Boolean primerToken(String token){
 		if(esUnTexto(token)){
 			this.nombreIndicador = token;
-			return igualdad(obtenerSiguienteToken());
+			return segundoToken();
 		}
-		throw new RuntimeException("El indicador solo puede contener letras");
+		throw new RuntimeException("el Indicador solo puede estar formado por letras");
+	}
+
+	private Boolean segundoToken() {
+		String siguienteToken = obtenerSiguienteToken();
+		if(hayToken(siguienteToken))
+			return igualdad(obtenerSiguienteToken());
+		else
+			throw new RuntimeException("Debe haber una igualdad");
 	}
 	
 	private Boolean igualdad(String token){

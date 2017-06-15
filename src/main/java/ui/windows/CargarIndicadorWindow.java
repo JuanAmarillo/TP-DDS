@@ -60,8 +60,8 @@ public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 	public void eliminarIndicador() {
 		try {
 			this.getModelObject().eliminarIndicador();
-		} catch (IOException e) {
-			this.showWarning("La eliminacion no se realizo con exito");
+		} catch (RuntimeException | IOException e) {
+			this.showWarning("La eliminacion no se realizo con exito, intenta mas tarde :p (la clasica)");
 		}
 
 	}

@@ -37,7 +37,7 @@ public class CargarIndicadorVM {
 		this.indicadorSeleccionado = indicadorSeleccionado;
 	}
 
-	public void cargarIndicador() throws IOException{
+	public void cargarIndicador() throws IOException,RuntimeException{
 		RepositorioIndicadores.instance().agregarIndicadorAPartirDe(indicador);
 		ActualizaArchivos.actualizarArchivoJson();
 		ObservableUtils.firePropertyChanged(this, "indicadores");

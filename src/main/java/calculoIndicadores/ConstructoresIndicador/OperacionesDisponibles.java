@@ -10,9 +10,7 @@ abstract class OperacionesDisponibles {
 	protected String periodo;
 	protected List<String> tokens;
 	
-	protected OperacionesDisponibles(Empresa empresa, String periodo, List<String> tokens){
-		this.empresa = empresa;
-		this.periodo = periodo;
+	protected OperacionesDisponibles(List<String> tokens){
 		this.tokens = tokens;
 	}
 	
