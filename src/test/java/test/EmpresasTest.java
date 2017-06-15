@@ -18,7 +18,7 @@ public class EmpresasTest {
 
 	private void cargarArchivo(String nombreArchivo) {
 		try {
-			new LevantaArchivoEmpresa().cargarArchivo("src/test/resources/" + nombreArchivo);
+			new LevantaArchivoEmpresa("src/test/resources/" + nombreArchivo).cargarArchivo();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

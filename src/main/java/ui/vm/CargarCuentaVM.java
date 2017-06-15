@@ -32,7 +32,7 @@ public class CargarCuentaVM {
 	}
 
 	public void cargarEmpresa() throws IOException {
-		new LevantaArchivoEmpresa().cargarArchivo(filePath);
+		new LevantaArchivoEmpresa(filePath).cargarArchivo();
 	}
 
 }

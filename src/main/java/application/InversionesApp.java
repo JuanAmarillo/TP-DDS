@@ -16,7 +16,7 @@ public class InversionesApp extends Application {
 	
 	public static void main(String[] args) {
 		try {
-			new LevantaArchivoIndicadores().cargarArchivo(fp);
+			new LevantaArchivoIndicadores(fp).cargarArchivo();
 			ActualizaArchivos.setFilepath(fp);
 		} catch (IOException e) {
 			e.printStackTrace();

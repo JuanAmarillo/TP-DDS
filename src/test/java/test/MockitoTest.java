@@ -36,7 +36,8 @@ public class MockitoTest {
 	LevantaArchivoEmpresa loader = mock(LevantaArchivoEmpresa.class);
 
 	private void cargarArchivo(String ruta) throws IOException {
-		loader.cargarArchivo(ruta);
+		loader.setFilepath(ruta);
+		loader.cargarArchivo();
 	}
 
 	public List<Empresa> getListaEmpresas() {
@@ -46,8 +47,8 @@ public class MockitoTest {
 	@Before
 	public void init() throws IOException {
 		prepararEmpresaB();
-		when(loader.getEmpresaDelArchivo(anyString())).thenReturn(empresaB);
-		empresaA = loader.getEmpresaDelArchivo("Mocka-Cola");
+		when(loader.getEmpresaDelArchivo()).thenReturn(empresaB);
+		empresaA = loader.getEmpresaDelArchivo();
 		RepositorioEmpresas.instance().agregarEmpresa(empresaA);
 	}
 
