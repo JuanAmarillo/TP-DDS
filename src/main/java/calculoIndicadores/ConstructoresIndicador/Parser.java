@@ -2,6 +2,8 @@ package calculoIndicadores.ConstructoresIndicador;
 
 import java.util.List;
 
+import exceptions.ParsingException;
+
 public class Parser extends OperacionesDisponibles {
 	private String nombreIndicador;
 	private Integer parentesisAbiertos = 0;
@@ -19,7 +21,7 @@ public class Parser extends OperacionesDisponibles {
 			this.nombreIndicador = token;
 			return segundoToken();
 		}
-		throw new RuntimeException("el Indicador solo puede estar formado por letras");
+		throw new ParsingException("el Indicador solo puede estar formado por letras");
 	}
 
 	private Boolean segundoToken() {
@@ -27,14 +29,14 @@ public class Parser extends OperacionesDisponibles {
 		if(hayToken(siguienteToken))
 			return igualdad(siguienteToken);
 		else
-			throw new RuntimeException("Debe haber una igualdad");
+			throw new ParsingException("Debe haber una igualdad");
 	}
 	
 	private Boolean igualdad(String token){
 		if(esUnaIgualdad(token)){
 			return terminal();
 		}
-		throw new RuntimeException("No puede haber operaciones antes de la igualdad");
+		throw new ParsingException("No puede haber operaciones antes de la igualdad");
 	}
 	
 	private Boolean numero(String token){
@@ -92,14 +94,14 @@ public class Parser extends OperacionesDisponibles {
 		if(hayToken(siguienteToken))
 			return siguienteTerminal(siguienteToken);
 		else
-		    throw new RuntimeException("Falta un terminal");
+		    throw new ParsingException("Falta un terminal");
 	}
 
 	private Boolean siguienteTerminal(String siguienteToken) {
 		if( numero(siguienteToken) || palabra(siguienteToken) || parentesisIzquierdo(siguienteToken))
 			return true;
 		else
-			throw new RuntimeException("Terminal Incorrecto");
+			throw new ParsingException("Terminal Incorrecto");
 	}
 	
 	private Boolean fin(String token){
