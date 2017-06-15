@@ -112,7 +112,7 @@ public class EquationsTest {
 	}
 
 	@Test(expected = RuntimeException.class)
-	public void testIndicadorConCuentaOIndicadorFaltanteFalla() {
+	public void testIndicadorSinAsignacionFalla() {
 		String indicador = "No existo :p";
 		analizador.scan(indicador).parser();
 	}
@@ -121,8 +121,6 @@ public class EquationsTest {
 	public void testNuevoParserFunciona(){
 		assertTrue(new Analizador(empresaMockeadaB, "2017").scan("hola = 2 + 5").parser());
 		assertTrue(new Analizador(empresaMockeadaB, "2017").scan("hola = ((2+2) * chau)").parser());
-		assertFalse(new Analizador(empresaMockeadaB, "2017").scan("hola = (2 + chau").parser());
-		assertFalse(new Analizador(empresaMockeadaB, "2017").scan("hola = hola").parser());
 	}
 	
 	@Test

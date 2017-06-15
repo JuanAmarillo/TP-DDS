@@ -69,8 +69,8 @@ public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 	public void cargarIndicador() {
 		try {
 			this.getModelObject().cargarIndicador();
-		} catch (IOException e) {
-			this.showWarning("El nuevo indicador no se ha cargado con exito");
+		} catch (RuntimeException | IOException e) {
+			this.showWarning(e.getMessage());
 		}
 	}
 }

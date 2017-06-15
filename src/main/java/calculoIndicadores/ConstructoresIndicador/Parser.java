@@ -20,14 +20,14 @@ public class Parser extends OperacionesDisponibles {
 			this.nombreIndicador = token;
 			return igualdad(obtenerSiguienteToken());
 		}
-		return false;
+		throw new RuntimeException("El indicador solo puede contener letras");
 	}
 	
 	private Boolean igualdad(String token){
 		if(esUnaIgualidad(token)){
 			return terminal();
 		}
-		return false;
+		throw new RuntimeException("Debe haber una igualdad");
 	}
 	
 	private Boolean numero(String token){
@@ -83,9 +83,16 @@ public class Parser extends OperacionesDisponibles {
 	private Boolean terminal() {
 		String siguienteToken = obtenerSiguienteToken();
 		if(hayToken(siguienteToken))
-			return numero(siguienteToken) || palabra(siguienteToken) || parentesisIzquierdo(siguienteToken);
+			return siguienteTerminal(siguienteToken);
 		else
-			return false;
+		    throw new RuntimeException("Falta un terminal");
+	}
+
+	private Boolean siguienteTerminal(String siguienteToken) {
+		if( numero(siguienteToken) || palabra(siguienteToken) || parentesisIzquierdo(siguienteToken))
+			return true;
+		else
+			throw new RuntimeException("Terminal Incorrecto");
 	}
 	
 	private Boolean fin(String token){
