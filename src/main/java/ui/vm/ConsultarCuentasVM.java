@@ -1,7 +1,9 @@
 package ui.vm;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
@@ -9,6 +11,7 @@ import org.uqbar.commons.utils.Observable;
 import domain.*;
 import domain.repositorios.RepositorioEmpresas;
 import domain.repositorios.RepositorioIndicadores;
+import interfaces.Indicador;
 import ui.windows.CalculadorDeIndicador;
 
 @Observable
@@ -26,7 +29,6 @@ public class ConsultarCuentasVM {
 	public ConsultarCuentasVM() {
 		this.empresas = RepositorioEmpresas.instance().getEmpresasCargadas();
 		this.setEmpresaSeleccionada(this.empresas.get(0));
-		//this.calculadores = RepositorioIndicadores.instance().generarCalculadores();
 	}
 
 	public List<Empresa> getEmpresas() {
@@ -76,7 +78,13 @@ public class ConsultarCuentasVM {
 	}
 	
 	public void setCalculadores(Empresa empresa, String periodo) {
-		this.calculadores = RepositorioIndicadores.instance().generarCalculadores(empresa, periodo);
+		ArrayList<CalculadorDeIndicador> calculadoresPosibles = new ArrayList<CalculadorDeIndicador>();
+		indicadoresCalculables(empresa, periodo).forEach(indicador -> calculadoresPosibles.add(new CalculadorDeIndicador(indicador)));
+		this.calculadores = calculadoresPosibles;
+	}
+	
+	public List<Indicador> indicadoresCalculables(Empresa empresa, String periodo) {
+		return RepositorioIndicadores.instance().getIndicadoresCargados().stream().filter(indicador -> indicador.esCalculable(empresa, periodo)).collect(Collectors.toList());
 	}
 
 	public CalculadorDeIndicador getCalculadorSeleccionado() {

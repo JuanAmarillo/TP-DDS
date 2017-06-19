@@ -6,6 +6,7 @@ import java.util.EmptyStackException;
 import org.uqbar.commons.utils.Observable;
 
 import calculoIndicadores.ConstructoresIndicador.Analizador;
+import calculoIndicadores.Token;
 import domain.Empresa;
 
 import interfaces.Indicador;
@@ -15,6 +16,7 @@ import interfaces.Indicador;
 public class IndicadorCustom implements Indicador{
 	public String nombre;
 	public String ecuacion;
+	public Token arbol;
 
 	@JsonIgnore
 	public Double valor;
@@ -25,13 +27,13 @@ public class IndicadorCustom implements Indicador{
 	}
 	
 	public boolean esCalculable(Empresa empresa, String periodo) {
-//		try {
-//			calcularIndicador(empresa, periodo);
-//			return true;
-//		} catch (EmptyStackException e) {
-//			return false;
-//		}
-		return new Analizador(empresa, periodo).scan(ecuacion).sePuedeCalcular();
+		try {
+			calcularIndicador(empresa, periodo);
+			return true;
+		} catch (EmptyStackException e) {
+			return false;
+		}
+		//return new Analizador(empresa, periodo).scan(ecuacion).sePuedeCalcular();
 	}
 	
 	public boolean suNombreEs(String indicador) {
@@ -64,6 +66,7 @@ public class IndicadorCustom implements Indicador{
 		IndicadorCustom unIndicador = new IndicadorCustom();
 		unIndicador.setNombreIndicador(getNombre(indicador));
 		unIndicador.setEcuacion(getEcuacion(indicador));
+		
 		return unIndicador;
 	}
 
@@ -88,6 +91,10 @@ public class IndicadorCustom implements Indicador{
 
 		public void setNombreIndicador(String nombre) {
 			this.nombre = nombre;
+		}
+		
+		public Token getArbol() {
+			return arbol;
 		}
 		
 		public Double getValor() {

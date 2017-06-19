@@ -12,6 +12,10 @@ public class Pers_SoloNumeros extends IndicadorPredeterminado{
 	public Double calculo() {
 		return 23.0;
 	}	
+	
+	public boolean esCalculable(Empresa empresa, String periodo) {
+		return true;
+	}
 
 	public void asignarAVariables(Empresa emp, String periodo) {
 	}	

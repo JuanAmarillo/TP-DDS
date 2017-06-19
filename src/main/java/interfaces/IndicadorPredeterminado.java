@@ -16,10 +16,10 @@ public abstract class IndicadorPredeterminado implements Indicador{
 		return false;
 	}
 	
-	@Override
-	public boolean esCalculable(Empresa empresa, String periodo) {
-		return true;
-	}
+//	@Override
+//	public boolean esCalculable(Empresa empresa, String periodo) {
+//		return true;
+//	}
 
 	
 	
@@ -30,6 +30,7 @@ public abstract class IndicadorPredeterminado implements Indicador{
 	
 	public abstract void asignarAVariables(Empresa emp, String periodo);
 	public abstract Double calculo();
+	public abstract boolean esCalculable(Empresa empresa, String periodo);
 	
 	public String getNombre() {
 		return nombreIndicador;

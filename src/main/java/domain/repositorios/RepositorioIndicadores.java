@@ -6,10 +6,9 @@ import java.util.stream.Collectors;
 
 import calculoIndicadores.ConstructoresIndicador.Analizador;
 import domain.indicadores.*;
-import domain.Empresa;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import interfaces.Indicador;
-import ui.windows.CalculadorDeIndicador;
+
 
 public class RepositorioIndicadores {
 	private static List<Indicador> indicadoresCargados;
@@ -18,7 +17,7 @@ public class RepositorioIndicadores {
 	public static RepositorioIndicadores instance() {
 		if (instance == null) {
 			indicadoresCargados = new ArrayList<Indicador>();
-			//agregarPredeterminados();
+			agregarPredeterminados();
 			instance = new RepositorioIndicadores();
 		}
 		return instance;
@@ -93,11 +92,7 @@ public class RepositorioIndicadores {
 	public static void agregarPredeterminados() {
 		indicadoresCargados.add(new Pers_Sencillo());
 		indicadoresCargados.add(new Pers_SoloNumeros());
+		indicadoresCargados.add(new Pers_FDSporTres());
 	}
 	
-	public List<CalculadorDeIndicador> generarCalculadores(Empresa empresa, String periodo) {
-		ArrayList<CalculadorDeIndicador> calculadores = new ArrayList<CalculadorDeIndicador>();
-		indicadoresCargados.stream().filter(indicador -> indicador.esCalculable(empresa, periodo)).forEach(indicador -> calculadores.add(new CalculadorDeIndicador(indicador)));
-		return calculadores;
-	}
 }

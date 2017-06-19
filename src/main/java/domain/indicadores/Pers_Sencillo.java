@@ -1,6 +1,5 @@
 package domain.indicadores;
 
-import calculoIndicadores.ConstructoresIndicador.Analizador;
 import domain.Empresa;
 import interfaces.IndicadorPredeterminado;
 
@@ -15,12 +14,16 @@ public class Pers_Sencillo extends IndicadorPredeterminado{
 	public Double calculo() {
 		return cajaYBancos + 23;
 	}
+	
+	public boolean esCalculable(Empresa empresa, String periodo) {
+		return empresa.contieneLaCuentaDePeriodo("Caja y bancos", periodo);
+	}
 
-	public void asignarAVariables(Empresa emp, String periodo) {
-		cajaYBancos = new Analizador(emp, periodo).scan("Caja y bancos").compilar().calcularValor(emp, periodo);
+	public void asignarAVariables(Empresa empresa, String periodo) {
+		cajaYBancos = empresa.getValorDeLaCuenta("Caja y bancos", periodo);
 	}	
 	
 	public String getEcuacion() {
-		return "a+23";
+		return "Caja y bancos+23";
 	}
 }
