@@ -3,7 +3,6 @@ package calculoIndicadores.ConstructoresIndicador;
 import java.util.List;
 
 import domain.Empresa;
-import domain.indicadores.IndicadorCustom;
 import domain.repositorios.RepositorioIndicadores;
 
 public class AnalisisSemantico extends OperacionesDisponibles{

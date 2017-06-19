@@ -16,12 +16,6 @@ public abstract class IndicadorPredeterminado implements Indicador{
 		return false;
 	}
 	
-//	@Override
-//	public boolean esCalculable(Empresa empresa, String periodo) {
-//		return true;
-//	}
-
-	
 	
 	public Double calcularIndicador(Empresa emp, String periodo) {
 		asignarAVariables(emp,periodo);

@@ -1,7 +1,6 @@
 package test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.HashSet;
@@ -113,8 +112,8 @@ public class EquationsTest {
 	
 	@Test
 	public void testSeCalculanLosIndicadoresDeFormaPolimorfica() {
-		double sumaDeLosIndicadores = RepositorioIndicadores.instance().getIndicadoresCargados().stream().mapToDouble(ind -> ind.calcularIndicador(empresa, "2017")).sum();
-		assertEquals(73.0 + 23.0 + 173.0,sumaDeLosIndicadores,0.0);
+		double sumaDeLosIndicadores = RepositorioIndicadores.instance().obtenerCustoms().stream().mapToDouble(ind -> ind.calcularIndicador(empresa, "2017")).sum();
+		assertEquals(73.0,sumaDeLosIndicadores,0.0);
 	}
 
 }

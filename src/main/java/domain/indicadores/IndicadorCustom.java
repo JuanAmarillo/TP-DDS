@@ -19,8 +19,7 @@ public class IndicadorCustom implements Indicador{
 	public Token arbol;
 
 	@JsonIgnore
-	public Double valor;
-	
+		
 	// METODO PARA RESPETAR LA INTERFACE
 	public Double calcularIndicador(Empresa empresa, String periodo) {
 		return new Analizador(empresa, periodo).scan(ecuacion).compilar().calcularValor(empresa, periodo);
@@ -96,15 +95,7 @@ public class IndicadorCustom implements Indicador{
 		public Token getArbol() {
 			return arbol;
 		}
-		
-		public Double getValor() {
-			return valor;
-		}
-		
-		public void setValor(Empresa empresa,String periodo) {
-			this.valor = new Analizador(empresa,periodo).scan(ecuacion).compilar().calcularValor(empresa, periodo);
-		}
-
+				
 		@Override
 		public boolean esCustom() {
 			return true;
