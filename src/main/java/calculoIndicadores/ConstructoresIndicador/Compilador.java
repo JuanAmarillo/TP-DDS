@@ -5,7 +5,6 @@ import java.util.Stack;
 
 import calculoIndicadores.CuentaOIndicador;
 import calculoIndicadores.Division;
-import calculoIndicadores.IndicadorCalculo;
 import calculoIndicadores.Multiplicacion;
 import calculoIndicadores.Numero;
 import calculoIndicadores.Operador;

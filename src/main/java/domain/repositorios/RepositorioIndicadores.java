@@ -32,8 +32,7 @@ public class RepositorioIndicadores {
 	}
 
 	public IndicadorCustom agregarIndicadorAPartirDe(String indicador) {
-		analizarSintacticamente(indicador);
-		IndicadorCustom indicadorACargar = IndicadorCustom.armarApartirDe(indicador);
+		IndicadorCustom indicadorACargar = new IndicadorCustom(indicador);
 		indicadorExistente(indicadorACargar);
 		agregarIndicador(indicadorACargar);
 		return indicadorACargar;
@@ -45,12 +44,11 @@ public class RepositorioIndicadores {
 	}
 
 	public void eliminarIndicador(Indicador indicador) throws NoSePuedeBorrarUnPredeterminadoException{
-		if(indicador.esCustom()) {
+		if(indicador.esCustom()) 
 			RepositorioIndicadores.instance().getIndicadoresCargados().remove(indicador);
-		}
-		else {
+		else 
 			throw new NoSePuedeBorrarUnPredeterminadoException();
-		}
+		
 	}
 
 	public List<IndicadorCustom> obtenerCustoms() {

@@ -16,13 +16,24 @@ import interfaces.Indicador;
 public class IndicadorCustom implements Indicador{
 	public String nombre;
 	public String ecuacion;
-	public Token arbol;
+	public Token calculo;
 
 	@JsonIgnore
+	
+	public IndicadorCustom(String indicador){
+		analizarSintacticamente(indicador);
+		this.setNombreIndicador(generarNombre(indicador));
+		this.setEcuacion(generarEcuacion(indicador));
+		this.setCalculo(generarCalculo(indicador));
+	}
+	
+	private Boolean analizarSintacticamente(String indicador) {
+		return new Analizador().scan(indicador).parser();
+	}
 		
 	// METODO PARA RESPETAR LA INTERFACE
 	public Double calcularIndicador(Empresa empresa, String periodo) {
-		return new Analizador().scan(ecuacion).compilar().calcularValor(empresa, periodo);
+		return calculo.calcularValor(empresa, periodo);
 	}
 	
 	public boolean esCalculable(Empresa empresa, String periodo) {
@@ -39,42 +50,29 @@ public class IndicadorCustom implements Indicador{
 		return this.nombre.equals(indicador);
 	}
 	
-	public static String getNombre(String indicador){
+	public static String generarNombre(String indicador){
 		String[] partesDelIndicador = separarIndicadorEnPartes(indicador);
 		return partesDelIndicador[0].trim();
 	}
 	
-	public static String getEcuacion(String indicador){
+	public static String generarEcuacion(String indicador){
 		String[] partesDelIndicador = separarIndicadorEnPartes(indicador);
 		return partesDelIndicador[1];
 	}
 	
 	public static String[] separarIndicadorEnPartes(String indicador){
-		String[] partesDelIndicador =  indicador.split("=");
-		return indicadorSiTieneUnaAsignacion(partesDelIndicador);
+		return indicador.split("=");
 	}
 	
-	private static String[] indicadorSiTieneUnaAsignacion(String[] partesDelIndicador) {
-		if(partesDelIndicador.length == 2)
-			return partesDelIndicador;
-		else
-			throw new RuntimeException("El indicador debe tener solo una asignacion");
-	}
-
-	public static IndicadorCustom armarApartirDe(String indicador){
-		IndicadorCustom unIndicador = new IndicadorCustom();
-		unIndicador.setNombreIndicador(getNombre(indicador));
-		unIndicador.setEcuacion(getEcuacion(indicador));
-		
-		return unIndicador;
-	}
-
-	public void ecuacionContieneAlNombre(){
-		if(ecuacion.contains(nombre))
-			throw new RuntimeException("El indicador no puede llamarse a si mismo");
+	public Token generarCalculo(String indicador){
+		return new Analizador().scan(getEcuacion()).compilar();
 	}
 	
 	// SETTERS Y GETTERS //
+		
+		public void setCalculo(Token calculo){
+			this.calculo = calculo;
+		}
 	
 		public String getEcuacion() {
 			return ecuacion;
@@ -92,8 +90,8 @@ public class IndicadorCustom implements Indicador{
 			this.nombre = nombre;
 		}
 		
-		public Token getArbol() {
-			return arbol;
+		public Token getCalculo() {
+			return calculo;
 		}
 				
 		@Override

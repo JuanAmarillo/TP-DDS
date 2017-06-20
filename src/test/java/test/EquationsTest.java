@@ -45,14 +45,10 @@ public class EquationsTest {
 	private void cargarIndicadores() {
 		analizador = new Analizador();
 		
-		pasivoCorriente = new IndicadorCustom();
-		pasivoCorriente.nombre = "Pasivo Corriente";
-		pasivoCorriente.ecuacion = "Deudas Bancarias + Deudas Comerciales + Deudas del Estado";
+		pasivoCorriente = new IndicadorCustom("Pasivo Corriente = Deudas Bancarias + Deudas Comerciales + Deudas del Estado");
 		RepositorioIndicadores.instance().agregarIndicador(pasivoCorriente);
 
-		pruebaAcida = new IndicadorCustom();
-		pruebaAcida.nombre = "Prueba Acida";
-		pruebaAcida.ecuacion = "(Caja y bancos + Inversiones) / Pasivo Corriente";
+		pruebaAcida = new IndicadorCustom("Prueba Acida = (Caja y bancos + Inversiones) / Pasivo Corriente ");
 		RepositorioIndicadores.instance().agregarIndicador(pruebaAcida);
 	}
 
