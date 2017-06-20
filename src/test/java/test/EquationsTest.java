@@ -43,7 +43,7 @@ public class EquationsTest {
 	}
 
 	private void cargarIndicadores() {
-		analizador = new Analizador(empresa,"2017");
+		analizador = new Analizador();
 		
 		pasivoCorriente = new IndicadorCustom();
 		pasivoCorriente.nombre = "Pasivo Corriente";

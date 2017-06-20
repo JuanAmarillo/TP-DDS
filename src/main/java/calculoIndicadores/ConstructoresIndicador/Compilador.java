@@ -3,7 +3,7 @@ package calculoIndicadores.ConstructoresIndicador;
 import java.util.List;
 import java.util.Stack;
 
-import calculoIndicadores.CuentaCalculo;
+import calculoIndicadores.CuentaOIndicador;
 import calculoIndicadores.Division;
 import calculoIndicadores.IndicadorCalculo;
 import calculoIndicadores.Multiplicacion;
@@ -19,10 +19,8 @@ public class Compilador extends OperacionesDisponibles{
 	private Stack<Token> lexemas;
 	private Stack<Token> operadores;
 
-	protected Compilador(Empresa empresa, String periodo, List<String> tokens) {
+	protected Compilador(List<String> tokens) {
 		super(tokens);
-		this.empresa = empresa;
-		this.periodo = periodo;
 		this.operadores = new Stack<Token>();
 		this.lexemas =  new Stack<Token>();
 	}
@@ -47,10 +45,8 @@ public class Compilador extends OperacionesDisponibles{
 			parentesisIzquierdo();
 		else if(esUnParentesisDerecho(token))
 			parentesisDerecho();
-		else if(esUnaCuenta(token))
-			cuenta(token);
-		else if(esUnIndicador(token))
-			indicador(token);
+		else if(esUnTexto(token))
+			cuentaOIndicador(token);
 	}
 	
 	private void numero(String token){
@@ -87,14 +83,9 @@ public class Compilador extends OperacionesDisponibles{
 		armarOperadoresDelParentesis();
 	}
 	
-	private void cuenta(String token){
-		Token cuenta = new CuentaCalculo(token);
+	private void cuentaOIndicador(String token){
+		Token cuenta = new CuentaOIndicador(token);
 		lexemas.push(cuenta);
-	}
-	
-	private void indicador(String token){
-		Token indicador = new IndicadorCalculo(token);
-		lexemas.push(indicador);
 	}
 	
 	

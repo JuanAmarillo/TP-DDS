@@ -22,7 +22,7 @@ public class IndicadorCustom implements Indicador{
 		
 	// METODO PARA RESPETAR LA INTERFACE
 	public Double calcularIndicador(Empresa empresa, String periodo) {
-		return new Analizador(empresa, periodo).scan(ecuacion).compilar().calcularValor(empresa, periodo);
+		return new Analizador().scan(ecuacion).compilar().calcularValor(empresa, periodo);
 	}
 	
 	public boolean esCalculable(Empresa empresa, String periodo) {

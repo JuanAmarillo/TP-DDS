@@ -10,14 +10,7 @@ import domain.Empresa;
 
 
 public class Analizador {
-	private Empresa empresa;
-	private String periodo;
 	private List<String> tokens;
-	
-	public Analizador(Empresa empresa, String periodo){
-		this.empresa = empresa;
-		this.periodo = periodo;
-	}
 	
 	public Analizador scan(String indicador) {
 		generarTokens(indicador);
@@ -41,10 +34,10 @@ public class Analizador {
 	}
 	
 	public Token compilar(){
-		return new Compilador(empresa, periodo, tokens).compilar();
+		return new Compilador(tokens).compilar();
 	}
 	
-	public Boolean sePuedeCalcular(){
+	public Boolean sePuedeCalcular(Empresa empresa, String periodo){
 		return new AnalisisSemantico(empresa,periodo,tokens).analizarSemantica();
 	}
 

@@ -68,7 +68,7 @@ public class RepositorioIndicadores {
 	}
 
 	private Boolean analizarSintacticamente(String indicador) {
-		return new Analizador(null,null).scan(indicador).parser();
+		return new Analizador().scan(indicador).parser();
 	}
 
 	private void indicadorExistente(IndicadorCustom indicador) {
