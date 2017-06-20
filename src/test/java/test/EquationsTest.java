@@ -54,6 +54,18 @@ public class EquationsTest {
 		RepositorioIndicadores.instance().agregarIndicador(pruebaAcida);
 	}
 
+	private Token compilarExpresion(String expresion ) {
+		return analizador.scan(expresion).compilar();
+	}
+	
+	private void puedeCalcular(String expresion,boolean resultado) {
+		assertEquals(analizador.scan(expresion).sePuedeCalcular(empresa, periodo),resultado);
+	}
+	
+	private void elCalculoDa(Token calculo,double resultado) {
+		assertTrue(calculo.calcularValor(empresa, periodo).equals(resultado));
+	}
+	
 	@Before
 	public void init() {
 		prepararEmpresa();
@@ -67,47 +79,44 @@ public class EquationsTest {
 
 	@Test
 	public void testDaPrioridadALosOperadores() {
-		String indicador = "5 - 50 * 2 + 3/3 - 1 + 2 *3 ";
-	
-		Token token = analizador.scan(indicador).compilar();
-		assertTrue(token.calcularValor(empresa, periodo).equals(-101.0));
+		Token calculo = compilarExpresion("5 - 50 * 2 + 3/3 - 1 + 2 *3 ");
+		elCalculoDa(calculo,-101.0);
 	}
-	
+
 	@Test
 	public void testDaPrioridadALosParentesis(){
-		String indicador = "(2*(3+4) + (5+2))/3";
-	
-		Token token = analizador.scan(indicador).compilar();
-		assertTrue(token.calcularValor(empresa, periodo).equals(7.0));
+		Token calculo = compilarExpresion("(2*(3+4) + (5+2))/3");
+		elCalculoDa(calculo, 7.0);
 	}
+
 
 
 	@Test
 	public void testAceptaNumerosConComa() {
-		String indicador = "1.5 + 2.5 ";
-		Token token = analizador.scan(indicador).compilar();
-		assertTrue(token.calcularValor(empresa, periodo).equals(4.0));
+		Token calculo = compilarExpresion("1.5 + 2.5 ");
+		elCalculoDa(calculo, 4.0);
 	}
 
 	@Test
 	public void testIndicadorConCuentas() {
-		Token token = analizador.scan(pasivoCorriente.ecuacion).compilar();
-		assertTrue(analizador.scan(pasivoCorriente.ecuacion).sePuedeCalcular(empresa, periodo));
-		assertTrue(token.calcularValor(empresa, periodo).equals(70.0));
+		Token calculo = compilarExpresion(pasivoCorriente.ecuacion);
+		puedeCalcular(pasivoCorriente.ecuacion,true);
+		elCalculoDa(calculo, 70.0);
 	}
+
 
 	@Test
 	public void testIndicadorConIndicadores() {
-		Token token = analizador.scan(pruebaAcida.ecuacion).compilar();
-		assertTrue(analizador.scan(pruebaAcida.ecuacion).sePuedeCalcular(empresa, periodo));
-		assertTrue(token.calcularValor(empresa, periodo).equals(3.0));
+		Token calculo = compilarExpresion(pruebaAcida.ecuacion);
+		puedeCalcular(pruebaAcida.ecuacion,true);
+		elCalculoDa(calculo, 3.0);
 	}
 	
 	
 	@Test
 	public void testIndicadorConCuentaOIndicadorNoExistenteNoPuedeSerCalculado(){
-		String indicador = "2*pepe";
-		assertEquals(analizador.scan(indicador).sePuedeCalcular(empresa, periodo),false);
+		String expresion = "2*pepe";
+		puedeCalcular(expresion, false);
 	}
 	
 	@Test

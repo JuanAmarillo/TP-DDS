@@ -14,12 +14,19 @@ public class RepositorioIndicadores {
 	private static RepositorioIndicadores instance = null;
 
 	public static RepositorioIndicadores instance() {
-		if (instance == null) {
-			indicadoresCargados = new ArrayList<Indicador>();
-			agregarPredeterminados();
-			instance = new RepositorioIndicadores();
-		}
+		if (noHayInstanciaCargada()) 
+			cargarNuevaInstancia();
 		return instance;
+	}
+
+	private static void cargarNuevaInstancia() {
+		indicadoresCargados = new ArrayList<Indicador>();
+		agregarPredeterminados();
+		instance = new RepositorioIndicadores();
+	}
+
+	private static boolean noHayInstanciaCargada() {
+		return instance == null;
 	}
 
 	public static void resetSingleton() {
