@@ -37,15 +37,8 @@ public class IndicadorCustom implements Indicador{
 		return new Analizador().scan(indicador).parser();
 	}
 	
-	
 	public boolean esCalculable(Empresa empresa, String periodo) {
-		try {
-			calcularIndicador(empresa, periodo);
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
-		//return new Analizador(empresa, periodo).scan(ecuacion).sePuedeCalcular();
+		return new Analizador().scan(ecuacion).sePuedeCalcular(empresa,periodo);
 	}
 	
 	public boolean suNombreEs(String indicador) {

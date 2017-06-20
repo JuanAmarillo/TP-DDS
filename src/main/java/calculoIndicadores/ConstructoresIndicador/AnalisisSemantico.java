@@ -6,9 +6,7 @@ import domain.Empresa;
 import domain.repositorios.RepositorioIndicadores;
 
 public class AnalisisSemantico extends OperacionesDisponibles{
-	private Empresa empresa;
-	private String periodo;
-
+	
 	protected AnalisisSemantico(Empresa empresa, String periodo,List<String> tokens) {
 		super(tokens);
 		this.empresa = empresa;
@@ -16,14 +14,24 @@ public class AnalisisSemantico extends OperacionesDisponibles{
 	}
 	
 	public Boolean analizarSemantica(){
-		return tokens.stream().filter(unToken -> esUnTexto(unToken)).anyMatch(unToken-> sePuedeCalcular(unToken));
+		return tokens.stream().filter(unToken-> esUnTexto(unToken)).allMatch(unToken-> sePuedeCalcular(unToken));
 	}
 	
 	private Boolean sePuedeCalcular(String nombre){
 		if(esUnaCuenta(nombre))
-			return empresa.contieneLaCuentaDePeriodo(nombre, periodo);
-		else
+			return analizarCuenta(nombre);
+		else if(esUnIndicador(nombre))
 			return analizarIndicador(nombre);
+		else
+			return noExisteElIndicadorOCuenta();
+	}
+	
+	private Boolean noExisteElIndicadorOCuenta(){
+		return false;
+	}
+
+	private Boolean analizarCuenta(String nombre) {
+		return empresa.contieneLaCuentaDePeriodo(nombre, periodo);
 	}
 	
 	private Boolean analizarIndicador(String nombre){

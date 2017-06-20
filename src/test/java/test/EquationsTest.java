@@ -20,6 +20,7 @@ import domain.repositorios.RepositorioIndicadores;
 
 public class EquationsTest {
 	Empresa empresa;
+	String periodo;
 	IndicadorCustom pasivoCorriente;
 	IndicadorCustom pruebaAcida;
 	Analizador analizador;
@@ -27,13 +28,14 @@ public class EquationsTest {
 	private void prepararEmpresa() {
 		empresa = new Empresa();
 		empresa.setNombre("Mocka-Cola");
+		periodo = "2017";
 
 		Set<Cuenta> cuentas = new HashSet<Cuenta>();
-		Cuenta cajaBancos = new Cuenta("Caja y bancos", "2017", 150.0);
-		Cuenta inversiones = new Cuenta("Inversiones", "2017", 60.0);
-		Cuenta deudasBancarias = new Cuenta("Deudas Bancarias", "2017", 50.0);
-		Cuenta deudasComerciales = new Cuenta("Deudas Comerciales", "2017", 15.0);
-		Cuenta deudasDelEstado = new Cuenta("Deudas del Estado", "2017", 5.0);
+		Cuenta cajaBancos = new Cuenta("Caja y bancos", periodo, 150.0);
+		Cuenta inversiones = new Cuenta("Inversiones", periodo, 60.0);
+		Cuenta deudasBancarias = new Cuenta("Deudas Bancarias", periodo, 50.0);
+		Cuenta deudasComerciales = new Cuenta("Deudas Comerciales", periodo, 15.0);
+		Cuenta deudasDelEstado = new Cuenta("Deudas del Estado", periodo, 5.0);
 		cuentas.add(cajaBancos);
 		cuentas.add(inversiones);
 		cuentas.add(deudasBancarias);
@@ -68,7 +70,7 @@ public class EquationsTest {
 		String indicador = "5 - 50 * 2 + 3/3 - 1 + 2 *3 ";
 	
 		Token token = analizador.scan(indicador).compilar();
-		assertTrue(token.calcularValor(empresa, "2017").equals(-101.0));
+		assertTrue(token.calcularValor(empresa, periodo).equals(-101.0));
 	}
 	
 	@Test
@@ -76,7 +78,7 @@ public class EquationsTest {
 		String indicador = "(2*(3+4) + (5+2))/3";
 	
 		Token token = analizador.scan(indicador).compilar();
-		assertTrue(token.calcularValor(empresa, "2017").equals(7.0));
+		assertTrue(token.calcularValor(empresa, periodo).equals(7.0));
 	}
 
 
@@ -84,31 +86,33 @@ public class EquationsTest {
 	public void testAceptaNumerosConComa() {
 		String indicador = "1.5 + 2.5 ";
 		Token token = analizador.scan(indicador).compilar();
-		assertTrue(token.calcularValor(empresa, "2017").equals(4.0));
+		assertTrue(token.calcularValor(empresa, periodo).equals(4.0));
 	}
 
 	@Test
 	public void testIndicadorConCuentas() {
 		Token token = analizador.scan(pasivoCorriente.ecuacion).compilar();
-		assertTrue(token.calcularValor(empresa, "2017").equals(70.0));
+		assertTrue(analizador.scan(pasivoCorriente.ecuacion).sePuedeCalcular(empresa, periodo));
+		assertTrue(token.calcularValor(empresa, periodo).equals(70.0));
 	}
 
 	@Test
 	public void testIndicadorConIndicadores() {
 		Token token = analizador.scan(pruebaAcida.ecuacion).compilar();
-		assertTrue(token.calcularValor(empresa, "2017").equals(3.0));
-	}
-	
-	@Test(expected = RuntimeException.class)
-	public void testIndicadorConCuentaOIndicadorNoExistenteFalla(){
-		String indicador = "2*pepe";
-		analizador.scan(indicador).compilar().calcularValor(empresa, "2017");
+		assertTrue(analizador.scan(pruebaAcida.ecuacion).sePuedeCalcular(empresa, periodo));
+		assertTrue(token.calcularValor(empresa, periodo).equals(3.0));
 	}
 	
 	
 	@Test
+	public void testIndicadorConCuentaOIndicadorNoExistenteNoPuedeSerCalculado(){
+		String indicador = "2*pepe";
+		assertEquals(analizador.scan(indicador).sePuedeCalcular(empresa, periodo),false);
+	}
+	
+	@Test
 	public void testSeCalculanLosIndicadoresDeFormaPolimorfica() {
-		double sumaDeLosIndicadores = RepositorioIndicadores.instance().obtenerCustoms().stream().mapToDouble(ind -> ind.calcularIndicador(empresa, "2017")).sum();
+		double sumaDeLosIndicadores = RepositorioIndicadores.instance().obtenerCustoms().stream().mapToDouble(ind -> ind.calcularIndicador(empresa, periodo)).sum();
 		assertEquals(73.0,sumaDeLosIndicadores,0.0);
 	}
 

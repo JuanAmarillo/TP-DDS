@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.After;
 import org.junit.Test;
 
-import domain.Empresa;
 import domain.indicadores.IndicadorCustom;
 import domain.repositorios.RepositorioIndicadores;
 import exceptions.ParsingException;
@@ -14,7 +13,6 @@ import interfaces.Indicador;
 public class IndicadoresTest {
 	
 	Indicador indicadorBuscado;
-	Empresa emp;
 
 	public void cargarIndicador(String indicador) {
 		RepositorioIndicadores.instance().agregarIndicadorAPartirDe(indicador);
@@ -84,11 +82,12 @@ public class IndicadoresTest {
 	public void testIndicadorConParentesisFaltanteFalla(){
 		cargarIndicador("hola = ((2+5)*3");
 	}
-	
 
 	@Test(expected = RuntimeException.class)
 	public void testAgregarUnIndicadorYaExistenteFalla() {
 		cargarIndicador("Legislacion = basura");
 		cargarIndicador("Legislacion = mas basura");
 	}
+	
+
 }
