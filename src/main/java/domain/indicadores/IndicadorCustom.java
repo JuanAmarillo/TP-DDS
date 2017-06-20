@@ -1,6 +1,7 @@
 package domain.indicadores;
 
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.uqbar.commons.utils.Observable;
 
 import calculoIndicadores.ConstructoresIndicador.Analizador;
@@ -14,6 +15,7 @@ import interfaces.Indicador;
 public class IndicadorCustom implements Indicador{
 	public String nombre;
 	public String ecuacion;
+	@JsonIgnore
 	public Token calculo;
 
 	
@@ -22,19 +24,19 @@ public class IndicadorCustom implements Indicador{
 		analizarSintacticamente(indicador);
 		this.setNombreIndicador(generarNombre(indicador));
 		this.setEcuacion(generarEcuacion(indicador));
-		this.setCalculo(generarCalculo(indicador));
+		this.setCalculo();
 	}
 	
 	public IndicadorCustom(){}
 	
-	private Boolean analizarSintacticamente(String indicador) {
-		return new Analizador().scan(indicador).parser();
-	}
-		
-	// METODO PARA RESPETAR LA INTERFACE
 	public Double calcularIndicador(Empresa empresa, String periodo) {
 		return calculo.calcularValor(empresa, periodo);
 	}
+	
+	private Boolean analizarSintacticamente(String indicador) {
+		return new Analizador().scan(indicador).parser();
+	}
+	
 	
 	public boolean esCalculable(Empresa empresa, String periodo) {
 		try {
@@ -64,39 +66,38 @@ public class IndicadorCustom implements Indicador{
 		return indicador.split("=");
 	}
 	
-	public Token generarCalculo(String indicador){
+	public Token generarCalculo(){
 		return new Analizador().scan(getEcuacion()).compilar();
 	}
 	
 	// SETTERS Y GETTERS //
 		
-		public void setCalculo(Token calculo){
-			this.calculo = calculo;
-		}
-	
-		public String getEcuacion() {
-			return ecuacion;
-		}
+	public void setCalculo(){
+		this.calculo = generarCalculo();
+	}
+	public String getEcuacion() {
+		return ecuacion;
+	}
 
-		public void setEcuacion(String ecuacion) {
-			this.ecuacion = ecuacion;
-		}
+	public void setEcuacion(String ecuacion) {
+		this.ecuacion = ecuacion;
+	}
 
-		public String getNombre() {
-			return nombre;
-		}
+	public String getNombre() {
+		return nombre;
+	}
 
-		public void setNombreIndicador(String nombre) {
-			this.nombre = nombre;
-		}
+	public void setNombreIndicador(String nombre) {
+		this.nombre = nombre;
+	}
 		
-		public Token getCalculo() {
-			return calculo;
-		}
-				
-		@Override
-		public boolean esCustom() {
-			return true;
-		}
+	public Token getCalculo() {
+		return calculo;
+	}
+			
+	@Override
+	public boolean esCustom() {
+		return true;
+	}
 
 }

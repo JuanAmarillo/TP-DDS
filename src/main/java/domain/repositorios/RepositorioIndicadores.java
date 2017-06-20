@@ -61,8 +61,13 @@ public class RepositorioIndicadores {
 		RepositorioIndicadores.instance().getIndicadoresCargados().add(indicador);
 	}
 
-	public void agregarIndicadores(List<IndicadorCustom> indicadoresADevolver) {
-		indicadoresCargados.addAll(indicadoresADevolver);
+	public void agregarIndicadores(List<IndicadorCustom> indicadores) {
+		generarCalculoIndicadores(indicadores);
+		indicadoresCargados.addAll(indicadores);
+	}
+	
+	private void generarCalculoIndicadores(List<IndicadorCustom> indicadores){
+		indicadores.stream().forEach(indicador -> indicador.setCalculo());
 	}
 
 	private void indicadorExistente(IndicadorCustom indicador) {
