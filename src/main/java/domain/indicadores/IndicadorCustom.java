@@ -1,9 +1,5 @@
 package domain.indicadores;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
-
-import java.util.EmptyStackException;
 
 import org.uqbar.commons.utils.Observable;
 
@@ -44,7 +40,7 @@ public class IndicadorCustom implements Indicador{
 		try {
 			calcularIndicador(empresa, periodo);
 			return true;
-		} catch (EmptyStackException e) {
+		} catch (Exception e) {
 			return false;
 		}
 		//return new Analizador(empresa, periodo).scan(ecuacion).sePuedeCalcular();
