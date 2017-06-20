@@ -1,6 +1,8 @@
 package domain.indicadores;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 import java.util.EmptyStackException;
 
 import org.uqbar.commons.utils.Observable;
@@ -18,7 +20,7 @@ public class IndicadorCustom implements Indicador{
 	public String ecuacion;
 	public Token calculo;
 
-	@JsonIgnore
+	
 	
 	public IndicadorCustom(String indicador){
 		analizarSintacticamente(indicador);
@@ -26,6 +28,8 @@ public class IndicadorCustom implements Indicador{
 		this.setEcuacion(generarEcuacion(indicador));
 		this.setCalculo(generarCalculo(indicador));
 	}
+	
+	public IndicadorCustom(){}
 	
 	private Boolean analizarSintacticamente(String indicador) {
 		return new Analizador().scan(indicador).parser();

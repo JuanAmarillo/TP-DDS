@@ -29,14 +29,14 @@ public class ActualizaArchivos {
 		crearArchivoNuevo(jsonIndicadores);
 	}
 
-	private static String obtenerJsonCompleto(DatosIndicadores inds) throws IOException {
+	private static String obtenerJsonCompleto(DatosIndicadores indicadores) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.setVisibilityChecker(mapper.getSerializationConfig().getDefaultVisibilityChecker()
                 .withFieldVisibility(JsonAutoDetect.Visibility.ANY)
                 .withGetterVisibility(JsonAutoDetect.Visibility.NONE)
                 .withSetterVisibility(JsonAutoDetect.Visibility.NONE)
                 .withCreatorVisibility(JsonAutoDetect.Visibility.NONE));
-		String jsonIndicadores = mapper.writeValueAsString(inds);
+		String jsonIndicadores = mapper.writeValueAsString(indicadores);
 		return jsonIndicadores;
 	}
 

@@ -65,10 +65,6 @@ public class RepositorioIndicadores {
 		indicadoresCargados.addAll(indicadoresADevolver);
 	}
 
-	private Boolean analizarSintacticamente(String indicador) {
-		return new Analizador().scan(indicador).parser();
-	}
-
 	private void indicadorExistente(IndicadorCustom indicador) {
 		if (contieneElIndicador(indicador.nombre))
 			throw new RuntimeException("El indicador ya existe");
