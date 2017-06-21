@@ -6,7 +6,7 @@ import domain.indicadores.IndicadorPredeterminado;
 public class Leverage extends IndicadorPredeterminado{
 	
 	public Leverage() {
-		setNombreIndicador("Leverage");
+		setNombre("Leverage");
 	}
 	
 	public String getEcuacion() {

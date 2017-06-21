@@ -23,7 +23,7 @@ public class IndicadoresTest {
 	}
 
 	public Indicador buscarIndicador(String indicador) {
-		String nombre = new IndicadorCustom(indicador).nombre;
+		String nombre = new IndicadorCustom(indicador).getNombre();
 		return RepositorioIndicadores.instance().buscarIndicador(nombre);
 	}
 

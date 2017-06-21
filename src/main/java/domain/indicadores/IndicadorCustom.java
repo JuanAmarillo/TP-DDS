@@ -11,8 +11,7 @@ import domain.Empresa;
 
 
 @Observable
-public class IndicadorCustom implements Indicador{
-	public String nombre;
+public class IndicadorCustom extends Indicador{
 	public String ecuacion;
 	@JsonIgnore
 	public Calculable calculo;
@@ -21,7 +20,7 @@ public class IndicadorCustom implements Indicador{
 	
 	public IndicadorCustom(String indicador){
 		analizarSintacticamente(indicador);
-		this.setNombreIndicador(generarNombre(indicador));
+		this.setNombre(generarNombre(indicador));
 		this.setEcuacion(generarEcuacion(indicador));
 		this.setCalculo();
 	}
@@ -40,9 +39,6 @@ public class IndicadorCustom implements Indicador{
 		return new Analizador().scan(ecuacion).sePuedeCalcular(empresa,periodo);
 	}
 	
-	public boolean suNombreEs(String indicador) {
-		return this.nombre.equals(indicador);
-	}
 	
 	public static String generarNombre(String indicador){
 		String[] partesDelIndicador = separarIndicadorEnPartes(indicador);
@@ -73,14 +69,6 @@ public class IndicadorCustom implements Indicador{
 
 	public void setEcuacion(String ecuacion) {
 		this.ecuacion = ecuacion;
-	}
-
-	public String getNombre() {
-		return nombre;
-	}
-
-	public void setNombreIndicador(String nombre) {
-		this.nombre = nombre;
 	}
 		
 	public Token getCalculo() {

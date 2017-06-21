@@ -77,7 +77,7 @@ public class RepositorioIndicadores {
 	}
 
 	private void indicadorExistente(IndicadorCustom indicador) {
-		if (contieneElIndicador(indicador.nombre))
+		if (contieneElIndicador(indicador.getNombre()))
 			throw new RuntimeException("El indicador ya existe");
 	}
 

@@ -6,7 +6,7 @@ import domain.indicadores.IndicadorPredeterminado;
 public class ROE extends IndicadorPredeterminado{
 
 	public ROE() {
-		setNombreIndicador("ROE");
+		setNombre("ROE");
 	}
 	
 	public String getEcuacion() {

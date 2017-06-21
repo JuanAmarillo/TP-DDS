@@ -2,18 +2,27 @@ package domain.indicadores;
 
 import domain.Empresa;
 
-public interface Indicador {
+public abstract class Indicador {
+	protected String nombre;
 
-	public Double calcularIndicador(Empresa empresa, String periodo);
+	public boolean suNombreEs(String nombreIndicador){
+		return this.nombre.equals(nombreIndicador);
+	}
 
-	public boolean suNombreEs(String nombre);
-
-	public boolean esCustom();
-
-	public String getNombre();
-
-	public Object getEcuacion();
+	public String getNombre(){
+		return nombre;
+	}
 	
-	public boolean esCalculable(Empresa empresa, String periodo);
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
+	abstract public Double calcularIndicador(Empresa empresa, String periodo);
+	
+	abstract public boolean esCustom();
+
+	abstract public Object getEcuacion();
+	
+	abstract public boolean esCalculable(Empresa empresa, String periodo);
 
 }

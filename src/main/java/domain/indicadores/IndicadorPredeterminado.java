@@ -3,20 +3,12 @@ package domain.indicadores;
 import domain.Empresa;
 import domain.repositorios.RepositorioIndicadores;
 
-public abstract class IndicadorPredeterminado implements Indicador{
+public abstract class IndicadorPredeterminado extends Indicador{
 	
-	private String nombreIndicador;
-	
-	@Override
-	public boolean suNombreEs(String nombre) {
-		return getNombre().equals(nombre);
-	}
-
 	@Override
 	public boolean esCustom() {
 		return false;
 	}
-	
 	
 	protected boolean indicadorCalculable(String indicador,Empresa empresa, String periodo){
 		if(existeIndicador(indicador))
@@ -51,11 +43,4 @@ public abstract class IndicadorPredeterminado implements Indicador{
 	public abstract Double calcularIndicador(Empresa empresa, String periodo);
 	public abstract boolean esCalculable(Empresa empresa, String periodo);
 	
-	public String getNombre() {
-		return nombreIndicador;
-	}
-
-	public void setNombreIndicador(String nombreIndicador) {
-		this.nombreIndicador = nombreIndicador;
-	}
 }
