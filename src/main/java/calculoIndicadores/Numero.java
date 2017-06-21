@@ -2,7 +2,7 @@ package calculoIndicadores;
 
 import domain.Empresa;
 
-public class Numero extends Token {
+public class Numero extends Calculable {
 	private Double valor;
 	
 	public Numero(double valor){

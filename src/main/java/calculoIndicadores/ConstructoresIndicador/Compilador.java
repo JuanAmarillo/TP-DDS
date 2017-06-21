@@ -3,6 +3,7 @@ package calculoIndicadores.ConstructoresIndicador;
 import java.util.List;
 import java.util.Stack;
 
+import calculoIndicadores.Calculable;
 import calculoIndicadores.CuentaOIndicador;
 import calculoIndicadores.Division;
 import calculoIndicadores.Multiplicacion;
@@ -12,19 +13,18 @@ import calculoIndicadores.ParentesisIzquierdo;
 import calculoIndicadores.Resta;
 import calculoIndicadores.Suma;
 import calculoIndicadores.Token;
-import domain.Empresa;
 
 public class Compilador extends OperacionesDisponibles{
-	private Stack<Token> lexemas;
+	private Stack<Calculable> lexemas;
 	private Stack<Token> operadores;
 
 	protected Compilador(List<String> tokens) {
 		super(tokens);
 		this.operadores = new Stack<Token>();
-		this.lexemas =  new Stack<Token>();
+		this.lexemas =  new Stack<Calculable>();
 	}
 	
-	public Token compilar(){
+	public Calculable compilar(){
 		armarArbolDeSintaxis();
 		return lexemas.pop();
 	}
@@ -49,12 +49,12 @@ public class Compilador extends OperacionesDisponibles{
 	}
 	
 	private void numero(String token){
-		Token numero = new Numero(Double.parseDouble(token));
+		Calculable numero = new Numero(Double.parseDouble(token));
 		lexemas.push(numero);
 	}
 	
 	private void operador(String token){
-		Token operador = null;
+		Operador operador = null;
 		switch(token){
 		case "+":
 			operador =  new Suma();
@@ -74,7 +74,7 @@ public class Compilador extends OperacionesDisponibles{
 	}
 	
 	private void parentesisIzquierdo(){
-		Token parentesisIzquierdo = new ParentesisIzquierdo();
+		ParentesisIzquierdo parentesisIzquierdo = new ParentesisIzquierdo();
 		operadores.push(parentesisIzquierdo);
 	}
 	
@@ -83,20 +83,20 @@ public class Compilador extends OperacionesDisponibles{
 	}
 	
 	private void cuentaOIndicador(String token){
-		Token cuenta = new CuentaOIndicador(token);
+		CuentaOIndicador cuenta = new CuentaOIndicador(token);
 		lexemas.push(cuenta);
 	}
 	
 	
-	private void ingresarOperador(Token token){
-		if(!operadores.empty() && anteriorTieneMayorPrioridad(token))
+	private void ingresarOperador(Operador operador){
+		if(!operadores.empty() && anteriorTieneMayorPrioridad(operador))
 				armarOperador();
 		
-		operadores.push(token);
+		operadores.push(operador);
 	}
 
-	private boolean anteriorTieneMayorPrioridad(Token token) {
-		return operadores.peek().getPrioridad() >= token.getPrioridad();
+	private boolean anteriorTieneMayorPrioridad(Operador operador) {
+		return operadores.peek().getPrioridad() >= operador.getPrioridad();
 	}
 
 	
@@ -111,8 +111,8 @@ public class Compilador extends OperacionesDisponibles{
 	}
 	
 	private void armarOperador(){
-		Token operandoUno  = lexemas.pop();
-		Token operandoDos  = lexemas.pop();
+		Calculable operandoUno  =  lexemas.pop();
+		Calculable operandoDos  =  lexemas.pop();
 		Operador operador  = (Operador) operadores.pop();
 		operador.asignarOperandos(operandoUno, operandoDos);
 		lexemas.push(operador);

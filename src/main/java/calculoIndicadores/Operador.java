@@ -2,12 +2,12 @@ package calculoIndicadores;
 
 import domain.Empresa;
 
-public abstract class Operador extends Token {
-	Token operandoUno;
-	Token operandoDos;
+public abstract class Operador extends Calculable {
+	Calculable operandoUno;
+	Calculable operandoDos;
 	
 	
-	public void asignarOperandos(Token operandoDos,Token operandoUno){
+	public void asignarOperandos(Calculable operandoDos,Calculable operandoUno){
 		this.operandoUno = operandoUno;
 		this.operandoDos = operandoDos;
 	}

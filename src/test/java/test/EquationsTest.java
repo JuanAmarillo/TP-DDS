@@ -10,6 +10,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import calculoIndicadores.Calculable;
 import calculoIndicadores.Token;
 import calculoIndicadores.ConstructoresIndicador.Analizador;
 import domain.Cuenta;
@@ -54,7 +55,7 @@ public class EquationsTest {
 		RepositorioIndicadores.instance().agregarIndicador(pruebaAcida);
 	}
 
-	private Token compilarExpresion(String expresion ) {
+	private Calculable compilarExpresion(String expresion ) {
 		return analizador.scan(expresion).compilar();
 	}
 	
@@ -62,7 +63,7 @@ public class EquationsTest {
 		assertEquals(analizador.scan(expresion).sePuedeCalcular(empresa, periodo),resultado);
 	}
 	
-	private void elCalculoDa(Token calculo,double resultado) {
+	private void elCalculoDa(Calculable calculo,double resultado) {
 		assertTrue(calculo.calcularValor(empresa, periodo).equals(resultado));
 	}
 	
@@ -79,13 +80,13 @@ public class EquationsTest {
 
 	@Test
 	public void testDaPrioridadALosOperadores() {
-		Token calculo = compilarExpresion("5 - 50 * 2 + 3/3 - 1 + 2 *3 ");
+		Calculable calculo = compilarExpresion("5 - 50 * 2 + 3/3 - 1 + 2 *3 ");
 		elCalculoDa(calculo,-101.0);
 	}
 
 	@Test
 	public void testDaPrioridadALosParentesis(){
-		Token calculo = compilarExpresion("(2*(3+4) + (5+2))/3");
+		Calculable calculo = compilarExpresion("(2*(3+4) + (5+2))/3");
 		elCalculoDa(calculo, 7.0);
 	}
 
@@ -93,13 +94,13 @@ public class EquationsTest {
 
 	@Test
 	public void testAceptaNumerosConComa() {
-		Token calculo = compilarExpresion("1.5 + 2.5 ");
+		Calculable calculo = compilarExpresion("1.5 + 2.5 ");
 		elCalculoDa(calculo, 4.0);
 	}
 
 	@Test
 	public void testIndicadorConCuentas() {
-		Token calculo = compilarExpresion(pasivoCorriente.ecuacion);
+		Calculable calculo = compilarExpresion(pasivoCorriente.ecuacion);
 		puedeCalcular(pasivoCorriente.ecuacion,true);
 		elCalculoDa(calculo, 70.0);
 	}
@@ -107,7 +108,7 @@ public class EquationsTest {
 
 	@Test
 	public void testIndicadorConIndicadores() {
-		Token calculo = compilarExpresion(pruebaAcida.ecuacion);
+		Calculable calculo = compilarExpresion(pruebaAcida.ecuacion);
 		puedeCalcular(pruebaAcida.ecuacion,true);
 		elCalculoDa(calculo, 3.0);
 	}

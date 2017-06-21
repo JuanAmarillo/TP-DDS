@@ -5,6 +5,7 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 import org.uqbar.commons.utils.Observable;
 
 import calculoIndicadores.ConstructoresIndicador.Analizador;
+import calculoIndicadores.Calculable;
 import calculoIndicadores.Token;
 import domain.Empresa;
 
@@ -16,7 +17,7 @@ public class IndicadorCustom implements Indicador{
 	public String nombre;
 	public String ecuacion;
 	@JsonIgnore
-	public Token calculo;
+	public Calculable calculo;
 
 	
 	
@@ -59,7 +60,7 @@ public class IndicadorCustom implements Indicador{
 		return indicador.split("=");
 	}
 	
-	public Token generarCalculo(){
+	public Calculable generarCalculo(){
 		return new Analizador().scan(getEcuacion()).compilar();
 	}
 	

@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import calculoIndicadores.Calculable;
 import calculoIndicadores.Token;
 import domain.Empresa;
 
@@ -33,7 +34,7 @@ public class Analizador {
 		return new Parser(tokens).parsear();
 	}
 	
-	public Token compilar(){
+	public Calculable compilar(){
 		return new Compilador(tokens).compilar();
 	}
 	

@@ -2,14 +2,15 @@ package calculoIndicadores;
 
 import domain.Empresa;
 
-public class ParentesisIzquierdo extends Token {
-
+public class ParentesisIzquierdo implements Token {
+	protected int prioridad;
+	
 	public ParentesisIzquierdo(){
 		this.prioridad = 2;
 	}
-	
-	public Double calcularValor(Empresa empresa, String periodo) {
-		return null;
+
+	public int getPrioridad() {
+		return this.prioridad;
 	}
 
 }
