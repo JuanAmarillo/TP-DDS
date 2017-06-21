@@ -5,19 +5,18 @@ import java.io.IOException;
 import org.uqbar.arena.Application;
 import org.uqbar.arena.windows.Window;
 
-import externos.ActualizaArchivos;
-import externos.LevantaArchivoIndicadores;
-
+import archivos.ActualizaIndicadores;
+import archivos.LevantaArchivoIndicadores;
 import ui.windows.CargaDataWindow;
 
 public class InversionesApp extends Application {
 
-	public static String fp = "src/test/resources/Indicadores.json";
+	public static String filepath = "src/test/resources/Indicadores.json";
 	
 	public static void main(String[] args) {
 		try {
-			new LevantaArchivoIndicadores(fp).cargarArchivo();
-			ActualizaArchivos.setFilepath(fp);
+			new LevantaArchivoIndicadores(filepath).cargarArchivo();
+			ActualizaIndicadores.setFilepath(filepath);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

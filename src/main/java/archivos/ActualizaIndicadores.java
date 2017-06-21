@@ -1,4 +1,4 @@
-package externos;
+package archivos;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -10,7 +10,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import domain.repositorios.RepositorioIndicadores;
 import etc.DatosIndicadores;
 
-public class ActualizaArchivos {
+public class ActualizaIndicadores {
 
 	private static String filepath;
 
@@ -41,15 +41,15 @@ public class ActualizaArchivos {
 	}
 
 	private static void crearArchivoNuevo(String jsonIndicadores) throws IOException {
-		FileWriter f = new FileWriter(filepath,false);
-		f.write(jsonIndicadores);
-		f.close();
+		FileWriter archivo = new FileWriter(filepath,false);
+		archivo.write(jsonIndicadores);
+		archivo.close();
 	}
 
 	private static DatosIndicadores obtenerIndicadores() {
-		DatosIndicadores inds = new DatosIndicadores();
-		inds.setIndicadores(RepositorioIndicadores.instance().obtenerCustoms());
-		return inds;
+		DatosIndicadores indicadores = new DatosIndicadores();
+		indicadores.setIndicadores(RepositorioIndicadores.instance().obtenerCustoms());
+		return indicadores;
 	}
 
 	private static void  borrarArchivoAnterior() {

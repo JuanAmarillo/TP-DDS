@@ -13,9 +13,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import archivos.LevantaArchivoEmpresa;
 import domain.*;
 import domain.repositorios.RepositorioEmpresas;
-import externos.LevantaArchivoEmpresa;
 
 public class MockitoTest {
 	public Empresa empresaA;

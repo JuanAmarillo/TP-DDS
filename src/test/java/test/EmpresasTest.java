@@ -5,7 +5,8 @@ import domain.repositorios.RepositorioEmpresas;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import externos.LevantaArchivoEmpresa;
+
+import archivos.LevantaArchivoEmpresa;
 
 import static org.junit.Assert.*;
 import java.io.IOException;

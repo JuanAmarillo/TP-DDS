@@ -6,8 +6,8 @@ import java.util.List;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
+import archivos.ActualizaIndicadores;
 import domain.repositorios.RepositorioIndicadores;
-import externos.ActualizaArchivos;
 
 
 @Observable
@@ -39,14 +39,17 @@ public class CargarIndicadorVM {
 
 	public void cargarIndicador() throws IOException,RuntimeException{
 		RepositorioIndicadores.instance().agregarIndicadorAPartirDe(indicador);
-		ActualizaArchivos.actualizarArchivoJson();
+		actualizaIndicadores();
+	}
+
+	private void actualizaIndicadores() throws IOException {
+		ActualizaIndicadores.actualizarArchivoJson();
 		ObservableUtils.firePropertyChanged(this, "indicadores");
 	}
 
 	public void eliminarIndicador() throws IOException{
 		RepositorioIndicadores.instance().eliminarIndicadorAPartirDe(indicadorSeleccionado);
-		ActualizaArchivos.actualizarArchivoJson();
-		ObservableUtils.firePropertyChanged(this, "indicadores");
+		actualizaIndicadores();
 	}
 
 }

@@ -11,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import calculoIndicadores.Calculable;
-import calculoIndicadores.Token;
 import calculoIndicadores.ConstructoresIndicador.Analizador;
 import domain.Cuenta;
 import domain.Empresa;
