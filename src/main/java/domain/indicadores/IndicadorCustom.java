@@ -9,8 +9,6 @@ import calculoIndicadores.Calculable;
 import calculoIndicadores.Token;
 import domain.Empresa;
 
-import interfaces.Indicador;
-
 
 @Observable
 public class IndicadorCustom implements Indicador{

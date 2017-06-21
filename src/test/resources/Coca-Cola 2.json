@@ -2,14 +2,24 @@
   "nombre": "Coca-Cola",
   "cuentas": [
     {
-      "nombre": "ROE",
+      "nombre": "BeneficioEconomico",
       "periodo": "1er Semestre",
-      "balance": 98
+      "balance": 1000000.0
     },
     {
-      "nombre": "ROA",
-      "periodo": "2do Semestre",
-      "balance": 10000
+      "nombre": "Beneficio",
+      "periodo": "1er Semestre",
+      "balance": 800000.0
+    },
+    {
+      "nombre": "ActivoTotal",
+      "periodo": "1er Semestre",
+      "balance": 1500000.0
+    },
+    {
+      "nombre": "PatrimonioNeto",
+      "periodo": "1er Semestre",
+      "balance": 900000
     }
   ]
 }

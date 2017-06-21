@@ -5,10 +5,10 @@ import static org.junit.Assert.assertEquals;
 import org.junit.After;
 import org.junit.Test;
 
+import domain.indicadores.Indicador;
 import domain.indicadores.IndicadorCustom;
 import domain.repositorios.RepositorioIndicadores;
 import exceptions.ParsingException;
-import interfaces.Indicador;
 
 public class IndicadoresTest {
 	
@@ -42,14 +42,14 @@ public class IndicadoresTest {
 		indicadorBuscado = cargarIndicadorYBuscarlo("Juanito y los Clonosaurios = dinousarios + clonacion");
 		assertEquals(indicadorBuscado.getNombre(), "Juanito y los Clonosaurios");
 		assertEquals(indicadorBuscado.getEcuacion(), " dinousarios + clonacion");
-		assertEquals(4, RepositorioIndicadores.instance().getIndicadoresCargados().size());
+		assertEquals(2, RepositorioIndicadores.instance().getIndicadoresCargados().size());
 	}
 
 	@Test
 	public void testSeBorraUnIndicador() {
 		cargarIndicador("Juanito y los Clonosaurios = dinousarios + clonacion");
 		eliminarIndicador("Juanito y los Clonosaurios");
-		assertEquals(3,RepositorioIndicadores.instance().getIndicadoresCargados().size());
+		assertEquals(1,RepositorioIndicadores.instance().getIndicadoresCargados().size());
 
 	}
 	

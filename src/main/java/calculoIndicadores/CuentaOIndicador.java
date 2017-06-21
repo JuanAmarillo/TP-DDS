@@ -1,8 +1,8 @@
 package calculoIndicadores;
 
 import domain.Empresa;
+import domain.indicadores.Indicador;
 import domain.repositorios.RepositorioIndicadores;
-import interfaces.Indicador;
 
 public class CuentaOIndicador extends Calculable{
 	private String nombre;

@@ -53,6 +53,7 @@ public class EquationsTest {
 
 		pruebaAcida = new IndicadorCustom("Prueba Acida = (Caja y bancos + Inversiones) / Pasivo Corriente ");
 		RepositorioIndicadores.instance().agregarIndicador(pruebaAcida);
+		
 	}
 
 	private Calculable compilarExpresion(String expresion ) {

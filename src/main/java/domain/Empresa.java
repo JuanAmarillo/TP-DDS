@@ -45,7 +45,7 @@ public class Empresa {
 	}
 
 	public Set<Cuenta> getCuentasSegun(String periodo) {
-		return this.getCuentas().stream().filter(unaCuenta -> unaCuenta.getPeriodo().equals(periodo))
+		return this.getCuentas().stream().filter(unaCuenta -> unaCuenta.dePeriodo(periodo))
 				.collect(Collectors.toSet());
 	}
 
@@ -58,8 +58,12 @@ public class Empresa {
 	}
 
 	public Double getValorDeLaCuenta(String nombre,String periodo) {
+		return buscarCuentaDe(nombre, periodo).getBalance();
+	}
+
+	private Cuenta buscarCuentaDe(String nombre, String periodo) {
 		return cuentas.stream().filter(cuenta -> cuenta.deNombre(nombre) && cuenta.dePeriodo(periodo)).findFirst().
-				get().getBalance();
+				get();
 	}
 	
 	

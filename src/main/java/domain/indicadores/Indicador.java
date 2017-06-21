@@ -1,10 +1,10 @@
-package interfaces;
+package domain.indicadores;
 
 import domain.Empresa;
 
 public interface Indicador {
 
-	public Double calcularIndicador(Empresa emp, String periodo);
+	public Double calcularIndicador(Empresa empresa, String periodo);
 
 	public boolean suNombreEs(String nombre);
 

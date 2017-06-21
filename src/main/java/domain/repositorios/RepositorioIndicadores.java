@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import domain.indicadores.*;
+import domain.indicadores.indicadoresPredeterminados.*;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
-import interfaces.Indicador;
 
 
 public class RepositorioIndicadores {
@@ -95,9 +95,9 @@ public class RepositorioIndicadores {
 	}
 
 	public static void agregarPredeterminados() {
-		indicadoresCargados.add(new Pers_Sencillo());
-		indicadoresCargados.add(new Pers_SoloNumeros());
-		indicadoresCargados.add(new Pers_FDSporTres());
+		indicadoresCargados.add(new Leverage());
+		indicadoresCargados.add(new ROA());
+		indicadoresCargados.add(new ROE());
 	}
 	
 }

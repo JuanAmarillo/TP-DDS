@@ -1,7 +1,5 @@
 package calculoIndicadores;
 
-import domain.Empresa;
-
 public class ParentesisDerecho implements Token {
 	protected int prioridad;
 	

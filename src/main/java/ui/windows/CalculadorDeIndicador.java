@@ -3,7 +3,7 @@ package ui.windows;
 import org.uqbar.commons.utils.Observable;
 
 import domain.Empresa;
-import interfaces.Indicador;
+import domain.indicadores.Indicador;
 
 @Observable
 public class CalculadorDeIndicador {
