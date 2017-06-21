@@ -32,8 +32,8 @@ public class IndicadorCustom implements Indicador{
 		return calculo.calcularValor(empresa, periodo);
 	}
 	
-	private Boolean analizarSintacticamente(String indicador) {
-		return new Analizador().scan(indicador).parser();
+	private void analizarSintacticamente(String indicador) {
+		 new Analizador().scan(indicador).parser();
 	}
 	
 	public boolean esCalculable(Empresa empresa, String periodo) {

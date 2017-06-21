@@ -12,31 +12,32 @@ public class Parser extends OperacionesDisponibles {
 		super(tokens);
 	}
 
-	public  Boolean parsear(){
-		return primerToken(obtenerSiguienteToken());
+	public  void parsear(){
+		primerToken(obtenerSiguienteToken());
 	}
 	
-	private Boolean primerToken(String token){
+	private void primerToken(String token){
 		if(esUnTexto(token)){
 			this.nombreIndicador = token;
-			return segundoToken();
+			segundoToken();
 		}
-		throw new ParsingException("el Indicador solo puede estar formado por letras");
+		else
+			throw new ParsingException("el Indicador solo puede estar formado por letras");
 	}
 
-	private Boolean segundoToken() {
+	private void segundoToken() {
 		String siguienteToken = obtenerSiguienteToken();
 		if(hayToken(siguienteToken))
-			return igualdad(siguienteToken);
+			igualdad(siguienteToken);
 		else
 			throw new ParsingException("Debe haber una igualdad");
 	}
 	
-	private Boolean igualdad(String token){
-		if(esUnaIgualdad(token)){
-			return terminal();
-		}
-		throw new ParsingException("No puede haber operaciones antes de la igualdad");
+	private void igualdad(String token){
+		if(esUnaIgualdad(token))
+			terminal();
+		else
+			throw new ParsingException("No puede haber operaciones antes de la igualdad");
 	}
 	
 	private Boolean numero(String token){

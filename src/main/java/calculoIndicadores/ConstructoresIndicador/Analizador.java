@@ -30,8 +30,8 @@ public class Analizador {
 				.collect(Collectors.toList());
 	}
 	
-	public Boolean parser(){
-		return new Parser(tokens).parsear();
+	public void parser(){
+		new Parser(tokens).parsear();
 	}
 	
 	public Calculable compilar(){
