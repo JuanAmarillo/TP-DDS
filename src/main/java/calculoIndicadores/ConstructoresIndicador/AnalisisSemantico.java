@@ -35,7 +35,7 @@ public class AnalisisSemantico extends OperacionesDisponibles{
 	}
 	
 	private Boolean analizarIndicador(String nombre){
-		return RepositorioIndicadores.instance().buscarIndicador(nombre).esCalculable(empresa, periodo);
+		return RepositorioIndicadores.instance().buscarIndicador(nombre).get().esCalculable(empresa, periodo);
 	}
 
 }

@@ -42,14 +42,15 @@ public class CargarIndicadorVM {
 		actualizaIndicadores();
 	}
 
+	public void eliminarIndicador() throws IOException{
+		RepositorioIndicadores.instance().eliminarIndicadorAPartirDe(indicadorSeleccionado);
+		actualizaIndicadores();
+	}
+	
 	private void actualizaIndicadores() throws IOException {
 		ActualizaIndicadores.actualizarArchivoJson();
 		ObservableUtils.firePropertyChanged(this, "indicadores");
 	}
 
-	public void eliminarIndicador() throws IOException{
-		RepositorioIndicadores.instance().eliminarIndicadorAPartirDe(indicadorSeleccionado);
-		actualizaIndicadores();
-	}
 
 }

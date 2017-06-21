@@ -2,10 +2,12 @@ package domain.repositorios;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import domain.indicadores.*;
 import domain.indicadores.indicadoresPredeterminados.*;
+import exceptions.IndicadorExistenteException;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 
 
@@ -45,7 +47,7 @@ public class RepositorioIndicadores {
 	}
 
 	public void eliminarIndicadorAPartirDe(String nombre) {
-		Indicador indicadorASacar = this.buscarIndicador(nombre);
+		Indicador indicadorASacar = buscarIndicador(nombre).get();
 		eliminarIndicador(indicadorASacar);
 	}
 
@@ -58,9 +60,8 @@ public class RepositorioIndicadores {
 	}
 
 	public List<IndicadorCustom> obtenerCustoms() {
-		List<IndicadorCustom> lista = new ArrayList<IndicadorCustom>();
-		lista.addAll(indicadoresCargados.stream().filter(ind -> ind.esCustom()).map(ind -> (IndicadorCustom) ind).collect(Collectors.toList()));
-		return lista;
+		return indicadoresCargados.stream().filter(ind -> ind.esCustom()).map(ind -> (IndicadorCustom) ind)
+				.collect(Collectors.toList());
 	}
 
 	public void agregarIndicador(IndicadorCustom indicador) {
@@ -78,12 +79,11 @@ public class RepositorioIndicadores {
 
 	private void indicadorExistente(IndicadorCustom indicador) {
 		if (contieneElIndicador(indicador.getNombre()))
-			throw new RuntimeException("El indicador ya existe");
+			throw new IndicadorExistenteException();
 	}
 
-	public Indicador buscarIndicador(String nombre) {
-		return getIndicadoresCargados().stream().filter(unIndicador -> unIndicador.suNombreEs(nombre)).findFirst()
-				.orElseThrow(()-> new RuntimeException("Seleccione un indicador a borrar"));
+	public Optional<Indicador> buscarIndicador(String nombre) {
+		return getIndicadoresCargados().stream().filter(unIndicador -> unIndicador.suNombreEs(nombre)).findFirst();
 	}
 
 	public boolean contieneElIndicador(String nombre) {

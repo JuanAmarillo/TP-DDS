@@ -25,7 +25,7 @@ public abstract class IndicadorPredeterminado extends Indicador{
 	}
 
 	protected Indicador buscarIndicador(String indicador) {
-		return RepositorioIndicadores.instance().buscarIndicador(indicador);
+		return RepositorioIndicadores.instance().buscarIndicador(indicador).get();
 	}
 
 	private boolean existeIndicador(String indicador) {

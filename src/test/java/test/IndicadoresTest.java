@@ -24,7 +24,7 @@ public class IndicadoresTest {
 
 	public Indicador buscarIndicador(String indicador) {
 		String nombre = new IndicadorCustom(indicador).getNombre();
-		return RepositorioIndicadores.instance().buscarIndicador(nombre);
+		return RepositorioIndicadores.instance().buscarIndicador(nombre).get();
 	}
 
 	public Indicador cargarIndicadorYBuscarlo(String indicador) {

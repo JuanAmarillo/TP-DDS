@@ -13,6 +13,7 @@ import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 
 import domain.indicadores.IndicadorCustom;
+import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import ui.vm.CargarIndicadorVM;
 
 @SuppressWarnings("serial")
@@ -60,10 +61,13 @@ public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 	public void eliminarIndicador() {
 		try {
 			this.getModelObject().eliminarIndicador();
-		} catch (RuntimeException | IOException e) {
+		} catch (NoSePuedeBorrarUnPredeterminadoException e) {
+			this.showWarning(e.getMessage());
+		} catch (IOException e) {
 			this.showWarning("La eliminacion no se realizo con exito, intenta mas tarde :p (la clasica)");
+		} catch (RuntimeException e){
+			this.showWarning("Seleccione un Indicador a borrar");
 		}
-
 	}
 
 	public void cargarIndicador() {
