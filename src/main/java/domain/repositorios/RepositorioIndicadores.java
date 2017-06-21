@@ -51,7 +51,7 @@ public class RepositorioIndicadores {
 
 	public void eliminarIndicador(Indicador indicador) throws NoSePuedeBorrarUnPredeterminadoException{
 		if(indicador.esCustom()) 
-			RepositorioIndicadores.instance().getIndicadoresCargados().remove(indicador);
+			getIndicadoresCargados().remove(indicador);
 		else 
 			throw new NoSePuedeBorrarUnPredeterminadoException();
 		
@@ -64,7 +64,7 @@ public class RepositorioIndicadores {
 	}
 
 	public void agregarIndicador(IndicadorCustom indicador) {
-		RepositorioIndicadores.instance().getIndicadoresCargados().add(indicador);
+		getIndicadoresCargados().add(indicador);
 	}
 
 	public void agregarIndicadores(List<IndicadorCustom> indicadores) {

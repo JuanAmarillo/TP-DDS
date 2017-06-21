@@ -29,6 +29,9 @@ public abstract class IndicadorPredeterminado implements Indicador{
 		else
 			return existeIndicador(indicador);
 	}
+	protected boolean cuentaCalculable(String indicador,Empresa empresa, String periodo) {
+		return empresa.contieneLaCuentaDePeriodo(indicador, periodo);
+	}
 
 	private boolean esPosibleCalcularlo(String indicador, Empresa empresa, String periodo) {
 		return buscarIndicador(indicador).esCalculable(empresa, periodo);
@@ -40,6 +43,14 @@ public abstract class IndicadorPredeterminado implements Indicador{
 
 	private boolean existeIndicador(String indicador) {
 		return RepositorioIndicadores.instance().contieneElIndicador(indicador);
+	}
+	
+	protected double valorDelIndicador(String indicador, Empresa empresa, String periodo){
+		return buscarIndicador(indicador).calcularIndicador(empresa, periodo);
+	}
+	
+	protected double valorDeLaCuenta(String cuenta, Empresa empresa, String periodo){
+		return empresa.getValorDeLaCuenta(cuenta, periodo);
 	}
 	
 	public abstract void asignarAVariables(Empresa empresa, String periodo);

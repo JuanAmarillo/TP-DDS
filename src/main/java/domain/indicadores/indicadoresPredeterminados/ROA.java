@@ -16,13 +16,13 @@ public class ROA extends IndicadorPredeterminado{
 	}	
 	
 	public boolean esCalculable(Empresa empresa, String periodo) {
-		return empresa.contieneLaCuentaDePeriodo("BeneficioEconomico", periodo) && 
-				empresa.contieneLaCuentaDePeriodo("ActivoTotal", periodo);
+		return cuentaCalculable("BeneficioEconomico",empresa, periodo) && cuentaCalculable("ActivoTotal",empresa, periodo);
 	}
 
+
 	public void asignarAVariables(Empresa empresa, String periodo) {
-		BeneficioEconomico = empresa.getValorDeLaCuenta("BeneficioEconomico", periodo);
-		ActivoTotal = empresa.getValorDeLaCuenta("ActivoTotal", periodo);
+		BeneficioEconomico = valorDeLaCuenta("BeneficioEconomico", empresa, periodo);
+		ActivoTotal = valorDeLaCuenta("ActivoTotal", empresa,periodo);
 	}	
 	
 	public String getEcuacion() {
