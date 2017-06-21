@@ -15,7 +15,7 @@ import domain.repositorios.RepositorioIndicadores;
 import ui.windows.CalculadorDeIndicador;
 
 @Observable
-public class ConsultarCuentasVM {
+public class CuentasConIndicadoresVM {
 
 	private List<Empresa> empresas;
 	private Empresa empresaSeleccionada;
@@ -26,7 +26,7 @@ public class ConsultarCuentasVM {
 	
 		
 
-	public ConsultarCuentasVM() {
+	public CuentasConIndicadoresVM() {
 		this.empresas = RepositorioEmpresas.instance().getEmpresasCargadas();
 		this.setEmpresaSeleccionada(this.empresas.get(0));
 	}

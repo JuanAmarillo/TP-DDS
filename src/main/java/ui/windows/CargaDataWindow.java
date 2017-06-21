@@ -9,6 +9,7 @@ import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 
+
 @SuppressWarnings("serial")
 public class CargaDataWindow extends SimpleWindow<Object> {
 
@@ -30,7 +31,7 @@ public class CargaDataWindow extends SimpleWindow<Object> {
 				.setBackground(Color.lightGray).setWidth(350);
 		new Button(panelActions).setCaption("Cargar indicadores").onClick(this::cargarIndicadores)
 				.setBackground(Color.lightGray).setWidth(350);
-		new Button(panelActions).setCaption("Consultar valores de cuentas").onClick(this::verCuentas)
+		new Button(panelActions).setCaption("Consultar valores").onClick(this::verCuentas)
 				.setBackground(Color.lightGray).setWidth(350);
 
 	}
@@ -40,7 +41,7 @@ public class CargaDataWindow extends SimpleWindow<Object> {
 	}
 
 	public void verCuentas() {
-		ViewUtils.nuevaPantalla(new ConsultarCuentasWindow(this));
+		ViewUtils.nuevaPantalla(new CuentasConIndicadoresWindow(this));
 	}
 
 	public void cargarIndicadores() {

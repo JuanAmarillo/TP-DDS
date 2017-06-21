@@ -14,13 +14,13 @@ import org.uqbar.arena.windows.WindowOwner;
 import domain.Cuenta;
 import ui.windows.CalculadorDeIndicador;
 import domain.Empresa;
-import ui.vm.ConsultarCuentasVM;
+import ui.vm.CuentasConIndicadoresVM;
 
 @SuppressWarnings("serial")
-public class ConsultarCuentasWindow extends Dialog<ConsultarCuentasVM> {
+public class CuentasConIndicadoresWindow extends Dialog<CuentasConIndicadoresVM> {
 
-	public ConsultarCuentasWindow(WindowOwner parent) {
-		super(parent, new ConsultarCuentasVM());
+	public CuentasConIndicadoresWindow(WindowOwner parent) {
+		super(parent, new CuentasConIndicadoresVM());
 	}
 
 	@Override
