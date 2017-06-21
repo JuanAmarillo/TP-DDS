@@ -5,16 +5,15 @@ import java.io.IOException;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
-import etc.DatosIndicadores;
 
 public abstract class FileLoader<T> {
 	
 	protected String filepath;
 	private Class<T> typeParameterClass;
 	
-	public FileLoader(String fp,Class<T> typeParameterClass) {
+	public FileLoader(String filepath,Class<T> typeParameterClass) {
 		this.typeParameterClass = typeParameterClass;
-		this.filepath = fp;
+		this.filepath = filepath;
 	}
 	
 	public void setFilepath(String filePath){
@@ -23,19 +22,14 @@ public abstract class FileLoader<T> {
 	
 	public T getElementosDelArchivo() throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
-		T indicadoresADevolver = mapper.readValue(new File(filepath),typeParameterClass);
-		return indicadoresADevolver;
+		T aDevolver = mapper.readValue(new File(filepath),typeParameterClass);
+		return aDevolver;
 	}
 	
+	public void cargarArchivo() throws IOException {
+		T elementos = getElementosDelArchivo();
+		cargarlosAlRepositorio(elementos);
+	}
 	
-	/* Si se pudiese armar un repo mas genérico, se podría armar
-	 * T aDevolver = getElementoDelArchivo(lugarDeCarga);
-	 * -->se delega al repositorio correspondiente
-	 */
-	/*public T getElementoDelArchivo(String lugarDeCarga) throws IOException{
-	 * ObjectMapper mapper = new ObjectMapper();
-	 * T aDevolver = mapper.readValue(new File(lugarDeCarga), T.class)
-	 * return aDevolver;
-	 * 
-	 */
+	protected abstract void cargarlosAlRepositorio(T elementos);
 }

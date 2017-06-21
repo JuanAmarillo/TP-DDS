@@ -13,13 +13,13 @@ import interfaces.FileLoader;
 
 public class LevantaArchivoIndicadores extends FileLoader<DatosIndicadores> {
 	
-	public LevantaArchivoIndicadores(String fp) {
-		super(fp,DatosIndicadores.class);
+	public LevantaArchivoIndicadores(String filepath) {
+		super(filepath,DatosIndicadores.class);
 	}
-	
-	public void cargarArchivo() throws IOException {
-		List<IndicadorCustom>indicadoresADevolver = getElementosDelArchivo().getIndicadores();
-		RepositorioIndicadores.instance().agregarIndicadores(indicadoresADevolver);
+
+	@Override
+	protected void cargarlosAlRepositorio(DatosIndicadores elementos) {
+		RepositorioIndicadores.instance().agregarIndicadores(elementos.getIndicadores());
 	}
 
 

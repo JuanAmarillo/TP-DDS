@@ -47,8 +47,8 @@ public class MockitoTest {
 	@Before
 	public void init() throws IOException {
 		prepararEmpresaB();
-		when(loader.getEmpresaDelArchivo()).thenReturn(empresaB);
-		empresaA = loader.getEmpresaDelArchivo();
+		when(loader.getElementosDelArchivo()).thenReturn(empresaB);
+		empresaA = loader.getElementosDelArchivo();
 		RepositorioEmpresas.instance().agregarEmpresa(empresaA);
 	}
 
