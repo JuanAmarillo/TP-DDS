@@ -37,7 +37,7 @@ public class CargarIndicadorVM {
 		this.indicadorSeleccionado = indicadorSeleccionado;
 	}
 
-	public void cargarIndicador() throws IOException,RuntimeException{
+	public void cargarIndicador() throws IOException{
 		RepositorioIndicadores.instance().agregarIndicadorAPartirDe(indicador);
 		actualizaIndicadores();
 	}

@@ -14,7 +14,7 @@ import calculoIndicadores.Resta;
 import calculoIndicadores.Suma;
 import calculoIndicadores.Token;
 
-public class Compilador extends OperacionesDisponibles{
+public class Compilador extends TokenToOperationTranslator{
 	private Stack<Calculable> lexemas;
 	private Stack<Token> operadores;
 

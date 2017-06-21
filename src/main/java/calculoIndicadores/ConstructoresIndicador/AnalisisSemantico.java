@@ -5,7 +5,7 @@ import java.util.List;
 import domain.Empresa;
 import domain.repositorios.RepositorioIndicadores;
 
-public class AnalisisSemantico extends OperacionesDisponibles{
+public class AnalisisSemantico extends TokenToOperationTranslator{
 	
 	protected AnalisisSemantico(Empresa empresa, String periodo,List<String> tokens) {
 		super(tokens);

@@ -4,7 +4,7 @@ import java.util.List;
 
 import exceptions.ParsingException;
 
-public class Parser extends OperacionesDisponibles {
+public class Parser extends TokenToOperationTranslator {
 	private String nombreIndicador;
 	private Integer parentesisAbiertos = 0;
 

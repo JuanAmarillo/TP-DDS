@@ -5,12 +5,12 @@ import java.util.List;
 import domain.Empresa;
 import domain.repositorios.RepositorioIndicadores;
 
-abstract class OperacionesDisponibles {
+public class TokenToOperationTranslator {
 	protected Empresa empresa;
 	protected String periodo;
 	protected List<String> tokens;
 	
-	protected OperacionesDisponibles(List<String> tokens){
+	protected TokenToOperationTranslator(List<String> tokens){
 		this.tokens = tokens;
 	}
 	
