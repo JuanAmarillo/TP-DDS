@@ -18,11 +18,6 @@ public abstract class IndicadorPredeterminado implements Indicador{
 	}
 	
 	
-	public Double calcularIndicador(Empresa empresa, String periodo) {
-		asignarAVariables(empresa,periodo);
-		return calculo();
-	}
-	
 	protected boolean indicadorCalculable(String indicador,Empresa empresa, String periodo){
 		if(existeIndicador(indicador))
 			return esPosibleCalcularlo(indicador, empresa, periodo);
@@ -53,8 +48,7 @@ public abstract class IndicadorPredeterminado implements Indicador{
 		return empresa.getValorDeLaCuenta(cuenta, periodo);
 	}
 	
-	public abstract void asignarAVariables(Empresa empresa, String periodo);
-	public abstract Double calculo();
+	public abstract Double calcularIndicador(Empresa empresa, String periodo);
 	public abstract boolean esCalculable(Empresa empresa, String periodo);
 	
 	public String getNombre() {
