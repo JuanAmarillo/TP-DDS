@@ -9,11 +9,18 @@ public class RepositorioEmpresas {
 	private static RepositorioEmpresas instance = null;
 
 	public static RepositorioEmpresas instance() {
-		if (instance == null) {
-			empresasCargadas = new ArrayList<Empresa>();
-			instance = new RepositorioEmpresas();
-		}
+		if (noHayInstanciaCargada()) 
+			cargarNuevaInstancia();
 		return instance;
+	}
+
+	private static void cargarNuevaInstancia() {
+		empresasCargadas = new ArrayList<Empresa>();
+		instance = new RepositorioEmpresas();
+	}
+
+	private static boolean noHayInstanciaCargada() {
+		return instance == null;
 	}
 
 	public static void resetSingleton() {

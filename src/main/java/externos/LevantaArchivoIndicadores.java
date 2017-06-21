@@ -11,24 +11,15 @@ import domain.repositorios.RepositorioIndicadores;
 import etc.DatosIndicadores;
 import interfaces.FileLoader;
 
-public class LevantaArchivoIndicadores implements FileLoader {
-	
-	private String filepath;
+public class LevantaArchivoIndicadores extends FileLoader<DatosIndicadores> {
 	
 	public LevantaArchivoIndicadores(String fp) {
-		filepath = fp;
+		super(fp,DatosIndicadores.class);
 	}
 	
-	@Override
 	public void cargarArchivo() throws IOException {
-		List<IndicadorCustom>indicadoresADevolver = getIndicadoresDelArchivo().getIndicadores();
+		List<IndicadorCustom>indicadoresADevolver = getElementosDelArchivo().getIndicadores();
 		RepositorioIndicadores.instance().agregarIndicadores(indicadoresADevolver);
-	}
-
-	public DatosIndicadores getIndicadoresDelArchivo() throws IOException {
-		ObjectMapper mapper = new ObjectMapper();
-		DatosIndicadores indicadoresADevolver = mapper.readValue(new File(filepath), DatosIndicadores.class);
-		return indicadoresADevolver;
 	}
 
 
