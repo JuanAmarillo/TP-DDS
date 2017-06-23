@@ -10,6 +10,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import domain.indicadores.IndicadorCustom;
 import domain.repositorios.RepositorioIndicadores;
+import etc.DatosIndicadores;
 
 public class ActualizaIndicadores {
 
@@ -24,13 +25,18 @@ public class ActualizaIndicadores {
 	}
 
 	public void actualizarArchivoJson() throws IOException {
-		List<IndicadorCustom> indicadores = RepositorioIndicadores.instance().obtenerCustoms();
+		DatosIndicadores indicadores = new DatosIndicadores();
+		indicadores.setIndicadores(obtenerIndicadores());
 		String jsonIndicadores = obtenerJsonCompleto(indicadores);
 		borrarArchivoAnterior();
 		crearArchivoNuevo(jsonIndicadores);
 	}
 
-	private String obtenerJsonCompleto(List<IndicadorCustom> indicadores) throws IOException {
+	private List<IndicadorCustom> obtenerIndicadores() {
+		return RepositorioIndicadores.instance().obtenerCustoms();
+	}
+
+	private String obtenerJsonCompleto(DatosIndicadores indicadores) throws IOException {
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.setVisibilityChecker(mapper.getSerializationConfig().getDefaultVisibilityChecker()
                 .withFieldVisibility(JsonAutoDetect.Visibility.ANY)
