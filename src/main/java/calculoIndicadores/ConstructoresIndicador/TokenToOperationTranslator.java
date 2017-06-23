@@ -31,7 +31,7 @@ public class TokenToOperationTranslator {
 	}
 	
 	protected boolean esUnTexto(String token){
-		return token.matches("([ ]*[a-zA-Z]+[ ]*)+");
+		return token.matches("([0-9 ]*[a-zA-Z]+[0-9 ]*)+");
 	}
 	
 	protected boolean esUnParentesis(String token){

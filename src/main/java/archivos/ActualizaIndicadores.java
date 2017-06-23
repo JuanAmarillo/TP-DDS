@@ -23,8 +23,18 @@ public class ActualizaIndicadores {
 	public String getFilepath() {
 		return filepath;
 	}
+	
+	public void agregar(String indicador) throws IOException{
+		RepositorioIndicadores.instance().agregarIndicadorAPartirDe(indicador);
+		actualizarArchivoJson();
+	}
+	
+	public void eliminar(String indicador) throws IOException{
+		RepositorioIndicadores.instance().eliminarIndicadorAPartirDe(indicador);
+		actualizarArchivoJson();
+	}
 
-	public void actualizarArchivoJson() throws IOException {
+	private void actualizarArchivoJson() throws IOException {
 		DatosIndicadores indicadores = new DatosIndicadores();
 		indicadores.setIndicadores(obtenerIndicadores());
 		String jsonIndicadores = obtenerJsonCompleto(indicadores);

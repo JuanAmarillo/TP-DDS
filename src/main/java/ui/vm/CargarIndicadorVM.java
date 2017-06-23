@@ -38,19 +38,19 @@ public class CargarIndicadorVM {
 	}
 
 	public void cargarIndicador() throws IOException{
-		RepositorioIndicadores.instance().agregarIndicadorAPartirDe(indicador);
-		actualizaIndicadores();
+		new ActualizaIndicadores().agregar(indicadorSeleccionado);
+		avisarCambioIndicadores();
 	}
 
 	public void eliminarIndicador() throws IOException{
-		RepositorioIndicadores.instance().eliminarIndicadorAPartirDe(indicadorSeleccionado);
-		actualizaIndicadores();
+		new ActualizaIndicadores().eliminar(indicadorSeleccionado);
+		avisarCambioIndicadores();
 	}
-	
-	private void actualizaIndicadores() throws IOException {
-		new ActualizaIndicadores().actualizarArchivoJson();
+
+	private void avisarCambioIndicadores() {
 		ObservableUtils.firePropertyChanged(this, "indicadores");
 	}
+	
 
 
 }
