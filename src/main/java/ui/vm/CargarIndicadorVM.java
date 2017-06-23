@@ -48,7 +48,7 @@ public class CargarIndicadorVM {
 	}
 	
 	private void actualizaIndicadores() throws IOException {
-		ActualizaIndicadores.actualizarArchivoJson();
+		new ActualizaIndicadores().actualizarArchivoJson();
 		ObservableUtils.firePropertyChanged(this, "indicadores");
 	}
 
