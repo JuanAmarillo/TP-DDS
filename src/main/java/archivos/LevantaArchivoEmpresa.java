@@ -6,16 +6,8 @@ import domain.repositorios.RepositorioEmpresas;
 
 public class LevantaArchivoEmpresa extends FileLoader<Empresa> {
 	
-	
 	public LevantaArchivoEmpresa(String filepath) {
-		super(filepath,Empresa.class);
+		super(filepath,Empresa.class,RepositorioEmpresas.instance());
 	}
-
-	@Override
-	protected void cargarlosAlRepositorio(Empresa elementos) {
-		RepositorioEmpresas.instance().loadEmpresa(elementos);
-		
-	}
-	
 	
 }

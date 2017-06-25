@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import domain.Empresa;
 
-public class RepositorioEmpresas {
+public class RepositorioEmpresas implements Repositorio<Empresa>{
 	private static List<Empresa> empresasCargadas;
 	private static RepositorioEmpresas instance = null;
 
@@ -35,7 +35,7 @@ public class RepositorioEmpresas {
 		return empresasCargadas;
 	}
 
-	public void loadEmpresa(Empresa empresaLeida) {
+	public void agregarDesdeArchivo(Empresa empresaLeida) {
 		if (existeLaEmpresa(empresaLeida))
 			agregarCuentas(empresaLeida);
 		else

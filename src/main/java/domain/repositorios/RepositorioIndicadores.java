@@ -7,11 +7,12 @@ import java.util.stream.Collectors;
 
 import domain.indicadores.*;
 import domain.indicadores.indicadoresPredeterminados.*;
+import etc.DatosIndicadores;
 import exceptions.IndicadorExistenteException;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 
 
-public class RepositorioIndicadores {
+public class RepositorioIndicadores implements Repositorio<DatosIndicadores>{
 	private static List<Indicador> indicadoresCargados;
 	private static RepositorioIndicadores instance = null;
 
@@ -68,7 +69,8 @@ public class RepositorioIndicadores {
 		getIndicadoresCargados().add(indicador);
 	}
 
-	public void agregarIndicadores(List<IndicadorCustom> indicadores) {
+	public void agregarDesdeArchivo(DatosIndicadores datosIndicadores) {
+		List<IndicadorCustom> indicadores = datosIndicadores.getIndicadores();
 		generarCalculoIndicadores(indicadores);
 		indicadoresCargados.addAll(indicadores);
 	}

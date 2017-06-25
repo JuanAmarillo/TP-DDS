@@ -38,7 +38,7 @@ public class CargarIndicadorVM {
 	}
 
 	public void cargarIndicador() throws IOException{
-		new ActualizaIndicadores().agregar(indicadorSeleccionado);
+		new ActualizaIndicadores().agregar(indicador);
 		avisarCambioIndicadores();
 	}
 

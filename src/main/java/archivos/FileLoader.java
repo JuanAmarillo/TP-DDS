@@ -5,15 +5,19 @@ import java.io.IOException;
 
 import org.codehaus.jackson.map.ObjectMapper;
 
+import domain.repositorios.Repositorio;
+
 
 public abstract class FileLoader<T> {
 	
 	protected String filepath;
 	private Class<T> typeParameterClass;
+	private Repositorio<T> repositorio;
 	
-	public FileLoader(String filepath,Class<T> typeParameterClass) {
+	public FileLoader(String filepath,Class<T> typeParameterClass,Repositorio<T> repositorio) {
 		this.typeParameterClass = typeParameterClass;
 		this.filepath = filepath;
+		this.repositorio = repositorio;
 	}
 	
 	public void setFilepath(String filePath){
@@ -28,8 +32,6 @@ public abstract class FileLoader<T> {
 	
 	public void cargarArchivo() throws IOException {
 		T elementos = getElementosDelArchivo();
-		cargarlosAlRepositorio(elementos);
+		repositorio.agregarDesdeArchivo(elementos);
 	}
-	
-	protected abstract void cargarlosAlRepositorio(T elementos);
 }
