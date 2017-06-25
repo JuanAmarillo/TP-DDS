@@ -10,7 +10,7 @@ import domain.repositorios.Repositorio;
 
 public abstract class FileLoader<T> {
 	
-	protected String filepath;
+	private String filepath;
 	private Class<T> typeParameterClass;
 	private Repositorio<T> repositorio;
 	
