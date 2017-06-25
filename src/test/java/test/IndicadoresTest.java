@@ -3,6 +3,7 @@ package test;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import domain.indicadores.Indicador;
@@ -32,14 +33,16 @@ public class IndicadoresTest {
 		return buscarIndicador(indicador);
 	}
 	
-	@After
-	public void finalize() {
+	@Before
+	public void init(){
 		RepositorioIndicadores.resetSingleton();
 	}
+	
 
 	@Test
 	public void testSeCargaUnIndicador() {
-		indicadorBuscado = cargarIndicadorYBuscarlo("Juanito y los Clonosaurios = dinousarios + clonacion");
+		cargarIndicador("Juanito y los Clonosaurios = dinousarios + clonacion");
+		indicadorBuscado = buscarIndicador("Juanito y los Clonosaurios = dinousarios + clonacion");
 		assertEquals(indicadorBuscado.getNombre(), "Juanito y los Clonosaurios");
 		assertEquals(indicadorBuscado.getEcuacion(), " dinousarios + clonacion");
 		assertEquals(4, RepositorioIndicadores.instance().getIndicadoresCargados().size());
