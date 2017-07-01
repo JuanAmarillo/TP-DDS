@@ -3,20 +3,21 @@ package domain.indicadores;
 import domain.Empresa;
 import domain.repositorios.RepositorioIndicadores;
 
-public abstract class IndicadorPredeterminado extends Indicador{
-	
+public abstract class IndicadorPredeterminado extends Indicador {
+
 	@Override
 	public boolean esCustom() {
 		return false;
 	}
-	
-	protected boolean indicadorCalculable(String indicador,Empresa empresa, String periodo){
-		if(existeIndicador(indicador))
+
+	protected boolean indicadorCalculable(String indicador, Empresa empresa, String periodo) {
+		if (existeIndicador(indicador))
 			return esPosibleCalcularlo(indicador, empresa, periodo);
 		else
 			return existeIndicador(indicador);
 	}
-	protected boolean cuentaCalculable(String indicador,Empresa empresa, String periodo) {
+
+	protected boolean cuentaCalculable(String indicador, Empresa empresa, String periodo) {
 		return empresa.contieneLaCuentaDePeriodo(indicador, periodo);
 	}
 
@@ -31,16 +32,17 @@ public abstract class IndicadorPredeterminado extends Indicador{
 	private boolean existeIndicador(String indicador) {
 		return RepositorioIndicadores.instance().contieneElIndicador(indicador);
 	}
-	
-	protected double valorDelIndicador(String indicador, Empresa empresa, String periodo){
+
+	protected double valorDelIndicador(String indicador, Empresa empresa, String periodo) {
 		return buscarIndicador(indicador).calcularIndicador(empresa, periodo);
 	}
-	
-	protected double valorDeLaCuenta(String cuenta, Empresa empresa, String periodo){
+
+	protected double valorDeLaCuenta(String cuenta, Empresa empresa, String periodo) {
 		return empresa.getValorDeLaCuenta(cuenta, periodo);
 	}
-	
+
 	public abstract Double calcularIndicador(Empresa empresa, String periodo);
+
 	public abstract boolean esCalculable(Empresa empresa, String periodo);
-	
+
 }
