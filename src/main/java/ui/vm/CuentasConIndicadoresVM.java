@@ -12,6 +12,7 @@ import domain.*;
 import domain.indicadores.Indicador;
 import domain.repositorios.RepositorioEmpresas;
 import domain.repositorios.RepositorioIndicadores;
+import exceptions.NoHayEmpresasCargadasException;
 import ui.windows.CalculadorDeIndicador;
 
 @Observable
@@ -27,8 +28,13 @@ public class CuentasConIndicadoresVM {
 		
 
 	public CuentasConIndicadoresVM() {
-		this.empresas = RepositorioEmpresas.instance().getEmpresasCargadas();
-		this.setEmpresaSeleccionada(this.empresas.get(0));
+		if(RepositorioEmpresas.instance().tieneEmpresasCargadas()) {
+			this.empresas = RepositorioEmpresas.instance().getEmpresasCargadas();
+			this.setEmpresaSeleccionada(this.empresas.get(0));
+		}
+		else
+			throw new NoHayEmpresasCargadasException();
+		
 	}
 
 	public List<Empresa> getEmpresas() {

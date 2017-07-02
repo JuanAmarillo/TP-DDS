@@ -9,11 +9,13 @@ import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 
+import exceptions.NoHayEmpresasCargadasException;
+
 
 @SuppressWarnings("serial")
-public class CargaDataWindow extends SimpleWindow<Object> {
+public class MainWindow extends SimpleWindow<Object> {
 
-	public CargaDataWindow(WindowOwner parent) {
+	public MainWindow(WindowOwner parent) {
 		super(parent, new Object());
 	}
 
@@ -43,7 +45,10 @@ public class CargaDataWindow extends SimpleWindow<Object> {
 	}
 
 	public void verCuentas() {
-		ViewUtils.nuevaPantalla(new CuentasConIndicadoresWindow(this));
+		try {
+			ViewUtils.nuevaPantalla(new CuentasConIndicadoresWindow(this));
+		}
+		catch(NoHayEmpresasCargadasException e) { this.showWarning(e.getErrorMessage()); }
 	}
 
 	public void cargarIndicadores() {

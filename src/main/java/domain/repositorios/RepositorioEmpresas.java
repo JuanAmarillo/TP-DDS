@@ -55,4 +55,8 @@ public class RepositorioEmpresas implements Repositorio<Empresa>{
 		return empresasCargadas.stream().filter(empresa -> empresa.getNombre().equals(nombre)).findFirst().orElse(null);
 	}
 
+	public boolean tieneEmpresasCargadas() {
+		return empresasCargadas.size() > 0;
+	}
+
 }

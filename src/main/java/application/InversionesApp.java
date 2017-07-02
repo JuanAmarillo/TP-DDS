@@ -7,7 +7,7 @@ import org.uqbar.arena.windows.Window;
 
 import archivos.ActualizaIndicadores;
 import archivos.LevantaArchivoIndicadores;
-import ui.windows.CargaDataWindow;
+import ui.windows.MainWindow;
 
 public class InversionesApp extends Application {
 
@@ -26,7 +26,6 @@ public class InversionesApp extends Application {
 
 	@Override
 	protected Window<?> createMainWindow() {
-
-		return new CargaDataWindow(this);
+		return new MainWindow(this);
 	}
 }
