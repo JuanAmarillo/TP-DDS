@@ -12,8 +12,8 @@ import domain.repositorios.RepositorioIndicadores;
 
 @Observable
 public class CargarIndicadorVM {
+	
 	public String indicador;
-
 	public List<String> indicadores;
 	public String indicadorSeleccionado;
 

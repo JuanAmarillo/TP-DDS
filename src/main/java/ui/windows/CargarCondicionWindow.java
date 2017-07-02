@@ -1,11 +1,13 @@
 package ui.windows;
 
+import org.uqbar.arena.bindings.ObservableProperty;
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.List;
 import org.uqbar.arena.widgets.Panel;
+import org.uqbar.arena.widgets.RadioSelector;
 import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 
@@ -18,7 +20,7 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 	public CargarCondicionWindow(WindowOwner parent) {
 		super(parent, new CargarCondicionVM());
 	}
-
+	
 	@Override
 	protected void createFormPanel(Panel formPanel) {
 		Panel condicionesPanel = new Panel(formPanel);
@@ -38,11 +40,13 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 		condiciones.bindValueToProperty("condicionSeleccionada");
 	}
 
+	@SuppressWarnings("unchecked")
 	public void condicionPersonalizada(Panel condicionPanel) {
 		Panel form = new Panel(condicionPanel);
 		form.setLayout(new ColumnLayout(1));
 		new Label(form).setText("Condición personalizada");
-		
+		//RadioSelector<String> selector = new RadioSelector<String>(condicionPanel);
+		//selector.bindItems(new ObservableProperty(this,"tipos"));
 		new Button(form).setCaption("Cargar condición");// .onClick(this::cargarCondicion);
 		new Button(form).setCaption("Eliminar condición");// .onClick(this::eliminarCondicion);
 	}

@@ -45,14 +45,14 @@ public class IndicadoresTest {
 		indicadorBuscado = buscarIndicador("Juanito y los Clonosaurios = dinousarios + clonacion");
 		assertEquals(indicadorBuscado.getNombre(), "Juanito y los Clonosaurios");
 		assertEquals(indicadorBuscado.getEcuacion(), " dinousarios + clonacion");
-		assertEquals(4, RepositorioIndicadores.instance().getIndicadoresCargados().size());
+		assertEquals(5, RepositorioIndicadores.instance().getIndicadoresCargados().size());
 	}
 
 	@Test
 	public void testSeBorraUnIndicador() {
 		cargarIndicador("Juanito y los Clonosaurios = dinousarios + clonacion");
 		eliminarIndicador("Juanito y los Clonosaurios");
-		assertEquals(3,RepositorioIndicadores.instance().getIndicadoresCargados().size());
+		assertEquals(4,RepositorioIndicadores.instance().getIndicadoresCargados().size());
 
 	}
 	

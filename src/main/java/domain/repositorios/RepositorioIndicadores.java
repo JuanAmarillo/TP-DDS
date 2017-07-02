@@ -100,6 +100,7 @@ public class RepositorioIndicadores implements Repositorio<DatosIndicadores>{
 		indicadoresCargados.add(new Leverage());
 		indicadoresCargados.add(new ROA());
 		indicadoresCargados.add(new ROE());
+		indicadoresCargados.add(new Antiguedad());
 	}
 	
 }

@@ -10,6 +10,7 @@ import org.uqbar.commons.utils.Observable;
 @Observable
 public class Empresa {
 	private String nombre;
+	private int anioFundacion;
 	private Set<Cuenta> cuentas = new HashSet<>();
 
 	public String getNombre() {
@@ -18,6 +19,15 @@ public class Empresa {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	
+	public int getAnioFundacion() {
+		return anioFundacion;
+	}
+
+	public void setAnioFundacion(int anioFundacion) {
+		this.anioFundacion = anioFundacion;
 	}
 
 	public Set<Cuenta> getCuentas() {
