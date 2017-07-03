@@ -2,54 +2,55 @@ package test;
 
 import domain.*;
 import domain.repositorios.RepositorioEmpresas;
+import domain.repositorios.RepositorioIndicadores;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import archivos.LevantaArchivoEmpresa;
+import archivos.LevantaArchivoIndicadores;
 
 import static org.junit.Assert.*;
 import java.io.IOException;
 import java.util.List;
 
-public class EmpresasTest {
+public class CargaEmpresaTest {
 	// Auxiliares
 
 	public Empresa cocaCola;
 
-	private void cargarArchivo(String nombreArchivo) {
+	private void cargarArchivos(String nombreArchivo) {
 		try {
 			new LevantaArchivoEmpresa("src/test/resources/" + nombreArchivo).cargarArchivo();
+			new LevantaArchivoIndicadores("src/test/resources/Indicadores.json").cargarArchivo();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public List<Empresa> getListaEmpresas() {
-		return RepositorioEmpresas.instance().getEmpresasCargadas();
-	}
-
-	private Empresa obtenerEmpresa(String nombreEmpresa) {
-		Empresa aDevolver = RepositorioEmpresas.instance().buscarEmpresa(nombreEmpresa);
-		return aDevolver;
-	}
-
 	@Before
 	public void init() {
-		cargarArchivo("Coca-Cola.json");
-		cocaCola = obtenerEmpresa("Coca-Cola");
+		cargarArchivos("Coca-Cola.json");
+		cocaCola = RepositorioEmpresas.instance().buscarEmpresa("Coca-Cola");		
 	}
 
 	@After
 	public void finalize() {
 		RepositorioEmpresas.resetSingleton();
+		RepositorioIndicadores.resetSingleton();
 	}
 
 
 	@Test
 	public void testMismaEmpresaAgregaCuentasDistintas() {
-		cargarArchivo("Coca-Cola 2.json");
+		cargarArchivos("Coca-Cola 2.json");
 		assertEquals(6, cocaCola.getCuentas().size());
+	}
+	
+	@Test
+	public void testSeCarganLosIndicadores() {
+		assertEquals(5,RepositorioIndicadores.instance().getIndicadoresCargados().size());
 	}
 
 

@@ -17,7 +17,7 @@ import archivos.LevantaArchivoEmpresa;
 import domain.*;
 import domain.repositorios.RepositorioEmpresas;
 
-public class MockitoTest {
+public class EmpresaTest {
 	public Empresa empresaA;
 	public Empresa empresaB;
 	public Empresa empresaC;

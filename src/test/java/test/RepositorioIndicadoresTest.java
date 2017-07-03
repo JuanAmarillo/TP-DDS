@@ -11,7 +11,7 @@ import domain.indicadores.IndicadorCustom;
 import domain.repositorios.RepositorioIndicadores;
 import exceptions.ParsingException;
 
-public class IndicadoresTest {
+public class RepositorioIndicadoresTest {
 	
 	Indicador indicadorBuscado;
 

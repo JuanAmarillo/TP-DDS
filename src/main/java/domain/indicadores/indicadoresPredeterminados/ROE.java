@@ -14,8 +14,8 @@ public class ROE extends IndicadorPredeterminado{
 	}
 
 	public boolean esCalculable(Empresa empresa, String periodo) {
-		return empresa.contieneLaCuentaDePeriodo("BeneficioEconomico", periodo) && 
-				empresa.contieneLaCuentaDePeriodo("ActivoTotal", periodo);
+		return empresa.contieneLaCuentaDePeriodo("Beneficio", periodo) && 
+				empresa.contieneLaCuentaDePeriodo("PatrimonioNeto", periodo);
 	}
 	
 	@Override

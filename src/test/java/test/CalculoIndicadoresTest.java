@@ -18,7 +18,7 @@ import domain.indicadores.IndicadorCustom;
 import domain.repositorios.RepositorioIndicadores;
 
 
-public class EquationsTest {
+public class CalculoIndicadoresTest {
 	Empresa empresa;
 	String periodo;
 	IndicadorCustom pasivoCorriente;
@@ -90,8 +90,6 @@ public class EquationsTest {
 		elCalculoDa(calculo, 7.0);
 	}
 
-
-
 	@Test
 	public void testAceptaNumerosConComa() {
 		Calculable calculo = compilarExpresion("1.5 + 2.5 ");
@@ -105,15 +103,13 @@ public class EquationsTest {
 		elCalculoDa(calculo, 70.0);
 	}
 
-
 	@Test
 	public void testIndicadorConIndicadores() {
 		Calculable calculo = compilarExpresion(pruebaAcida.ecuacion);
 		puedeCalcular(pruebaAcida.ecuacion,true);
 		elCalculoDa(calculo, 3.0);
 	}
-	
-	
+		
 	@Test
 	public void testIndicadorConCuentaOIndicadorNoExistenteNoPuedeSerCalculado(){
 		String expresion = "2*pepe";
@@ -125,5 +121,4 @@ public class EquationsTest {
 		double sumaDeLosIndicadores = RepositorioIndicadores.instance().obtenerCustoms().stream().mapToDouble(ind -> ind.calcularIndicador(empresa, periodo)).sum();
 		assertEquals(73.0,sumaDeLosIndicadores,0.0);
 	}
-
 }

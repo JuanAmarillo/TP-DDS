@@ -36,17 +36,17 @@ public class IndicadorCustom extends Indicador {
 		return new Analizador().scan(ecuacion).sePuedeCalcular(empresa, periodo);
 	}
 
-	public static String generarNombre(String indicador) {
+	public String generarNombre(String indicador) {
 		String[] partesDelIndicador = separarIndicadorEnPartes(indicador);
 		return partesDelIndicador[0].trim();
 	}
 
-	public static String generarEcuacion(String indicador) {
+	public String generarEcuacion(String indicador) {
 		String[] partesDelIndicador = separarIndicadorEnPartes(indicador);
 		return partesDelIndicador[1];
 	}
 
-	public static String[] separarIndicadorEnPartes(String indicador) {
+	public String[] separarIndicadorEnPartes(String indicador) {
 		return indicador.split("=");
 	}
 
