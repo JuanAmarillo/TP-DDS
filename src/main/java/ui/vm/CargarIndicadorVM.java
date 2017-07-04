@@ -9,10 +9,9 @@ import org.uqbar.commons.utils.Observable;
 import archivos.ActualizaIndicadores;
 import domain.repositorios.RepositorioIndicadores;
 
-
 @Observable
 public class CargarIndicadorVM {
-	
+
 	public String indicador;
 	public List<String> indicadores;
 	public String indicadorSeleccionado;
@@ -37,12 +36,12 @@ public class CargarIndicadorVM {
 		this.indicadorSeleccionado = indicadorSeleccionado;
 	}
 
-	public void cargarIndicador() throws IOException{
+	public void cargarIndicador() throws IOException {
 		new ActualizaIndicadores().agregar(indicador);
 		avisarCambioIndicadores();
 	}
 
-	public void eliminarIndicador() throws IOException{
+	public void eliminarIndicador() throws IOException {
 		new ActualizaIndicadores().eliminar(indicadorSeleccionado);
 		avisarCambioIndicadores();
 	}
@@ -50,7 +49,5 @@ public class CargarIndicadorVM {
 	private void avisarCambioIndicadores() {
 		ObservableUtils.firePropertyChanged(this, "indicadores");
 	}
-	
-
 
 }
