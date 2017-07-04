@@ -2,6 +2,7 @@ package domain.repositorios;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import domain.condiciones.Condicion;
 import domain.condiciones.condicionesPredeterminadas.EmpresaMas10Años;
@@ -34,6 +35,10 @@ public class RepositorioCondiciones implements Repositorio<DatosCondiciones> {
 	
 	public List<Condicion> getCondicionesCargadas() {
 		return condicionesCargadas;
+	}
+	
+	public List<String> getNombresDeCondiciones(){
+		return getCondicionesCargadas().stream().map(unaCond -> unaCond.getNombre()).collect(Collectors.toList());
 	}
 	/*
 	public Condicion agregarCondicionAPartirDe(String condicion){

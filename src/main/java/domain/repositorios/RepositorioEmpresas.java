@@ -2,6 +2,8 @@ package domain.repositorios;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import domain.Empresa;
 
 public class RepositorioEmpresas implements Repositorio<Empresa>{
@@ -34,7 +36,7 @@ public class RepositorioEmpresas implements Repositorio<Empresa>{
 	public List<Empresa> getEmpresasCargadas() {
 		return empresasCargadas;
 	}
-
+	
 	public void agregarDesdeArchivo(Empresa empresaLeida) {
 		if (existeLaEmpresa(empresaLeida))
 			agregarCuentas(empresaLeida);
