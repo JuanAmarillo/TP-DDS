@@ -13,10 +13,9 @@ import domain.Empresa;
 public class Analizador {
 	private List<String> tokens;
 	
-	public Analizador scan(String indicador) {
-		generarTokens(indicador);
+	public Analizador scan(String ecuacion) {
+		generarTokens(ecuacion);
 		eliminarEspaciosInnecesarios();
-		//tokens.forEach(lexema-> System.out.println(lexema)); 
 		return this;
 	}
 	

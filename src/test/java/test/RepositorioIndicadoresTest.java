@@ -16,16 +16,16 @@ public class RepositorioIndicadoresTest {
 	
 	Indicador indicadorBuscado;
 
-	public void cargarIndicador(String indicador) {
-		RepositorioIndicadores.instance().agregarIndicadorAPartirDe(indicador);
+	public void cargarIndicador(String ecuacion) {
+		RepositorioIndicadores.instance().agregarIndicadorAPartirDe(ecuacion);
 	}
 
-	public void eliminarIndicador(String nombre) {
-		RepositorioIndicadores.instance().eliminarIndicadorAPartirDe(nombre);
+	public void eliminarIndicador(String nombreIndicador) {
+		RepositorioIndicadores.instance().eliminarIndicadorAPartirDe(nombreIndicador);
 	}
 
-	public Indicador buscarIndicador(String indicador) {
-		BuilderIndicadorCustom builderNombre = new BuilderIndicadorCustom(indicador);
+	public Indicador buscarIndicador(String ecuacion) {
+		BuilderIndicadorCustom builderNombre = new BuilderIndicadorCustom(ecuacion);
 		String nombre = builderNombre.analizar().generarIndicador().getNombre();
 		return RepositorioIndicadores.instance().buscarIndicador(nombre).get();
 	}

@@ -40,8 +40,8 @@ public class RepositorioIndicadores implements Repositorio<DatosIndicadores>{
 		return indicadoresCargados;
 	}
 
-	public IndicadorCustom agregarIndicadorAPartirDe(String indicador) {
-		BuilderIndicadorCustom builder = new BuilderIndicadorCustom(indicador);
+	public IndicadorCustom agregarIndicadorAPartirDe(String ecuacion) {
+		BuilderIndicadorCustom builder = new BuilderIndicadorCustom(ecuacion);
 		builder.analizar().generarIndicador();
 		IndicadorCustom indicadorACargar = builder.build();
 		indicadorExistente(indicadorACargar);
@@ -49,8 +49,8 @@ public class RepositorioIndicadores implements Repositorio<DatosIndicadores>{
 		return indicadorACargar;
 	}
 
-	public void eliminarIndicadorAPartirDe(String nombre) {
-		Indicador indicadorASacar = buscarIndicador(nombre).get();
+	public void eliminarIndicadorAPartirDe(String nombreIndicador) {
+		Indicador indicadorASacar = buscarIndicador(nombreIndicador).get();
 		eliminarIndicador(indicadorASacar);
 	}
 

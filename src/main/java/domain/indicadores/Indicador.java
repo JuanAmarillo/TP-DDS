@@ -21,7 +21,7 @@ public abstract class Indicador {
 	
 	abstract public boolean esCustom();
 
-	abstract public Object getEcuacion();
+	abstract public String getEcuacion();
 	
 	abstract public boolean esCalculable(Empresa empresa, String periodo);
 
