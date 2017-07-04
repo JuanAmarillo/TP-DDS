@@ -11,7 +11,6 @@ import org.uqbar.arena.windows.WindowOwner;
 
 import exceptions.NoHayEmpresasCargadasException;
 
-
 @SuppressWarnings("serial")
 public class MainWindow extends SimpleWindow<Object> {
 
@@ -37,26 +36,36 @@ public class MainWindow extends SimpleWindow<Object> {
 				.setBackground(Color.lightGray).setWidth(350);
 		new Button(panelActions).setCaption("Consultar valores").onClick(this::verCuentas)
 				.setBackground(Color.lightGray).setWidth(350);
-
+		new Button(panelActions).setCaption("Consultar metodologías").onClick(this::verMetodologias)
+				.setBackground(Color.lightGray).setWidth(350);
 	}
 
 	public void cargarCuentas() {
 		ViewUtils.nuevaPantalla(new CargarCuentaWindow(this));
 	}
 
-	public void verCuentas() {
-		try {
-			ViewUtils.nuevaPantalla(new CuentasConIndicadoresWindow(this));
-		}
-		catch(NoHayEmpresasCargadasException e) { this.showWarning(e.getErrorMessage()); }
-	}
-
 	public void cargarIndicadores() {
 		ViewUtils.nuevaPantalla(new CargarIndicadorWindow(this));
 	}
-	
-	public void cargarCondiciones(){
+
+	public void cargarCondiciones() {
 		ViewUtils.nuevaPantalla(new CargarCondicionWindow(this));
+	}
+
+	public void verCuentas() {
+		try {
+			ViewUtils.nuevaPantalla(new CuentasConIndicadoresWindow(this));
+		} catch (NoHayEmpresasCargadasException e) {
+			this.showWarning(e.getErrorMessage());
+		}
+	}
+
+	public void verMetodologias() {
+		try {
+			ViewUtils.nuevaPantalla(new VerMetodologiasWindow(this));
+		} catch (NoHayEmpresasCargadasException e) {
+			this.showWarning(e.getErrorMessage());
+		}
 	}
 
 }

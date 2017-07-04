@@ -9,19 +9,21 @@ import domain.indicadores.Indicador;
 public class CalculadorDeIndicador {
 	private Indicador indicador;
 	private Double valor;
-	
-	public CalculadorDeIndicador(Indicador indicador){
-		this.indicador=indicador;
+
+	public CalculadorDeIndicador(Indicador indicador) {
+		this.indicador = indicador;
 	}
+
 	public Double getValor() {
 		return valor;
 	}
+
 	public void setValor(Empresa empresa, String periodo) {
 		this.valor = indicador.calcularIndicador(empresa, periodo);
 	}
+
 	public String getNombre() {
 		return indicador.getNombre();
 	}
-	
 
 }

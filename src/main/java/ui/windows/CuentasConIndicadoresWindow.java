@@ -42,17 +42,20 @@ public class CuentasConIndicadoresWindow extends Dialog<CuentasConIndicadoresVM>
 		new Column<Cuenta>(cuentas).setTitle("Cuenta").setFixedSize(150).bindContentsToProperty("nombre");
 		new Column<Cuenta>(cuentas).setTitle("Balance").setFixedSize(150).bindContentsToProperty("balance");
 	}
-	
+
 	protected void TablaIndicadores(Panel formPanel) {
 		Panel formTabla = new Panel(formPanel);
 		formTabla.setLayout(new HorizontalLayout());
 
-		Table<CalculadorDeIndicador> calculadores = new Table<CalculadorDeIndicador>(formTabla, CalculadorDeIndicador.class);
+		Table<CalculadorDeIndicador> calculadores = new Table<CalculadorDeIndicador>(formTabla,
+				CalculadorDeIndicador.class);
 		calculadores.bindItemsToProperty("calculadores");
 		calculadores.bindValueToProperty("calculadorSeleccionado");
 
-		new Column<CalculadorDeIndicador>(calculadores).setTitle("Indicador").setFixedSize(150).bindContentsToProperty("nombre");
-		new Column<CalculadorDeIndicador>(calculadores).setTitle("Valor").setFixedSize(150).bindContentsToProperty("valor");
+		new Column<CalculadorDeIndicador>(calculadores).setTitle("Indicador").setFixedSize(150)
+				.bindContentsToProperty("nombre");
+		new Column<CalculadorDeIndicador>(calculadores).setTitle("Valor").setFixedSize(150)
+				.bindContentsToProperty("valor");
 	}
 
 	protected void selectorEmpresasPeriodos(Panel formPanel) {

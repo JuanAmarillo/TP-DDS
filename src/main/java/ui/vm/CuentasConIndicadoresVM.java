@@ -24,17 +24,14 @@ public class CuentasConIndicadoresVM {
 	private Cuenta cuentaSeleccionada;
 	private List<CalculadorDeIndicador> calculadores;
 	private CalculadorDeIndicador calculadorSeleccionado;
-	
-		
 
 	public CuentasConIndicadoresVM() {
-		if(RepositorioEmpresas.instance().tieneEmpresasCargadas()) {
+		if (RepositorioEmpresas.instance().tieneEmpresasCargadas()) {
 			this.empresas = RepositorioEmpresas.instance().getEmpresasCargadas();
 			this.setEmpresaSeleccionada(this.empresas.get(0));
-		}
-		else
+		} else
 			throw new NoHayEmpresasCargadasException();
-		
+
 	}
 
 	public List<Empresa> getEmpresas() {
@@ -49,7 +46,7 @@ public class CuentasConIndicadoresVM {
 		this.empresaSeleccionada = empresaSeleccionada;
 		ObservableUtils.firePropertyChanged(this, "periodos");
 	}
-	
+
 	public Set<String> getPeriodos() {
 		return empresaSeleccionada.getPeriodos();
 	}
@@ -63,8 +60,8 @@ public class CuentasConIndicadoresVM {
 		this.periodoSeleccionado = periodoSeleccionado;
 		ObservableUtils.firePropertyChanged(this, "cuentas");
 		this.setCalculadores(empresaSeleccionada, periodoSeleccionado);
-		calculadores.forEach(calculador-> calculador.setValor(empresaSeleccionada, periodoSeleccionado));
-		
+		calculadores.forEach(calculador -> calculador.setValor(empresaSeleccionada, periodoSeleccionado));
+
 	}
 
 	public Set<Cuenta> getCuentas() {
@@ -78,19 +75,21 @@ public class CuentasConIndicadoresVM {
 	public void setCuentaSeleccionada(Cuenta cuentaSeleccionada) {
 		this.cuentaSeleccionada = cuentaSeleccionada;
 	}
-	
+
 	public List<CalculadorDeIndicador> getCalculadores() {
 		return calculadores;
 	}
-	
+
 	public void setCalculadores(Empresa empresa, String periodo) {
 		ArrayList<CalculadorDeIndicador> calculadoresPosibles = new ArrayList<CalculadorDeIndicador>();
-		indicadoresCalculables(empresa, periodo).forEach(indicador -> calculadoresPosibles.add(new CalculadorDeIndicador(indicador)));
+		indicadoresCalculables(empresa, periodo)
+				.forEach(indicador -> calculadoresPosibles.add(new CalculadorDeIndicador(indicador)));
 		this.calculadores = calculadoresPosibles;
 	}
-	
+
 	public List<Indicador> indicadoresCalculables(Empresa empresa, String periodo) {
-		return RepositorioIndicadores.instance().getIndicadoresCargados().stream().filter(indicador -> indicador.esCalculable(empresa, periodo)).collect(Collectors.toList());
+		return RepositorioIndicadores.instance().getIndicadoresCargados().stream()
+				.filter(indicador -> indicador.esCalculable(empresa, periodo)).collect(Collectors.toList());
 	}
 
 	public CalculadorDeIndicador getCalculadorSeleccionado() {
@@ -100,6 +99,5 @@ public class CuentasConIndicadoresVM {
 	public void setCalculadorSeleccionado(CalculadorDeIndicador calculadorSeleccionado) {
 		this.calculadorSeleccionado = calculadorSeleccionado;
 	}
-
 
 }

@@ -9,7 +9,7 @@ public class EmpresaMas10Años extends Condicion {
 	}
 	
 	public String getEcuacion(){
-		return "antiguedad>10";
+		return "Antiguedad>10";
 	}
 	
 

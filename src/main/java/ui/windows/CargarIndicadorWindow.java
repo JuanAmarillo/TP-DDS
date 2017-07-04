@@ -65,7 +65,7 @@ public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 			this.showWarning(e.getMessage());
 		} catch (IOException e) {
 			this.showWarning("La eliminacion no se realizo con exito, intenta mas tarde :p (la clasica)");
-		} catch (RuntimeException e){
+		} catch (RuntimeException e) {
 			this.showWarning("Seleccione un Indicador a borrar");
 		}
 	}
