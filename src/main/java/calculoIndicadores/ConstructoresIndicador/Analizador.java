@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import calculoIndicadores.Calculable;
-import calculoIndicadores.Token;
 import domain.Empresa;
 
 

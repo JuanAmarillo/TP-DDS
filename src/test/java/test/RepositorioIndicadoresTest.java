@@ -2,13 +2,11 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 import domain.indicadores.BuilderIndicadorCustom;
 import domain.indicadores.Indicador;
-import domain.indicadores.IndicadorCustom;
 import domain.repositorios.RepositorioIndicadores;
 import exceptions.ParsingException;
 

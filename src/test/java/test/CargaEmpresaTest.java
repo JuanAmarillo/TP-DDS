@@ -13,7 +13,6 @@ import archivos.LevantaArchivoIndicadores;
 
 import static org.junit.Assert.*;
 import java.io.IOException;
-import java.util.List;
 
 public class CargaEmpresaTest {
 	// Auxiliares
