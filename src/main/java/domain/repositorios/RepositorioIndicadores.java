@@ -41,7 +41,9 @@ public class RepositorioIndicadores implements Repositorio<DatosIndicadores>{
 	}
 
 	public IndicadorCustom agregarIndicadorAPartirDe(String indicador) {
-		IndicadorCustom indicadorACargar = new IndicadorCustom(indicador);
+		BuilderIndicadorCustom builder = new BuilderIndicadorCustom(indicador);
+		builder.analizar().generarIndicador();
+		IndicadorCustom indicadorACargar = builder.build();
 		indicadorExistente(indicadorACargar);
 		agregarIndicador(indicadorACargar);
 		return indicadorACargar;

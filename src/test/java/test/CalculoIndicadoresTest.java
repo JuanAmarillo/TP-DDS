@@ -14,6 +14,7 @@ import calculoIndicadores.Calculable;
 import calculoIndicadores.ConstructoresIndicador.Analizador;
 import domain.Cuenta;
 import domain.Empresa;
+import domain.indicadores.BuilderIndicadorCustom;
 import domain.indicadores.IndicadorCustom;
 import domain.repositorios.RepositorioIndicadores;
 
@@ -46,11 +47,11 @@ public class CalculoIndicadoresTest {
 
 	private void cargarIndicadores() {
 		analizador = new Analizador();
-		
-		pasivoCorriente = new IndicadorCustom("Pasivo Corriente = Deudas Bancarias + Deudas Comerciales + Deudas del Estado");
+		BuilderIndicadorCustom builderPasivo = new BuilderIndicadorCustom("Pasivo Corriente = Deudas Bancarias + Deudas Comerciales + Deudas del Estado");
+		pasivoCorriente = builderPasivo.analizar().build();
 		RepositorioIndicadores.instance().agregarIndicador(pasivoCorriente);
-
-		pruebaAcida = new IndicadorCustom("Prueba Acida = (Caja y bancos + Inversiones) / Pasivo Corriente ");
+		BuilderIndicadorCustom builderAcido = new BuilderIndicadorCustom("Prueba Acida = (Caja y bancos + Inversiones) / Pasivo Corriente ");
+		pruebaAcida = builderAcido.analizar().build();
 		RepositorioIndicadores.instance().agregarIndicador(pruebaAcida);
 		
 	}

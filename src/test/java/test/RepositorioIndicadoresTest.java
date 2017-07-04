@@ -6,6 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import domain.indicadores.BuilderIndicadorCustom;
 import domain.indicadores.Indicador;
 import domain.indicadores.IndicadorCustom;
 import domain.repositorios.RepositorioIndicadores;
@@ -24,7 +25,8 @@ public class RepositorioIndicadoresTest {
 	}
 
 	public Indicador buscarIndicador(String indicador) {
-		String nombre = new IndicadorCustom(indicador).getNombre();
+		BuilderIndicadorCustom builderNombre = new BuilderIndicadorCustom(indicador);
+		String nombre = builderNombre.analizar().generarIndicador().getNombre();
 		return RepositorioIndicadores.instance().buscarIndicador(nombre).get();
 	}
 
@@ -44,7 +46,7 @@ public class RepositorioIndicadoresTest {
 		cargarIndicador("Juanito y los Clonosaurios = dinousarios + clonacion");
 		indicadorBuscado = buscarIndicador("Juanito y los Clonosaurios = dinousarios + clonacion");
 		assertEquals(indicadorBuscado.getNombre(), "Juanito y los Clonosaurios");
-		assertEquals(indicadorBuscado.getEcuacion(), " dinousarios + clonacion");
+		assertEquals(indicadorBuscado.getEcuacion(), "dinousarios + clonacion");
 		assertEquals(5, RepositorioIndicadores.instance().getIndicadoresCargados().size());
 	}
 
@@ -53,7 +55,6 @@ public class RepositorioIndicadoresTest {
 		cargarIndicador("Juanito y los Clonosaurios = dinousarios + clonacion");
 		eliminarIndicador("Juanito y los Clonosaurios");
 		assertEquals(4,RepositorioIndicadores.instance().getIndicadoresCargados().size());
-
 	}
 	
 	@Test(expected = RuntimeException.class)

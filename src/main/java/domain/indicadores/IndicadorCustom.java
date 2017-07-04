@@ -14,13 +14,6 @@ public class IndicadorCustom extends Indicador {
 	@JsonIgnore
 	public Calculable calculo;
 
-	public IndicadorCustom(String indicador) {
-		analizarSintacticamente(indicador);
-		this.setNombre(generarNombre(indicador));
-		this.setEcuacion(generarEcuacion(indicador));
-		this.setCalculo();
-	}
-
 	public IndicadorCustom() {
 	}
 
@@ -28,26 +21,8 @@ public class IndicadorCustom extends Indicador {
 		return calculo.calcularValor(empresa, periodo);
 	}
 
-	private void analizarSintacticamente(String indicador) {
-		new Analizador().scan(indicador).parser();
-	}
-
 	public boolean esCalculable(Empresa empresa, String periodo) {
 		return new Analizador().scan(ecuacion).sePuedeCalcular(empresa, periodo);
-	}
-
-	public String generarNombre(String indicador) {
-		String[] partesDelIndicador = separarIndicadorEnPartes(indicador);
-		return partesDelIndicador[0].trim();
-	}
-
-	public String generarEcuacion(String indicador) {
-		String[] partesDelIndicador = separarIndicadorEnPartes(indicador);
-		return partesDelIndicador[1];
-	}
-
-	public String[] separarIndicadorEnPartes(String indicador) {
-		return indicador.split("=");
 	}
 
 	public Calculable generarCalculo() {
