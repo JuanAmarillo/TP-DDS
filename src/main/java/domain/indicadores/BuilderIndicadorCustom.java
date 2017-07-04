@@ -24,6 +24,7 @@ public class BuilderIndicadorCustom {
 		indicador = new IndicadorCustom();
 		setNombre(partes[0].trim());
 		setEcuacion(partes[1].trim());
+		indicador.setCalculo();
 		return this;
 	}
 
