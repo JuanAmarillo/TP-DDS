@@ -94,6 +94,9 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 	}
 	
 	public void cargarCondicion() {
-		this.getModelObject().cargarCondicion();
+		try {
+			this.getModelObject().cargarCondicion();
+			}
+		catch(RuntimeException e) { this.showWarning(e.getMessage()); }
 	}
 }

@@ -50,10 +50,19 @@ public class CargarCondicionVM {
 	private void completarBuild(Condicion condicion) {
 		condicion.setOperador(operacionSeleccionada);
 		condicion.setIndicador(RepositorioIndicadores.instance().buscarIndicador(indicadorSeleccionado).get());
-		condicion.setNombre(nombreCondicion);
+		condicion.setNombre(tipoCondicion() + " - " + nombreCondicion);
 		RepositorioCondiciones.instance().agregarCondicion(condicion);
 	}
 	
+	private String tipoCondicion() {
+		if(taxativa) {
+			return "Taxativa";
+		}
+		else {
+			return "Comparativa";
+		}
+	}
+
 	private void crearCondicionTaxativa() {
 		CondicionTaxativa condicionTaxativa = new CondicionTaxativa();
 		condicionTaxativa.setValorDeComparacion(valor);
