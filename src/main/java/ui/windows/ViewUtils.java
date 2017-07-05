@@ -1,5 +1,10 @@
 package ui.windows;
+import org.uqbar.arena.layout.ColumnLayout;
+import org.uqbar.arena.layout.HorizontalLayout;
+import org.uqbar.arena.layout.Layout;
 import org.uqbar.arena.widgets.Button;
+import org.uqbar.arena.widgets.CheckBox;
+import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.List;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
@@ -43,6 +48,17 @@ public class ViewUtils {
 		lista.bindValueToProperty(elementoSeleccionado);
 	}
 	
+	public static void crearCheckBoxEnNuevoPanel(Panel panelAUsar, String elementoABindear, String nombreLabel){
+		Panel comparativo = new Panel(panelAUsar).setLayout(new HorizontalLayout());
+		new CheckBox(comparativo).bindValueToProperty(elementoABindear);
+		new Label(comparativo).setText(nombreLabel);
+	}
+	
+	public static Panel crearPanel(Panel panelAnterior,Layout layout){
+		Panel nuevoPanel = new Panel(panelAnterior);
+		nuevoPanel.setLayout(layout);
+		return nuevoPanel;
+	}
 	
 	public static void crearBoton(Panel panelAUsar, String nombreBoton,Action onClick){
 		new Button(panelAUsar).setCaption(nombreBoton).onClick(onClick);

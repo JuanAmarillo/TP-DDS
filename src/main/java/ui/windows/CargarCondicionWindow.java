@@ -2,20 +2,12 @@ package ui.windows;
 
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.layout.HorizontalLayout;
-import org.uqbar.arena.widgets.Button;
-import org.uqbar.arena.widgets.CheckBox;
 import org.uqbar.arena.widgets.Label;
-import org.uqbar.arena.widgets.List;
 import org.uqbar.arena.widgets.NumericField;
 import org.uqbar.arena.widgets.Panel;
-import org.uqbar.arena.widgets.RadioSelector;
-import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
-
-import domain.condiciones.Condicion;
-import domain.indicadores.Indicador;
 import ui.vm.CargarCondicionVM;
 
 @SuppressWarnings("serial")
@@ -41,46 +33,45 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 	}
 
 	public void condicionPersonalizada(Panel condicionPanel) {
-		Panel form = new Panel(condicionPanel);
-		form.setLayout(new ColumnLayout(1));
+		Panel form = ViewUtils.crearPanel(condicionPanel, new ColumnLayout(1));
+		new Label(form).setText("Agregar una nueva condicion");
 		
-		Label titulo = new Label(form);
-		titulo.setText("Agregar una nueva condicion");
-		
-		Panel nombreCondicion = new Panel(form);
-		Label etiquetaNombre = new Label(nombreCondicion);
-		etiquetaNombre.setText("Nombre de la condicion: ");
-		TextBox textbox = new TextBox(nombreCondicion);
-		textbox.bindValueToProperty("nombreCondicion");
-		Panel tax = new Panel(form).setLayout(new HorizontalLayout());
-		CheckBox taxativa = new CheckBox(tax);
-		taxativa.bindValueToProperty("taxativa");
-		Label etiquetaTaxativa = new Label(tax);
-		etiquetaTaxativa.setText("Condicion taxativa");
-		
-		Panel comp = new Panel(form).setLayout(new HorizontalLayout());
-		CheckBox comparativa = new CheckBox(comp);
-		comparativa.bindValueToProperty("comparativa");
-		Label etiquetaComparativa = new Label(comp);
-		etiquetaComparativa.setText("Condicion comparativa");
-		
-		Panel mini = new Panel(form);
-		mini.setLayout(new HorizontalLayout());
-		ViewUtils.crearSelector(mini, "indicadores","indicadorSeleccionado");
-		ViewUtils.crearSelector(mini, "operaciones", "operacionSeleccionada");
+		escribirNombreDeCondicion(form);
+		elegirTipoDeCondicion(form);
+		crearCondicion(form);
+		accionesPosibles(form);
+	}
 
-		NumericField num = new NumericField(mini);
+	private void accionesPosibles(Panel form) {
+		Panel miniBis = ViewUtils.crearPanel(form, new HorizontalLayout());
+		ViewUtils.crearBoton(miniBis, "Cargar condicion", this::cargarCondicion);
+		ViewUtils.crearBoton(miniBis, "Eliminar condicion", this::eliminarCondicion);
+	}
+
+	private void crearCondicion(Panel form) {
+		Panel condicion = ViewUtils.crearPanel(form, new HorizontalLayout());
+		ViewUtils.crearSelector(condicion, "indicadores", "indicadorSeleccionado");
+		ViewUtils.crearSelector(condicion, "operaciones", "operacionSeleccionada");
+		campoNumericoParaTaxativo(condicion);
+	}
+
+	private void campoNumericoParaTaxativo(Panel condicion) {
+		NumericField num = new NumericField(condicion);
 		num.setWidth(50).bindValueToProperty("valor");
 		num.bindEnabledToProperty("taxativa");
 		num.bindVisibleToProperty("taxativa");
+	}
 
-		Panel miniBis = new Panel(form);
-		miniBis.setLayout(new HorizontalLayout());
+	private void elegirTipoDeCondicion(Panel form) {
+		ViewUtils.crearCheckBoxEnNuevoPanel(form, "taxativa",    "Condicion taxativa"   );
+		ViewUtils.crearCheckBoxEnNuevoPanel(form, "comparativa", "Condicion comparativa");
+	}
 
-		ViewUtils.crearBoton(miniBis, "Cargar condicion", this::cargarCondicion);
-		ViewUtils.crearBoton(miniBis, "Eliminar condicion", this::eliminarCondicion);
 
-
+	private void escribirNombreDeCondicion(Panel form) {
+		Panel nombreCondicion = new Panel(form);
+		new Label(nombreCondicion).setText("Nombre de la condicion: ");
+		new TextBox(nombreCondicion).bindValueToProperty("nombreCondicion");
 	}
 
 	@Override
