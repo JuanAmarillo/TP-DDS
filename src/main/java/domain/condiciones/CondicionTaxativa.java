@@ -9,6 +9,10 @@ public class CondicionTaxativa extends Condicion {
 	public Empresa empresa;
 	public Double valorDeComparacion;
 
+	public CondicionTaxativa(String nombre) {
+		this.nombre = "Taxativa - " + nombre;
+	}
+	
 	@Override
 	public boolean comparar() {
 		throw new NotImplementedException();

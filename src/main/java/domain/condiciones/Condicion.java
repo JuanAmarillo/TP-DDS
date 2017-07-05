@@ -5,9 +5,9 @@ import domain.indicadores.Indicador;
 public abstract class Condicion {
 
 	protected String nombre;
-	public Indicador indicador;
-	public String operador;
-	public boolean esCustom = true;
+	public    Indicador indicador;
+	public    String operador;
+	public    Boolean esCustom = true;
 	
 	public abstract boolean comparar();
 	
@@ -17,10 +17,6 @@ public abstract class Condicion {
 	
 	public boolean esCustom(){ 
 		return esCustom;
-	}
-	
-	public void setOrigen(boolean valor) {
-		esCustom = valor;
 	}
 	
 	public boolean suNombreEs(String nombreCondicion) {

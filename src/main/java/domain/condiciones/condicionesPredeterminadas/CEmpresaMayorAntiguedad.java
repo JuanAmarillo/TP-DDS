@@ -5,8 +5,8 @@ import domain.condiciones.CondicionComparativa;
 public class CEmpresaMayorAntiguedad extends CondicionComparativa {
 
 	public CEmpresaMayorAntiguedad() {
-		setNombre("Comparativa - Mayor antiguedad");
-		setOrigen(false);
+		super("Mayor antiguedad");
+		this.esCustom = false;
 	}
 	
 	@Override

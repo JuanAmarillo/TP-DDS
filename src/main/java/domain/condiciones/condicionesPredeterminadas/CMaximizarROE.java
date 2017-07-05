@@ -5,8 +5,8 @@ import domain.condiciones.CondicionComparativa;
 public class CMaximizarROE extends CondicionComparativa {
 	
 	public CMaximizarROE(){
-		setNombre("Comparativa - Maximizar ROE");
-		setOrigen(false);
+		super("Maximizar ROE");
+		this.esCustom = false;
 	}
 	
 	@Override

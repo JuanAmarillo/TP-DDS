@@ -8,6 +8,10 @@ public class CondicionComparativa extends Condicion {
 	private Empresa primerEmpresa;
 	private Empresa segundaEmpresa;
 	
+	public CondicionComparativa(String nombre){
+		this.nombre = "Comparativa - " + nombre;
+	}
+	
 	public Empresa getPrimerEmpresa() {
 		return primerEmpresa;
 	}

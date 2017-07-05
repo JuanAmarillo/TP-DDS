@@ -63,7 +63,7 @@ public class CargarCondicionVM {
 	private void completarBuild(Condicion condicion) {
 		condicion.setOperador(operacionSeleccionada);
 		condicion.setIndicador(RepositorioIndicadores.instance().buscarIndicador(indicadorSeleccionado).get());
-		condicion.setNombre(tipoCondicion() + " - " + nombreCondicion);
+//		condicion.setNombre(tipoCondicion() + " - " + nombreCondicion);
 		RepositorioCondiciones.instance().agregarCondicion(condicion);
 	}
 	
@@ -76,19 +76,25 @@ public class CargarCondicionVM {
 	}
 
 	private void crearCondicionTaxativa() {
-		CondicionTaxativa condicionTaxativa = new CondicionTaxativa();
+		CondicionTaxativa condicionTaxativa = new CondicionTaxativa(nombreCondicion);
 		condicionTaxativa.setValorDeComparacion(valor);
 		completarBuild(condicionTaxativa);
 	}
 	
 	private void crearCondicionComparativa() {
-		CondicionComparativa condicionComparativa = new CondicionComparativa();
+		CondicionComparativa condicionComparativa = new CondicionComparativa(nombreCondicion);
 		completarBuild(condicionComparativa);
 		
 	}	
 	
 	private void avisarCambiosCondiciones() {
 		ObservableUtils.firePropertyChanged(this, "condiciones");
+	}
+	
+	private void crearBuilderComparativa(){
+		if(comparativa);
+			//algo
+		
 	}
 	
 	//GETTERS Y SETTERS
@@ -163,6 +169,7 @@ public class CargarCondicionVM {
 
 	public void setComparativa(boolean comparativa) {
 		this.comparativa = comparativa;
+		crearBuilderComparativa();
 		this.taxativa    = false;
 	}
 	

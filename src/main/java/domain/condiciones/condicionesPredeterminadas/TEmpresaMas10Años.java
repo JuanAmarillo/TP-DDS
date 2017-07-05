@@ -12,8 +12,8 @@ public class TEmpresaMas10Años extends CondicionTaxativa {
 	}
 	
 	public TEmpresaMas10Años(){
-		setNombre("Taxativa - Empresa de mas de 10 años");
-		setOrigen(false);
+		super("Empresa de mas de 10 años");
+		this.esCustom = false;
 	}
 	
 	public String getEcuacion(){
