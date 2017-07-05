@@ -17,18 +17,18 @@ import ui.windows.CargarCondicionWindow;
 @Observable
 public class CargarCondicionVM {
 
-	public String nombreCondicion;
+	public String nombreCondicion = "";
 	public List<String> condiciones;
-	public String condicionSeleccionada;
+	public String condicionSeleccionada = "";
 
 	public List<String> indicadores;
-	public String indicadorSeleccionado;
+	public String indicadorSeleccionado = "";
 
 	public boolean taxativa = false;
 	public boolean comparativa = false;
 	
 	public List<String> operaciones = Arrays.asList(">", "<");
-	public String operacionSeleccionada;
+	public String operacionSeleccionada = "";
 
 	public double valor;
 
@@ -37,6 +37,7 @@ public class CargarCondicionVM {
 	}
 	
 	public void cargarCondicion() {
+		validarCampos();
 		if(taxativa) {
 			crearCondicionTaxativa();
 		}
@@ -47,6 +48,18 @@ public class CargarCondicionVM {
 		
 	}
 	
+	private void validarCampos() {
+		if(nombreCondicion.isEmpty())
+		{ throw new RuntimeException("No se ingresó ningún nombre");}
+		if(!(taxativa || comparativa))
+		{ throw new RuntimeException("No se seleccionó el tipo de condición");}
+		if(indicadorSeleccionado.isEmpty())
+		{ throw new RuntimeException("No se seleccionó ningún indicador");}
+		if(operacionSeleccionada.isEmpty())
+		{ throw new RuntimeException("No se seleccionó ningún operador");}
+		
+	}
+
 	private void completarBuild(Condicion condicion) {
 		condicion.setOperador(operacionSeleccionada);
 		condicion.setIndicador(RepositorioIndicadores.instance().buscarIndicador(indicadorSeleccionado).get());
