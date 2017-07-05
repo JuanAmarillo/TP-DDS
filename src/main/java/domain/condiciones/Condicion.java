@@ -6,12 +6,14 @@ import java.util.List;
 import domain.indicadores.Indicador;
 import scala.Char;
 
-public class Condicion {
+public abstract class Condicion {
 
 	protected String nombre;
 	public Indicador indicador;
 	public String operador;
 
+	public abstract void comparar();
+	
 	public String getNombre() {
 		return nombre;
 	}

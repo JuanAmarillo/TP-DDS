@@ -31,6 +31,10 @@ public class CargarCondicionVM {
 
 	public double valor;
 
+	public void cargarCondicion() {
+		
+	}
+	
 	//GETTERS Y SETTERS
 	
 	public String getCondicion() {
@@ -106,5 +110,7 @@ public class CargarCondicionVM {
 		this.comparativa = comparativa;
 		taxativa = false;
 	}
+	
+	
 	
 }

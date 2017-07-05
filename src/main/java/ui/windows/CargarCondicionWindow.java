@@ -79,7 +79,7 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 		Panel miniBis = new Panel(form);
 		miniBis.setLayout(new HorizontalLayout());
 
-		new Button(miniBis).setCaption("Cargar condición");// .onClick(this::cargarCondicion);
+		new Button(miniBis).setCaption("Cargar condición").onClick(this::cargarCondicion); // .onClick(this::cargarCondicion);
 		new Button(miniBis).setCaption("Eliminar condición");// .onClick(this::eliminarCondicion);
 
 	}
@@ -87,5 +87,9 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 	@Override
 	protected void addActions(Panel panelActions) {
 		new Button(panelActions).setCaption("Volver").onClick(this::accept).setAsDefault();
+	}
+	
+	public void cargarCondicion() {
+		this.getModelObject().cargarCondicion();
 	}
 }
