@@ -15,7 +15,7 @@ public class BuilderIndicadorCustom {
 	}
 	
 	public BuilderIndicadorCustom analizar() {
-		new Analizador().scan(ecuacion).parser();
+		new Analizador(ecuacion).parser();
 		return this;
 	}
 	
