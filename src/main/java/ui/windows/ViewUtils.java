@@ -22,10 +22,8 @@ public class ViewUtils {
 	}
 
 	private static void sizeSetter(int width, int height, Selector<?> lista) {
-		if(width>0) {
+		if(width>0 && height >0) {
 			lista.setWidth(width);
-		}
-		if(height>0) {
 			lista.setHeight(height);
 		}
 	}
@@ -57,6 +55,12 @@ public class ViewUtils {
 	public static Panel crearPanel(Panel panelAnterior,Layout layout){
 		Panel nuevoPanel = new Panel(panelAnterior);
 		nuevoPanel.setLayout(layout);
+		return nuevoPanel;
+	}
+	
+	public static Panel crearPanel(Panel panelAnterior,Layout layout,String nombreLabel){
+		Panel nuevoPanel = crearPanel(panelAnterior, layout);
+		new Label(nuevoPanel).setText(nombreLabel);
 		return nuevoPanel;
 	}
 	

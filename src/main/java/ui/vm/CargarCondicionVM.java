@@ -69,12 +69,10 @@ public class CargarCondicionVM {
 	
 	
 	private String tipoCondicion() {
-		if(taxativa) {
+		if(taxativa) 
 			return "Taxativa";
-		}
-		else {
+		else 
 			return "Comparativa";
-		}
 	}
 
 	private void crearCondicionTaxativa() {
@@ -155,8 +153,8 @@ public class CargarCondicionVM {
 	}
 
 	public void setTaxativa(boolean taxativa) {
-		this.taxativa = taxativa;
-		comparativa = false;
+		this.taxativa    = taxativa;
+		this.comparativa = false;
 	}
 
 	public boolean getComparativa() {
@@ -165,7 +163,7 @@ public class CargarCondicionVM {
 
 	public void setComparativa(boolean comparativa) {
 		this.comparativa = comparativa;
-		taxativa = false;
+		this.taxativa    = false;
 	}
 	
 	

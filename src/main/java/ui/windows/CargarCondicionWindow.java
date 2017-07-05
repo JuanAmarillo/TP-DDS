@@ -2,6 +2,7 @@ package ui.windows;
 
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.layout.HorizontalLayout;
+import org.uqbar.arena.layout.VerticalLayout;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.NumericField;
 import org.uqbar.arena.widgets.Panel;
@@ -25,15 +26,12 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 	}
 
 	public void listaCondiciones(Panel condicionesPanel) {
-		Panel formLista = new Panel(condicionesPanel);
-		new Label(formLista).setText("Condiciones cargadas");
-		ViewUtils.crearLista(formLista, "condiciones", "condicionSeleccionada").setHeight(200)
-			.setWidth(300);
+		Panel formLista = ViewUtils.crearPanel(condicionesPanel, new VerticalLayout(),"Condiciones cargadas");
+		ViewUtils.crearLista(formLista, "condiciones", "condicionSeleccionada").setHeight(200).setWidth(300);
 	}
 
 	public void condicionPersonalizada(Panel condicionPanel) {
-		Panel form = ViewUtils.crearPanel(condicionPanel, new ColumnLayout(1));
-		new Label(form).setText("Agregar una nueva condición");
+		Panel form = ViewUtils.crearPanel(condicionPanel, new ColumnLayout(1),"Agregar una nueva condición");
 		escribirNombreDeCondicion(form);
 		elegirTipoDeCondicion(form);
 		crearCondicion(form);
@@ -67,8 +65,7 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 
 
 	private void escribirNombreDeCondicion(Panel form) {
-		Panel nombreCondicion = new Panel(form);
-		new Label(nombreCondicion).setText("Nombre de la condición: ");
+		Panel nombreCondicion = ViewUtils.crearPanel(form, new VerticalLayout(), "Nombre de la condición: ");
 		new TextBox(nombreCondicion).bindValueToProperty("nombreCondicion");
 	}
 
