@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 
 import auxiliaresDeArchivo.DatosCondiciones;
 import domain.condiciones.Condicion;
-import domain.condiciones.condicionesPredeterminadas.EmpresaMas10Años;
+import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
 
 public class RepositorioCondiciones implements Repositorio<DatosCondiciones> {
 
@@ -51,7 +51,7 @@ public class RepositorioCondiciones implements Repositorio<DatosCondiciones> {
 	
 	
 	public static void agregarPredeterminados(){
-		condicionesCargadas.add(new EmpresaMas10Años());
+		condicionesCargadas.add(new TEmpresaMas10Años());
 	}
 
 	@Override

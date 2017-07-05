@@ -12,7 +12,7 @@ public abstract class Condicion {
 	public Indicador indicador;
 	public String operador;
 
-	public abstract void comparar();
+	public abstract boolean comparar();
 	
 	public String getNombre() {
 		return nombre;

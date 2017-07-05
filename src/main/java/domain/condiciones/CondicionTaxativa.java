@@ -1,5 +1,7 @@
 package domain.condiciones;
 
+import org.apache.commons.lang.NotImplementedException;
+
 import domain.Empresa;
 
 public class CondicionTaxativa extends Condicion {
@@ -8,17 +10,17 @@ public class CondicionTaxativa extends Condicion {
 	public Double valorDeComparacion;
 
 	@Override
-	public void comparar() {
-		// TODO Auto-generated method stub
-		
+	public boolean comparar() {
+		throw new NotImplementedException();
 	}
 
-	public Empresa getAComparar() {
+	public Empresa getEmpresa() {
 		return empresa;
 	}
 
-	public void setAComparar(Empresa aComparar) {
+	public CondicionTaxativa setEmpresa(Empresa aComparar) {
 		this.empresa = aComparar;
+		return this;
 	}
 
 	public Double getValorDeComparacion() {

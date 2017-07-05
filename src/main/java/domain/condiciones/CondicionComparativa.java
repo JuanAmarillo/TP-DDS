@@ -1,5 +1,7 @@
 package domain.condiciones;
 
+import org.apache.commons.lang.NotImplementedException;
+
 import domain.Empresa;
 
 public class CondicionComparativa extends Condicion {
@@ -24,9 +26,8 @@ public class CondicionComparativa extends Condicion {
 	}
 
 	@Override
-	public void comparar() {
-		// TODO Auto-generated method stub
-
+	public boolean comparar() {
+		throw new NotImplementedException();
 	}
 
 }

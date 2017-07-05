@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.joda.time.DateTime;
+import org.joda.time.JodaTimePermission;
 import org.uqbar.commons.utils.Observable;
 
 
@@ -74,6 +76,11 @@ public class Empresa {
 	private Cuenta buscarCuentaDe(String nombre, String periodo) {
 		return cuentas.stream().filter(cuenta -> cuenta.deNombre(nombre) && cuenta.dePeriodo(periodo)).findFirst().
 				get();
+	}
+
+	public int antiguedad() {
+		DateTime dt = new DateTime();
+		return dt.getYear() - anioFundacion;
 	}
 	
 	
