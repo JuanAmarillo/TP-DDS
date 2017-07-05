@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import domain.Cuenta;
 import domain.Empresa;
+import domain.condiciones.CondicionComparativa;
 import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
 import domain.repositorios.RepositorioCondiciones;
@@ -66,7 +67,17 @@ public class CondicionesTest {
 	}
 	
 	@Test(expected = NoSePuedeBorrarUnPredeterminadoException.class)
-	public void noSePuedeBorrarCondicionPredeterminada() {
+	public void testNoSePuedeBorrarCondicionPredeterminada() {
 		RepositorioCondiciones.instance().eliminarCondicion("Taxativa - Empresa de mas de 10 años");
+	}
+	
+	@Test
+	public void testSePuedeEliminarUnaCondicion() {
+		CondicionComparativa condicion = new CondicionComparativa();
+		condicion.setNombre("pepito");
+		RepositorioCondiciones.instance().agregarCondicion(condicion);
+		assertEquals(3,RepositorioCondiciones.instance().cantidadDeCondiciones());
+		RepositorioCondiciones.instance().eliminarCondicion("pepito");
+		assertEquals(2,RepositorioCondiciones.instance().cantidadDeCondiciones());
 	}
 }
