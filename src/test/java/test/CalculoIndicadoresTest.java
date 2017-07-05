@@ -3,7 +3,9 @@ package test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 
 import org.junit.After;
@@ -12,6 +14,7 @@ import org.junit.Test;
 
 import calculoIndicadores.Calculable;
 import calculoIndicadores.ConstructoresIndicador.Analizador;
+import calculoIndicadores.ConstructoresIndicador.EnumLoco;
 import domain.Cuenta;
 import domain.Empresa;
 import domain.indicadores.BuilderIndicadorCustom;

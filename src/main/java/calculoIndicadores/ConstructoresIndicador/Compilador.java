@@ -1,19 +1,10 @@
 package calculoIndicadores.ConstructoresIndicador;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
-import calculoIndicadores.Calculable;
-import calculoIndicadores.CuentaOIndicador;
-import calculoIndicadores.Division;
-import calculoIndicadores.Multiplicacion;
-import calculoIndicadores.Numero;
-import calculoIndicadores.Operador;
-import calculoIndicadores.ParentesisIzquierdo;
-import calculoIndicadores.Resta;
-import calculoIndicadores.Suma;
-import calculoIndicadores.Token;
-
+import calculoIndicadores.*;
 public class Compilador extends TokenToOperationTranslator{
 	private Stack<Calculable> lexemas;
 	private Stack<Token> operadores;
@@ -46,14 +37,16 @@ public class Compilador extends TokenToOperationTranslator{
 			parentesisDerecho();
 		else if(esUnTexto(token))
 			cuentaOIndicador(token);
+//		Arrays.asList(EnumLoco.values()).stream().filter(a-> a.matches(token)).findFirst().get()
+//			.createOperation(token, this);
 	}
 	
-	private void numero(String token){
+	public void numero(String token){
 		Calculable numero = new Numero(Double.parseDouble(token));
 		lexemas.push(numero);
 	}
 	
-	private void operador(String token){
+	public void operador(String token){
 		Operador operador = null;
 		switch(token){
 		case "+":
@@ -73,22 +66,22 @@ public class Compilador extends TokenToOperationTranslator{
 		ingresarOperador(operador);
 	}
 	
-	private void parentesisIzquierdo(){
+	public void parentesisIzquierdo(){
 		ParentesisIzquierdo parentesisIzquierdo = new ParentesisIzquierdo();
 		operadores.push(parentesisIzquierdo);
 	}
 	
-	private void parentesisDerecho(){
+	public void parentesisDerecho(){
 		armarOperadoresDelParentesis();
 	}
 	
-	private void cuentaOIndicador(String token){
+	public void cuentaOIndicador(String token){
 		CuentaOIndicador cuenta = new CuentaOIndicador(token);
 		lexemas.push(cuenta);
 	}
 	
 	
-	private void ingresarOperador(Operador operador){
+	public void ingresarOperador(Operador operador){
 		if(!operadores.empty() && anteriorTieneMayorPrioridad(operador))
 				armarOperador();
 		
