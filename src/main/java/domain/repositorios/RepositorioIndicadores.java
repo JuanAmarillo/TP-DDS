@@ -101,6 +101,9 @@ public class RepositorioIndicadores implements Repositorio<DatosIndicadores>{
 		indicadoresCargados.add(new ROA());
 		indicadoresCargados.add(new ROE());
 		indicadoresCargados.add(new Antiguedad());
+		indicadoresCargados.add(new Solvencia());
+		indicadoresCargados.add(new Endeudamiento());
+		indicadoresCargados.add(new RAC());
 	}
 	
 }

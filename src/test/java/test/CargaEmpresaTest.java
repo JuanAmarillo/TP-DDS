@@ -49,7 +49,7 @@ public class CargaEmpresaTest {
 	
 	@Test
 	public void testSeCarganLosIndicadores() {
-		assertEquals(5,RepositorioIndicadores.instance().getIndicadoresCargados().size());
+		assertEquals(8,RepositorioIndicadores.instance().getIndicadoresCargados().size());
 	}
 
 
