@@ -7,13 +7,16 @@ import org.uqbar.arena.windows.Dialog;
 import org.uqbar.commons.utils.Observable;
 
 import domain.condiciones.Condicion;
+import domain.condiciones.CondicionComparativa;
+import domain.condiciones.CondicionTaxativa;
+import domain.repositorios.RepositorioCondiciones;
 import domain.repositorios.RepositorioIndicadores;
 import ui.windows.CargarCondicionWindow;
 
 @Observable
 public class CargarCondicionVM {
 
-	public String condicion;
+	public String nombreCondicion;
 	public List<String> condiciones;
 	public String condicionSeleccionada;
 
@@ -22,9 +25,6 @@ public class CargarCondicionVM {
 
 	public boolean taxativa = false;
 	public boolean comparativa = false;
-
-	public List<String> tipoDeCondicion = Arrays.asList("Comparativa","Taxativa");
-	public String tipoSeleccionado;
 	
 	public List<String> operaciones = Arrays.asList(">", "<");
 	public String operacionSeleccionada;
@@ -32,17 +32,39 @@ public class CargarCondicionVM {
 	public double valor;
 
 	public void cargarCondicion() {
-		
+		if(taxativa) {
+			crearCondicionTaxativa();
+		}
+		else
+			crearCondicionComparativa();
 	}
+	
+	private void completarBuild(Condicion condicion) {
+		condicion.setOperador(operacionSeleccionada);
+		condicion.setIndicador(RepositorioIndicadores.instance().buscarIndicador(indicadorSeleccionado).get());
+		condicion.setNombre(nombreCondicion);
+		RepositorioCondiciones.instance().agregarCondicion(condicion);
+	}
+	
+	private void crearCondicionTaxativa() {
+		CondicionTaxativa condicionTaxativa = new CondicionTaxativa();
+		condicionTaxativa.setValorDeComparacion(valor);
+		completarBuild(condicionTaxativa);
+	}
+	
+	private void crearCondicionComparativa() {
+		CondicionComparativa condicionComparativa = new CondicionComparativa();
+		completarBuild(condicionComparativa);
+		
+	}	
 	
 	//GETTERS Y SETTERS
-	
-	public String getCondicion() {
-		return condicion;
+	public String getNombreCondicion() {
+		return nombreCondicion;
 	}
 
-	public void setCondicion(String condicion) {
-		this.condicion = condicion;
+	public void setNombreCondicion(String condicion) {
+		this.nombreCondicion = condicion;
 	}
 
 	public List<String> getCondiciones() {

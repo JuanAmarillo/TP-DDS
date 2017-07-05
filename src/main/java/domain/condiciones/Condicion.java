@@ -14,6 +14,10 @@ public abstract class Condicion {
 
 	public abstract boolean comparar();
 	
+	public boolean suNombreEs(String nombreCondicion) {
+		return this.nombre.equals(nombreCondicion);
+	}
+	
 	public String getNombre() {
 		return nombre;
 	}
@@ -30,7 +34,11 @@ public abstract class Condicion {
 		this.indicador = indicador;
 	}
 
-	public boolean suNombreEs(String nombreCondicion) {
-		return this.nombre.equals(nombreCondicion);
+	public String getOperador() {
+		return operador;
+	}
+
+	public void setOperador(String operador) {
+		this.operador = operador;
 	}
 }

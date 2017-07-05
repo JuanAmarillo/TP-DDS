@@ -30,5 +30,4 @@ public class CondicionTaxativa extends Condicion {
 	public void setValorDeComparacion(Double valorDeComparacion) {
 		this.valorDeComparacion = valorDeComparacion;
 	}
-	
 }

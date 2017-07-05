@@ -12,6 +12,7 @@ import domain.Cuenta;
 import domain.Empresa;
 import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
+import domain.repositorios.RepositorioCondiciones;
 
 public class CondicionesTest {
 	
@@ -35,18 +36,24 @@ public class CondicionesTest {
 	}
 	
 	@Test
-	public void cumpleCondicionTaxativaDeAntiguedadTest() {
+	public void testCumpleCondicionTaxativaDeAntiguedad() {
 		TEmpresaMas10Años condicion = new TEmpresaMas10Años();
 		condicion.setEmpresa(empresa);
 		assertTrue(condicion.comparar());
 	}
 	
 	@Test
-	public void cumpleCondicionComparativaDeAntiguedad() {
+	public void testCumpleCondicionComparativaDeAntiguedad() {
 		Empresa empresaMasJoven = new Empresa();
 		empresaMasJoven.setAnioFundacion(1950);
 		CEmpresaMayorAntiguedad condicion = new CEmpresaMayorAntiguedad();
 		condicion.setPrimerEmpresa(empresa).setSegundaEmpresa(empresaMasJoven);
 		assertTrue(condicion.comparar());
+	}
+	
+	@Test
+	public void testSeAgreganAlRepoLasPredeterminadas() {
+		int cantidadCondiciones = RepositorioCondiciones.instance().cantidadDeCondiciones();
+		assertEquals(2,cantidadCondiciones);
 	}
 }
