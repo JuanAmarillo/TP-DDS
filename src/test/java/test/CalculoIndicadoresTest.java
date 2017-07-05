@@ -46,7 +46,6 @@ public class CalculoIndicadoresTest {
 	}
 
 	private void cargarIndicadores() {
-		analizador = new Analizador();
 		BuilderIndicadorCustom builderPasivo = new BuilderIndicadorCustom("Pasivo Corriente = Deudas Bancarias + Deudas Comerciales + Deudas del Estado");
 		pasivoCorriente = builderPasivo.analizar().generarIndicador().build();
 		RepositorioIndicadores.instance().agregarIndicador(pasivoCorriente);
@@ -57,11 +56,11 @@ public class CalculoIndicadoresTest {
 	}
 
 	private Calculable compilarExpresion(String expresion ) {
-		return analizador.scan(expresion).compilar();
+		return new Analizador(expresion).compilar();
 	}
 	
 	private void puedeCalcular(String expresion,boolean resultado) {
-		assertEquals(analizador.scan(expresion).sePuedeCalcular(empresa, periodo),resultado);
+		assertEquals(new Analizador(expresion).sePuedeCalcular(empresa, periodo),resultado);
 	}
 	
 	private void elCalculoDa(Calculable calculo,double resultado) {

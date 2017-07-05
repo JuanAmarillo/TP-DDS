@@ -10,34 +10,32 @@ import domain.Empresa;
 
 
 public class Analizador {
-	private List<String> tokens;
+	private String ecuacion;
 	
-	public Analizador scan(String ecuacion) {
-		generarTokens(ecuacion);
-		eliminarEspaciosInnecesarios();
-		return this;
+	public Analizador(String ecuacion){
+		this.ecuacion = ecuacion;
 	}
 	
-	public void generarTokens(String ecuacion){
+	public List<String> generarTokens(){
 		String[] tokens = ecuacion.split("(?<=[-+()*/=])|(?=[-+()*/=])");
-		this.tokens =  new LinkedList<String>(Arrays.asList(tokens));
+		return eliminarEspaciosInnecesarios(new LinkedList<String>(Arrays.asList(tokens)));
 	}
 	
-	public void eliminarEspaciosInnecesarios(){
-		this.tokens = tokens.stream().map(unToken -> unToken.trim()).filter(unToken -> !unToken.isEmpty())
+	public List<String> eliminarEspaciosInnecesarios(List<String> tokens){
+		return tokens.stream().map(unToken -> unToken.trim()).filter(unToken -> !unToken.isEmpty())
 				.collect(Collectors.toList());
 	}
 	
 	public void parser(){
-		new Parser(tokens).parsear();
+		new Parser(generarTokens()).parsear();
 	}
 	
 	public Calculable compilar(){
-		return new Compilador(tokens).compilar();
+		return new Compilador(generarTokens()).compilar();
 	}
 	
 	public Boolean sePuedeCalcular(Empresa empresa, String periodo){
-		return new AnalisisSemantico(empresa,periodo,tokens).analizarSemantica();
+		return new AnalisisSemantico(empresa,periodo,generarTokens()).analizarSemantica();
 	}
 
 }

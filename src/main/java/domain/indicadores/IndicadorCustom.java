@@ -22,11 +22,11 @@ public class IndicadorCustom extends Indicador {
 	}
 
 	public boolean esCalculable(Empresa empresa, String periodo) {
-		return new Analizador().scan(ecuacion).sePuedeCalcular(empresa, periodo);
+		return new Analizador(ecuacion).sePuedeCalcular(empresa, periodo);
 	}
 
 	public Calculable generarCalculo() {
-		return new Analizador().scan(getEcuacion()).compilar();
+		return new Analizador(ecuacion).compilar();
 	}
 
 	// SETTERS Y GETTERS //
