@@ -18,10 +18,7 @@ import ui.windows.CargarCondicionWindow;
 public class CargarCondicionVM {
 
 	public String nombreCondicion = "";
-	public List<String> condiciones;
 	public String condicionSeleccionada = "";
-
-	public List<String> indicadores;
 	public String indicadorSeleccionado = "";
 
 	public boolean taxativa = false;
@@ -31,21 +28,24 @@ public class CargarCondicionVM {
 	public String operacionSeleccionada = "";
 
 	public double valor;
-
-	public CargarCondicionVM() {
-		condiciones = RepositorioCondiciones.instance().getNombresDeCondiciones();
-	}
 	
 	public void cargarCondicion() {
 		validarCampos();
-		if(taxativa) {
-			crearCondicionTaxativa();
-		}
-		else {
-			crearCondicionComparativa();
-		}
-		ObservableUtils.firePropertyChanged(this, "condiciones");
+		crearCondicion();
+		avisarCambiosCondiciones();
 		
+	}
+
+	private void crearCondicion() {
+		if(taxativa) 
+			crearCondicionTaxativa();
+		else 
+			crearCondicionComparativa();
+	}
+	
+	public void eliminarCondicion() {
+		RepositorioCondiciones.instance().eliminarCondicion(condicionSeleccionada);
+		avisarCambiosCondiciones();
 	}
 	
 	private void validarCampos() {
@@ -66,6 +66,7 @@ public class CargarCondicionVM {
 		condicion.setNombre(tipoCondicion() + " - " + nombreCondicion);
 		RepositorioCondiciones.instance().agregarCondicion(condicion);
 	}
+	
 	
 	private String tipoCondicion() {
 		if(taxativa) {
@@ -88,6 +89,10 @@ public class CargarCondicionVM {
 		
 	}	
 	
+	private void avisarCambiosCondiciones() {
+		ObservableUtils.firePropertyChanged(this, "condiciones");
+	}
+	
 	//GETTERS Y SETTERS
 	public String getNombreCondicion() {
 		return nombreCondicion;
@@ -107,10 +112,6 @@ public class CargarCondicionVM {
 
 	public void setCondicionSeleccionada(String condicionSeleccionada) {
 		this.condicionSeleccionada = condicionSeleccionada;
-	}
-
-	public void setIndicadores(List<String> indicadores) {
-		this.indicadores = indicadores;
 	}
 	
 	public List<String> getIndicadores() {
@@ -165,11 +166,6 @@ public class CargarCondicionVM {
 	public void setComparativa(boolean comparativa) {
 		this.comparativa = comparativa;
 		taxativa = false;
-	}
-
-	public void eliminarCondicion() {
-		RepositorioCondiciones.instance().eliminarCondicion(condicionSeleccionada);
-		ObservableUtils.firePropertyChanged(this, "condiciones");
 	}
 	
 	

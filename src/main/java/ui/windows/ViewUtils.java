@@ -9,9 +9,9 @@ public class ViewUtils {
 		ventana.onAccept(() -> {});
 	}
 	
-	static void setSize(int width, int height, List<?> lista) {
-		sizeSetter(width, height, lista);
-	}
+//	static void setSize(int width, int height, List<?> lista) {
+//		sizeSetter(width, height, lista);
+//	}
 	
 	static void setSize(int width, int height, Selector<?> selector) {
 		sizeSetter(width, height, selector);

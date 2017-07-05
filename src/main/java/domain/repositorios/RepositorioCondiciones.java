@@ -42,7 +42,7 @@ public class RepositorioCondiciones implements Repositorio<DatosCondiciones> {
 	}
 	
 	public List<String> getNombresDeCondiciones(){
-		return getCondicionesCargadas().stream().map(unaCond -> unaCond.getNombre()).collect(Collectors.toList());
+		return getCondicionesCargadas().stream().map(unaCondicion -> unaCondicion.getNombre()).collect(Collectors.toList());
 	}
 	/*
 	public Condicion agregarCondicionAPartirDe(String condicion){
@@ -59,18 +59,18 @@ public class RepositorioCondiciones implements Repositorio<DatosCondiciones> {
 	}
 	
 	private void verificarQueNoExista(String nombre){
-		if (condicionesCargadas.stream().anyMatch(condicion -> condicion.suNombreEs(nombre)))
-		{
+		if (existeLaCondicion(nombre))
 			throw new YaExisteLaCondicionException();
-		}
+	}
+
+	private boolean existeLaCondicion(String nombre) {
+		return condicionesCargadas.stream().anyMatch(condicion -> condicion.suNombreEs(nombre));
 	}
 
 	public void eliminarCondicion(String nombre) {
 		Condicion condicion = buscarCondicion(nombre).get();
 		if(condicion.esCustom)
-		{
 			condicionesCargadas.remove(condicion);
-		}
 		else
 			throw new NoSePuedeBorrarUnPredeterminadoException();
 	}

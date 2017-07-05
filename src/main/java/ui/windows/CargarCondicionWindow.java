@@ -45,8 +45,10 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 	public void condicionPersonalizada(Panel condicionPanel) {
 		Panel form = new Panel(condicionPanel);
 		form.setLayout(new ColumnLayout(1));
+		
 		Label titulo = new Label(form);
 		titulo.setText("Agregar una nueva condicion");
+		
 		Panel nombreCondicion = new Panel(form);
 		Label etiquetaNombre = new Label(nombreCondicion);
 		etiquetaNombre.setText("Nombre de la condicion: ");

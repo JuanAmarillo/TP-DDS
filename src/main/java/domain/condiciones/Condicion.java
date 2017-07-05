@@ -16,8 +16,7 @@ public abstract class Condicion {
 	public abstract boolean comparar();
 	
 	public boolean esOperadorMayor() {
-		if( operador.equals(">")) { return true; }
-		return false;
+		return operador.equals(">");
 	}
 	
 	public boolean esCustom(){ 
@@ -29,7 +28,7 @@ public abstract class Condicion {
 	}
 	
 	public boolean suNombreEs(String nombreCondicion) {
-		return this.nombre.equals(nombreCondicion);
+		return nombre.equals(nombreCondicion);
 	}
 	
 	public String getNombre() {
