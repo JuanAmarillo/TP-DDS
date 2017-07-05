@@ -39,7 +39,7 @@ public class CargarCondicionVM {
 			crearCondicionComparativa();
 	}
 	
-	private void datosComunes(Condicion condicion) {
+	private void completarBuild(Condicion condicion) {
 		condicion.setOperador(operacionSeleccionada);
 		condicion.setIndicador(RepositorioIndicadores.instance().buscarIndicador(indicadorSeleccionado).get());
 		condicion.setNombre(nombreCondicion);
@@ -49,12 +49,12 @@ public class CargarCondicionVM {
 	private void crearCondicionTaxativa() {
 		CondicionTaxativa condicionTaxativa = new CondicionTaxativa();
 		condicionTaxativa.setValorDeComparacion(valor);
-		datosComunes(condicionTaxativa);
+		completarBuild(condicionTaxativa);
 	}
 	
 	private void crearCondicionComparativa() {
 		CondicionComparativa condicionComparativa = new CondicionComparativa();
-		datosComunes(condicionComparativa);
+		completarBuild(condicionComparativa);
 		
 	}	
 	
