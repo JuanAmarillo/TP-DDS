@@ -1,7 +1,5 @@
 package domain.condiciones;
 
-import org.apache.commons.lang.NotImplementedException;
-
 import domain.Empresa;
 import net.sf.oval.exception.MethodNotFoundException;
 

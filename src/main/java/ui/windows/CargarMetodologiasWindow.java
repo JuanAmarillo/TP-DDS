@@ -1,7 +1,5 @@
 package ui.windows;
 
-import ui.vm.CargarMetodologiasVM;
-
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.widgets.Button;
@@ -11,8 +9,7 @@ import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 
-import domain.Empresa;
-import domain.condiciones.Condicion;
+import ui.vm.CargarMetodologiasVM;
 
 public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 

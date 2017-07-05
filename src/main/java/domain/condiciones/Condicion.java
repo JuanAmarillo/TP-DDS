@@ -1,10 +1,6 @@
 package domain.condiciones;
 
-import java.util.Arrays;
-import java.util.List;
-
 import domain.indicadores.Indicador;
-import scala.Char;
 
 public abstract class Condicion {
 
