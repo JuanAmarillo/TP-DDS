@@ -8,9 +8,9 @@ import java.util.List;
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import auxiliaresDeArchivo.DatosIndicadores;
 import domain.indicadores.IndicadorCustom;
 import domain.repositorios.RepositorioIndicadores;
-import etc.DatosIndicadores;
 
 public class ActualizaIndicadores {
 

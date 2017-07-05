@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import auxiliaresDeArchivo.DatosIndicadores;
 import domain.indicadores.*;
 import domain.indicadores.indicadoresPredeterminados.*;
-import etc.DatosIndicadores;
 import exceptions.IndicadorExistenteException;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 

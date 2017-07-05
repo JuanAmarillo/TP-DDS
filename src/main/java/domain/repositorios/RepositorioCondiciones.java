@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import auxiliaresDeArchivo.DatosCondiciones;
 import domain.condiciones.Condicion;
 import domain.condiciones.condicionesPredeterminadas.EmpresaMas10Años;
-import etc.DatosCondiciones;
 
 public class RepositorioCondiciones implements Repositorio<DatosCondiciones> {
 

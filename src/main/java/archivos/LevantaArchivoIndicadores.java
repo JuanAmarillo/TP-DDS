@@ -1,7 +1,7 @@
 package archivos;
 
+import auxiliaresDeArchivo.DatosIndicadores;
 import domain.repositorios.RepositorioIndicadores;
-import etc.DatosIndicadores;
 
 public class LevantaArchivoIndicadores extends FileLoader<DatosIndicadores> {
 	

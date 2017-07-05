@@ -1,4 +1,4 @@
-package etc;
+package auxiliaresDeArchivo;
 
 import java.util.ArrayList;
 import java.util.List;
