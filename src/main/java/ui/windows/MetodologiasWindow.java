@@ -6,6 +6,7 @@ import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
+import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.lacar.ui.model.Action;
@@ -13,26 +14,25 @@ import org.uqbar.lacar.ui.model.Action;
 import exceptions.NoHayEmpresasCargadasException;
 
 @SuppressWarnings("serial")
-public class MainWindow extends SimpleWindow<Object> {
+public class MetodologiasWindow extends Dialog {
 
-	public MainWindow(WindowOwner parent) {
+	public MetodologiasWindow(WindowOwner parent) {
 		super(parent, new Object());
 	}
 
 	@Override
 	protected void createFormPanel(Panel formPanel) {
-		this.setTitle("Inversiones");
-		new Label(formPanel).setText("Hector Inversiones").setFontSize(25);
+		this.setTitle("Metodologias");
+		
 
 	}
 
 	@Override
 	protected void addActions(Panel panelActions) {
 		panelActions.setLayout(new ColumnLayout(1));
-		crearBotonConColor(panelActions, "Cargar cuentas"    , this::cargarCuentas);
-		crearBotonConColor(panelActions, "Cargar indicadores", this::cargarIndicadores);		
-		crearBotonConColor(panelActions, "Consultar valores de cuentas e indicadores", this::verCuentasConIndicadores);
-		crearBotonConColor(panelActions, "Metologias" ,this::metodologias);		
+		crearBotonConColor(panelActions, "Cargar condiciones", this::cargarCondiciones);
+		crearBotonConColor(panelActions, "Cargar metodologías" ,this::cargarMetodologias);
+		crearBotonConColor(panelActions, "Evaluar metodologias",this::evaluarMetodologias);
 	}
 	
 	public void crearBotonConColor(Panel panelAUsar, String nombreBoton, Action onClick){
@@ -40,26 +40,22 @@ public class MainWindow extends SimpleWindow<Object> {
 		boton.setBackground(Color.lightGray).setWidth(350);
 	}
 
-	public void cargarCuentas() {
-		ViewUtils.nuevaPantalla(new CargarCuentaWindow(this));
-	}
-
-	public void cargarIndicadores() {
-		ViewUtils.nuevaPantalla(new CargarIndicadorWindow(this));
+	
+	public void cargarCondiciones() {
+		ViewUtils.nuevaPantalla(new CargarCondicionWindow(this));
 	}
 
 	
-	public void verCuentasConIndicadores() {
+	public void cargarMetodologias() {
 		try {
-			ViewUtils.nuevaPantalla(new CuentasConIndicadoresWindow(this));
+			ViewUtils.nuevaPantalla(new CargarMetodologiasWindow(this));
 		} catch (NoHayEmpresasCargadasException e) {
 			this.showWarning(e.getMessage());
 		}
 	}
-
 	
-	public void metodologias() {
-		ViewUtils.nuevaPantalla(new MetodologiasWindow(this));
+	public void evaluarMetodologias() {
+		ViewUtils.nuevaPantalla(new VerMetodologiasWindow(this));
 	}
 
 }
