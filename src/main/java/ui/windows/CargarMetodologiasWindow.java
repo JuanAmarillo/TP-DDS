@@ -1,6 +1,8 @@
 package ui.windows;
 
-import ui.vm.VerMetodologiasVM;
+import ui.vm.CargarMetodologiasVM;
+
+import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
@@ -12,42 +14,68 @@ import org.uqbar.arena.windows.WindowOwner;
 import domain.Empresa;
 import domain.condiciones.Condicion;
 
-public class CargarMetodologiasWindow extends Dialog<VerMetodologiasVM> {
+public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 
 	public CargarMetodologiasWindow(WindowOwner parent) {
-		super(parent, new VerMetodologiasVM());
+		super(parent, new CargarMetodologiasVM());
 	}
 
 	@Override
 	protected void createFormPanel(Panel formPanel) {
 		// TODO Auto-generated method stub
-		Panel metodologiasPanel = new Panel(formPanel);
-		metodologiasPanel.setLayout(new HorizontalLayout());
-		this.listaMetodologias(metodologiasPanel);
-		this.listaEmpresas(metodologiasPanel);
+		formPanel.setLayout(new ColumnLayout(1));
+		Label titulo = new Label(formPanel);
+		titulo.setText("Creación de nuevas metodologias");
+		Panel cuerpo = new Panel(formPanel);
+		cuerpo.setLayout(new HorizontalLayout());
+		this.listaCondiciones(cuerpo);
+		this.botones(cuerpo);
+		this.listaDeLaMetodologia(cuerpo);
 	}
 
-	public void listaMetodologias(Panel metodologiasPanel) {
-		Panel metods = new Panel(metodologiasPanel);
-		new Label(metods).setText("Condiciones cargadas");
-		List<Condicion> condiciones = new List<Condicion>(metods);
+	private void listaDeLaMetodologia(Panel formPanel) {
+		Panel panel = new Panel(formPanel);
+		panel.setLayout(new ColumnLayout(1));
+		new Label(panel).setText("Condiciones de la metodologia");
+		List<String> condiciones = new List<String>(panel);
+		ViewUtils.setSize(250, 100, condiciones);
+		condiciones.bindItemsToProperty("condMetodologia");
+		condiciones.bindValueToProperty("condicionesMetodologia");
+	}
+
+	private void botones(Panel formPanel) {
+		Panel botones = new Panel(formPanel);
+		botones.setLayout(new ColumnLayout(1));
+		Label rellenaVacio = new Label(botones);
+		Label rellenaVacio1 = new Label(botones);
+		Button haciaDerecha = new Button(botones);
+		haciaDerecha.setCaption(">").onClick(this::moverHaciaLaDerecha);
+		Button haciaIzquierda = new Button(botones);
+		haciaIzquierda.setCaption("<").onClick(this::moverHaciaLaIzquierda);
+		
+	}
+
+	public void listaCondiciones(Panel metodologiasPanel) {
+		Panel panel = new Panel(metodologiasPanel);
+		panel.setLayout(new ColumnLayout(1));
+		new Label(panel).setText("Condiciones cargadas");
+		List<String> condiciones = new List<String>(panel);
 		ViewUtils.setSize(250, 100, condiciones);
 		condiciones.bindItemsToProperty("condiciones");
 		condiciones.bindValueToProperty("condicionSeleccionada");
-		new Button(metods).setCaption("Aplicar metodología");
-	}
-
-	public void listaEmpresas(Panel metodologiasPanel) {
-		Panel empr = new Panel(metodologiasPanel);
-		new Label(empr).setText("Empresas cargadas");
-		List<Empresa> empresas = new List<Empresa>(empr);
-		ViewUtils.setSize(150, 100, empresas);
-		empresas.bindItemsToProperty("empresas").adaptWith(Empresa.class, "nombre");
 	}
 
 	@Override
 	protected void addActions(Panel panelActions) {
 		new Button(panelActions).setCaption("Volver").onClick(this::accept).setAsDefault();
+	}
+	
+	private void moverHaciaLaDerecha() {
+		
+	}
+	
+	private void moverHaciaLaIzquierda() {
+		
 	}
 
 }
