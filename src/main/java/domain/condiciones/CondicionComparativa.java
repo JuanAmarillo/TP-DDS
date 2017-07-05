@@ -13,16 +13,18 @@ public class CondicionComparativa extends Condicion {
 		return primerEmpresa;
 	}
 
-	public void setPrimerEmpresa(Empresa primerEmpresa) {
+	public CondicionComparativa setPrimerEmpresa(Empresa primerEmpresa) {
 		this.primerEmpresa = primerEmpresa;
+		return this;
 	}
 
 	public Empresa getSegundaEmpresa() {
 		return segundaEmpresa;
 	}
 
-	public void setSegundaEmpresa(Empresa segundaEmpresa) {
+	public CondicionComparativa setSegundaEmpresa(Empresa segundaEmpresa) {
 		this.segundaEmpresa = segundaEmpresa;
+		return this;
 	}
 
 	@Override
