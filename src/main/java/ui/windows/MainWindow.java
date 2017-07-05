@@ -36,8 +36,10 @@ public class MainWindow extends SimpleWindow<Object> {
 				.setBackground(Color.lightGray).setWidth(350);
 		new Button(panelActions).setCaption("Consultar valores de cuentas e indicadores").onClick(this::verCuentas)
 				.setBackground(Color.lightGray).setWidth(350);
-		new Button(panelActions).setCaption("Cargar metodologías").onClick(this::verMetodologias)
+		new Button(panelActions).setCaption("Cargar metodologías").onClick(this::cargarMetodologias)
 				.setBackground(Color.lightGray).setWidth(350);
+		new Button(panelActions).setCaption("Evaluar metodologias").onClick(this::evaluarMetodologias)
+		.setBackground(Color.lightGray).setWidth(350);
 	}
 
 	public void cargarCuentas() {
@@ -60,12 +62,16 @@ public class MainWindow extends SimpleWindow<Object> {
 		}
 	}
 
-	public void verMetodologias() {
+	public void cargarMetodologias() {
 		try {
 			ViewUtils.nuevaPantalla(new CargarMetodologiasWindow(this));
 		} catch (NoHayEmpresasCargadasException e) {
 			this.showWarning(e.getErrorMessage());
 		}
+	}
+	
+	public void evaluarMetodologias() {
+		ViewUtils.nuevaPantalla(new VerMetodologiasWindow(this));
 	}
 
 }
