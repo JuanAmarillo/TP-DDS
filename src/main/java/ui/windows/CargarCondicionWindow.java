@@ -19,11 +19,9 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 
 	@Override
 	protected void createFormPanel(Panel formPanel) {
-		Panel condicionesPanel = new Panel(formPanel);
-		condicionesPanel.setLayout(new ColumnLayout(1));
-		
-		this.listaCondiciones(condicionesPanel);
-		this.condicionPersonalizada(condicionesPanel);
+		Panel condicionesPanel = ViewUtils.crearPanel(formPanel, new ColumnLayout(1));
+		listaCondiciones(condicionesPanel);
+		condicionPersonalizada(condicionesPanel);
 	}
 
 	public void listaCondiciones(Panel condicionesPanel) {

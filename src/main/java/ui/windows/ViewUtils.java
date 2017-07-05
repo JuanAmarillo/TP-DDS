@@ -60,8 +60,8 @@ public class ViewUtils {
 		return nuevoPanel;
 	}
 	
-	public static void crearBoton(Panel panelAUsar, String nombreBoton,Action onClick){
-		new Button(panelAUsar).setCaption(nombreBoton).onClick(onClick);
+	public static Button crearBoton(Panel panelAUsar, String nombreBoton,Action onClick){
+		return new Button(panelAUsar).setCaption(nombreBoton).onClick(onClick);
 	}
 
 }

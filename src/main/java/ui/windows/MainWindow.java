@@ -8,6 +8,7 @@ import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.windows.SimpleWindow;
 import org.uqbar.arena.windows.WindowOwner;
+import org.uqbar.lacar.ui.model.Action;
 
 import exceptions.NoHayEmpresasCargadasException;
 
@@ -28,18 +29,17 @@ public class MainWindow extends SimpleWindow<Object> {
 	@Override
 	protected void addActions(Panel panelActions) {
 		panelActions.setLayout(new ColumnLayout(1));
-		new Button(panelActions).setCaption("Cargar cuentas").onClick(this::cargarCuentas)
-				.setBackground(Color.lightGray).setWidth(350);
-		new Button(panelActions).setCaption("Cargar indicadores").onClick(this::cargarIndicadores)
-				.setBackground(Color.lightGray).setWidth(350);
-		new Button(panelActions).setCaption("Cargar condiciones").onClick(this::cargarCondiciones)
-				.setBackground(Color.lightGray).setWidth(350);
-		new Button(panelActions).setCaption("Consultar valores de cuentas e indicadores").onClick(this::verCuentas)
-				.setBackground(Color.lightGray).setWidth(350);
-		new Button(panelActions).setCaption("Cargar metodologías").onClick(this::cargarMetodologias)
-				.setBackground(Color.lightGray).setWidth(350);
-		new Button(panelActions).setCaption("Evaluar metodologias").onClick(this::evaluarMetodologias)
-		.setBackground(Color.lightGray).setWidth(350);
+		crearBotonConColor(panelActions, "Cargar cuentas"    , this::cargarCuentas);
+		crearBotonConColor(panelActions, "Cargar indicadores", this::cargarIndicadores);
+		crearBotonConColor(panelActions, "Cargar condiciones", this::cargarCondiciones);
+		crearBotonConColor(panelActions, "Consultar valores de cuentas e indicadores", this::verCuentasConIndicadores);
+		crearBotonConColor(panelActions, "Cargar metodologías" ,this::cargarMetodologias);
+		crearBotonConColor(panelActions, "Evaluar metodologias",this::evaluarMetodologias);
+	}
+	
+	public void crearBotonConColor(Panel panelAUsar, String nombreBoton, Action onClick){
+		Button boton = ViewUtils.crearBoton(panelAUsar, nombreBoton, onClick);
+		boton.setBackground(Color.lightGray).setWidth(350);
 	}
 
 	public void cargarCuentas() {
@@ -54,7 +54,7 @@ public class MainWindow extends SimpleWindow<Object> {
 		ViewUtils.nuevaPantalla(new CargarCondicionWindow(this));
 	}
 
-	public void verCuentas() {
+	public void verCuentasConIndicadores() {
 		try {
 			ViewUtils.nuevaPantalla(new CuentasConIndicadoresWindow(this));
 		} catch (NoHayEmpresasCargadasException e) {
