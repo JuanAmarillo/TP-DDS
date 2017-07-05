@@ -58,7 +58,7 @@ public class MainWindow extends SimpleWindow<Object> {
 		try {
 			ViewUtils.nuevaPantalla(new CuentasConIndicadoresWindow(this));
 		} catch (NoHayEmpresasCargadasException e) {
-			this.showWarning(e.getErrorMessage());
+			this.showWarning(e.getMessage());
 		}
 	}
 
@@ -66,7 +66,7 @@ public class MainWindow extends SimpleWindow<Object> {
 		try {
 			ViewUtils.nuevaPantalla(new CargarMetodologiasWindow(this));
 		} catch (NoHayEmpresasCargadasException e) {
-			this.showWarning(e.getErrorMessage());
+			this.showWarning(e.getMessage());
 		}
 	}
 	
