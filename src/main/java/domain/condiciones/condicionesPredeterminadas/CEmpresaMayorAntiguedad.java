@@ -6,6 +6,7 @@ public class CEmpresaMayorAntiguedad extends CondicionComparativa {
 
 	public CEmpresaMayorAntiguedad() {
 		setNombre("Comparativa - Mayor antiguedad");
+		setOrigen(false);
 	}
 	
 	@Override

@@ -56,4 +56,10 @@ public class CondicionesTest {
 		int cantidadCondiciones = RepositorioCondiciones.instance().cantidadDeCondiciones();
 		assertEquals(2,cantidadCondiciones);
 	}
+	
+	@Test
+	public void testCondicionPredeterminadaValor() {
+		CEmpresaMayorAntiguedad condicion = new CEmpresaMayorAntiguedad();
+		assertFalse(condicion.esCustom);
+	}
 }
