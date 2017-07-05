@@ -32,22 +32,11 @@ public class IndicadorCustom extends Indicador {
 		return new Analizador(ecuacion).sePuedeCalcular(empresa, periodo);
 	}
 
-	public Calculable generarCalculo() {
-		return new Analizador(ecuacion).compilar();
-	}
 
 	// SETTERS Y GETTERS //
 
-	public void setCalculo() {
-		this.calculo = generarCalculo();
-	}
-
 	public String getEcuacion() {
 		return ecuacion;
-	}
-
-	public void setEcuacion(String ecuacion) {
-		this.ecuacion = ecuacion;
 	}
 
 	public Token getCalculo() {
