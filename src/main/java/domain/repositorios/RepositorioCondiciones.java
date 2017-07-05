@@ -49,6 +49,9 @@ public class RepositorioCondiciones implements Repositorio<DatosCondiciones> {
 	}
 	*/
 	
+	public void agregarCondicion(Condicion condicion) {
+		condicionesCargadas.add(condicion);
+	}
 	
 	public static void agregarPredeterminados(){
 		condicionesCargadas.add(new TEmpresaMas10Años());

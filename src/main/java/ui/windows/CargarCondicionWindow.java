@@ -10,6 +10,7 @@ import org.uqbar.arena.widgets.NumericField;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.RadioSelector;
 import org.uqbar.arena.widgets.Selector;
+import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 
@@ -26,9 +27,11 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 
 	@Override
 	protected void createFormPanel(Panel formPanel) {
+		Label titulo = new Label(formPanel);
+		titulo.setText("Agregar una nueva condicion");
 		Panel condicionesPanel = new Panel(formPanel);
 		condicionesPanel.setLayout(new HorizontalLayout());
-
+		
 		this.listaCondiciones(condicionesPanel);
 		this.condicionPersonalizada(condicionesPanel);
 	}
@@ -45,9 +48,12 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 	public void condicionPersonalizada(Panel condicionPanel) {
 		Panel form = new Panel(condicionPanel);
 		form.setLayout(new ColumnLayout(1));
-
-		new Label(form).setText("Condición personalizada");
 		
+		Panel nombreCondicion = new Panel(form);
+		Label etiquetaNombre = new Label(nombreCondicion);
+		etiquetaNombre.setText("Nombre de la condicion: ");
+		TextBox textbox = new TextBox(nombreCondicion);
+		textbox.bindValueToProperty("nombreCondicion");
 		Panel tax = new Panel(form).setLayout(new HorizontalLayout());
 		CheckBox taxativa = new CheckBox(tax);
 		taxativa.bindValueToProperty("taxativa");
