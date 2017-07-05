@@ -31,8 +31,7 @@ public class VerMetodologiasWindow extends Dialog<VerMetodologiasVM> {
 		Panel metods = new Panel(metodologiasPanel);
 		new Label(metods).setText("Condiciones cargadas");
 		List<Condicion> condiciones = new List<Condicion>(metods);
-		condiciones.setWidth(250);
-		condiciones.setHeight(100);
+		ViewUtils.setSize(250, 100, condiciones);
 		condiciones.bindItemsToProperty("condiciones");
 		condiciones.bindValueToProperty("condicionSeleccionada");
 		new Button(metods).setCaption("Aplicar metodología");
@@ -42,8 +41,7 @@ public class VerMetodologiasWindow extends Dialog<VerMetodologiasVM> {
 		Panel empr = new Panel(metodologiasPanel);
 		new Label(empr).setText("Empresas cargadas");
 		List<Empresa> empresas = new List<Empresa>(empr);
-		empresas.setWidth(150);
-		empresas.setHeight(100);
+		ViewUtils.setSize(150, 100, empresas);
 		empresas.bindItemsToProperty("empresas").adaptWith(Empresa.class, "nombre");
 	}
 

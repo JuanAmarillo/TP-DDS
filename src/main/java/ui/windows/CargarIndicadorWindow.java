@@ -37,8 +37,7 @@ public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 		Panel form = new Panel(indicadoresPanel);
 		new Label(form).setText("Indicadores Cargados");
 		List<IndicadorCustom> indicadores = new List<IndicadorCustom>(form);
-		indicadores.setWidth(150);
-		indicadores.setHeight(100);
+		ViewUtils.setSize(150, 100, indicadores);
 		indicadores.bindItemsToProperty("indicadores");
 		indicadores.bindValueToProperty("indicadorSeleccionado");
 	}

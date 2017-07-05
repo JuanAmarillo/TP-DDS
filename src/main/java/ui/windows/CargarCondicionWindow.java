@@ -36,8 +36,7 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 		Panel form = new Panel(condicionesPanel);
 		new Label(form).setText("Condiciones cargadas");
 		List<Condicion> condiciones = new List<Condicion>(form);
-		condiciones.setWidth(150);
-		condiciones.setHeight(100);
+		ViewUtils.setSize(150, 100, condiciones);
 		condiciones.bindItemsToProperty("condiciones");
 		condiciones.bindValueToProperty("condicionSeleccionada");
 	}
