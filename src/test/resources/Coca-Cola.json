@@ -11,6 +11,31 @@
       "nombre": "EBITDA",
       "periodo": "2do Semestre",
       "balance": 10000
+    },
+    {
+      "nombre": "ActivoTotal",
+      "periodo": "pascuas",
+      "balance": 12345
+    },
+    {
+      "nombre": "PasivoTotal",
+      "periodo": "pascuas",
+      "balance": 5432
+    },
+    {
+      "nombre": "Activo Cte",
+      "periodo": "pascuas",
+      "balance": 6000
+    },
+    {
+      "nombre": "Pasivo Cte",
+      "periodo": "pascuas",
+      "balance": 3500
+    },
+    {
+      "nombre": "Ventas",
+      "periodo": "pascuas",
+      "balance": 4242
     }
   ]
 }

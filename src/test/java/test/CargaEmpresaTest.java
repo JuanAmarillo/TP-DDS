@@ -44,7 +44,7 @@ public class CargaEmpresaTest {
 	@Test
 	public void testMismaEmpresaAgregaCuentasDistintas() {
 		cargarArchivos("Coca-Cola 2.json");
-		assertEquals(6, cocaCola.getCuentas().size());
+		assertEquals(12, cocaCola.getCuentas().size());
 	}
 	
 	@Test

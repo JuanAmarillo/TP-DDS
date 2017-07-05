@@ -11,6 +11,31 @@
       "nombre": "EBITDA",
       "periodo": "2017",
       "balance": -10000
+    },
+    {
+      "nombre": "ActivoTotal",
+      "periodo": "pascuas",
+      "balance": 300
+    },
+    {
+      "nombre": "PasivoTotal",
+      "periodo": "pascuas",
+      "balance": 540
+    },
+    {
+      "nombre": "Activo Cte",
+      "periodo": "pascuas",
+      "balance": 250
+    },
+    {
+      "nombre": "Pasivo Cte",
+      "periodo": "pascuas",
+      "balance": 540
+    },
+    {
+      "nombre": "Ventas",
+      "periodo": "pascuas",
+      "balance": 420
     }
   ]
 }
