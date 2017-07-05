@@ -11,7 +11,7 @@ public abstract class Condicion {
 	protected String nombre;
 	public Indicador indicador;
 	public String operador;
-	public boolean esCustom = false;
+	public boolean esCustom = true;
 	
 	public abstract boolean comparar();
 	

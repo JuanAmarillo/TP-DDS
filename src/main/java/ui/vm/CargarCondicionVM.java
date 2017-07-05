@@ -166,6 +166,11 @@ public class CargarCondicionVM {
 		this.comparativa = comparativa;
 		taxativa = false;
 	}
+
+	public void eliminarCondicion() {
+		RepositorioCondiciones.instance().eliminarCondicion(condicionSeleccionada);
+		ObservableUtils.firePropertyChanged(this, "condiciones");
+	}
 	
 	
 	

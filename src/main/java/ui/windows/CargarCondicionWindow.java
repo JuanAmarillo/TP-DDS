@@ -84,7 +84,7 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 		miniBis.setLayout(new HorizontalLayout());
 
 		new Button(miniBis).setCaption("Cargar condición").onClick(this::cargarCondicion); // .onClick(this::cargarCondicion);
-		new Button(miniBis).setCaption("Eliminar condición");// .onClick(this::eliminarCondicion);
+		new Button(miniBis).setCaption("Eliminar condición").onClick(this::eliminarCondicion);
 
 	}
 
@@ -98,5 +98,12 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 			this.getModelObject().cargarCondicion();
 		}
 		catch(RuntimeException e) { this.showWarning(e.getMessage()); }
+	}
+	
+	public void eliminarCondicion() {
+		try {
+			this.getModelObject().eliminarCondicion();
+		}
+		catch(RuntimeException e) {this.showWarning(e.getMessage()); }
 	}
 }

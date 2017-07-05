@@ -2,12 +2,14 @@ package domain.repositorios;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import auxiliaresDeArchivo.DatosCondiciones;
 import domain.condiciones.Condicion;
 import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
+import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import exceptions.YaExisteLaCondicionException;
 
 public class RepositorioCondiciones implements Repositorio<DatosCondiciones> {
@@ -61,6 +63,21 @@ public class RepositorioCondiciones implements Repositorio<DatosCondiciones> {
 		{
 			throw new YaExisteLaCondicionException();
 		}
+	}
+
+	public void eliminarCondicion(String nombre) {
+		Condicion condicion = buscarCondicion(nombre).get();
+		if(condicion.esCustom)
+		{
+			condicionesCargadas.remove(condicion);
+		}
+		else
+			throw new NoSePuedeBorrarUnPredeterminadoException();
+	}
+	
+	
+	private Optional<Condicion> buscarCondicion(String nombre) {
+		return condicionesCargadas.stream().filter(condicion -> condicion.suNombreEs(nombre)).findFirst();
 	}
 
 	public static void agregarPredeterminados(){

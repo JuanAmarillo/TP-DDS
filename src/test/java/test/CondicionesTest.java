@@ -13,6 +13,8 @@ import domain.Empresa;
 import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
 import domain.repositorios.RepositorioCondiciones;
+import domain.repositorios.RepositorioEmpresas;
+import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 
 public class CondicionesTest {
 	
@@ -61,5 +63,10 @@ public class CondicionesTest {
 	public void testCondicionPredeterminadaValor() {
 		CEmpresaMayorAntiguedad condicion = new CEmpresaMayorAntiguedad();
 		assertFalse(condicion.esCustom);
+	}
+	
+	@Test(expected = NoSePuedeBorrarUnPredeterminadoException.class)
+	public void noSePuedeBorrarCondicionPredeterminada() {
+		RepositorioCondiciones.instance().eliminarCondicion("Taxativa - Empresa de mas de 10 años");
 	}
 }
