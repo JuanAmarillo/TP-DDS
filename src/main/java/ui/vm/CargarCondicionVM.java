@@ -3,10 +3,12 @@ package ui.vm;
 import java.util.Arrays;
 import java.util.List;
 
+import org.uqbar.arena.windows.Dialog;
 import org.uqbar.commons.utils.Observable;
 
 import domain.condiciones.Condicion;
 import domain.repositorios.RepositorioIndicadores;
+import ui.windows.CargarCondicionWindow;
 
 @Observable
 public class CargarCondicionVM {
@@ -18,9 +20,12 @@ public class CargarCondicionVM {
 	public List<String> indicadores;
 	public String indicadorSeleccionado;
 
-	public List<String> tipos;
-	public String tipoSeleccionado;
+	public boolean taxativa = false;
+	public boolean comparativa = false;
 
+	public List<String> tipoDeCondicion = Arrays.asList("Comparativa","Taxativa");
+	public String tipoSeleccionado;
+	
 	public List<String> operaciones = Arrays.asList(">", "<");
 	public String operacionSeleccionada;
 
@@ -60,18 +65,6 @@ public class CargarCondicionVM {
 		this.indicadorSeleccionado = indicadorSeleccionado;
 	}
 
-	public List<String> getTipos() {
-		return Condicion.getTipos();
-	}
-
-	public String getTipoSeleccionado() {
-		return tipoSeleccionado;
-	}
-
-	public void setTipoSeleccionado(String tipoSeleccionado) {
-		this.tipoSeleccionado = tipoSeleccionado;
-	}
-
 	public List<String> getOperaciones() {
 		return operaciones;
 	}
@@ -95,6 +88,23 @@ public class CargarCondicionVM {
 	public void setValor(double valor) {
 		this.valor = valor;
 	}
+	
+	public boolean getTaxativa() {
+		return taxativa;
+	}
 
+	public void setTaxativa(boolean taxativa) {
+		this.taxativa = taxativa;
+		comparativa = false;
+	}
+
+	public boolean getComparativa() {
+		return comparativa;
+	}
+
+	public void setComparativa(boolean comparativa) {
+		this.comparativa = comparativa;
+		taxativa = false;
+	}
 	
 }

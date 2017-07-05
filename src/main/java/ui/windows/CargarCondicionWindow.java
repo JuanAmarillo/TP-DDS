@@ -3,6 +3,7 @@ package ui.windows;
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.widgets.Button;
+import org.uqbar.arena.widgets.CheckBox;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.List;
 import org.uqbar.arena.widgets.NumericField;
@@ -46,10 +47,19 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 		form.setLayout(new ColumnLayout(1));
 
 		new Label(form).setText("Condición personalizada");
-		RadioSelector<String> selectorTipo = new RadioSelector<String>(form);
-		selectorTipo.bindItemsToProperty("tipos");
-		selectorTipo.bindValueToProperty("tipoSeleccionado");
-
+		
+		Panel tax = new Panel(form).setLayout(new HorizontalLayout());
+		CheckBox taxativa = new CheckBox(tax);
+		taxativa.bindValueToProperty("taxativa");
+		Label etiquetaTaxativa = new Label(tax);
+		etiquetaTaxativa.setText("Condicion taxativa");
+		
+		Panel comp = new Panel(form).setLayout(new HorizontalLayout());
+		CheckBox comparativa = new CheckBox(comp);
+		comparativa.bindValueToProperty("comparativa");
+		Label etiquetaComparativa = new Label(comp);
+		etiquetaComparativa.setText("Condicion comparativa");
+		
 		Panel mini = new Panel(form);
 		mini.setLayout(new HorizontalLayout());
 
@@ -63,7 +73,8 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 
 		NumericField num = new NumericField(mini);
 		num.setWidth(50).bindValueToProperty("valor");
-		num.bindEnabledToProperty("tipoSeleccionado");
+		num.bindEnabledToProperty("taxativa");
+		num.bindVisibleToProperty("taxativa");
 
 		Panel miniBis = new Panel(form);
 		miniBis.setLayout(new HorizontalLayout());
