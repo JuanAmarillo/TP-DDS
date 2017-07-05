@@ -38,6 +38,7 @@ public class CuentasConIndicadoresWindow extends Dialog<CuentasConIndicadoresVM>
 		Table<Cuenta> cuentas = new Table<Cuenta>(formTabla, Cuenta.class);
 		cuentas.bindItemsToProperty("cuentas");
 		cuentas.bindValueToProperty("cuentaSeleccionada");
+		cuentas.setWidth(500);
 
 		new Column<Cuenta>(cuentas).setTitle("Cuenta").setFixedSize(150).bindContentsToProperty("nombre");
 		new Column<Cuenta>(cuentas).setTitle("Balance").setFixedSize(150).bindContentsToProperty("balance");
@@ -51,7 +52,7 @@ public class CuentasConIndicadoresWindow extends Dialog<CuentasConIndicadoresVM>
 				CalculadorDeIndicador.class);
 		calculadores.bindItemsToProperty("calculadores");
 		calculadores.bindValueToProperty("calculadorSeleccionado");
-
+		calculadores.setWidth(500);
 		new Column<CalculadorDeIndicador>(calculadores).setTitle("Indicador").setFixedSize(150)
 				.bindContentsToProperty("nombre");
 		new Column<CalculadorDeIndicador>(calculadores).setTitle("Valor").setFixedSize(150)
