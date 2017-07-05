@@ -27,20 +27,17 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 
 	@Override
 	protected void createFormPanel(Panel formPanel) {
-		Label titulo = new Label(formPanel);
-		titulo.setText("Agregar una nueva condicion");
 		Panel condicionesPanel = new Panel(formPanel);
-		condicionesPanel.setLayout(new HorizontalLayout());
+		condicionesPanel.setLayout(new ColumnLayout(1));
 		
 		this.listaCondiciones(condicionesPanel);
 		this.condicionPersonalizada(condicionesPanel);
 	}
 
 	public void listaCondiciones(Panel condicionesPanel) {
-		Panel form = new Panel(condicionesPanel);
-		new Label(form).setText("Condiciones cargadas");
-		List<Condicion> condiciones = new List<Condicion>(form);
-		ViewUtils.setSize(150, 100, condiciones);
+		new Label(condicionesPanel).setText("Condiciones cargadas");
+		List<Condicion> condiciones = new List<Condicion>(condicionesPanel);
+		ViewUtils.setSize(300, 200, condiciones);
 		condiciones.bindItemsToProperty("condiciones");
 		condiciones.bindValueToProperty("condicionSeleccionada");
 	}
@@ -48,7 +45,8 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 	public void condicionPersonalizada(Panel condicionPanel) {
 		Panel form = new Panel(condicionPanel);
 		form.setLayout(new ColumnLayout(1));
-		
+		Label titulo = new Label(form);
+		titulo.setText("Agregar una nueva condicion");
 		Panel nombreCondicion = new Panel(form);
 		Label etiquetaNombre = new Label(nombreCondicion);
 		etiquetaNombre.setText("Nombre de la condicion: ");

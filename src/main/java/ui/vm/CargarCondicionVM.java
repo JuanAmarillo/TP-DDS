@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.uqbar.arena.windows.Dialog;
+import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import domain.condiciones.Condicion;
@@ -31,12 +32,19 @@ public class CargarCondicionVM {
 
 	public double valor;
 
+	public CargarCondicionVM() {
+		condiciones = RepositorioCondiciones.instance().getNombresDeCondiciones();
+	}
+	
 	public void cargarCondicion() {
 		if(taxativa) {
 			crearCondicionTaxativa();
 		}
-		else
+		else {
 			crearCondicionComparativa();
+		}
+		ObservableUtils.firePropertyChanged(this, "condiciones");
+		
 	}
 	
 	private void completarBuild(Condicion condicion) {
@@ -68,7 +76,7 @@ public class CargarCondicionVM {
 	}
 
 	public List<String> getCondiciones() {
-		return condiciones;
+		return RepositorioCondiciones.instance().getNombresDeCondiciones();
 	}
 
 	public String getCondicionSeleccionada() {
@@ -79,7 +87,11 @@ public class CargarCondicionVM {
 		this.condicionSeleccionada = condicionSeleccionada;
 	}
 
-	public java.util.List<String> getIndicadores() {
+	public void setIndicadores(List<String> indicadores) {
+		this.indicadores = indicadores;
+	}
+	
+	public List<String> getIndicadores() {
 		return RepositorioIndicadores.instance().getNombresDeIndicadores();
 	}
 
