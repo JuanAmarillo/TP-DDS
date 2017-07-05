@@ -68,10 +68,7 @@ public class CuentasConIndicadoresWindow extends Dialog<CuentasConIndicadoresVM>
 		selectorEmpresa.bindValueToProperty("empresaSeleccionada");
 
 		new Label(form).setText("Periodo");
-		Selector<String> selectorPeriodo = new Selector<String>(form).allowNull(false);
-		selectorPeriodo.setWidth(150);
-		selectorPeriodo.bindItemsToProperty("periodos");
-		selectorPeriodo.bindValueToProperty("periodoSeleccionado");
+		ViewUtils.crearSelector(form, "periodos", "periodoSeleccionado");
 
 	}
 

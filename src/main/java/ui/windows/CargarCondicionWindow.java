@@ -36,10 +36,8 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 
 	public void listaCondiciones(Panel condicionesPanel) {
 		new Label(condicionesPanel).setText("Condiciones cargadas");
-		List<Condicion> condiciones = new List<Condicion>(condicionesPanel);
-		ViewUtils.setSize(300, 200, condiciones);
-		condiciones.bindItemsToProperty("condiciones");
-		condiciones.bindValueToProperty("condicionSeleccionada");
+		ViewUtils.crearLista(condicionesPanel, "condiciones", "condicionSeleccionada").setHeight(200)
+			.setWidth(300);
 	}
 
 	public void condicionPersonalizada(Panel condicionPanel) {
@@ -68,14 +66,8 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 		
 		Panel mini = new Panel(form);
 		mini.setLayout(new HorizontalLayout());
-
-		Selector<Indicador> selectorIndicador = new Selector<Indicador>(mini).allowNull(false);
-		selectorIndicador.bindItemsToProperty("indicadores");
-		selectorIndicador.bindValueToProperty("indicadorSeleccionado");
-
-		Selector<String> selectorOperacion = new Selector<String>(mini).allowNull(false);
-		selectorOperacion.bindItemsToProperty("operaciones");
-		selectorOperacion.bindValueToProperty("operacionSeleccionada");
+		ViewUtils.crearSelector(mini, "indicadores","indicadorSeleccionado");
+		ViewUtils.crearSelector(mini, "operaciones", "operacionSeleccionada");
 
 		NumericField num = new NumericField(mini);
 		num.setWidth(50).bindValueToProperty("valor");
@@ -85,14 +77,15 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 		Panel miniBis = new Panel(form);
 		miniBis.setLayout(new HorizontalLayout());
 
-		new Button(miniBis).setCaption("Cargar condición").onClick(this::cargarCondicion); // .onClick(this::cargarCondicion);
-		new Button(miniBis).setCaption("Eliminar condición").onClick(this::eliminarCondicion);
+		ViewUtils.crearBoton(miniBis, "Cargar condicion", this::cargarCondicion);
+		ViewUtils.crearBoton(miniBis, "Eliminar condicion", this::eliminarCondicion);
+
 
 	}
 
 	@Override
 	protected void addActions(Panel panelActions) {
-		new Button(panelActions).setCaption("Volver").onClick(this::accept).setAsDefault();
+		ViewUtils.crearBoton(panelActions, "Volver", this::accept);
 	}
 	
 	public void cargarCondicion() {
