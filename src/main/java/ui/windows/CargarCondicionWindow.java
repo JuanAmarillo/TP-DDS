@@ -19,21 +19,21 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 
 	@Override
 	protected void createFormPanel(Panel formPanel) {
-		Panel condicionesPanel = ViewUtils.crearPanel(formPanel, new ColumnLayout(1));
+		Panel condicionesPanel = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
 		listaCondiciones(condicionesPanel);
 		condicionPersonalizada(condicionesPanel);
 	}
 
 	public void listaCondiciones(Panel condicionesPanel) {
-		new Label(condicionesPanel).setText("Condiciones cargadas");
-		ViewUtils.crearLista(condicionesPanel, "condiciones", "condicionSeleccionada").setHeight(200)
+		Panel formLista = new Panel(condicionesPanel);
+		new Label(formLista).setText("Condiciones cargadas");
+		ViewUtils.crearLista(formLista, "condiciones", "condicionSeleccionada").setHeight(200)
 			.setWidth(300);
 	}
 
 	public void condicionPersonalizada(Panel condicionPanel) {
 		Panel form = ViewUtils.crearPanel(condicionPanel, new ColumnLayout(1));
-		new Label(form).setText("Agregar una nueva condicion");
-		
+		new Label(form).setText("Agregar una nueva condición");
 		escribirNombreDeCondicion(form);
 		elegirTipoDeCondicion(form);
 		crearCondicion(form);
@@ -42,8 +42,8 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 
 	private void accionesPosibles(Panel form) {
 		Panel miniBis = ViewUtils.crearPanel(form, new HorizontalLayout());
-		ViewUtils.crearBoton(miniBis, "Cargar condicion", this::cargarCondicion);
-		ViewUtils.crearBoton(miniBis, "Eliminar condicion", this::eliminarCondicion);
+		ViewUtils.crearBoton(miniBis, "Cargar condición", this::cargarCondicion);
+		ViewUtils.crearBoton(miniBis, "Eliminar condición", this::eliminarCondicion);
 	}
 
 	private void crearCondicion(Panel form) {
@@ -61,14 +61,14 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 	}
 
 	private void elegirTipoDeCondicion(Panel form) {
-		ViewUtils.crearCheckBoxEnNuevoPanel(form, "taxativa",    "Condicion taxativa"   );
-		ViewUtils.crearCheckBoxEnNuevoPanel(form, "comparativa", "Condicion comparativa");
+		ViewUtils.crearCheckBoxEnNuevoPanel(form, "taxativa",    "condición taxativa"   );
+		ViewUtils.crearCheckBoxEnNuevoPanel(form, "comparativa", "condición comparativa");
 	}
 
 
 	private void escribirNombreDeCondicion(Panel form) {
 		Panel nombreCondicion = new Panel(form);
-		new Label(nombreCondicion).setText("Nombre de la condicion: ");
+		new Label(nombreCondicion).setText("Nombre de la condición: ");
 		new TextBox(nombreCondicion).bindValueToProperty("nombreCondicion");
 	}
 
