@@ -25,9 +25,7 @@ public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 
 	@Override
 	protected void createFormPanel(Panel formPanel) {
-		Panel indicadoresPanel = new Panel(formPanel);
-		indicadoresPanel.setLayout(new HorizontalLayout());
-
+		Panel indicadoresPanel = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
 		this.listaIndicadores(indicadoresPanel);
 		this.indicadorPersonalizado(indicadoresPanel);
 
@@ -36,25 +34,29 @@ public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 	public void listaIndicadores(Panel indicadoresPanel) {
 		Panel form = new Panel(indicadoresPanel);
 		new Label(form).setText("Indicadores Cargados");
-		List<IndicadorCustom> indicadores = new List<IndicadorCustom>(form);
+		List<IndicadorCustom> indicadores = ViewUtils.crearLista(form, "indicadores", "indicadorSeleccionado");
 		ViewUtils.setSize(150, 100, indicadores);
-		indicadores.bindItemsToProperty("indicadores");
-		indicadores.bindValueToProperty("indicadorSeleccionado");
 	}
 
 	public void indicadorPersonalizado(Panel indicadoresPanel) {
-		Panel form = new Panel(indicadoresPanel);
-		form.setLayout(new ColumnLayout(1));
+		Panel form = ViewUtils.crearPanel(indicadoresPanel, new ColumnLayout(1));
+		escribirIndicador(form);
+		accionesIndicador(form);
+	}
 
+	private void escribirIndicador(Panel form) {
 		new Label(form).setText("Indicador personalizado");
 		new TextBox(form).setWidth(250).bindValueToProperty("indicador");
-		new Button(form).setCaption("Cargar indicador").onClick(this::cargarIndicador);
-		new Button(form).setCaption("Eliminar indicador").onClick(this::eliminarIndicador);
+	}
+
+	private void accionesIndicador(Panel form) {
+		ViewUtils.crearBoton(form, "Cargar indicador"  , this::cargarIndicador);
+		ViewUtils.crearBoton(form, "Eliminar indicador", this::eliminarIndicador);
 	}
 
 	@Override
 	protected void addActions(Panel panelActions) {
-		new Button(panelActions).setCaption("Volver").onClick(this::accept).setAsDefault();
+		ViewUtils.crearBoton(panelActions, "Volver", this::accept);
 	}
 
 	public void eliminarIndicador() {

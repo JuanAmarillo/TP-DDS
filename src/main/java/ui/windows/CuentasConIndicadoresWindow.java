@@ -59,8 +59,7 @@ public class CuentasConIndicadoresWindow extends Dialog<CuentasConIndicadoresVM>
 	}
 
 	protected void selectorEmpresasPeriodos(Panel formPanel) {
-		Panel form = new Panel(formPanel);
-		form.setLayout(new ColumnLayout(2));
+		Panel form = ViewUtils.crearPanel(formPanel, new ColumnLayout(2));
 
 		new Label(form).setText("Empresa");
 		Selector<Empresa> selectorEmpresa = new Selector<Empresa>(form).allowNull(false);
@@ -73,7 +72,7 @@ public class CuentasConIndicadoresWindow extends Dialog<CuentasConIndicadoresVM>
 	}
 
 	protected void addActions(Panel actions) {
-		new Button(actions).setCaption("Volver").onClick(this::accept).setAsDefault();
+		ViewUtils.crearBoton(actions, "Volver", this::accept);
 	}
 
 }

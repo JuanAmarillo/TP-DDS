@@ -22,9 +22,8 @@ public class CargarCuentaWindow extends Dialog<CargarCuentaVM> {
 
 	@Override
 	protected void createFormPanel(Panel formPanel) {
-		Panel form = new Panel(formPanel);
-		form.setLayout(new ColumnLayout(2));
 		this.setTitle("Cargar cuentas de una empresa");
+		Panel form = ViewUtils.crearPanel(formPanel, new ColumnLayout(2));
 
 		new Label(form).setText("Seleccione archivo");
 		new FileSelector(form).path("src/test/resources").setCaption("Examinar").bindValueToProperty("filePath");
@@ -34,8 +33,8 @@ public class CargarCuentaWindow extends Dialog<CargarCuentaVM> {
 	@Override
 	protected void addActions(Panel panelActions) {
 		panelActions.setLayout(new HorizontalLayout());
-		new Button(panelActions).setCaption("Volver").onClick(this::accept).setAsDefault();
-		new Button(panelActions).setCaption("Cargar").onClick(this::cargarArchivo);
+		ViewUtils.crearBoton(panelActions, "Volver", this::accept);
+		ViewUtils.crearBoton(panelActions, "Cargar", this::cargarArchivo);
 	}
 
 	public void cargarArchivo() {
@@ -44,6 +43,8 @@ public class CargarCuentaWindow extends Dialog<CargarCuentaVM> {
 			this.showInfo("Se ha cargado con éxito el archivo");
 		} catch (IOException e) {
 			this.showWarning("El archivo seleccionado posee un formato incorrecto");
+		} catch (RuntimeException e){
+			this.showError("Seleccione un archivo a cargar");
 		}
 	}
 

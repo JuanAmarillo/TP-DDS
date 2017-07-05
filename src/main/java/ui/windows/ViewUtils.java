@@ -1,5 +1,4 @@
 package ui.windows;
-import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.layout.Layout;
 import org.uqbar.arena.widgets.Button;
@@ -31,6 +30,7 @@ public class ViewUtils {
 		}
 	}
 	
+	/* ver si vale la pena meter un Label en el selector*/
 	public static <T> Selector<T> crearSelector(Panel panelAUsar, String elementos ,String elementoSeleccionado){
 		Selector<T> selector = new Selector<T>(panelAUsar).allowNull(false);
 		bindearElementos(elementos, elementoSeleccionado, selector);
