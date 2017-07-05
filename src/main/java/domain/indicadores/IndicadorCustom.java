@@ -14,7 +14,14 @@ public class IndicadorCustom extends Indicador {
 	@JsonIgnore
 	public Calculable calculo;
 
-	public IndicadorCustom() {
+	public IndicadorCustom(){
+		
+	}
+	
+	public IndicadorCustom(String nombre,String ecuacion,Calculable calculo) {
+		this.nombre   = nombre;
+		this.ecuacion = ecuacion;
+		this.calculo  = calculo;
 	}
 
 	public Double calcularIndicador(Empresa empresa, String periodo) {

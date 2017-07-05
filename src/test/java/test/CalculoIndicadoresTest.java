@@ -47,10 +47,10 @@ public class CalculoIndicadoresTest {
 
 	private void cargarIndicadores() {
 		BuilderIndicadorCustom builderPasivo = new BuilderIndicadorCustom("Pasivo Corriente = Deudas Bancarias + Deudas Comerciales + Deudas del Estado");
-		pasivoCorriente = builderPasivo.analizar().generarIndicador().build();
+		pasivoCorriente = builderPasivo.analizar().setEcuacion().setCalculo().build();
 		RepositorioIndicadores.instance().agregarIndicador(pasivoCorriente);
 		BuilderIndicadorCustom builderAcido = new BuilderIndicadorCustom("Prueba Acida = (Caja y bancos + Inversiones) / Pasivo Corriente ");
-		pruebaAcida = builderAcido.analizar().generarIndicador().build();
+		pruebaAcida = builderAcido.analizar().setEcuacion().setCalculo().build();
 		RepositorioIndicadores.instance().agregarIndicador(pruebaAcida);
 		
 	}

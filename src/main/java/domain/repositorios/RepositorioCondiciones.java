@@ -21,8 +21,8 @@ public class RepositorioCondiciones implements Repositorio<DatosCondiciones> {
 
 	private static void cargarNuevaInstancia() {
 		condicionesCargadas= new ArrayList<Condicion>();
-		agregarPredeterminados();
 		instance = new RepositorioCondiciones();
+		agregarPredeterminados();
 	}
 
 	private static boolean noHayInstanciaCargada() {

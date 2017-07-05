@@ -24,7 +24,7 @@ public class RepositorioIndicadoresTest {
 
 	public Indicador buscarIndicador(String ecuacion) {
 		BuilderIndicadorCustom builderNombre = new BuilderIndicadorCustom(ecuacion);
-		String nombre = builderNombre.analizar().generarIndicador().getNombre();
+		String nombre = new BuilderIndicadorCustom(ecuacion).generarNombre(ecuacion);
 		return RepositorioIndicadores.instance().buscarIndicador(nombre).get();
 	}
 
