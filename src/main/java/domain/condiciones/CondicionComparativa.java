@@ -3,6 +3,7 @@ package domain.condiciones;
 import org.apache.commons.lang.NotImplementedException;
 
 import domain.Empresa;
+import net.sf.oval.exception.MethodNotFoundException;
 
 public class CondicionComparativa extends Condicion {
 
@@ -29,7 +30,7 @@ public class CondicionComparativa extends Condicion {
 
 	@Override
 	public boolean comparar() {
-		throw new NotImplementedException();
+		throw new MethodNotFoundException("Comparacion de Indicadores");
 	}
 
 }

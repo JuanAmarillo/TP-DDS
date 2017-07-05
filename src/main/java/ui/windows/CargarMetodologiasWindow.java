@@ -12,9 +12,9 @@ import org.uqbar.arena.windows.WindowOwner;
 import domain.Empresa;
 import domain.condiciones.Condicion;
 
-public class VerMetodologiasWindow extends Dialog<VerMetodologiasVM> {
+public class CargarMetodologiasWindow extends Dialog<VerMetodologiasVM> {
 
-	public VerMetodologiasWindow(WindowOwner parent) {
+	public CargarMetodologiasWindow(WindowOwner parent) {
 		super(parent, new VerMetodologiasVM());
 	}
 

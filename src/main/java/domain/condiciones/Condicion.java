@@ -15,6 +15,11 @@ public abstract class Condicion {
 	
 	public abstract boolean comparar();
 	
+	public boolean esOperadorMayor() {
+		if( operador.equals(">")) { return true; }
+		return false;
+	}
+	
 	public boolean esCustom(){ 
 		return esCustom;
 	}
