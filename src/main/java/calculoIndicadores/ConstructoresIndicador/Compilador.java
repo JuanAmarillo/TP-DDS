@@ -9,7 +9,7 @@ public class Compilador extends TokenToOperationTranslator{
 	private Stack<Calculable> lexemas;
 	private Stack<Token> operadores;
 
-	protected Compilador(List<String> tokens) {
+	public Compilador(List<String> tokens) {
 		super(tokens);
 		this.operadores = new Stack<Token>();
 		this.lexemas =  new Stack<Calculable>();
@@ -27,18 +27,8 @@ public class Compilador extends TokenToOperationTranslator{
 	}
 	
 	private void asignarToken(String token){
-		if(esUnNumero(token))
-			numero(token);
-		else if(esUnOperador(token))
-			operador(token);
-		else if(esUnParentesisIzquierdo(token))
-			parentesisIzquierdo();
-		else if(esUnParentesisDerecho(token))
-			parentesisDerecho();
-		else if(esUnTexto(token))
-			cuentaOIndicador(token);
-//		Arrays.asList(EnumLoco.values()).stream().filter(a-> a.matches(token)).findFirst().get()
-//			.createOperation(token, this);
+		Arrays.asList(EnumLoco.values()).stream().filter(a-> a.matches(token)).findFirst().orElseThrow(()->new RuntimeException("Dale vijea"))
+			.createOperation(token, this);
 	}
 	
 	public void numero(String token){

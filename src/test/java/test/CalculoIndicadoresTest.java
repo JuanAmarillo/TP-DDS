@@ -49,9 +49,11 @@ public class CalculoIndicadoresTest {
 	}
 
 	private void cargarIndicadores() {
+		
 		BuilderIndicadorCustom builderPasivo = new BuilderIndicadorCustom("Pasivo Corriente = Deudas Bancarias + Deudas Comerciales + Deudas del Estado");
 		pasivoCorriente = builderPasivo.analizar().setEcuacion().setCalculo().build();
 		RepositorioIndicadores.instance().agregarIndicador(pasivoCorriente);
+		
 		BuilderIndicadorCustom builderAcido = new BuilderIndicadorCustom("Prueba Acida = (Caja y bancos + Inversiones) / Pasivo Corriente ");
 		pruebaAcida = builderAcido.analizar().setEcuacion().setCalculo().build();
 		RepositorioIndicadores.instance().agregarIndicador(pruebaAcida);
@@ -81,6 +83,18 @@ public class CalculoIndicadoresTest {
 		RepositorioIndicadores.resetSingleton();
 	}
 
+	@Test
+	public void testCalculaUnUno(){
+		Calculable calculo = compilarExpresion("1");
+		elCalculoDa(calculo, 1.0);
+	}
+	
+	@Test
+	public void testCalculaUnaSuma(){
+		Calculable calculo = compilarExpresion("1+2");
+		elCalculoDa(calculo, 3.0);
+	}
+	
 	@Test
 	public void testDaPrioridadALosOperadores() {
 		Calculable calculo = compilarExpresion("5 - 50 * 2 + 3/3 - 1 + 2 *3 ");

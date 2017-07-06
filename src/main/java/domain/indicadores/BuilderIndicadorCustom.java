@@ -50,7 +50,7 @@ public class BuilderIndicadorCustom {
 	}
 	
 	public BuilderIndicadorCustom setCalculo(){
-		this.calculo = new Analizador(ecuacion).compilar();
+		this.calculo = new Analizador(expresion).compilar();
 		return this;
 	}
 	
