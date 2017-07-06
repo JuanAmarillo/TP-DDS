@@ -13,10 +13,11 @@ public class PreparadorDeEmpresas {
 	public static List<Empresa> prepararEmpresas() {
 		List<Empresa> empresas = new ArrayList<Empresa>();
 		empresas.add(prepararEmpresa("Coca-Cola", 2500.0, 10000.0, 1890));
+		empresas.add(prepararEmpresa("Sorny", 1000.0, 10.0, 2010));
 		empresas.add(prepararEmpresa("MagnetBox", -2000.0, 3000.0, 2010));
 		empresas.add(prepararEmpresa("Pepsi-Co", 1000.0, 2000.0, 1900));
 		empresas.add(prepararEmpresa("Panaphonics", 1000.0, 5000000.0, 2015));
-		empresas.add(prepararEmpresa("Sorny", 1000.0, 10.0, 2010));
+
 		return empresas;
 	}
 	

@@ -1,9 +1,6 @@
 package domain.metodologias;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import domain.Empresa;
 import domain.condiciones.CondicionComparativa;

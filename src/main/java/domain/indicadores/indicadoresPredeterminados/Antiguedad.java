@@ -1,5 +1,7 @@
 package domain.indicadores.indicadoresPredeterminados;
 
+import org.joda.time.DateTime;
+
 import domain.Empresa;
 import domain.indicadores.IndicadorPredeterminado;
 
@@ -15,7 +17,7 @@ public class Antiguedad extends IndicadorPredeterminado{
 		
 	@Override
 	public Double calcularIndicador(Empresa empresa, String periodo){
-		return (double)(2017-empresa.getAnioFundacion());
+		return (double)(new DateTime().getYear() -empresa.getAnioFundacion());
 	}
 
 	@Override

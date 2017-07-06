@@ -27,6 +27,10 @@ public class MetodologiasTest {
 		empresas = PreparadorDeEmpresas.prepararEmpresas();
 	}
 	
+	private void imprimirNombres(List<Empresa> listaResultante) {
+		listaResultante.stream().forEach(empresa -> System.out.println(empresa.getNombre()));		
+	}
+	
 	public Metodologia prepararTaxativa(Metodologia superior, CondicionTaxativa condicion) {
 		return new AplicadorDeCondicionesTaxativas(superior, condicion);
 	}
@@ -45,5 +49,17 @@ public class MetodologiasTest {
 	public void testAplicarMetodologiaSimpleComparativa() {
 		List<Empresa> listaResultante = prepararComparativa(new ListaMetodologia(), new CEmpresaMayorAntiguedad()).aplicarMetodologia(empresas, "pascuas");
 		assertTrue(listaResultante.get(0).esLaMismaEmpresaQue(new Empresa().setNombre("Coca-Cola")));
+		assertTrue(listaResultante.get(1).esLaMismaEmpresaQue(new Empresa().setNombre("Pepsi-Co")));
 	}
+	
+	@Test
+	public void testOrdenaEnOrdenInverso() {
+		CondicionComparativa condicion = new CEmpresaMayorAntiguedad();
+		condicion.setOperador("<");
+		List<Empresa> listaResultante = prepararComparativa(new ListaMetodologia(), condicion).aplicarMetodologia(empresas, "pascuas");
+		assertTrue(listaResultante.get(0).esLaMismaEmpresaQue(new Empresa().setNombre("Panaphonics")));
+		assertTrue(listaResultante.get(1).esLaMismaEmpresaQue(new Empresa().setNombre("Sorny")));
+	}
+
+	
 }

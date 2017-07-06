@@ -38,7 +38,7 @@ public class CondicionesTest {
 	
 	private List<Empresa> aplicarCondicionALista(Condicion condicion) {
 		List<Empresa> listaEmpresas = new ArrayList<Empresa>();
-		listaEmpresas.addAll(Arrays.asList(empresa1,empresa2));
+		listaEmpresas.addAll(Arrays.asList(empresa2,empresa1));
 		listaEmpresas = condicion.aplicarCondicion(listaEmpresas, "pascuas");
 		return listaEmpresas;
 	}
