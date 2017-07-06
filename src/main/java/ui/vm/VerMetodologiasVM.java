@@ -5,53 +5,39 @@ import java.util.List;
 import org.uqbar.commons.utils.Observable;
 
 import domain.Empresa;
+import domain.metodologias.Metodologia;
 import domain.repositorios.RepositorioCondiciones;
 import domain.repositorios.RepositorioEmpresas;
+import domain.repositorios.RepositorioMetodologias;
 
 @Observable
 public class VerMetodologiasVM {
 
-	public String condicion;
-	public List<String> condiciones;
-	public String condicionSeleccionada;
+	public List<Metodologia> metodologias;
 
-	public String empresa;
+	public String metodologiaSeleccionada;
+
 	public List<Empresa> empresas;
 
-	public String getCondicion() {
-		return condicion;
-	}
-
-	public void setCondicion(String condicion) {
-		this.condicion = condicion;
-	}
-
-	public List<String> getCondiciones() {
-		return RepositorioCondiciones.instance().getNombresDeCondiciones();
-	}
-
-	public String getCondicionSeleccionada() {
-		return condicionSeleccionada;
-	}
-
-	public void setCondicionSeleccionada(String condicionSeleccionada) {
-		this.condicionSeleccionada = condicionSeleccionada;
-	}
-
-	public String getEmpresa() {
-		return empresa;
-	}
-
-	public void setEmpresa(String empresa) {
-		this.empresa = empresa;
-	}
 
 	public List<Empresa> getEmpresas() {
 		return RepositorioEmpresas.instance().getEmpresasCargadas();
 	}
+	
+	public List<Metodologia> getMetodologias() {
+		return RepositorioMetodologias.instance().getMetodologiasCargadas();
+	}
 
-	public void setEmpresas(List<Empresa> empresas) {
-		this.empresas = empresas;
+	public void setMetodologias(List<Metodologia> metodologia) {
+		this.metodologias = metodologia;
+	}
+
+	public String getMetodologiaSeleccionada() {
+		return metodologiaSeleccionada;
+	}
+
+	public void setMetodologiaSeleccionada(String metodologiaSeleccionada) {
+		this.metodologiaSeleccionada = metodologiaSeleccionada;
 	}
 
 }

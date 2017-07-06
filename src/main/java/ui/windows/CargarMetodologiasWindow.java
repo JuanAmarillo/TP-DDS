@@ -73,6 +73,7 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 	private void cargarMetodologia() {
 		try {
 			this.getModelObject().cargarMetodologia();
+			this.showInfo("La metodologia se cargo correctamente");
 		}
 		catch(RuntimeException e ) {this.showWarning(e.getMessage()); }
 	}

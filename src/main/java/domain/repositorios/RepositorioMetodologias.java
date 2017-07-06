@@ -37,4 +37,12 @@ public class RepositorioMetodologias {
 	public Optional<Metodologia> buscarMetodologia(String nombre) {
 		return metodologiasCargadas.stream().filter(metodologia -> metodologia.suNombreEs(nombre)).findFirst();
 	}
+	
+	public void agregarMetodologia(Metodologia metodologia) {
+		getMetodologiasCargadas().add(metodologia);
+	}
+
+	public List<Metodologia> getMetodologiasCargadas() {
+		return metodologiasCargadas;
+	}
 }

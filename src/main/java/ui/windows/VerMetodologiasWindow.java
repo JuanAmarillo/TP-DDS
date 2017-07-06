@@ -12,6 +12,7 @@ import org.uqbar.arena.windows.WindowOwner;
 
 import domain.Empresa;
 import domain.condiciones.Condicion;
+import domain.metodologias.Metodologia;
 
 public class VerMetodologiasWindow extends Dialog<VerMetodologiasVM> {
 
@@ -27,8 +28,9 @@ public class VerMetodologiasWindow extends Dialog<VerMetodologiasVM> {
 	}
 
 	public void listaMetodologias(Panel metodologiasPanel) {
-		Panel metods = ViewUtils.crearPanel(metodologiasPanel, new VerticalLayout(), "Condiciones cargadas");
-		List<Condicion> condiciones = ViewUtils.crearLista(metods, "condiciones", "condicionSeleccionada");
+		Panel metods = ViewUtils.crearPanel(metodologiasPanel, new VerticalLayout(), "Metodologias cargadas");
+		List<Metodologia> condiciones = ViewUtils.crearLista(metods, "metodologias", "metodologiaSeleccionada");
+		condiciones.bindItemsToProperty("metodologias").adaptWith(Metodologia.class, "nombre");
 		ViewUtils.setSize(250, 100, condiciones);
 		ViewUtils.crearBoton(metods, "Aplicar metodología", this::accept);
 	}
