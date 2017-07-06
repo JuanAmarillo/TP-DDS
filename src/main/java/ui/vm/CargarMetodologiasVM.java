@@ -58,8 +58,8 @@ public class CargarMetodologiasVM {
 	}
 	
 	private void validarNombre() {
-			if (nombreMetodologia.isEmpty())
-				throw new RuntimeException("No se ingreso un nombre para la metodologia");
+		if (nombreMetodologia.isEmpty())
+			throw new RuntimeException("No se ingreso un nombre para la metodologia");
 	}
 	
 	private void validarQueHayaAlgunaCondicion() {

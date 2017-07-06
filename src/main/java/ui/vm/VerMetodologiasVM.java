@@ -16,13 +16,13 @@ import domain.repositorios.RepositorioMetodologias;
 public class VerMetodologiasVM {
 
 	public List<String> metodologias;
-	public String metodologiaSeleccionada;
+	public String metodologiaSeleccionada = "";
 	
 	public List<String> empresas;
-	public String empresaSeleccionada;
+	public String empresaSeleccionada = "";
 	
 	public List<String> empresasCondicionadas;
-	public String empresaCondicionadaSeleccionada;
+	public String empresaCondicionadaSeleccionada = "";
 
 	public VerMetodologiasVM() {
 		empresas = new ArrayList<String>();
@@ -39,7 +39,8 @@ public class VerMetodologiasVM {
 	}
 
 	private void validarExistenciaDeEmpresas() {
-		if(empresas.size() == 0)
+		System.out.println(RepositorioEmpresas.instance().getEmpresasCargadas().size());
+		if(!RepositorioEmpresas.instance().tieneEmpresasCargadas())
 			throw new RuntimeException("No hay empresas cargadas en el sistema para aplicar la metodologia");
 	}
 	
