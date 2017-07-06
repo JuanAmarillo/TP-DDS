@@ -14,7 +14,6 @@ import org.junit.Test;
 
 import calculoIndicadores.Calculable;
 import calculoIndicadores.ConstructoresIndicador.Analizador;
-import calculoIndicadores.ConstructoresIndicador.EnumLoco;
 import domain.Cuenta;
 import domain.Empresa;
 import domain.indicadores.BuilderIndicadorCustom;

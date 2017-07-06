@@ -5,55 +5,39 @@ import java.util.List;
 import java.util.Stack;
 
 import calculoIndicadores.*;
-public class Compilador extends TokenToOperationTranslator{
+public class Compilador {
+	
 	private Stack<Calculable> lexemas;
 	private Stack<Token> operadores;
 
-	public Compilador(List<String> tokens) {
-		super(tokens);
+	public Compilador() {
 		this.operadores = new Stack<Token>();
 		this.lexemas =  new Stack<Calculable>();
 	}
 	
-	public Calculable compilar(){
-		armarArbolDeSintaxis();
+	public Calculable compilar(List<String> tokens){
+		armarArbolDeSintaxis(tokens);
 		return lexemas.pop();
 	}
 	
 	
-	private void armarArbolDeSintaxis(){
+	private void armarArbolDeSintaxis(List<String> tokens){
 		tokens.stream().forEach(unToken -> asignarToken(unToken));
 		armarOperadoresRestantes();
 	}
 	
 	private void asignarToken(String token){
-		Arrays.asList(EnumLoco.values()).stream().filter(a-> a.matches(token)).findFirst().orElseThrow(()->new RuntimeException("Dale vijea"))
-			.createOperation(token, this);
+		obtenerOperacion(token).createOperation(token, this);
+	}
+
+	private TokenToOperation obtenerOperacion(String token) {
+		return Arrays.asList(TokenToOperation.values()).stream().filter(operacion-> operacion.matches(token))
+				.findFirst().get();
 	}
 	
 	public void numero(String token){
 		Calculable numero = new Numero(Double.parseDouble(token));
 		lexemas.push(numero);
-	}
-	
-	public void operador(String token){
-		Operador operador = null;
-		switch(token){
-		case "+":
-			operador =  new Suma();
-			break;
-		case "-":
-			operador =  new Resta();
-			break;
-		case "*":
-			operador =  new Multiplicacion();
-			break;
-		case "/":
-			operador =  new Division();
-			break;
-		}
-		
-		ingresarOperador(operador);
 	}
 	
 	public void parentesisIzquierdo(){
