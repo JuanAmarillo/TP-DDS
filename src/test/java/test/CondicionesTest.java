@@ -2,6 +2,9 @@ package test;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,36 +16,42 @@ import domain.Empresa;
 import domain.condiciones.CondicionComparativa;
 import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
+import domain.indicadores.Indicador;
+import domain.indicadores.indicadoresPredeterminados.Antiguedad;
+import domain.indicadores.indicadoresPredeterminados.Solvencia;
 import domain.repositorios.RepositorioCondiciones;
 import domain.repositorios.RepositorioEmpresas;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 
 public class CondicionesTest {
 	
-	private Empresa empresa;
+	private Empresa empresa1 = new Empresa();
+	private Empresa empresa2 = new Empresa();
 	
-	private void prepararEmpresa() {
-		empresa = new Empresa();
-		empresa.setNombre("Mocka-Cola");
+	private Empresa prepararEmpresa(Empresa empTest, String nombre, Double pasivo, Double activo, int anioFundacion) {
+		Empresa empresa = new Empresa();
+		empresa.setNombre(nombre);
 		Set<Cuenta> cuentas = new HashSet<>();
-		Cuenta cuentita = new Cuenta("ZZZ", "periodo", 12345.6);
-		Cuenta cuentitaBis = new Cuenta("XXX", "periodo", 1000.0);
+		Cuenta cuentita = new Cuenta("PasivoTotal", "pascuas", pasivo);
+		Cuenta cuentitaBis = new Cuenta("ActivoTotal", "pascuas", activo);
 		cuentas.add(cuentita);
 		cuentas.add(cuentitaBis);
 		empresa.setCuentas(cuentas);
-		empresa.setAnioFundacion(1900);
+		empresa.setAnioFundacion(anioFundacion);
+		return empresa;
 	}
 	
 	@Before
 	public void init() {
-		prepararEmpresa();
+		empresa1 = prepararEmpresa(empresa1, "pepito", 2500.0, 10000.0, 1910);
+		empresa2 = prepararEmpresa(empresa2, "mamita", 1000.0, 2000.0, 1950);
 	}
 	
 	@Test
 	public void testCumpleCondicionTaxativaDeAntiguedad() {
 		TEmpresaMas10Años condicion = new TEmpresaMas10Años();
-		condicion.setEmpresa(empresa);
-		assertTrue(condicion.comparar());
+		condicion.setEmpresa(empresa1);
+		assertTrue(0 != condicion.comparar("pascuas"));
 	}
 	
 	@Test
@@ -50,8 +59,9 @@ public class CondicionesTest {
 		Empresa empresaMasJoven = new Empresa();
 		empresaMasJoven.setAnioFundacion(1950);
 		CEmpresaMayorAntiguedad condicion = new CEmpresaMayorAntiguedad();
-		condicion.setPrimerEmpresa(empresa).setSegundaEmpresa(empresaMasJoven);
-		assertTrue(condicion.comparar());
+		condicion.setIndicador(new Antiguedad());
+		condicion.setPrimerEmpresa(empresa1).setSegundaEmpresa(empresaMasJoven);
+		assertTrue( 0 != condicion.comparar("pascuas"));
 	}
 	
 	@Test
@@ -79,4 +89,16 @@ public class CondicionesTest {
 		RepositorioCondiciones.instance().eliminarCondicion("Comparativa - pepito");
 		assertEquals(2,RepositorioCondiciones.instance().cantidadDeCondiciones());
 	}
+	
+	@Test
+	public void testCondicionOrdenaLista() {
+		CondicionComparativa condicion = new CondicionComparativa("Prueba Sort");
+		condicion.setIndicador(new Antiguedad());
+		condicion.setOperador("<");
+		List<Empresa> listaEmpresas = new ArrayList<Empresa>();
+		listaEmpresas.addAll(Arrays.asList(empresa1,empresa2));
+		listaEmpresas = condicion.aplicarCondicion(listaEmpresas, "pascuas");
+		assertTrue(listaEmpresas.get(0).esLaMismaEmpresaQue(empresa1));
+	}
+	
 }

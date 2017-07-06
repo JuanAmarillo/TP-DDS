@@ -12,11 +12,6 @@ public class CondicionTaxativa extends Condicion {
 	public CondicionTaxativa(String nombre) {
 		this.nombre = "Taxativa - " + nombre;
 	}
-	
-	@Override
-	public boolean comparar() {
-		throw new NotImplementedException();
-	}
 
 	public Empresa getEmpresa() {
 		return empresa;
@@ -33,5 +28,15 @@ public class CondicionTaxativa extends Condicion {
 
 	public void setValorDeComparacion(Double valorDeComparacion) {
 		this.valorDeComparacion = valorDeComparacion;
+	}
+
+	@Override
+	public Double primerValor(String periodo) {
+		return indicador.calcularIndicador(empresa, periodo);
+	}
+
+	@Override
+	public Double segundoValor(String periodo) {
+		return valorDeComparacion;
 	}
 }
