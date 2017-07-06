@@ -5,7 +5,7 @@ import java.util.List;
 import domain.Empresa;
 import domain.condiciones.CondicionComparativa;
 
-public class AplicadorDeCondicionesComparativas implements Metodologia {
+public class AplicadorDeCondicionesComparativas extends Metodologia {
 
 	private Metodologia cadenaCondiciones;
 	private CondicionComparativa condicionAAplicar;
