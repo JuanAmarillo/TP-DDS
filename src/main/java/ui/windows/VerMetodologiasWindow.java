@@ -2,6 +2,7 @@ package ui.windows;
 
 import ui.vm.VerMetodologiasVM;
 import org.uqbar.arena.layout.HorizontalLayout;
+import org.uqbar.arena.layout.VerticalLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.List;
@@ -20,27 +21,20 @@ public class VerMetodologiasWindow extends Dialog<VerMetodologiasVM> {
 
 	@Override
 	protected void createFormPanel(Panel formPanel) {
-		// TODO Auto-generated method stub
-		Panel metodologiasPanel = new Panel(formPanel);
-		metodologiasPanel.setLayout(new HorizontalLayout());
+		Panel metodologiasPanel = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
 		this.listaMetodologias(metodologiasPanel);
 		this.listaEmpresas(metodologiasPanel);
 	}
 
 	public void listaMetodologias(Panel metodologiasPanel) {
-		Panel metods = new Panel(metodologiasPanel);
-		new Label(metods).setText("Condiciones cargadas");
-		List<Condicion> condiciones = new List<Condicion>(metods);
-		condiciones.setWidth(250);
-		condiciones.setHeight(100);
-		condiciones.bindItemsToProperty("condiciones");
-		condiciones.bindValueToProperty("condicionSeleccionada");
-		new Button(metods).setCaption("Aplicar metodología");
+		Panel metods = ViewUtils.crearPanel(metodologiasPanel, new VerticalLayout(), "Condiciones cargadas");
+		List<Condicion> condiciones = ViewUtils.crearLista(metods, "condiciones", "condicionSeleccionada");
+		ViewUtils.setSize(250, 100, condiciones);
+		ViewUtils.crearBoton(metods, "Aplicar metodología", this::accept);
 	}
 
 	public void listaEmpresas(Panel metodologiasPanel) {
-		Panel empr = new Panel(metodologiasPanel);
-		new Label(empr).setText("Empresas cargadas");
+		Panel empr = ViewUtils.crearPanel(metodologiasPanel, new VerticalLayout(), "Empresas cargadas");
 		List<Empresa> empresas = new List<Empresa>(empr);
 		empresas.setWidth(150);
 		empresas.setHeight(100);
@@ -49,7 +43,7 @@ public class VerMetodologiasWindow extends Dialog<VerMetodologiasVM> {
 
 	@Override
 	protected void addActions(Panel panelActions) {
-		new Button(panelActions).setCaption("Volver").onClick(this::accept).setAsDefault();
+		ViewUtils.crearBoton(panelActions, "Volver", this::accept);
 	}
 
 }
