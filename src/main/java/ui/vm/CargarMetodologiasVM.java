@@ -6,11 +6,8 @@ import java.util.List;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
-import domain.condiciones.Condicion;
-import domain.metodologias.AplicadorDeCondiciones;
 import domain.metodologias.Metodologia;
 import domain.repositorios.RepositorioCondiciones;
-import domain.repositorios.RepositorioMetodologias;
 
 @Observable
 public class CargarMetodologiasVM {
@@ -34,33 +31,11 @@ public class CargarMetodologiasVM {
 	private void inicializarStrings() {
 		condicionSeleccionada = "";
 		condicionAAgregarSeleccionada = "";
-		nombreMetodologia = "";
 	}
 
 	public void cargarMetodologia() {
-		realizarValidaciones();
-		prepararMetodologia();
-		ultimaCapa.setNombre(nombreMetodologia);
-		RepositorioMetodologias.instance().agregarMetodologia(ultimaCapa);
-	}
-	
-	private void prepararMetodologia() {
-		condicionesAAgregar.stream().forEach(cond -> agregarCapa(cond));
-	}
-	
-	private void agregarCapa(String nombreCond) {
-		Condicion cond = RepositorioCondiciones.instance().buscarCondicion(nombreCond).get();
-		ultimaCapa = new AplicadorDeCondiciones(ultimaCapa, cond);
-	}
-
-	private void realizarValidaciones() {
-		validarNombre();
 		validarQueHayaAlgunaCondicion();
-	}
-	
-	private void validarNombre() {
-		if (nombreMetodologia.isEmpty())
-			throw new RuntimeException("No se ingreso un nombre para la metodologia");
+		//RepositorioMetodologias.instance().agregarMetodologia(condicionesAAgregar);
 	}
 	
 	private void validarQueHayaAlgunaCondicion() {

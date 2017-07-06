@@ -21,9 +21,9 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 
 	@Override
 	protected void createFormPanel(Panel formPanel) {
-		tituloCreacionMetodologias(formPanel);
-		nombreMetodologiaACrear(formPanel);		
-		seleccionDeCondiciones(formPanel);
+		Panel panelCreacion = ViewUtils.crearPanel(formPanel, new ColumnLayout(1),"Creación de nuevas metodologias");
+		nombreMetodologiaACrear(panelCreacion);		
+		seleccionDeCondiciones(panelCreacion);
 	}
 
 	private void seleccionDeCondiciones(Panel formPanel) {
@@ -31,11 +31,6 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 		this.listaCondiciones(panelCondiciones);
 		this.botones(panelCondiciones);
 		this.listaDeLaMetodologia(panelCondiciones);
-	}
-
-	private void tituloCreacionMetodologias(Panel formPanel) {
-		formPanel.setLayout(new ColumnLayout(1));
-		new Label(formPanel).setText("Creación de nuevas metodologias");
 	}
 
 	private void nombreMetodologiaACrear(Panel formPanel) {
