@@ -44,6 +44,13 @@ public class MetodologiasTest {
 	@Test
 	public void testAplicarMetodologiaSimpleComparativa() {
 		List<Empresa> listaResultante = prepararComparativa(new ListaMetodologia(), new CEmpresaMayorAntiguedad()).aplicarMetodologia(empresas, "pascuas");
+		imprimirNombres(listaResultante);
 		assertTrue(listaResultante.get(0).esLaMismaEmpresaQue(new Empresa().setNombre("Coca-Cola")));
+		imprimirNombres(listaResultante);
+		assertTrue(listaResultante.get(1).esLaMismaEmpresaQue(new Empresa().setNombre("Pepsi-Co")));
+	}
+
+	private void imprimirNombres(List<Empresa> listaResultante) {
+		listaResultante.stream().forEach(empresa -> System.out.println(empresa.getNombre()));		
 	}
 }
