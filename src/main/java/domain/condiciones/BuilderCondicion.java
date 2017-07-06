@@ -2,6 +2,7 @@ package domain.condiciones;
 
 import domain.indicadores.Indicador;
 import domain.repositorios.RepositorioIndicadores;
+import exceptions.BuilderCondicionesException;
 
 public abstract class BuilderCondicion {
 	protected String nombre;
@@ -13,7 +14,7 @@ public abstract class BuilderCondicion {
 		if(!nombre.isEmpty())
 			this.nombre = nombre;
 		else
-			throw new RuntimeException("No se ingresó ningún nombre");
+			throw new BuilderCondicionesException("No se ingresó ningún nombre");
 		
 		return this;
 	}
@@ -22,7 +23,7 @@ public abstract class BuilderCondicion {
 		if(!operador.isEmpty())
 			this.operador = operador;
 		else
-			throw new RuntimeException("No se seleccionó ningún operador");
+			throw new BuilderCondicionesException("No se seleccionó ningún operador");
 		
 		return this;
 	}
@@ -31,7 +32,7 @@ public abstract class BuilderCondicion {
 		if(!indicador.isEmpty())
 			this.indicador = RepositorioIndicadores.instance().buscarIndicador(indicador).get();
 		else
-			throw new RuntimeException("No se seleccionó ningún indicador");
+			throw new BuilderCondicionesException("No se seleccionó ningún indicador");
 		
 		return this;
 	}
