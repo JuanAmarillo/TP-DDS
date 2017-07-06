@@ -46,8 +46,6 @@ public class CondicionComparativa extends Condicion {
 
 	public List<Empresa> aplicarCondicion(List<Empresa> listaEmpresas, String periodo) {
 		sortList(listaEmpresas, periodo);
-		if(esOperadorMayor()) 
-			listaEmpresas = listaEmpresas.stream().sorted(Collections.reverseOrder()).collect(Collectors.toList());
 		return listaEmpresas;
 			
 	}
