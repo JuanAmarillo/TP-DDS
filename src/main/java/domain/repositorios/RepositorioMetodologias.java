@@ -32,7 +32,8 @@ public class RepositorioMetodologias {
 	}
 	
 	public List<Metodologia> getCondicionesCargadas() {
-		return metodologiasCargadas;
+		List<Metodologia> mets = metodologiasCargadas;
+		return mets;
 	}
 	
 	public Optional<Metodologia> buscarMetodologia(String nombre) {

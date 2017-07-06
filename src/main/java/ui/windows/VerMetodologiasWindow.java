@@ -42,10 +42,9 @@ public class VerMetodologiasWindow extends Dialog<VerMetodologiasVM> {
 
 	public void listaEmpresas(Panel metodologiasPanel) {
 		Panel empr = ViewUtils.crearPanel(metodologiasPanel, new VerticalLayout(), "Empresas cargadas");
-		List<Empresa> empresas = new List<Empresa>(empr);
+		List<String> empresas = ViewUtils.crearLista(empr, "empresas", "empresaSeleccionada");
 		empresas.setWidth(150);
 		empresas.setHeight(100);
-		empresas.bindItemsToProperty("empresas").adaptWith(Empresa.class, "nombre");
 	}
 
 	@Override

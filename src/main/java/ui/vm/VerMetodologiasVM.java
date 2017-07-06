@@ -2,6 +2,7 @@ package ui.vm;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
@@ -17,14 +18,15 @@ public class VerMetodologiasVM {
 	public List<String> metodologias;
 	public String metodologiaSeleccionada;
 	
-	public List<Empresa> empresas ;
-
-	public List<Empresa> empresasCondicionadas;
+	public List<String> empresas;
+	public String empresaSeleccionada;
+	
+	public List<String> empresasCondicionadas;
 	public String empresaCondicionadaSeleccionada;
 
 	public VerMetodologiasVM() {
-		empresas = new ArrayList<Empresa>();
-		empresasCondicionadas = new ArrayList<Empresa>();
+		empresas = new ArrayList<String>();
+		empresasCondicionadas = new ArrayList<String>();
 		metodologias = new ArrayList<String>();
 		
 	}
@@ -32,7 +34,7 @@ public class VerMetodologiasVM {
 	public void aplicarMetodologia() {
 		validarExistenciaDeEmpresas();
 		Metodologia met = RepositorioMetodologias.instance().buscarMetodologia(metodologiaSeleccionada).get();
-		empresasCondicionadas = met.aplicarMetodologia(empresas, "pascuas");
+		empresasCondicionadas = met.aplicarMetodologia(RepositorioEmpresas.instance().getEmpresasCargadas(), "pascuas").stream().map(emp -> emp.getNombre()).collect(Collectors.toList());
 		ObservableUtils.firePropertyChanged(this, "empresasCondicionadas");
 	}
 
@@ -40,11 +42,13 @@ public class VerMetodologiasVM {
 		if(empresas.size() == 0)
 			throw new RuntimeException("No hay empresas cargadas en el sistema para aplicar la metodologia");
 	}
-	public List<Empresa> getEmpresas() {
-		return RepositorioEmpresas.instance().getEmpresasCargadas();
+	
+	public List<String> getEmpresas() {
+		return RepositorioEmpresas.instance().getNombreEmpresas();
 	}
 	
 	public List<String> getMetodologias() {
+		System.out.println(RepositorioMetodologias.instance().getMetodologiasCargadas().size());
 		return RepositorioMetodologias.instance().getNombresMetodologias();
 	}
 
@@ -60,16 +64,32 @@ public class VerMetodologiasVM {
 		this.metodologiaSeleccionada = metodologiaSeleccionada;
 	}
 	
-	public List<Empresa> getEmpresasCondicionadas() {
+	public List<String> getEmpresasCondicionadas() {
 		return empresasCondicionadas;
 	}
 
-	public void setEmpresasCondicionadas(List<Empresa> empresasCondicionadas) {
+	public void setEmpresasCondicionadas(List<String> empresasCondicionadas) {
 		this.empresasCondicionadas = empresasCondicionadas;
 	}
 
 	public String getEmpresaCondicionadaSeleccionada() {
 		return empresaCondicionadaSeleccionada;
+	}
+
+	public String getEmpresaSeleccionada() {
+		return empresaSeleccionada;
+	}
+
+	public void setEmpresaSeleccionada(String empresaSeleccionada) {
+		this.empresaSeleccionada = empresaSeleccionada;
+	}
+
+	public void setEmpresas(List<String> empresas) {
+		this.empresas = empresas;
+	}
+
+	public void setEmpresaCondicionadaSeleccionada(String empresaCondicionadaSeleccionada) {
+		this.empresaCondicionadaSeleccionada = empresaCondicionadaSeleccionada;
 	}
 	
 

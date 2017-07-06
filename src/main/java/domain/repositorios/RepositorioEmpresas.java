@@ -2,6 +2,7 @@ package domain.repositorios;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import domain.Empresa;
 
@@ -58,6 +59,11 @@ public class RepositorioEmpresas implements Repositorio<Empresa>{
 
 	public boolean tieneEmpresasCargadas() {
 		return empresasCargadas.size() > 0;
+	}
+
+	public List<String> getNombreEmpresas() {
+		List<Empresa> auxiliar = getEmpresasCargadas();
+		return auxiliar.stream().map(emp -> emp.getNombre()).collect(Collectors.toList());
 	}
 
 }
