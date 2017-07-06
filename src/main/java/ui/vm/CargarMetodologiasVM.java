@@ -20,10 +20,10 @@ public class CargarMetodologiasVM {
 	public List<String> condicionesComparativas;
 	public String comparativaSeleccionada;
 	
-	public String taxativaMetodologia;
+	public String taxativaMetodologiaSeleccionada;
 	public List<String> taxativasMetodologia;
 
-	public String comparativaMetodologia;
+	public String comparativaMetodologiaSeleccionada;
 	public List<String> comparativasMetodologia;
 	
 	public CargarMetodologiasVM() {
@@ -63,11 +63,11 @@ public class CargarMetodologiasVM {
 	public void setComparativaSeleccionada(String comparativa) {
 		this.comparativaSeleccionada = comparativa;
 	}
-	public String getTaxativaMetodologia() {
-		return taxativaMetodologia;
+	public String getTaxativaMetodologiaSeleccionada() {
+		return taxativaMetodologiaSeleccionada;
 	}
-	public void setTaxativaMetodologia(String taxativa) {
-		this.taxativaMetodologia = taxativa;
+	public void setTaxativaMetodologiaSeleccionada(String taxativa) {
+		this.taxativaMetodologiaSeleccionada = taxativa;
 	}
 	public List<String> getTaxativasMetodologia() {
 		return taxativasMetodologia;
@@ -75,11 +75,11 @@ public class CargarMetodologiasVM {
 	public void setTaxativasMetodologia(List<String> taxativasMetodologia) {
 		this.taxativasMetodologia = taxativasMetodologia;
 	}
-	public String getComparativaMetodologia() {
-		return comparativaMetodologia;
+	public String getComparativaMetodologiaSeleccionada() {
+		return comparativaMetodologiaSeleccionada;
 	}
-	public void setComparativaMetodologia(String comparativa) {
-		this.comparativaMetodologia = comparativa;
+	public void setComparativaMetodologiaSeleccionada(String comparativa) {
+		this.comparativaMetodologiaSeleccionada = comparativa;
 	}
 	public List<String> getComparativasMetodologia() {
 		return comparativasMetodologia;
