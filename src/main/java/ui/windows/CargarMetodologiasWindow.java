@@ -21,16 +21,26 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 
 	@Override
 	protected void createFormPanel(Panel formPanel) {
-		// TODO Auto-generated method stub
-		formPanel.setLayout(new ColumnLayout(1));
-		Label titulo = new Label(formPanel);
-		titulo.setText("Creación de nuevas metodologias");
-		new Label(formPanel).setText("Nombre");
-		new TextBox(formPanel).setWidth(250).bindValueToProperty("nombreMetodologia");
+		tituloCreacionMetodologias(formPanel);
+		nombreMetodologiaACrear(formPanel);		
+		seleccionDeCondiciones(formPanel);
+	}
+
+	private void seleccionDeCondiciones(Panel formPanel) {
 		Panel panelCondiciones = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
 		this.listaCondiciones(panelCondiciones);
 		this.botones(panelCondiciones);
 		this.listaDeLaMetodologia(panelCondiciones);
+	}
+
+	private void tituloCreacionMetodologias(Panel formPanel) {
+		formPanel.setLayout(new ColumnLayout(1));
+		new Label(formPanel).setText("Creación de nuevas metodologias");
+	}
+
+	private void nombreMetodologiaACrear(Panel formPanel) {
+		new Label(formPanel).setText("Nombre");
+		new TextBox(formPanel).setWidth(250).bindValueToProperty("nombreMetodologia");
 	}
 
 	private void listaDeLaMetodologia(Panel formPanel) {
@@ -79,3 +89,5 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 	}
 	
 }
+
+
