@@ -1,12 +1,13 @@
 package domain.condiciones;
 
+import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
 import domain.repositorios.RepositorioIndicadores;
 import exceptions.BuilderCondicionesException;
 
 public abstract class BuilderCondicion {
 	protected String nombre;
-	protected String operador;
+	protected OperadorCondicion operador;
 	protected Double value;
 	protected Indicador indicador;
 	
@@ -19,8 +20,8 @@ public abstract class BuilderCondicion {
 		return this;
 	}
 	
-	public BuilderCondicion setOperador(String operador){
-		if(!operador.isEmpty())
+	public BuilderCondicion setOperador(OperadorCondicion operador){
+		if(operador != null)
 			this.operador = operador;
 		else
 			throw new BuilderCondicionesException("No se seleccionó ningún operador");

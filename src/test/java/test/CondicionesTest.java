@@ -16,6 +16,7 @@ import domain.Empresa;
 import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
 import domain.condiciones.CondicionTaxativa;
+import domain.condiciones.OperadoresCondicion.Menor;
 import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.CEndeudamiento;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
@@ -93,7 +94,7 @@ public class CondicionesTest {
 	public void testCondicionOrdenaListaPorEmpresaMasJoven() {
 		CondicionComparativa condicion = new CondicionComparativa("Prueba Sort");
 		condicion.setIndicador(new Antiguedad());
-		condicion.setOperador("<");
+		condicion.setOperador(new Menor());
 		List<Empresa> listaEmpresas = aplicarCondicionALista(condicion);
 		assertTrue(listaEmpresas.get(0).esLaMismaEmpresaQue(prepararEmpresa(4)));
 	}

@@ -3,6 +3,7 @@ package domain.condiciones.condicionesPredeterminadas;
 import domain.Empresa;
 import domain.condiciones.Condicion;
 import domain.condiciones.CondicionTaxativa;
+import domain.condiciones.OperadoresCondicion.Mayor;
 import domain.indicadores.indicadoresPredeterminados.Antiguedad;
 
 public class TEmpresaMas10Años extends CondicionTaxativa {
@@ -12,7 +13,7 @@ public class TEmpresaMas10Años extends CondicionTaxativa {
 		this.esCustom = false;
 		this.setValorDeComparacion(10.0);
 		this.setIndicador(new Antiguedad());
-		this.setOperador(">");
+		this.setOperador(new Mayor());
 	}
 	
 	public String getEcuacion(){

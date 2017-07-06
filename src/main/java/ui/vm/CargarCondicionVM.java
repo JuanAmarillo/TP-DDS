@@ -13,6 +13,9 @@ import domain.condiciones.BuilderCondicionTaxativa;
 import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
 import domain.condiciones.CondicionTaxativa;
+import domain.condiciones.OperadoresCondicion.Mayor;
+import domain.condiciones.OperadoresCondicion.Menor;
+import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.repositorios.RepositorioCondiciones;
 import domain.repositorios.RepositorioIndicadores;
 import ui.windows.CargarCondicionWindow;
@@ -23,7 +26,7 @@ public class CargarCondicionVM {
 	public String nombreCondicion = "";
 	public String condicionSeleccionada = "";
 	public String indicadorSeleccionado = "";
-	public String operacionSeleccionada = "";
+	public OperadorCondicion operacionSeleccionada;
 
 	public boolean taxativa = false;
 	public boolean comparativa = false;
@@ -105,15 +108,15 @@ public class CargarCondicionVM {
 		this.indicadorSeleccionado = indicadorSeleccionado;
 	}
 
-	public List<String> getOperaciones() {
-		return Arrays.asList(">", "<");
+	public List<OperadorCondicion> getOperaciones() {
+		return Arrays.asList(new Mayor(), new Menor());
 	}
 
-	public String getOperacionSeleccionada() {
+	public OperadorCondicion getOperacionSeleccionada() {
 		return operacionSeleccionada;
 	}
 
-	public void setOperacionSeleccionada(String operacionSeleccionada) {
+	public void setOperacionSeleccionada(OperadorCondicion operacionSeleccionada) {
 		this.operacionSeleccionada = operacionSeleccionada;
 	}
 

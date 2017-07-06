@@ -3,6 +3,7 @@ package domain.condiciones;
 import java.util.List;
 
 import domain.Empresa;
+import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
 import exceptions.NoSePuedeCalcularException;
 
@@ -10,22 +11,13 @@ public abstract class Condicion {
 
 	protected String nombre;
 	public    Indicador indicador;
-	public    String operador;
+	public    OperadorCondicion operador;
 	public    Boolean esCustom = true;
 	
 	public abstract List<Empresa> aplicarCondicion(List<Empresa> listaEmpresas, String string);
 	
-	public int comparar (Double primerValor, Double segundoValor) { 
-		Double valor;
-		if(esOperadorMayor()) 
-			valor = primerValor - segundoValor;
-		else
-			valor = segundoValor - primerValor;
-		return valor.intValue();
-	}
-	
-	public boolean esOperadorMayor() {
-		return operador.equals(">");
+	public int comparar (Double valorIndicadorUno, Double valorIndicadorDos) { 
+		return operador.comparar(valorIndicadorUno, valorIndicadorDos);
 	}
 	
 	public void checkearCalculabilidad(Empresa empresa,String periodo) {
@@ -57,11 +49,11 @@ public abstract class Condicion {
 		this.indicador = indicador;
 	}
 
-	public String getOperador() {
+	public OperadorCondicion getOperador() {
 		return operador;
 	}
 
-	public void setOperador(String operador) {
+	public void setOperador(OperadorCondicion operador) {
 		this.operador = operador;
 	}
 

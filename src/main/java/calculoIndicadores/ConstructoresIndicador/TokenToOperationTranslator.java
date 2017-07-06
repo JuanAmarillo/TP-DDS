@@ -1,6 +1,5 @@
 package calculoIndicadores.ConstructoresIndicador;
 
-import java.util.List;
 
 import domain.Empresa;
 import domain.repositorios.RepositorioIndicadores;

@@ -11,6 +11,7 @@ import domain.Empresa;
 import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
 import domain.condiciones.CondicionTaxativa;
+import domain.condiciones.OperadoresCondicion.Menor;
 import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
 import domain.metodologias.AplicadorDeCondicionesComparativas;
@@ -63,7 +64,7 @@ public class MetodologiasTest {
 	@Test
 	public void testOrdenaEnOrdenInverso() {
 		CondicionComparativa condicion = new CEmpresaMayorAntiguedad();
-		condicion.setOperador("<");
+		condicion.setOperador(new Menor());
 		List<Empresa> listaResultante = prepararComparativa(new ListaMetodologia(), condicion).aplicarMetodologia(empresas, "pascuas");
 		asertarEmpresa(listaResultante, 0, "Panaphonics");
 		asertarEmpresa(listaResultante, 1, "Sorny");

@@ -16,7 +16,7 @@ public class AnalisisSemantico{
 	private Boolean sePuedeCalcular(String nombre,Empresa empresa, String periodo){
 		if(operation.esUnaCuenta(nombre,empresa,periodo))
 			return analizarCuenta(nombre,empresa,periodo);
-		else if(operation.esUnIndicador(nombre))
+		if(operation.esUnIndicador(nombre))
 			return analizarIndicador(nombre,empresa,periodo);
 		else
 			return noExisteElIndicadorOCuenta();
