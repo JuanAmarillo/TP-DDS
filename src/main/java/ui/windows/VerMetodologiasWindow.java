@@ -25,14 +25,19 @@ public class VerMetodologiasWindow extends Dialog<VerMetodologiasVM> {
 		Panel metodologiasPanel = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
 		this.listaMetodologias(metodologiasPanel);
 		this.listaEmpresas(metodologiasPanel);
+		this.cuadroResultados(formPanel);
+	}
+
+	private void cuadroResultados(Panel formPanel) {
+		ViewUtils.crearLista(formPanel, "empresasCondicionadas", "empresaCondicionadaSeleccionada");
+		
 	}
 
 	public void listaMetodologias(Panel metodologiasPanel) {
 		Panel metods = ViewUtils.crearPanel(metodologiasPanel, new VerticalLayout(), "Metodologias cargadas");
-		List<Metodologia> condiciones = ViewUtils.crearLista(metods, "metodologias", "metodologiaSeleccionada");
-		condiciones.bindItemsToProperty("metodologias").adaptWith(Metodologia.class, "nombre");
+		List<String> condiciones = ViewUtils.crearLista(metods, "metodologias", "metodologiaSeleccionada");
 		ViewUtils.setSize(250, 100, condiciones);
-		ViewUtils.crearBoton(metods, "Aplicar metodología", this::accept);
+		ViewUtils.crearBoton(metods, "Aplicar metodología", this::aplicarMetodologia);
 	}
 
 	public void listaEmpresas(Panel metodologiasPanel) {
@@ -48,4 +53,11 @@ public class VerMetodologiasWindow extends Dialog<VerMetodologiasVM> {
 		ViewUtils.crearBoton(panelActions, "Volver", this::accept);
 	}
 
+	public void aplicarMetodologia() {
+		try {
+			this.getModelObject().aplicarMetodologia();
+		}
+		catch(RuntimeException e) {this.showWarning(e.getMessage()); }
+	}
+	
 }

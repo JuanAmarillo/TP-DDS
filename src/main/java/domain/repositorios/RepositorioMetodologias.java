@@ -3,6 +3,7 @@ package domain.repositorios;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import domain.condiciones.Condicion;
 import domain.metodologias.Metodologia;
@@ -44,5 +45,9 @@ public class RepositorioMetodologias {
 
 	public List<Metodologia> getMetodologiasCargadas() {
 		return metodologiasCargadas;
+	}
+
+	public List<String> getNombresMetodologias() {
+		return getMetodologiasCargadas().stream().map(met -> met.getNombre()).collect(Collectors.toList());
 	}
 }
