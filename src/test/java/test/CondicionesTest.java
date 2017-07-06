@@ -38,7 +38,7 @@ public class CondicionesTest {
 	
 	private List<Empresa> aplicarCondicionALista(Condicion condicion) {
 		List<Empresa> listaEmpresas = new ArrayList<Empresa>();
-		listaEmpresas.addAll(Arrays.asList(empresa2,empresa1));
+		listaEmpresas.addAll(Arrays.asList(empresa1,empresa2));
 		listaEmpresas = condicion.aplicarCondicion(listaEmpresas, "pascuas");
 		return listaEmpresas;
 	}
@@ -96,12 +96,12 @@ public class CondicionesTest {
 	}
 	
 	@Test
-	public void testCondicionOrdenaLista() {
+	public void testCondicionOrdenaListaPorEmpresaMasJoven() {
 		CondicionComparativa condicion = new CondicionComparativa("Prueba Sort");
 		condicion.setIndicador(new Antiguedad());
 		condicion.setOperador("<");
 		List<Empresa> listaEmpresas = aplicarCondicionALista(condicion);
-		assertTrue(listaEmpresas.get(0).esLaMismaEmpresaQue(empresa1));
+		assertTrue(listaEmpresas.get(0).esLaMismaEmpresaQue(empresa2));
 	}
 
 	@Test(expected = NoSePuedeCalcularException.class)
@@ -117,5 +117,10 @@ public class CondicionesTest {
 		List<Empresa> resultado = aplicarCondicionALista(condicion);
 		assertEquals(1,resultado.size());
 		assertTrue(resultado.get(0).esLaMismaEmpresaQue(empresa1));
+	}
+	
+	@Test
+	public void testEndeudamiento() {
+		
 	}
 }
