@@ -8,8 +8,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import domain.Empresa;
+import domain.condiciones.CondicionComparativa;
 import domain.condiciones.CondicionTaxativa;
+import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
+import domain.metodologias.AplicadorDeCondicionesComparativas;
 import domain.metodologias.AplicadorDeCondicionesTaxativas;
 import domain.metodologias.ListaMetodologia;
 
@@ -29,5 +32,15 @@ public class MetodologiasTest {
 		AplicadorDeCondicionesTaxativas ap = new AplicadorDeCondicionesTaxativas(lista, condicion);
 		List<Empresa> listaResultante = ap.aplicarMetodologia(empresas, "pascuas");
 		assertEquals(2, listaResultante.size());
+	}
+	
+	@Test
+	public void testAplicarMetodologiaSimpleComparativa() {
+		CondicionComparativa condicion = new CEmpresaMayorAntiguedad();
+		ListaMetodologia lista = new ListaMetodologia();
+		AplicadorDeCondicionesComparativas ap = new AplicadorDeCondicionesComparativas(lista,condicion);
+		List<Empresa> listaResultante = ap.aplicarMetodologia(empresas, "pascuas");
+		System.out.println(listaResultante.size());
+		assertTrue(listaResultante.get(0).esLaMismaEmpresaQue(new Empresa().setNombre("Coca-Cola")));
 	}
 }

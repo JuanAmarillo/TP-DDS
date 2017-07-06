@@ -19,8 +19,9 @@ public class Empresa {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) {
+	public Empresa setNombre(String nombre) {
 		this.nombre = nombre;
+		return this;
 	}
 
 	
