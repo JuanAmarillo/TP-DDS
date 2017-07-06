@@ -1,5 +1,8 @@
 package domain.condiciones.OperadoresCondicion;
 
+import org.uqbar.commons.utils.Observable;
+
+@Observable
 public abstract class OperadorCondicion {
 	protected String nombre;
 	

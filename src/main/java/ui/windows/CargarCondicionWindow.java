@@ -6,9 +6,12 @@ import org.uqbar.arena.layout.VerticalLayout;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.NumericField;
 import org.uqbar.arena.widgets.Panel;
+import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
+
+import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import ui.vm.CargarCondicionVM;
 
 @SuppressWarnings("serial")
@@ -47,7 +50,9 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 	private void crearCondicion(Panel form) {
 		Panel condicion = ViewUtils.crearPanel(form, new HorizontalLayout());
 		ViewUtils.crearSelector(condicion, "indicadores", "indicadorSeleccionado");
-		ViewUtils.crearSelector(condicion, "operaciones", "operacionSeleccionada");
+		Selector<OperadorCondicion> selector = ViewUtils.crearSelector(condicion, "operaciones", "operacionSeleccionada");
+		selector.bindItemsToProperty("operaciones").adaptWith(OperadorCondicion.class, "nombre");
+		selector.setWidth(100);
 		campoNumericoParaTaxativo(condicion);
 	}
 
