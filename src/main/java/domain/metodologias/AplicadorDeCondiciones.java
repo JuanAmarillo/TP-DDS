@@ -8,6 +8,14 @@ import domain.condiciones.Condicion;
 public class AplicadorDeCondiciones extends Metodologia {
 
 	private Metodologia cadenaCondiciones;
+	public Metodologia getCadenaCondiciones() {
+		return cadenaCondiciones;
+	}
+
+	public Condicion getCondicionAAplicar() {
+		return condicionAAplicar;
+	}
+
 	private Condicion condicionAAplicar;
 	
 	public AplicadorDeCondiciones(Metodologia cadenaCondiciones, Condicion condicionAAplicar) {

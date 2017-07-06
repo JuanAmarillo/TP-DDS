@@ -8,6 +8,7 @@ import org.uqbar.commons.utils.Observable;
 
 import domain.condiciones.Condicion;
 import domain.metodologias.AplicadorDeCondiciones;
+import domain.metodologias.ListaMetodologia;
 import domain.metodologias.Metodologia;
 import domain.repositorios.RepositorioCondiciones;
 import domain.repositorios.RepositorioMetodologias;
@@ -38,6 +39,7 @@ public class CargarMetodologiasVM {
 
 	public void cargarMetodologia() {
 		realizarValidaciones();
+		ultimaCapa = new ListaMetodologia();
 		prepararMetodologia();
 		ultimaCapa.setNombre(nombreMetodologia);
 		RepositorioMetodologias.instance().agregarMetodologia(ultimaCapa);

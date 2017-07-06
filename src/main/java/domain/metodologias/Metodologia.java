@@ -5,6 +5,7 @@ import java.util.List;
 import org.uqbar.commons.utils.Observable;
 
 import domain.Empresa;
+import domain.condiciones.Condicion;
 
 @Observable
 public abstract class Metodologia {
@@ -18,6 +19,9 @@ public abstract class Metodologia {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	
+	public abstract Condicion getCondicionAAplicar();
+	public abstract Metodologia getCadenaCondiciones();
 	
 	public String getNombre() {
 		return this.nombre;

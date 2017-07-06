@@ -29,7 +29,10 @@ public class VerMetodologiasWindow extends Dialog<VerMetodologiasVM> {
 	}
 
 	private void cuadroResultados(Panel formPanel) {
-		ViewUtils.crearLista(formPanel, "empresasCondicionadas", "empresaCondicionadaSeleccionada");
+		Label label = new Label(formPanel);
+		label.setText("Empresas condicionadas y ordenadas por la metodología");
+		List<String> empresasCondicionadas = ViewUtils.crearLista(formPanel, "empresasCondicionadas", "empresaCondicionadaSeleccionada");
+		empresasCondicionadas.setHeight(180);
 		
 	}
 
@@ -56,7 +59,7 @@ public class VerMetodologiasWindow extends Dialog<VerMetodologiasVM> {
 		try {
 			this.getModelObject().aplicarMetodologia();
 		}
-		catch(RuntimeException e) {this.showWarning(e.getMessage()); }
+		catch(RuntimeException e) {this.showWarning("hola"); }
 	}
 	
 }

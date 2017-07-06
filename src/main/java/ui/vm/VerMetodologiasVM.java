@@ -34,7 +34,8 @@ public class VerMetodologiasVM {
 	public void aplicarMetodologia() {
 		validarExistenciaDeEmpresas();
 		Metodologia met = RepositorioMetodologias.instance().buscarMetodologia(metodologiaSeleccionada).get();
-		empresasCondicionadas = met.aplicarMetodologia(RepositorioEmpresas.instance().getEmpresasCargadas(), "pascuas").stream().map(emp -> emp.getNombre()).collect(Collectors.toList());
+		List<Empresa> intermedia = met.aplicarMetodologia(RepositorioEmpresas.instance().getEmpresasCargadas(), "pascuas");
+		empresasCondicionadas = intermedia.stream().map(emp -> emp.getNombre()).collect(Collectors.toList());
 		ObservableUtils.firePropertyChanged(this, "empresasCondicionadas");
 	}
 
