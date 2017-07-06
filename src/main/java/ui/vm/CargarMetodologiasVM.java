@@ -8,6 +8,11 @@ import java.util.List;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
+import domain.condiciones.Condicion;
+import domain.metodologias.AplicadorDeCondicionesComparativas;
+import domain.metodologias.AplicadorDeCondicionesTaxativas;
+import domain.metodologias.ListaMetodologia;
+import domain.metodologias.Metodologia;
 import domain.repositorios.RepositorioCondiciones;
 
 @Observable
@@ -27,6 +32,8 @@ public class CargarMetodologiasVM {
 	public String condicionComparativaAAgregarSeleccionada;
 	public List<String> condicionesComparativasAAgregar;
 	
+	public Metodologia ultimaCapa;
+	
 	public CargarMetodologiasVM() {
 		condicionesTaxativas = RepositorioCondiciones.instance().getNombresDeCondicionesTaxativas();
 		condicionesComparativas = RepositorioCondiciones.instance().getNombresDeCondicionesComparativas();
@@ -38,9 +45,15 @@ public class CargarMetodologiasVM {
 	private void inicializarStrings() {
 		taxativaSeleccionada = condicionesTaxativas.stream().findFirst().get();
 		comparativaSeleccionada = condicionesComparativas.stream().findFirst().get();
-		
 	}
 
+	private void validarQueHayaAlgunaCondicion() {
+		if(condicionesComparativasAAgregar.size() == 0 && condicionesTaxativasAAgregar.size() == 0)
+			throw new RuntimeException("No se seleccionó ninguna condición");
+	}
+
+	
+	
 	public void moverHaciaLaDerechaTaxativa() {
 		String valor = taxativaSeleccionada;
 		if(taxativaSeleccionada != null) {
@@ -147,14 +160,11 @@ public class CargarMetodologiasVM {
 
 	public void cargarMetodologia() {
 		validarQueHayaAlgunaCondicion();
-		
+		//RepositorioMetodologias.instance().agregarMetodologia(prepararMetodologia());
 	}
 
-	private void validarQueHayaAlgunaCondicion() {
-		if(condicionesComparativasAAgregar.size() == 0 && condicionesTaxativasAAgregar.size() == 0)
-			throw new RuntimeException("No se seleccionó ninguna condición");
-	}
 
+	
 
 
 

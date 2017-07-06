@@ -6,6 +6,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import domain.condiciones.Condicion;
+import domain.condiciones.CondicionComparativa;
+import domain.condiciones.CondicionTaxativa;
 import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.CEndeudamiento;
 import domain.condiciones.condicionesPredeterminadas.CMaximizarROE;
@@ -42,11 +44,19 @@ public class RepositorioCondiciones  {
 		return condicionesCargadas;
 	}
 	
+	public List<CondicionTaxativa> getCondicionesTaxativas() {
+		return getCondicionesCargadas().stream().filter(unaCondicion -> unaCondicion.esTaxativa()).map(cond -> (CondicionTaxativa) cond).collect(Collectors.toList());
+	}
+	
+	public List<CondicionComparativa> getCondicionesComparativas() {
+		return getCondicionesCargadas().stream().filter(unaCondicion -> unaCondicion.esComparativa()).map(unaCondicion -> (CondicionComparativa) unaCondicion).collect(Collectors.toList());
+	}
+	
 	public List<String> getNombresDeCondicionesTaxativas(){
-		return getCondicionesCargadas().stream().filter(unaCondicion -> unaCondicion.esTaxativa()).map(unaCondicion -> unaCondicion.getNombre()).collect(Collectors.toList());
+		return getCondicionesTaxativas().stream().map(unaCondicion -> unaCondicion.getNombre()).collect(Collectors.toList());
 	}
 	public List<String> getNombresDeCondicionesComparativas(){
-		return getCondicionesCargadas().stream().filter(unaCondicion -> unaCondicion.esComparativa()).map(unaCondicion -> unaCondicion.getNombre()).collect(Collectors.toList());
+		return getCondicionesComparativas().stream().map(unaCondicion -> unaCondicion.getNombre()).collect(Collectors.toList());
 	}
 	public List<String> getNombresDeCondiciones(){
 		return getCondicionesCargadas().stream().map(unaCondicion -> unaCondicion.getNombre()).collect(Collectors.toList());
@@ -83,7 +93,7 @@ public class RepositorioCondiciones  {
 	}
 	
 	
-	private Optional<Condicion> buscarCondicion(String nombre) {
+	public Optional<Condicion> buscarCondicion(String nombre) {
 		return condicionesCargadas.stream().filter(condicion -> condicion.suNombreEs(nombre)).findFirst();
 	}
 
