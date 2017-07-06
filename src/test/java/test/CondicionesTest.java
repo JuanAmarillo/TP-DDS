@@ -13,7 +13,9 @@ import org.junit.Test;
 
 import domain.Cuenta;
 import domain.Empresa;
+import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
+import domain.condiciones.CondicionTaxativa;
 import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
 import domain.indicadores.Indicador;
@@ -22,6 +24,8 @@ import domain.indicadores.indicadoresPredeterminados.Solvencia;
 import domain.repositorios.RepositorioCondiciones;
 import domain.repositorios.RepositorioEmpresas;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
+import exceptions.NoSePuedeCalcularException;
+import mocks.IndicadorNoCalculableMock;
 
 public class CondicionesTest {
 	
@@ -39,6 +43,13 @@ public class CondicionesTest {
 		empresa.setCuentas(cuentas);
 		empresa.setAnioFundacion(anioFundacion);
 		return empresa;
+	}
+	
+	private List<Empresa> aplicarCondicionALista(Condicion condicion) {
+		List<Empresa> listaEmpresas = new ArrayList<Empresa>();
+		listaEmpresas.addAll(Arrays.asList(empresa1,empresa2));
+		listaEmpresas = condicion.aplicarCondicion(listaEmpresas, "pascuas");
+		return listaEmpresas;
 	}
 	
 	@Before
@@ -93,10 +104,17 @@ public class CondicionesTest {
 		CondicionComparativa condicion = new CondicionComparativa("Prueba Sort");
 		condicion.setIndicador(new Antiguedad());
 		condicion.setOperador("<");
-		List<Empresa> listaEmpresas = new ArrayList<Empresa>();
-		listaEmpresas.addAll(Arrays.asList(empresa1,empresa2));
-		listaEmpresas = condicion.aplicarCondicion(listaEmpresas, "pascuas");
+		List<Empresa> listaEmpresas = aplicarCondicionALista(condicion);
 		assertTrue(listaEmpresas.get(0).esLaMismaEmpresaQue(empresa1));
+	}
+
+	
+	
+	@Test(expected = NoSePuedeCalcularException.class)
+	public void testNoSePuedeCalcularCondicion() {
+		CondicionTaxativa condicion = new CondicionTaxativa("Calculame esta");
+		condicion.setIndicador(new IndicadorNoCalculableMock());
+		aplicarCondicionALista(condicion);
 	}
 	
 }
