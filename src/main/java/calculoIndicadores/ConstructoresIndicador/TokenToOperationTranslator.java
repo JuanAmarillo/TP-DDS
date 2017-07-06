@@ -6,13 +6,6 @@ import domain.Empresa;
 import domain.repositorios.RepositorioIndicadores;
 
 public class TokenToOperationTranslator {
-	protected Empresa empresa;
-	protected String periodo;
-	protected List<String> tokens;
-	
-	protected TokenToOperationTranslator(List<String> tokens){
-		this.tokens = tokens;
-	}
 	
 	protected boolean esUnNumero(String token){
 		return token.matches("[0-9]+([.][0-9]+)?");
@@ -38,7 +31,7 @@ public class TokenToOperationTranslator {
 		return esUnParentesisIzquierdo(token) || esUnParentesisDerecho(token);
 	}
 	
-	protected boolean esUnaCuenta(String cuenta){
+	protected boolean esUnaCuenta(String cuenta,Empresa empresa, String periodo){
 		return empresa.contieneLaCuentaDePeriodo(cuenta, periodo);
 	}
 	
