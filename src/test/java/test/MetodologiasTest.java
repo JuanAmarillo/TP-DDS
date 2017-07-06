@@ -14,8 +14,7 @@ import domain.condiciones.CondicionTaxativa;
 import domain.condiciones.OperadoresCondicion.Menor;
 import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
-import domain.metodologias.AplicadorDeCondicionesComparativas;
-import domain.metodologias.AplicadorDeCondicionesTaxativas;
+import domain.metodologias.AplicadorDeCondiciones;
 import domain.metodologias.ListaMetodologia;
 import domain.metodologias.Metodologia;
 
@@ -36,12 +35,12 @@ public class MetodologiasTest {
 		listaResultante.stream().forEach(empresa -> System.out.println(empresa.getNombre()));		
 	}
 	
-	public AplicadorDeCondicionesTaxativas prepararTaxativa(Metodologia superior, CondicionTaxativa condicion) {
-		return new AplicadorDeCondicionesTaxativas(superior, condicion);
+	public AplicadorDeCondiciones prepararTaxativa(Metodologia superior, CondicionTaxativa condicion) {
+		return new AplicadorDeCondiciones(superior, condicion);
 	}
 	
-	public AplicadorDeCondicionesComparativas prepararComparativa(Metodologia superior, CondicionComparativa condicion) {
-		return new AplicadorDeCondicionesComparativas(superior,condicion);
+	public AplicadorDeCondiciones prepararComparativa(Metodologia superior, CondicionComparativa condicion) {
+		return new AplicadorDeCondiciones(superior,condicion);
 	}
 	
 	@Test
@@ -72,8 +71,8 @@ public class MetodologiasTest {
 	
 	@Test
 	public void testAplicarMetodologiaMixtaAntiguedad() {
-		AplicadorDeCondicionesTaxativas apt = prepararTaxativa(new ListaMetodologia(), new TEmpresaMas10Años());
-		AplicadorDeCondicionesComparativas apc = prepararComparativa(apt, new CEmpresaMayorAntiguedad());
+		AplicadorDeCondiciones apt = prepararTaxativa(new ListaMetodologia(), new TEmpresaMas10Años());
+		AplicadorDeCondiciones apc = prepararComparativa(apt, new CEmpresaMayorAntiguedad());
 		List<Empresa> listaResultante = apc.aplicarMetodologia(empresas, "pascuas");
 		asertarCantidad(listaResultante, 2);
 		asertarEmpresa(listaResultante, 0, "Coca-Cola");

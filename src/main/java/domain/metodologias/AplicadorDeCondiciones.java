@@ -3,14 +3,14 @@ package domain.metodologias;
 import java.util.List;
 
 import domain.Empresa;
-import domain.condiciones.CondicionComparativa;
+import domain.condiciones.Condicion;
 
-public class AplicadorDeCondicionesComparativas extends Metodologia {
+public class AplicadorDeCondiciones extends Metodologia {
 
 	private Metodologia cadenaCondiciones;
-	private CondicionComparativa condicionAAplicar;
+	private Condicion condicionAAplicar;
 	
-	public AplicadorDeCondicionesComparativas(Metodologia cadenaCondiciones, CondicionComparativa condicionAAplicar) {
+	public AplicadorDeCondiciones(Metodologia cadenaCondiciones, Condicion condicionAAplicar) {
 		this.cadenaCondiciones = cadenaCondiciones;
 		this.condicionAAplicar = condicionAAplicar;
 	}

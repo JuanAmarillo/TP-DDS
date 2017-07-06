@@ -27,80 +27,47 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 		titulo.setText("Creación de nuevas metodologias");
 		new Label(formPanel).setText("Nombre");
 		new TextBox(formPanel).setWidth(250).bindValueToProperty("nombreMetodologia");
-		Panel taxativas = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
-		this.listaCondicionesTaxativas(taxativas);
-		this.botonesTaxativas(taxativas);
-		this.listaTaxativasDeLaMetodologia(taxativas);
-		Panel comparativas = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
-		this.listaCondicionesComparativas(comparativas);
-		this.botonesComparativas(comparativas);
-		this.listaComparativasDeLaMetodologia(comparativas);
+		Panel panelCondiciones = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
+		this.listaCondiciones(panelCondiciones);
+		this.botones(panelCondiciones);
+		this.listaDeLaMetodologia(panelCondiciones);
 	}
 
-	private void listaTaxativasDeLaMetodologia(Panel formPanel) {
+	private void listaDeLaMetodologia(Panel formPanel) {
 		Panel panel = ViewUtils.crearPanel(formPanel, new ColumnLayout(1),"Condiciones taxativas de la metodologia");
-		List<String> condiciones = ViewUtils.crearLista(panel, "condicionTaxativaAAgregarSeleccionada", "condicionesTaxativasAAgregar");
+		List<String> condiciones = ViewUtils.crearLista(panel, "condicionesAAgregar", "condicionAAgregarSeleccionada");
 		ViewUtils.setSize(250, 100, condiciones);
 
 	}
 
-	private void botonesTaxativas(Panel formPanel) {
+	private void botones(Panel formPanel) {
 		Panel botones = ViewUtils.crearPanel(formPanel, new ColumnLayout(1));
 		Label rellenaVacio = new Label(botones);
 		Label rellenaVacio1 = new Label(botones);
-		ViewUtils.crearBoton(botones, ">"  , this::moverHaciaLaDerechaTaxativa);
-		ViewUtils.crearBoton(botones, "<"  , this::moverHaciaLaIzquierdaTaxativa);
+		ViewUtils.crearBoton(botones, ">"  , this::moverHaciaLaDerecha);
+		ViewUtils.crearBoton(botones, "<"  , this::moverHaciaLaIzquierda);
 		
 	}
 
-	public void listaCondicionesTaxativas(Panel metodologiasPanel) {
+	public void listaCondiciones(Panel metodologiasPanel) {
 		Panel panel = ViewUtils.crearPanel(metodologiasPanel, new ColumnLayout(1),"Condiciones taxativas");
-		List<String> condiciones = ViewUtils.crearLista(panel, "condicionesTaxativas", "taxativaSeleccionada");
+		List<String> condiciones = ViewUtils.crearLista(panel, "listaCondiciones","condicionSeleccionada");
 		ViewUtils.setSize(250, 100, condiciones);
 
 	}
 	
-	private void listaComparativasDeLaMetodologia(Panel formPanel) {
-		Panel panel = ViewUtils.crearPanel(formPanel, new ColumnLayout(1),"Condiciones comparativas de la metodologia");
-		List<String> condiciones = ViewUtils.crearLista(panel, "condicionComparativaAAgregarSeleccionada", "condicionesComparativasAAgregar");
-		ViewUtils.setSize(250, 100, condiciones);
-
-	}
-
-	private void botonesComparativas(Panel formPanel) {
-		Panel botones = ViewUtils.crearPanel(formPanel, new ColumnLayout(1));
-		Label rellenaVacio = new Label(botones);
-		Label rellenaVacio1 = new Label(botones);
-		ViewUtils.crearBoton(botones, ">"  , this::moverHaciaLaDerechaComparativa);
-		ViewUtils.crearBoton(botones, "<"  , this::moverHaciaLaIzquierdaComparativa);
-	}
-
-	public void listaCondicionesComparativas(Panel formPanel) {
-		Panel panel = ViewUtils.crearPanel(formPanel, new ColumnLayout(1),"Condiciones comparativas");
-		List<String> condiciones = ViewUtils.crearLista(panel, "condicionesComparativas", "comparativaSeleccionada");
-		ViewUtils.setSize(250, 100, condiciones);		
-	}
-
 	@Override
 	protected void addActions(Panel panelActions) {
 		ViewUtils.crearBoton(panelActions, "Volver", this::accept).setAsDefault();
 		ViewUtils.crearBoton(panelActions, "Cargar Metodologia", this::cargarMetodologia );
 	}
 	
-	private void moverHaciaLaDerechaTaxativa() {
-		this.getModelObject().moverHaciaLaDerechaTaxativa();
+	private void moverHaciaLaDerecha() {
+		this.getModelObject().moverHaciaLaDerecha();
 	}
 	
-	private void moverHaciaLaIzquierdaTaxativa() {
-		this.getModelObject().moverHaciaLaIzquierdaTaxativa();
-	}
-
-	private void moverHaciaLaDerechaComparativa() {
-		this.getModelObject().moverHaciaLaDerechaComparativa();
-	}
-	
-	private void moverHaciaLaIzquierdaComparativa() {
-		this.getModelObject().moverHaciaLaIzquierdaComparativa();
+	private void moverHaciaLaIzquierda() {
+		this.getModelObject().moverHaciaLaIzquierda();
 	}
 	
 	private void cargarMetodologia() {
