@@ -67,5 +67,9 @@ public abstract class Condicion {
 
 	
 	
+	abstract public boolean esTaxativa();
+	
+	abstract public boolean esComparativa();
+	
 	
 }

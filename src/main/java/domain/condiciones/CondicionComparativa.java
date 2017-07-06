@@ -31,5 +31,11 @@ public class CondicionComparativa extends Condicion {
 		checkearCalculabilidad(e2,periodo);
 		return this.comparar(indicador.calcularIndicador(e1, periodo), indicador.calcularIndicador(e2, periodo));
 	}
+	public boolean esComparativa() {
+		return true;
+	}
+	public boolean esTaxativa() {
+		return false;
+	}
 
 }
