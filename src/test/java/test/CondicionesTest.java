@@ -55,7 +55,7 @@ public class CondicionesTest {
 	@Before
 	public void init() {
 		empresa1 = prepararEmpresa(empresa1, "pepito", 2500.0, 10000.0, 1910);
-		empresa2 = prepararEmpresa(empresa2, "mamita", 1000.0, 2000.0, 1950);
+		empresa2 = prepararEmpresa(empresa2, "mamita", 1000.0, 2000.0, 2010);
 	}
 	
 	@Test
@@ -108,8 +108,6 @@ public class CondicionesTest {
 		assertTrue(listaEmpresas.get(0).esLaMismaEmpresaQue(empresa1));
 	}
 
-	
-	
 	@Test(expected = NoSePuedeCalcularException.class)
 	public void testNoSePuedeCalcularCondicion() {
 		CondicionTaxativa condicion = new CondicionTaxativa("Calculame esta");
@@ -117,4 +115,11 @@ public class CondicionesTest {
 		aplicarCondicionALista(condicion);
 	}
 	
+	@Test
+	public void testSeFiltraSegunCondicionTaxativa() {
+		CondicionTaxativa condicion = new TEmpresaMas10Años();
+		List<Empresa> resultado = aplicarCondicionALista(condicion);
+		assertEquals(1,resultado.size());
+		assertTrue(resultado.get(0).esLaMismaEmpresaQue(empresa1));
+	}
 }
