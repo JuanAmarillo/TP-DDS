@@ -58,9 +58,8 @@ public class CuentasConIndicadoresVM {
 
 	public void setPeriodoSeleccionado(String periodoSeleccionado) {
 		this.periodoSeleccionado = periodoSeleccionado;
+		this.calculadores = generarCalculadores(empresaSeleccionada, periodoSeleccionado);
 		ObservableUtils.firePropertyChanged(this, "cuentas");
-		this.setCalculadores(empresaSeleccionada, periodoSeleccionado);
-		calculadores.forEach(calculador -> calculador.setValor(empresaSeleccionada, periodoSeleccionado));
 
 	}
 
@@ -80,11 +79,9 @@ public class CuentasConIndicadoresVM {
 		return calculadores;
 	}
 
-	public void setCalculadores(Empresa empresa, String periodo) {
-		ArrayList<CalculadorDeIndicador> calculadoresPosibles = new ArrayList<CalculadorDeIndicador>();
-		indicadoresCalculables(empresa, periodo)
-				.forEach(indicador -> calculadoresPosibles.add(new CalculadorDeIndicador(indicador)));
-		this.calculadores = calculadoresPosibles;
+	private  List<CalculadorDeIndicador> generarCalculadores(Empresa empresa, String periodo) {
+		return indicadoresCalculables(empresa, periodo).stream()
+				.map(indicador-> new CalculadorDeIndicador(indicador,empresa,periodo)).collect(Collectors.toList());
 	}
 
 	public List<Indicador> indicadoresCalculables(Empresa empresa, String periodo) {
