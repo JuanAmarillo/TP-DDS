@@ -27,29 +27,37 @@ public class MetodologiasTest {
 		empresas = PreparadorDeEmpresas.prepararEmpresas();
 	}
 	
+	private void asertarEmpresa(List<Empresa> listaResultante, int posicion, String nombre) {
+		assertTrue(listaResultante.get(posicion).esLaMismaEmpresaQue(new Empresa().setNombre(nombre)));
+	}
+	
 	private void imprimirNombres(List<Empresa> listaResultante) {
 		listaResultante.stream().forEach(empresa -> System.out.println(empresa.getNombre()));		
 	}
 	
-	public Metodologia prepararTaxativa(Metodologia superior, CondicionTaxativa condicion) {
+	public AplicadorDeCondicionesTaxativas prepararTaxativa(Metodologia superior, CondicionTaxativa condicion) {
 		return new AplicadorDeCondicionesTaxativas(superior, condicion);
 	}
 	
-	public Metodologia prepararComparativa(Metodologia superior, CondicionComparativa condicion) {
+	public AplicadorDeCondicionesComparativas prepararComparativa(Metodologia superior, CondicionComparativa condicion) {
 		return new AplicadorDeCondicionesComparativas(superior,condicion);
 	}
 	
 	@Test
 	public void testAplicarMetodologiaSimpleTaxativa() {
 		List<Empresa> listaResultante =  prepararTaxativa(new ListaMetodologia(), new TEmpresaMas10Años()).aplicarMetodologia(empresas, "pascuas");
-		assertEquals(2, listaResultante.size());
+		asertarCantidad(listaResultante, 2);
+	}
+
+	private void asertarCantidad(List<Empresa> listaResultante, int cantidad) {
+		assertEquals(cantidad, listaResultante.size());
 	}
 	
 	@Test
 	public void testAplicarMetodologiaSimpleComparativa() {
 		List<Empresa> listaResultante = prepararComparativa(new ListaMetodologia(), new CEmpresaMayorAntiguedad()).aplicarMetodologia(empresas, "pascuas");
-		assertTrue(listaResultante.get(0).esLaMismaEmpresaQue(new Empresa().setNombre("Coca-Cola")));
-		assertTrue(listaResultante.get(1).esLaMismaEmpresaQue(new Empresa().setNombre("Pepsi-Co")));
+		asertarEmpresa(listaResultante, 0, "Coca-Cola");
+		asertarEmpresa(listaResultante, 1, "Pepsi-Co");
 	}
 	
 	@Test
@@ -57,9 +65,21 @@ public class MetodologiasTest {
 		CondicionComparativa condicion = new CEmpresaMayorAntiguedad();
 		condicion.setOperador("<");
 		List<Empresa> listaResultante = prepararComparativa(new ListaMetodologia(), condicion).aplicarMetodologia(empresas, "pascuas");
-		assertTrue(listaResultante.get(0).esLaMismaEmpresaQue(new Empresa().setNombre("Panaphonics")));
-		assertTrue(listaResultante.get(1).esLaMismaEmpresaQue(new Empresa().setNombre("Sorny")));
+		asertarEmpresa(listaResultante, 0, "Panaphonics");
+		asertarEmpresa(listaResultante, 1, "Sorny");
 	}
+	
+	@Test
+	public void testAplicarMetodologiaMixtaAntiguedad() {
+		AplicadorDeCondicionesTaxativas apt = prepararTaxativa(new ListaMetodologia(), new TEmpresaMas10Años());
+		AplicadorDeCondicionesComparativas apc = prepararComparativa(apt, new CEmpresaMayorAntiguedad());
+		List<Empresa> listaResultante = apc.aplicarMetodologia(empresas, "pascuas");
+		asertarCantidad(listaResultante, 2);
+		asertarEmpresa(listaResultante, 0, "Coca-Cola");
+		asertarEmpresa(listaResultante, 1, "Pepsi-Co");
+	}
+
+	
 
 	
 }
