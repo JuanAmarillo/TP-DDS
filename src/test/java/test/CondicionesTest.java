@@ -50,8 +50,7 @@ public class CondicionesTest {
 	@Test
 	public void testCumpleCondicionTaxativaDeAntiguedad() {
 		TEmpresaMas10Años condicion = new TEmpresaMas10Años();
-		condicion.setEmpresa(empresa1);
-		assertTrue(0 != condicion.comparar("pascuas"));
+		assertTrue(condicion.aplicarComparacion(empresa1,"pepito"));
 	}
 	
 	@Test
@@ -60,8 +59,7 @@ public class CondicionesTest {
 		empresaMasJoven.setAnioFundacion(1950);
 		CEmpresaMayorAntiguedad condicion = new CEmpresaMayorAntiguedad();
 		condicion.setIndicador(new Antiguedad());
-		condicion.setPrimerEmpresa(empresa1).setSegundaEmpresa(empresaMasJoven);
-		assertTrue( 0 != condicion.comparar("pascuas"));
+		assertTrue( 0 != condicion.filterMethod(empresa1,empresa2,"pepito"));
 	}
 	
 	@Test

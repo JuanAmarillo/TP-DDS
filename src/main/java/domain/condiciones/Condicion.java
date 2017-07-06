@@ -9,19 +9,6 @@ public abstract class Condicion {
 	public    String operador;
 	public    Boolean esCustom = true;
 	
-	public abstract Double primerValor(String periodo);
-	public abstract Double segundoValor(String periodo);
-	
-	public int comparar(String periodo) {
-		Double valor;
-		if(esOperadorMayor()) {
-			valor = primerValor(periodo) - segundoValor(periodo);
-		}
-		else
-			valor = segundoValor(periodo) - primerValor(periodo);
-		return valor.intValue();
-	}
-	
 	public int comparar (Double primerValor, Double segundoValor) { 
 		Double valor;
 		if(esOperadorMayor()) {

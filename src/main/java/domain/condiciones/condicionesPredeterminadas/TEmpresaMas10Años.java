@@ -12,11 +12,7 @@ public class TEmpresaMas10Años extends CondicionTaxativa {
 		this.esCustom = false;
 		this.setValorDeComparacion(10.0);
 		this.setIndicador(new Antiguedad());
-	}
-	
-	@Override
-	public int comparar(String periodo) {
-		return indicador.calcularIndicador(empresa, periodo).intValue();
+		this.setOperador(">");
 	}
 	
 	public String getEcuacion(){

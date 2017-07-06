@@ -108,7 +108,10 @@ public class CalculoIndicadoresTest {
 
 	@Test
 	public void testIndicadorConIndicadores() {
+		
+		RepositorioIndicadores.instance().getIndicadoresCargados().stream().forEach(ind -> System.out.println(ind.getNombre()));
 		Calculable calculo = compilarExpresion(pruebaAcida.ecuacion);
+		
 		puedeCalcular(pruebaAcida.ecuacion,true);
 		elCalculoDa(calculo, 3.0);
 	}
