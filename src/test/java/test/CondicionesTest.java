@@ -29,21 +29,12 @@ import mocks.IndicadorNoCalculableMock;
 
 public class CondicionesTest {
 	
+	List<Empresa> empresas;
+	
 	private Empresa empresa1 = new Empresa();
 	private Empresa empresa2 = new Empresa();
 	
-	private Empresa prepararEmpresa(Empresa empTest, String nombre, Double pasivo, Double activo, int anioFundacion) {
-		Empresa empresa = new Empresa();
-		empresa.setNombre(nombre);
-		Set<Cuenta> cuentas = new HashSet<>();
-		Cuenta cuentita = new Cuenta("PasivoTotal", "pascuas", pasivo);
-		Cuenta cuentitaBis = new Cuenta("ActivoTotal", "pascuas", activo);
-		cuentas.add(cuentita);
-		cuentas.add(cuentitaBis);
-		empresa.setCuentas(cuentas);
-		empresa.setAnioFundacion(anioFundacion);
-		return empresa;
-	}
+	
 	
 	private List<Empresa> aplicarCondicionALista(Condicion condicion) {
 		List<Empresa> listaEmpresas = new ArrayList<Empresa>();
@@ -54,10 +45,15 @@ public class CondicionesTest {
 	
 	@Before
 	public void init() {
-		empresa1 = prepararEmpresa(empresa1, "pepito", 2500.0, 10000.0, 1910);
-		empresa2 = prepararEmpresa(empresa2, "mamita", 1000.0, 2000.0, 2010);
+		empresas = PreparadorDeEmpresas.prepararEmpresas();
+		empresa1 = prepararEmpresa(0);
+		empresa2 = prepararEmpresa(1);
 	}
 	
+	private Empresa prepararEmpresa(int i) {
+		return empresas.get(i);
+	}
+
 	@Test
 	public void testCumpleCondicionTaxativaDeAntiguedad() {
 		TEmpresaMas10Años condicion = new TEmpresaMas10Años();
