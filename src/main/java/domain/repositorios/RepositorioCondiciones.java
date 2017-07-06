@@ -5,14 +5,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import auxiliaresDeArchivo.DatosCondiciones;
 import domain.condiciones.Condicion;
 import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import exceptions.YaExisteLaCondicionException;
 
-public class RepositorioCondiciones implements Repositorio<DatosCondiciones> {
+public class RepositorioCondiciones  {
 
 	private static List<Condicion> condicionesCargadas;
 	private static RepositorioCondiciones instance=null;
@@ -83,12 +82,6 @@ public class RepositorioCondiciones implements Repositorio<DatosCondiciones> {
 	public static void agregarPredeterminados(){
 		condicionesCargadas.add(new TEmpresaMas10Años());
 		condicionesCargadas.add(new CEmpresaMayorAntiguedad());
-	}
-
-	@Override
-	public void agregarDesdeArchivo(DatosCondiciones elementos) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public int cantidadDeCondiciones() {

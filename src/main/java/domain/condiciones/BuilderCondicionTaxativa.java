@@ -1,6 +1,6 @@
 package domain.condiciones;
 
-public class BuilderCondicionTaxita extends BuilderCondicion{
+public class BuilderCondicionTaxativa extends BuilderCondicion{
 	private double valorDeComparacion;
 	
 	@Override

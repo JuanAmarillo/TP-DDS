@@ -9,7 +9,7 @@ import org.uqbar.commons.utils.Observable;
 
 import domain.condiciones.BuilderCondicion;
 import domain.condiciones.BuilderCondicionComparativa;
-import domain.condiciones.BuilderCondicionTaxita;
+import domain.condiciones.BuilderCondicionTaxativa;
 import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
 import domain.condiciones.CondicionTaxativa;
@@ -68,7 +68,7 @@ public class CargarCondicionVM {
 	}
 	
 	private void crearBuilderTaxito(){
-		this.builderCondicion = new BuilderCondicionTaxita();
+		this.builderCondicion = new BuilderCondicionTaxativa();
 	}
 	
 	
