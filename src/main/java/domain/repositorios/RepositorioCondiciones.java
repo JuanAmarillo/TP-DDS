@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 
 import domain.condiciones.Condicion;
 import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
+import domain.condiciones.condicionesPredeterminadas.CEndeudamiento;
+import domain.condiciones.condicionesPredeterminadas.CMaximizarROE;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import exceptions.YaExisteLaCondicionException;
@@ -88,6 +90,8 @@ public class RepositorioCondiciones  {
 	public static void agregarPredeterminados(){
 		condicionesCargadas.add(new TEmpresaMas10Años());
 		condicionesCargadas.add(new CEmpresaMayorAntiguedad());
+		condicionesCargadas.add(new CEndeudamiento());
+		condicionesCargadas.add(new CMaximizarROE());
 	}
 
 	public int cantidadDeCondiciones() {

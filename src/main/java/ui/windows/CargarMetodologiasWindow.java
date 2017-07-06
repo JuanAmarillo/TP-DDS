@@ -39,7 +39,7 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 
 	private void listaTaxativasDeLaMetodologia(Panel formPanel) {
 		Panel panel = ViewUtils.crearPanel(formPanel, new ColumnLayout(1),"Condiciones taxativas de la metodologia");
-		List<String> condiciones = ViewUtils.crearLista(panel, "taxativasMetodologia", "taxativaMetodologiaSeleccionada");
+		List<String> condiciones = ViewUtils.crearLista(panel, "condicionTaxativaAAgregarSeleccionada", "condicionesTaxativasAAgregar");
 		ViewUtils.setSize(250, 100, condiciones);
 
 	}
@@ -48,8 +48,8 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 		Panel botones = ViewUtils.crearPanel(formPanel, new ColumnLayout(1));
 		Label rellenaVacio = new Label(botones);
 		Label rellenaVacio1 = new Label(botones);
-		ViewUtils.crearBoton(botones, ">"  , this::moverHaciaLaDerecha);
-		ViewUtils.crearBoton(botones, "<"  , this::moverHaciaLaIzquierda);
+		ViewUtils.crearBoton(botones, ">"  , this::moverHaciaLaDerechaTaxativa);
+		ViewUtils.crearBoton(botones, "<"  , this::moverHaciaLaIzquierdaTaxativa);
 		
 	}
 
@@ -62,7 +62,7 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 	
 	private void listaComparativasDeLaMetodologia(Panel formPanel) {
 		Panel panel = ViewUtils.crearPanel(formPanel, new ColumnLayout(1),"Condiciones comparativas de la metodologia");
-		List<String> condiciones = ViewUtils.crearLista(panel, "comparativasMetodologia", "comparativaMetodologiaSeleccionada");
+		List<String> condiciones = ViewUtils.crearLista(panel, "condicionComparativaAAgregarSeleccionada", "condicionesComparativasAAgregar");
 		ViewUtils.setSize(250, 100, condiciones);
 
 	}
@@ -71,9 +71,8 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 		Panel botones = ViewUtils.crearPanel(formPanel, new ColumnLayout(1));
 		Label rellenaVacio = new Label(botones);
 		Label rellenaVacio1 = new Label(botones);
-		ViewUtils.crearBoton(botones, ">"  , this::moverHaciaLaDerecha);
-		ViewUtils.crearBoton(botones, "<"  , this::moverHaciaLaIzquierda);
-		
+		ViewUtils.crearBoton(botones, ">"  , this::moverHaciaLaDerechaComparativa);
+		ViewUtils.crearBoton(botones, "<"  , this::moverHaciaLaIzquierdaComparativa);
 	}
 
 	public void listaCondicionesComparativas(Panel formPanel) {
@@ -87,12 +86,21 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 		new Button(panelActions).setCaption("Volver").onClick(this::accept).setAsDefault();
 	}
 	
-	private void moverHaciaLaDerecha() {
-		
+	private void moverHaciaLaDerechaTaxativa() {
+		this.getModelObject().moverHaciaLaDerechaTaxativa();
 	}
 	
-	private void moverHaciaLaIzquierda() {
-		
+	private void moverHaciaLaIzquierdaTaxativa() {
+		this.getModelObject().moverHaciaLaIzquierdaTaxativa();
 	}
 
+	private void moverHaciaLaDerechaComparativa() {
+		this.getModelObject().moverHaciaLaDerechaComparativa();
+	}
+	
+	private void moverHaciaLaIzquierdaComparativa() {
+		this.getModelObject().moverHaciaLaIzquierdaComparativa();
+	}
+	
+	
 }

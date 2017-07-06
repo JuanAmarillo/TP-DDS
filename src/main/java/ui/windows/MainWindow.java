@@ -32,7 +32,7 @@ public class MainWindow extends SimpleWindow<Object> {
 		crearBotonConColor(panelActions, "Cargar cuentas"    , this::cargarCuentas);
 		crearBotonConColor(panelActions, "Cargar indicadores", this::cargarIndicadores);		
 		crearBotonConColor(panelActions, "Consultar valores de cuentas e indicadores", this::verCuentasConIndicadores);
-		crearBotonConColor(panelActions, "Metologias" ,this::metodologias);		
+		crearBotonConColor(panelActions, "Metodologías" ,this::metodologias);		
 	}
 	
 	public void crearBotonConColor(Panel panelAUsar, String nombreBoton, Action onClick){
