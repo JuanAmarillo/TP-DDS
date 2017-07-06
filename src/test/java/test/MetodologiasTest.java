@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import domain.Empresa;
+import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
 import domain.condiciones.CondicionTaxativa;
 import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
@@ -15,6 +16,7 @@ import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
 import domain.metodologias.AplicadorDeCondicionesComparativas;
 import domain.metodologias.AplicadorDeCondicionesTaxativas;
 import domain.metodologias.ListaMetodologia;
+import domain.metodologias.Metodologia;
 
 public class MetodologiasTest {
 
@@ -25,22 +27,23 @@ public class MetodologiasTest {
 		empresas = PreparadorDeEmpresas.prepararEmpresas();
 	}
 	
+	public Metodologia prepararTaxativa(Metodologia superior, CondicionTaxativa condicion) {
+		return new AplicadorDeCondicionesTaxativas(superior, condicion);
+	}
+	
+	public Metodologia prepararComparativa(Metodologia superior, CondicionComparativa condicion) {
+		return new AplicadorDeCondicionesComparativas(superior,condicion);
+	}
+	
 	@Test
 	public void testAplicarMetodologiaSimpleTaxativa() {
-		CondicionTaxativa condicion = new TEmpresaMas10Años();
-		ListaMetodologia lista = new ListaMetodologia();
-		AplicadorDeCondicionesTaxativas ap = new AplicadorDeCondicionesTaxativas(lista, condicion);
-		List<Empresa> listaResultante = ap.aplicarMetodologia(empresas, "pascuas");
+		List<Empresa> listaResultante =  prepararTaxativa(new ListaMetodologia(), new TEmpresaMas10Años()).aplicarMetodologia(empresas, "pascuas");
 		assertEquals(2, listaResultante.size());
 	}
 	
 	@Test
 	public void testAplicarMetodologiaSimpleComparativa() {
-		CondicionComparativa condicion = new CEmpresaMayorAntiguedad();
-		ListaMetodologia lista = new ListaMetodologia();
-		AplicadorDeCondicionesComparativas ap = new AplicadorDeCondicionesComparativas(lista,condicion);
-		List<Empresa> listaResultante = ap.aplicarMetodologia(empresas, "pascuas");
-		System.out.println(listaResultante.size());
+		List<Empresa> listaResultante = prepararComparativa(new ListaMetodologia(), new CEmpresaMayorAntiguedad()).aplicarMetodologia(empresas, "pascuas");
 		assertTrue(listaResultante.get(0).esLaMismaEmpresaQue(new Empresa().setNombre("Coca-Cola")));
 	}
 }
