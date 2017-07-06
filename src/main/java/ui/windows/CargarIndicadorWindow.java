@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.layout.HorizontalLayout;
+import org.uqbar.arena.layout.VerticalLayout;
 import org.uqbar.arena.widgets.Button;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.List;
@@ -32,8 +33,7 @@ public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 	}
 
 	public void listaIndicadores(Panel indicadoresPanel) {
-		Panel form = new Panel(indicadoresPanel);
-		new Label(form).setText("Indicadores Cargados");
+		Panel form = ViewUtils.crearPanel(indicadoresPanel, new VerticalLayout(), "Indicadores Cargados");
 		List<IndicadorCustom> indicadores = ViewUtils.crearLista(form, "indicadores", "indicadorSeleccionado");
 		ViewUtils.setSize(150, 100, indicadores);
 	}

@@ -1,6 +1,10 @@
 package domain.condiciones.OperadoresCondicion;
 
-public class Menor implements OperadorCondicion{
+public class Menor extends OperadorCondicion{
+
+	public Menor() {
+		super("<");
+	}
 
 	@Override
 	public int comparar(Double valorIndicadorUno, Double valorIndicadorDos) {
