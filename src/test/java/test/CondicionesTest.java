@@ -67,7 +67,7 @@ public class CondicionesTest {
 	@Test
 	public void testSeAgreganAlRepoLasPredeterminadas() {
 		int cantidadCondiciones = RepositorioCondiciones.instance().cantidadDeCondiciones();
-		assertEquals(2,cantidadCondiciones);
+		assertEquals(4,cantidadCondiciones);
 	}
 	
 	@Test
@@ -85,9 +85,9 @@ public class CondicionesTest {
 	public void testSePuedeEliminarUnaCondicion() {
 		CondicionComparativa condicion = new CondicionComparativa("pepito");
 		RepositorioCondiciones.instance().agregarCondicion(condicion);
-		assertEquals(3,RepositorioCondiciones.instance().cantidadDeCondiciones());
+		assertEquals(5,RepositorioCondiciones.instance().cantidadDeCondiciones());
 		RepositorioCondiciones.instance().eliminarCondicion("Comparativa - pepito");
-		assertEquals(2,RepositorioCondiciones.instance().cantidadDeCondiciones());
+		assertEquals(4,RepositorioCondiciones.instance().cantidadDeCondiciones());
 	}
 	
 	@Test

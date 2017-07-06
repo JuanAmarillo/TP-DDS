@@ -83,7 +83,8 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 
 	@Override
 	protected void addActions(Panel panelActions) {
-		new Button(panelActions).setCaption("Volver").onClick(this::accept).setAsDefault();
+		ViewUtils.crearBoton(panelActions, "Volver", this::accept).setAsDefault();
+		ViewUtils.crearBoton(panelActions, "Cargar Metodologia", this::cargarMetodologia );
 	}
 	
 	private void moverHaciaLaDerechaTaxativa() {
@@ -102,5 +103,11 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 		this.getModelObject().moverHaciaLaIzquierdaComparativa();
 	}
 	
+	private void cargarMetodologia() {
+		try {
+			this.getModelObject().cargarMetodologia();
+		}
+		catch(RuntimeException e ) {this.showWarning(e.getMessage()); }
+	}
 	
 }

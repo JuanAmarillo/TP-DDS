@@ -86,6 +86,7 @@ public class CargarMetodologiasVM {
 			condicionesComparativasAAgregar.add(valor);
 			condicionesComparativas.remove(valor);
 			actualizarListasComparativas();
+			System.out.println(condicionesComparativasAAgregar.size());
 		}
 	}
 	
@@ -142,6 +143,16 @@ public class CargarMetodologiasVM {
 	}
 	public void setCondicionesComparativasAAgregar(List<String> comparativasMetodologia) {
 		this.condicionesComparativasAAgregar = comparativasMetodologia;
+	}
+
+	public void cargarMetodologia() {
+		validarQueHayaAlgunaCondicion();
+		
+	}
+
+	private void validarQueHayaAlgunaCondicion() {
+		if(condicionesComparativasAAgregar.size() == 0 && condicionesTaxativasAAgregar.size() == 0)
+			throw new RuntimeException("No se seleccionó ninguna condición");
 	}
 
 
