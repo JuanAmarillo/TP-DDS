@@ -4,12 +4,14 @@ import java.util.List;
 
 import exceptions.ParsingException;
 
-public class Parser extends TokenToOperationTranslator {
+public class Parser {
+	private TokenToOperationTranslator operation = new TokenToOperationTranslator();
+	private List<String> tokens;
 	private String nombreIndicador;
 	private Integer parentesisAbiertos = 0;
 
 	protected Parser(List<String> tokens) {
-		super(tokens);
+		this.tokens = tokens;
 	}
 
 	public  void parsear(){
@@ -17,13 +19,14 @@ public class Parser extends TokenToOperationTranslator {
 	}
 	
 	private void primerToken(String token){
-		if(esUnTexto(token)){
+		if(operation.esUnTexto(token)){
 			this.nombreIndicador = token;
 			segundoToken();
 		}
 		else
 			throw new ParsingException("el Indicador solo puede estar formado por letras");
 	}
+
 
 	private void segundoToken() {
 		String siguienteToken = obtenerSiguienteToken();
@@ -34,28 +37,28 @@ public class Parser extends TokenToOperationTranslator {
 	}
 	
 	private void igualdad(String token){
-		if(esUnaIgualdad(token))
+		if(operation.esUnaIgualdad(token))
 			terminal();
 		else
 			throw new ParsingException("No puede haber operaciones antes de la igualdad");
 	}
 	
 	private Boolean numero(String token){
-		if(esUnNumero(token)){
+		if(operation.esUnNumero(token)){
 			return noTerminal();
 		}
 		return false;
 	}
 	
 	private Boolean palabra(String token){
-		if(esUnTexto(token) && noEsElIndicadorAParsear(token)){
+		if(operation.esUnTexto(token) && noEsElIndicadorAParsear(token)){
 			return noTerminal();
 		}
 		return false;
 	}
 	
 	private Boolean parentesisDerecho(String token){
-		if(esUnParentesisDerecho(token)){
+		if(operation.esUnParentesisDerecho(token)){
 			this.parentesisAbiertos--;
 			return noTerminal();
 		}
@@ -68,14 +71,14 @@ public class Parser extends TokenToOperationTranslator {
 	}
 	
 	private Boolean operador(String token){
-		if(esUnOperador(token)){
+		if(operation.esUnOperador(token)){
 			return terminal();
 		}
 		return false;
 	}
 	
 	private Boolean parentesisIzquierdo(String token){
-		if(esUnParentesisIzquierdo(token)){
+		if(operation.esUnParentesisIzquierdo(token)){
 			this.parentesisAbiertos++;
 			return terminal();
 		}
@@ -125,8 +128,6 @@ public class Parser extends TokenToOperationTranslator {
 		}
 		return token;
 	}
-	
-	
 
 
 }

@@ -2,7 +2,7 @@ package calculoIndicadores.ConstructoresIndicador;
 
 import calculoIndicadores.*;
 
-public enum TokenToOperation {
+public enum TokenToOperation{
 	
 	NUMERO(){
 		@Override

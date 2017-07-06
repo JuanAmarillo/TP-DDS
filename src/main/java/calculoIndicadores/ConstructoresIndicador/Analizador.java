@@ -35,7 +35,7 @@ public class Analizador {
 	}
 	
 	public Boolean sePuedeCalcular(Empresa empresa, String periodo){
-		return new AnalisisSemantico(empresa,periodo,generarTokens()).analizarSemantica();
+		return new AnalisisSemantico().analizarSemantica(generarTokens(),empresa,periodo);
 	}
 
 }
