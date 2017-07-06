@@ -7,6 +7,9 @@ import org.uqbar.arena.windows.Dialog;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
+import domain.condiciones.BuilderCondicion;
+import domain.condiciones.BuilderCondicionComparativa;
+import domain.condiciones.BuilderCondicionTaxita;
 import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
 import domain.condiciones.CondicionTaxativa;
@@ -20,14 +23,14 @@ public class CargarCondicionVM {
 	public String nombreCondicion = "";
 	public String condicionSeleccionada = "";
 	public String indicadorSeleccionado = "";
+	public String operacionSeleccionada = "";
 
 	public boolean taxativa = false;
 	public boolean comparativa = false;
+	public double  valor;
 	
-	public List<String> operaciones = Arrays.asList(">", "<");
-	public String operacionSeleccionada = "";
-
-	public double valor;
+	private BuilderCondicion builderCondicion;
+	
 	
 	public void cargarCondicion() {
 		validarCampos();
@@ -63,16 +66,7 @@ public class CargarCondicionVM {
 	private void completarBuild(Condicion condicion) {
 		condicion.setOperador(operacionSeleccionada);
 		condicion.setIndicador(RepositorioIndicadores.instance().buscarIndicador(indicadorSeleccionado).get());
-//		condicion.setNombre(tipoCondicion() + " - " + nombreCondicion);
 		RepositorioCondiciones.instance().agregarCondicion(condicion);
-	}
-	
-	
-	private String tipoCondicion() {
-		if(taxativa) 
-			return "Taxativa";
-		else 
-			return "Comparativa";
 	}
 
 	private void crearCondicionTaxativa() {
@@ -92,9 +86,11 @@ public class CargarCondicionVM {
 	}
 	
 	private void crearBuilderComparativa(){
-		if(comparativa);
-			//algo
-		
+		this.builderCondicion = new BuilderCondicionComparativa();
+	}
+	
+	private void crearBuilderTaxito(){
+		this.builderCondicion = new BuilderCondicionTaxita();
 	}
 	
 	//GETTERS Y SETTERS
@@ -131,11 +127,7 @@ public class CargarCondicionVM {
 	}
 
 	public List<String> getOperaciones() {
-		return operaciones;
-	}
-
-	public void setOperaciones(List<String> operaciones) {
-		this.operaciones = operaciones;
+		return Arrays.asList(">", "<");
 	}
 
 	public String getOperacionSeleccionada() {
@@ -161,6 +153,7 @@ public class CargarCondicionVM {
 	public void setTaxativa(boolean taxativa) {
 		this.taxativa    = taxativa;
 		this.comparativa = false;
+		crearBuilderTaxito();
 	}
 
 	public boolean getComparativa() {
@@ -169,8 +162,9 @@ public class CargarCondicionVM {
 
 	public void setComparativa(boolean comparativa) {
 		this.comparativa = comparativa;
-		crearBuilderComparativa();
 		this.taxativa    = false;
+		crearBuilderComparativa();
+		
 	}
 	
 	
