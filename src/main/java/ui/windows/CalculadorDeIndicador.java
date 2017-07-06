@@ -10,16 +10,13 @@ public class CalculadorDeIndicador {
 	private Indicador indicador;
 	private Double valor;
 
-	public CalculadorDeIndicador(Indicador indicador) {
+	public CalculadorDeIndicador(Indicador indicador,Empresa empresa, String periodo) {
 		this.indicador = indicador;
+		this.valor = indicador.calcularIndicador(empresa, periodo);
 	}
 
 	public Double getValor() {
 		return valor;
-	}
-
-	public void setValor(Empresa empresa, String periodo) {
-		this.valor = indicador.calcularIndicador(empresa, periodo);
 	}
 
 	public String getNombre() {
