@@ -67,7 +67,7 @@ public class CargarCondicionVM {
 		this.builderCondicion = new BuilderCondicionComparativa();
 	}
 	
-	private void crearBuilderTaxito(){
+	private void crearBuilderTaxita(){
 		this.builderCondicion = new BuilderCondicionTaxativa();
 	}
 	
@@ -132,7 +132,7 @@ public class CargarCondicionVM {
 	public void setTaxativa(boolean taxativa) {
 		this.taxativa    = taxativa;
 		this.comparativa = false;
-		crearBuilderTaxito();
+		crearBuilderTaxita();
 	}
 
 	public boolean getComparativa() {

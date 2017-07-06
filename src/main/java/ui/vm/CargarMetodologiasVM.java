@@ -14,16 +14,23 @@ public class CargarMetodologiasVM {
 
 	public String nombreMetodologia;
 	
-	public List<String> condiciones;
-	public String condicionSeleccionada;
+	public List<String> condicionesTaxativas;
+	public String taxativaSeleccionada;
 	
+	public List<String> condicionesComparativas;
+	public String comparativaSeleccionada;
 	
-	public String condMetodologia;
-	public List<String> condicionesMetodologia;
+	public String taxativaMetodologia;
+	public List<String> taxativasMetodologia;
+
+	public String comparativaMetodologia;
+	public List<String> comparativasMetodologia;
 	
 	public CargarMetodologiasVM() {
-		condiciones = RepositorioCondiciones.instance().getNombresDeCondiciones();
-		condicionesMetodologia = new ArrayList<String>();
+		condicionesTaxativas = RepositorioCondiciones.instance().getNombresDeCondiciones();
+		condicionesComparativas = RepositorioCondiciones.instance().getNombresDeCondiciones();
+		taxativasMetodologia = new ArrayList<String>();
+		comparativasMetodologia = new ArrayList<String>();
 	}
 	
 	public String getNombreMetodologia() {
@@ -32,29 +39,53 @@ public class CargarMetodologiasVM {
 	public void setNombreMetodologia(String nombreMetodologia) {
 		this.nombreMetodologia = nombreMetodologia;
 	}
-	public List<String> getCondiciones() {
-		return condiciones;
+	public List<String> getCondicionesTaxativas() {
+		return condicionesTaxativas;
 	}
-	public void setCondiciones(List<String> condiciones) {
-		this.condiciones = condiciones;
+	public void setCondicionesTaxativas(List<String> taxativas) {
+		this.condicionesTaxativas = taxativas;
 	}
-	public String getCondicionSeleccionada() {
-		return condicionSeleccionada;
+	public String getTaxativaSeleccionada() {
+		return taxativaSeleccionada;
 	}
-	public void setCondicionSeleccionada(String condicionSeleccionada) {
-		this.condicionSeleccionada = condicionSeleccionada;
+	public void setTaxativaSeleccionada(String taxSeleccionada) {
+		this.taxativaSeleccionada = taxSeleccionada;
 	}
-	public String getCondMetodologia() {
-		return condMetodologia;
+	public List<String> getCondicionesComparativas() {
+		return condicionesComparativas;
 	}
-	public void setCondMetodologia(String condMetodologia) {
-		this.condMetodologia = condMetodologia;
+	public void setCondicionesComparativas(List<String> comparativas) {
+		this.condicionesComparativas = comparativas;
 	}
-	public List<String> getCondicionesMetodologia() {
-		return condicionesMetodologia;
+	public String getComparativaSeleccionada() {
+		return comparativaSeleccionada;
 	}
-	public void setCondicionesMetodologia(List<String> condicionesMetodologia) {
-		this.condicionesMetodologia = condicionesMetodologia;
+	public void setComparativaSeleccionada(String comparativa) {
+		this.comparativaSeleccionada = comparativa;
+	}
+	public String getTaxativaMetodologia() {
+		return taxativaMetodologia;
+	}
+	public void setTaxativaMetodologia(String taxativa) {
+		this.taxativaMetodologia = taxativa;
+	}
+	public List<String> getTaxativasMetodologia() {
+		return taxativasMetodologia;
+	}
+	public void setTaxativasMetodologia(List<String> taxativasMetodologia) {
+		this.taxativasMetodologia = taxativasMetodologia;
+	}
+	public String getComparativaMetodologia() {
+		return comparativaMetodologia;
+	}
+	public void setComparativaMetodologia(String comparativa) {
+		this.comparativaMetodologia = comparativa;
+	}
+	public List<String> getComparativasMetodologia() {
+		return comparativasMetodologia;
+	}
+	public void setComparativasMetodologia(List<String> comparativasMetodologia) {
+		this.comparativasMetodologia = comparativasMetodologia;
 	}
 
 
