@@ -17,6 +17,7 @@ import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
 import domain.condiciones.CondicionTaxativa;
 import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
+import domain.condiciones.condicionesPredeterminadas.CEndeudamiento;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
 import domain.indicadores.Indicador;
 import domain.indicadores.indicadoresPredeterminados.Antiguedad;
@@ -31,14 +32,9 @@ public class CondicionesTest {
 	
 	List<Empresa> empresas;
 	
-	private Empresa empresa1 = new Empresa();
-	private Empresa empresa2 = new Empresa();
-	
-	
 	
 	private List<Empresa> aplicarCondicionALista(Condicion condicion) {
-		List<Empresa> listaEmpresas = new ArrayList<Empresa>();
-		listaEmpresas.addAll(Arrays.asList(empresa1,empresa2));
+		List<Empresa> listaEmpresas = empresas;
 		listaEmpresas = condicion.aplicarCondicion(listaEmpresas, "pascuas");
 		return listaEmpresas;
 	}
@@ -46,18 +42,16 @@ public class CondicionesTest {
 	@Before
 	public void init() {
 		empresas = PreparadorDeEmpresas.prepararEmpresas();
-		empresa1 = prepararEmpresa(0);
-		empresa2 = prepararEmpresa(1);
 	}
 	
-	private Empresa prepararEmpresa(int i) {
+	private Empresa prepararEmpresa(int i) { // 0=Coca-Cola __ 1=Sorny __ 2=MagnetBox __ 3=Pepsi-co __ 4=Panaphonics
 		return empresas.get(i);
 	}
 
 	@Test
 	public void testCumpleCondicionTaxativaDeAntiguedad() {
 		TEmpresaMas10Años condicion = new TEmpresaMas10Años();
-		assertTrue(condicion.aplicarComparacion(empresa1,"pepito"));
+		assertTrue(condicion.aplicarComparacion(prepararEmpresa(0),"pepito"));
 	}
 	
 	@Test
@@ -66,7 +60,7 @@ public class CondicionesTest {
 		empresaMasJoven.setAnioFundacion(1950);
 		CEmpresaMayorAntiguedad condicion = new CEmpresaMayorAntiguedad();
 		condicion.setIndicador(new Antiguedad());
-		assertTrue( 0 != condicion.sortMethod(empresa1,empresa2,"pepito"));
+		assertTrue( 0 != condicion.sortMethod(prepararEmpresa(0),prepararEmpresa(1),"pepito"));
 	}
 	
 	@Test
@@ -101,7 +95,7 @@ public class CondicionesTest {
 		condicion.setIndicador(new Antiguedad());
 		condicion.setOperador("<");
 		List<Empresa> listaEmpresas = aplicarCondicionALista(condicion);
-		assertTrue(listaEmpresas.get(0).esLaMismaEmpresaQue(empresa2));
+		assertTrue(listaEmpresas.get(0).esLaMismaEmpresaQue(prepararEmpresa(4)));
 	}
 
 	@Test(expected = NoSePuedeCalcularException.class)
@@ -115,12 +109,14 @@ public class CondicionesTest {
 	public void testSeFiltraSegunCondicionTaxativa() {
 		CondicionTaxativa condicion = new TEmpresaMas10Años();
 		List<Empresa> resultado = aplicarCondicionALista(condicion);
-		assertEquals(1,resultado.size());
-		assertTrue(resultado.get(0).esLaMismaEmpresaQue(empresa1));
+		assertEquals(2,resultado.size());
+		assertTrue(resultado.get(0).esLaMismaEmpresaQue(prepararEmpresa(0)));
 	}
 	
 	@Test
 	public void testEndeudamiento() {
-		
+		CondicionComparativa condicion = new CEndeudamiento();
+		List<Empresa> resultado = aplicarCondicionALista(condicion);
+		assertTrue(resultado.get(0).esLaMismaEmpresaQue(prepararEmpresa(1)));
 	}
 }
