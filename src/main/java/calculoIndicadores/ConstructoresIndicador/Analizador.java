@@ -31,7 +31,7 @@ public class Analizador {
 	}
 	
 	public Calculable compilar(){
-		return new Compilador(generarTokens()).compilar();
+		return new Compilador().compilar(generarTokens());
 	}
 	
 	public Boolean sePuedeCalcular(Empresa empresa, String periodo){
