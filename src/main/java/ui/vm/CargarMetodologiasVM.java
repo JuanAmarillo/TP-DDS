@@ -27,8 +27,8 @@ public class CargarMetodologiasVM {
 	public List<String> comparativasMetodologia;
 	
 	public CargarMetodologiasVM() {
-		condicionesTaxativas = RepositorioCondiciones.instance().getNombresDeCondiciones();
-		condicionesComparativas = RepositorioCondiciones.instance().getNombresDeCondiciones();
+		condicionesTaxativas = RepositorioCondiciones.instance().getNombresDeCondicionesTaxativas();
+		condicionesComparativas = RepositorioCondiciones.instance().getNombresDeCondicionesComparativas();
 		taxativasMetodologia = new ArrayList<String>();
 		comparativasMetodologia = new ArrayList<String>();
 	}

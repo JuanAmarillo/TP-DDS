@@ -55,5 +55,9 @@ public abstract class Condicion {
 		this.operador = operador;
 	}
 	
+	abstract public boolean esTaxativa();
+	
+	abstract public boolean esComparativa();
+	
 	
 }

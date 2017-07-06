@@ -40,6 +40,12 @@ public class RepositorioCondiciones  {
 		return condicionesCargadas;
 	}
 	
+	public List<String> getNombresDeCondicionesTaxativas(){
+		return getCondicionesCargadas().stream().filter(unaCondicion -> unaCondicion.esTaxativa()).map(unaCondicion -> unaCondicion.getNombre()).collect(Collectors.toList());
+	}
+	public List<String> getNombresDeCondicionesComparativas(){
+		return getCondicionesCargadas().stream().filter(unaCondicion -> unaCondicion.esComparativa()).map(unaCondicion -> unaCondicion.getNombre()).collect(Collectors.toList());
+	}
 	public List<String> getNombresDeCondiciones(){
 		return getCondicionesCargadas().stream().map(unaCondicion -> unaCondicion.getNombre()).collect(Collectors.toList());
 	}
