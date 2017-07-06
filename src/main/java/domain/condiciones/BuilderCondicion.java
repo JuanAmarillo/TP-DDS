@@ -9,29 +9,36 @@ public abstract class BuilderCondicion {
 	protected Double value;
 	protected Indicador indicador;
 	
-	public  void setNombre(String nombre){
+	public  BuilderCondicion setNombre(String nombre){
 		if(!nombre.isEmpty())
 			this.nombre = nombre;
 		else
 			throw new RuntimeException("No se ingresó ningún nombre");
+		
+		return this;
 	}
 	
-	public void setOperador(String operador){
+	public BuilderCondicion setOperador(String operador){
 		if(!operador.isEmpty())
 			this.operador = operador;
 		else
 			throw new RuntimeException("No se seleccionó ningún operador");
+		
+		return this;
 	}
 	
-	public void setIndicador(String indicador){
+	public BuilderCondicion setIndicador(String indicador){
 		if(!indicador.isEmpty())
 			this.indicador = RepositorioIndicadores.instance().buscarIndicador(indicador).get();
 		else
 			throw new RuntimeException("No se seleccionó ningún indicador");
+		
+		return this;
 	}
 	
-	public void setValue(Double value){
+	public BuilderCondicion setValue(Double value){
 		this.value = value;
+		return this;
 	}
 	
 	public abstract Condicion build();

@@ -33,17 +33,20 @@ public class CargarCondicionVM {
 	
 	
 	public void cargarCondicion() {
-		validarCampos();
+		condicionSeleccionada();
 		crearCondicion();
 		avisarCambiosCondiciones();
 		
 	}
 
 	private void crearCondicion() {
-		if(taxativa) 
-			crearCondicionTaxativa();
-		else 
-			crearCondicionComparativa();
+		Condicion condicion = buildearCondicion();
+		RepositorioCondiciones.instance().agregarCondicion(condicion);
+	}
+
+	private Condicion buildearCondicion() {
+		return builderCondicion.setNombre(nombreCondicion).setIndicador(indicadorSeleccionado)
+			.setOperador(operacionSeleccionada).setValue(valor).build();
 	}
 	
 	public void eliminarCondicion() {
@@ -51,36 +54,11 @@ public class CargarCondicionVM {
 		avisarCambiosCondiciones();
 	}
 	
-	private void validarCampos() {
-		if(nombreCondicion.isEmpty())
-		{ throw new RuntimeException("No se ingresó ningún nombre");}
-		if(!(taxativa || comparativa))
-		{ throw new RuntimeException("No se seleccionó el tipo de condición");}
-		if(indicadorSeleccionado.isEmpty())
-		{ throw new RuntimeException("No se seleccionó ningún indicador");}
-		if(operacionSeleccionada.isEmpty())
-		{ throw new RuntimeException("No se seleccionó ningún operador");}
-		
+	private void condicionSeleccionada() {
+		if(!taxativa && !comparativa )
+			throw new RuntimeException("No se seleccionó el tipo de condición");
 	}
 
-	private void completarBuild(Condicion condicion) {
-		condicion.setOperador(operacionSeleccionada);
-		condicion.setIndicador(RepositorioIndicadores.instance().buscarIndicador(indicadorSeleccionado).get());
-		RepositorioCondiciones.instance().agregarCondicion(condicion);
-	}
-
-	private void crearCondicionTaxativa() {
-		CondicionTaxativa condicionTaxativa = new CondicionTaxativa(nombreCondicion);
-		condicionTaxativa.setValorDeComparacion(valor);
-		completarBuild(condicionTaxativa);
-	}
-	
-	private void crearCondicionComparativa() {
-		CondicionComparativa condicionComparativa = new CondicionComparativa(nombreCondicion);
-		completarBuild(condicionComparativa);
-		
-	}	
-	
 	private void avisarCambiosCondiciones() {
 		ObservableUtils.firePropertyChanged(this, "condiciones");
 	}
@@ -92,6 +70,7 @@ public class CargarCondicionVM {
 	private void crearBuilderTaxito(){
 		this.builderCondicion = new BuilderCondicionTaxita();
 	}
+	
 	
 	//GETTERS Y SETTERS
 	public String getNombreCondicion() {
