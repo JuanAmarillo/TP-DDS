@@ -38,6 +38,10 @@ public class ActualizaIndicadores {
 		DatosIndicadores indicadores = new DatosIndicadores();
 		indicadores.setIndicadores(obtenerIndicadores());
 		String jsonIndicadores = obtenerJsonCompleto(indicadores);
+		actualizarArchivo(jsonIndicadores);
+	}
+
+	private void actualizarArchivo(String jsonIndicadores) throws IOException {
 		borrarArchivoAnterior();
 		crearArchivoNuevo(jsonIndicadores);
 	}
@@ -64,8 +68,7 @@ public class ActualizaIndicadores {
 	}
 
 	private void  borrarArchivoAnterior() {
-		File file = new File(filepath);
-		file.delete();
+		new File(filepath).delete();
 	}
 	
 }

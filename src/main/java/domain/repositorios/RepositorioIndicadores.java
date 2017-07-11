@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import auxiliaresDeArchivo.DatosIndicadores;
 import domain.indicadores.*;
 import domain.indicadores.indicadoresPredeterminados.*;
-import exceptions.IndicadorExistenteException;
+import exceptions.YaExisteElIndicadorException;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 
 
@@ -42,7 +42,7 @@ public class RepositorioIndicadores implements Repositorio<DatosIndicadores>{
 
 	public IndicadorCustom agregarIndicadorAPartirDe(String ecuacion) {
 		IndicadorCustom indicadorACargar = new BuilderIndicadorCustom(ecuacion).analizar().setEcuacion().setCalculo().build();
-		indicadorExistente(indicadorACargar);
+		existeElIndicador(indicadorACargar);
 		agregarIndicador(indicadorACargar);
 		return indicadorACargar;
 	}
@@ -79,9 +79,9 @@ public class RepositorioIndicadores implements Repositorio<DatosIndicadores>{
 		indicadores.stream().forEach(indicador -> indicador.setCalculo());
 	}
 
-	private void indicadorExistente(IndicadorCustom indicador) {
+	private void existeElIndicador(IndicadorCustom indicador) {
 		if (contieneElIndicador(indicador.getNombre()))
-			throw new IndicadorExistenteException();
+			throw new YaExisteElIndicadorException();
 	}
 
 	public Optional<Indicador> buscarIndicador(String nombre) {
