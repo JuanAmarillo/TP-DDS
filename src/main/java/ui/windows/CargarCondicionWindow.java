@@ -3,10 +3,8 @@ package ui.windows;
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.layout.VerticalLayout;
-import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.NumericField;
 import org.uqbar.arena.widgets.Panel;
-import org.uqbar.arena.widgets.Selector;
 import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
@@ -50,9 +48,7 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 	private void crearCondicion(Panel form) {
 		Panel condicion = ViewUtils.crearPanel(form, new HorizontalLayout());
 		ViewUtils.crearSelector(condicion, "indicadores", "indicadorSeleccionado");
-		Selector<OperadorCondicion> selector = ViewUtils.crearSelector(condicion, "operaciones", "operacionSeleccionada");
-		selector.bindItemsToProperty("operaciones").adaptWith(OperadorCondicion.class, "nombre");
-		selector.setWidth(100);
+		ViewUtils.crearSelectorConAdaptador(condicion, "operaciones", "operacionSeleccionada", OperadorCondicion.class, "nombre").setWidth(100);
 		campoNumericoParaTaxativo(condicion);
 	}
 

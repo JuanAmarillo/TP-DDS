@@ -35,15 +35,22 @@ public class ViewUtils {
 		return selector;
 	}
 	
+	public static <T> Selector<T> crearSelectorConAdaptador(Panel panelAUsar, String elementos, String elementoSeleccionado,Class<T> clase, String adaptador){
+		Selector<T> selector = new Selector<T>(panelAUsar).allowNull(false);
+		selector.bindItemsToProperty(elementos).adaptWith(clase, adaptador);
+		selector.bindValueToProperty(elementoSeleccionado);
+		return selector;
+	}
+	
 	public static <T> List<T> crearLista(Panel panelAUsar, String elementos ,String elementoSeleccionado){
 		List<T> lista = new List<T>(panelAUsar);
 		bindearElementos(elementos, elementoSeleccionado, lista);
 		return lista;
 	}
 
-	private static <T> void bindearElementos(String elementos, String elementoSeleccionado, Selector<T> lista) {
-		lista.bindItemsToProperty(elementos);
-		lista.bindValueToProperty(elementoSeleccionado);
+	private static <T> void bindearElementos(String elementos, String elementoSeleccionado, Selector<T> selector) {
+		selector.bindItemsToProperty(elementos);
+		selector.bindValueToProperty(elementoSeleccionado);
 	}
 	
 	public static void crearCheckBoxEnNuevoPanel(Panel panelAUsar, String elementoABindear, String nombreLabel){
