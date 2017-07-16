@@ -24,18 +24,21 @@ public class CargarCondicionVM {
 	public String indicadorSeleccionado = "";
 	public OperadorCondicion operacionSeleccionada;
 
-	public boolean taxativa = false;
-	public boolean comparativa = false;
-	public double  valor;
-	
+	public double valor;
+
+	public List<String> tipos = Arrays.asList("Taxativa", "Comparativa");
+	public boolean taxativa;
+	public boolean comparativa;
+
+	public String tipoSeleccionado;
+
 	private BuilderCondicion builderCondicion;
-	
-	
+
 	public void cargarCondicion() {
 		condicionSeleccionada();
 		crearCondicion();
 		avisarCambiosCondiciones();
-		
+
 	}
 
 	private void crearCondicion() {
@@ -45,33 +48,32 @@ public class CargarCondicionVM {
 
 	private Condicion buildearCondicion() {
 		return builderCondicion.setNombre(nombreCondicion).setIndicador(indicadorSeleccionado)
-			.setOperador(operacionSeleccionada).setValue(valor).build();
+				.setOperador(operacionSeleccionada).setValue(valor).build();
 	}
-	
+
 	public void eliminarCondicion() {
 		RepositorioCondiciones.instance().eliminarCondicion(condicionSeleccionada);
 		avisarCambiosCondiciones();
 	}
-	
+
 	private void condicionSeleccionada() {
-		if(!taxativa && !comparativa )
+		if (!taxativa && !comparativa)
 			throw new RuntimeException("No se seleccionó el tipo de condición");
 	}
 
 	private void avisarCambiosCondiciones() {
 		ObservableUtils.firePropertyChanged(this, "condiciones");
 	}
-	
-	private void crearBuilderComparativa(){
+
+	private void crearBuilderComparativa() {
 		this.builderCondicion = new BuilderCondicionComparativa();
 	}
-	
-	private void crearBuilderTaxativa(){
+
+	private void crearBuilderTaxativa() {
 		this.builderCondicion = new BuilderCondicionTaxativa();
 	}
-	
-	
-	//GETTERS Y SETTERS
+
+	// GETTERS Y SETTERS
 	public String getNombreCondicion() {
 		return nombreCondicion;
 	}
@@ -91,7 +93,7 @@ public class CargarCondicionVM {
 	public void setCondicionSeleccionada(String condicionSeleccionada) {
 		this.condicionSeleccionada = condicionSeleccionada;
 	}
-	
+
 	public List<String> getIndicadores() {
 		return RepositorioIndicadores.instance().getNombresDeIndicadores();
 	}
@@ -123,14 +125,13 @@ public class CargarCondicionVM {
 	public void setValor(double valor) {
 		this.valor = valor;
 	}
-	
+
 	public boolean getTaxativa() {
 		return taxativa;
 	}
 
 	public void setTaxativa(boolean taxativa) {
-		this.taxativa    = taxativa;
-		this.comparativa = false;
+		this.taxativa = taxativa;
 		crearBuilderTaxativa();
 	}
 
@@ -140,11 +141,28 @@ public class CargarCondicionVM {
 
 	public void setComparativa(boolean comparativa) {
 		this.comparativa = comparativa;
-		this.taxativa    = false;
 		crearBuilderComparativa();
-		
+
 	}
-	
-	
-	
+
+	public List<String> getTipos() {
+		return tipos;
+	}
+
+	public String getTipoSeleccionado() {
+		if (tipoSeleccionado == tipos.get(0)) { // Taxativa
+			taxativa = true;
+			comparativa = false;
+		}
+		if (tipoSeleccionado == tipos.get(1)) { // Comparativa
+			taxativa = false;
+			comparativa = true;
+		}
+		return tipoSeleccionado;
+	}
+
+	public void setTipoSeleccionado(String tipoSeleccionado) {
+		this.tipoSeleccionado = tipoSeleccionado;
+	}
+
 }

@@ -5,6 +5,7 @@ import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.layout.VerticalLayout;
 import org.uqbar.arena.widgets.NumericField;
 import org.uqbar.arena.widgets.Panel;
+import org.uqbar.arena.widgets.RadioSelector;
 import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
@@ -27,12 +28,12 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 	}
 
 	public void listaCondiciones(Panel condicionesPanel) {
-		Panel formLista = ViewUtils.crearPanel(condicionesPanel, new VerticalLayout(),"Condiciones cargadas");
+		Panel formLista = ViewUtils.crearPanel(condicionesPanel, new VerticalLayout(), "Condiciones cargadas");
 		ViewUtils.crearLista(formLista, "condiciones", "condicionSeleccionada").setHeight(200).setWidth(300);
 	}
 
 	public void condicionPersonalizada(Panel condicionPanel) {
-		Panel form = ViewUtils.crearPanel(condicionPanel, new ColumnLayout(1),"Agregar una nueva condición");
+		Panel form = ViewUtils.crearPanel(condicionPanel, new ColumnLayout(1), "Agregar una nueva condición");
 		escribirNombreDeCondicion(form);
 		elegirTipoDeCondicion(form);
 		crearCondicion(form);
@@ -48,7 +49,8 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 	private void crearCondicion(Panel form) {
 		Panel condicion = ViewUtils.crearPanel(form, new HorizontalLayout());
 		ViewUtils.crearSelector(condicion, "indicadores", "indicadorSeleccionado");
-		ViewUtils.crearSelectorConAdaptador(condicion, "operaciones", "operacionSeleccionada", OperadorCondicion.class, "nombre").setWidth(100);
+		ViewUtils.crearSelectorConAdaptador(condicion, "operaciones", "operacionSeleccionada", OperadorCondicion.class,
+				"nombre").setWidth(100);
 		campoNumericoParaTaxativo(condicion);
 	}
 
@@ -60,10 +62,16 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 	}
 
 	private void elegirTipoDeCondicion(Panel form) {
-		ViewUtils.crearCheckBoxEnNuevoPanel(form, "taxativa",    "condición taxativa"   );
-		ViewUtils.crearCheckBoxEnNuevoPanel(form, "comparativa", "condición comparativa");
+		RadioSelector<String> radioS = new RadioSelector<String>(form);
+		radioS.bindItemsToProperty("tipos");
+		radioS.bindValueToProperty("tipoSeleccionado");
+		radioS.allowNull(false);
+		/*
+		 * ViewUtils.crearCheckBoxEnNuevoPanel(form, "taxativa",
+		 * "condición taxativa" ); ViewUtils.crearCheckBoxEnNuevoPanel(form,
+		 * "comparativa", "condición comparativa");
+		 */
 	}
-
 
 	private void escribirNombreDeCondicion(Panel form) {
 		Panel nombreCondicion = ViewUtils.crearPanel(form, new VerticalLayout(), "Nombre de la condición: ");
@@ -74,18 +82,20 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 	protected void addActions(Panel panelActions) {
 		ViewUtils.crearBoton(panelActions, "Volver", this::accept);
 	}
-	
+
 	public void cargarCondicion() {
 		try {
 			this.getModelObject().cargarCondicion();
+		} catch (RuntimeException e) {
+			this.showWarning(e.getMessage());
 		}
-		catch(RuntimeException e) { this.showWarning(e.getMessage()); }
 	}
-	
+
 	public void eliminarCondicion() {
 		try {
 			this.getModelObject().eliminarCondicion();
+		} catch (RuntimeException e) {
+			this.showWarning(e.getMessage());
 		}
-		catch(RuntimeException e) {this.showWarning(e.getMessage()); }
 	}
 }
