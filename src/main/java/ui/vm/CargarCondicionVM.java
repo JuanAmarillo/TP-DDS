@@ -27,8 +27,8 @@ public class CargarCondicionVM {
 	public double valor;
 
 	public List<String> tipos = Arrays.asList("Taxativa", "Comparativa");
-	public boolean taxativa;
-	public boolean comparativa;
+	public boolean taxativa=false;
+	public boolean comparativa=false;
 
 	public String tipoSeleccionado;
 
@@ -38,7 +38,6 @@ public class CargarCondicionVM {
 		condicionSeleccionada();
 		crearCondicion();
 		avisarCambiosCondiciones();
-
 	}
 
 	private void crearCondicion() {
@@ -151,12 +150,10 @@ public class CargarCondicionVM {
 
 	public String getTipoSeleccionado() {
 		if (tipoSeleccionado == tipos.get(0)) { // Taxativa
-			taxativa = true;
-			comparativa = false;
+			setTaxativa(true);
 		}
 		if (tipoSeleccionado == tipos.get(1)) { // Comparativa
-			taxativa = false;
-			comparativa = true;
+			setComparativa(true);
 		}
 		return tipoSeleccionado;
 	}
