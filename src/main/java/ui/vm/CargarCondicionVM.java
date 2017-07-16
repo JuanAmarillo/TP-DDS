@@ -3,7 +3,6 @@ package ui.vm;
 import java.util.Arrays;
 import java.util.List;
 
-import org.uqbar.arena.windows.Dialog;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
@@ -11,14 +10,11 @@ import domain.condiciones.BuilderCondicion;
 import domain.condiciones.BuilderCondicionComparativa;
 import domain.condiciones.BuilderCondicionTaxativa;
 import domain.condiciones.Condicion;
-import domain.condiciones.CondicionComparativa;
-import domain.condiciones.CondicionTaxativa;
 import domain.condiciones.OperadoresCondicion.Mayor;
 import domain.condiciones.OperadoresCondicion.Menor;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.repositorios.RepositorioCondiciones;
 import domain.repositorios.RepositorioIndicadores;
-import ui.windows.CargarCondicionWindow;
 
 @Observable
 public class CargarCondicionVM {
@@ -70,7 +66,7 @@ public class CargarCondicionVM {
 		this.builderCondicion = new BuilderCondicionComparativa();
 	}
 	
-	private void crearBuilderTaxita(){
+	private void crearBuilderTaxativa(){
 		this.builderCondicion = new BuilderCondicionTaxativa();
 	}
 	
@@ -135,7 +131,7 @@ public class CargarCondicionVM {
 	public void setTaxativa(boolean taxativa) {
 		this.taxativa    = taxativa;
 		this.comparativa = false;
-		crearBuilderTaxita();
+		crearBuilderTaxativa();
 	}
 
 	public boolean getComparativa() {
