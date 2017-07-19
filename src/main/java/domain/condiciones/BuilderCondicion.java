@@ -6,10 +6,19 @@ import domain.repositorios.RepositorioIndicadores;
 import exceptions.BuilderCondicionesException;
 
 public abstract class BuilderCondicion {
+	protected String etiquetaBuilder;
 	protected String nombre;
 	protected OperadorCondicion operador;
 	protected Double value;
 	protected Indicador indicador;
+	
+	public BuilderCondicion(String etiquetaBuilder){
+		this.etiquetaBuilder = etiquetaBuilder;
+	}
+	
+	public String getEtiquetaBuilder(){
+		return etiquetaBuilder;
+	}
 	
 	public  BuilderCondicion setNombre(String nombre){
 		if(!nombre.isEmpty())

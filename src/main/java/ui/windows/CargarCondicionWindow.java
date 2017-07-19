@@ -10,6 +10,9 @@ import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 
+import com.google.common.collect.ImmutableBiMap.Builder;
+
+import domain.condiciones.BuilderCondicion;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import ui.vm.CargarCondicionVM;
 
@@ -23,16 +26,16 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 	@Override
 	protected void createFormPanel(Panel formPanel) {
 		Panel condicionesPanel = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
-		listaCondiciones(condicionesPanel);
-		condicionPersonalizada(condicionesPanel);
+		listarCondiciones(condicionesPanel);
+		armarNuevaCondicion(condicionesPanel);
 	}
 
-	public void listaCondiciones(Panel condicionesPanel) {
+	public void listarCondiciones(Panel condicionesPanel) {
 		Panel formLista = ViewUtils.crearPanel(condicionesPanel, new VerticalLayout(), "Condiciones cargadas");
 		ViewUtils.crearLista(formLista, "condiciones", "condicionSeleccionada").setHeight(200).setWidth(300);
 	}
 
-	public void condicionPersonalizada(Panel condicionPanel) {
+	public void armarNuevaCondicion(Panel condicionPanel) {
 		Panel form = ViewUtils.crearPanel(condicionPanel, new ColumnLayout(1), "Agregar una nueva condición");
 		escribirNombreDeCondicion(form);
 		elegirTipoDeCondicion(form);
@@ -57,20 +60,14 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 	private void campoNumericoParaTaxativo(Panel condicion) {
 		NumericField num = new NumericField(condicion);
 		num.setWidth(50).bindValueToProperty("valor");
-		num.bindEnabledToProperty("taxativa");
-		num.bindVisibleToProperty("taxativa");
+		num.bindVisibleToProperty("esTaxativa");
 	}
 
 	private void elegirTipoDeCondicion(Panel form) {
 		RadioSelector<String> radioS = new RadioSelector<String>(form);
-		radioS.bindItemsToProperty("tipos");
-		radioS.bindValueToProperty("tipoSeleccionado");
+		radioS.bindItemsToProperty("builders").adaptWith(BuilderCondicion.class, "etiquetaBuilder");
+		radioS.bindValueToProperty("builderSeleccionado");
 		radioS.allowNull(false);
-		/*
-		 * ViewUtils.crearCheckBoxEnNuevoPanel(form, "taxativa",
-		 * "condición taxativa" ); ViewUtils.crearCheckBoxEnNuevoPanel(form,
-		 * "comparativa", "condición comparativa");
-		 */
 	}
 
 	private void escribirNombreDeCondicion(Panel form) {

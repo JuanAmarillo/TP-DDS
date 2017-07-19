@@ -3,6 +3,7 @@ package ui.vm;
 import java.util.Arrays;
 import java.util.List;
 
+import org.hamcrest.core.IsInstanceOf;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
@@ -19,23 +20,15 @@ import domain.repositorios.RepositorioIndicadores;
 @Observable
 public class CargarCondicionVM {
 
-	public String nombreCondicion = "";
-	public String condicionSeleccionada = "";
-	public String indicadorSeleccionado = "";
-	public OperadorCondicion operacionSeleccionada;
-
-	public double valor;
-
-	public List<String> tipos = Arrays.asList("Taxativa", "Comparativa");
-	public boolean taxativa=false;
-	public boolean comparativa=false;
-
-	public String tipoSeleccionado;
-
-	private BuilderCondicion builderCondicion;
+	private String nombreCondicion;
+	private String condicionSeleccionada;
+	private String indicadorSeleccionado;
+	private OperadorCondicion operacionSeleccionada;
+	private BuilderCondicion builderSeleccionado;
+	private double valor;
 
 	public void cargarCondicion() {
-		condicionSeleccionada();
+		verSiSeleccionoCondicion();
 		crearCondicion();
 		avisarCambiosCondiciones();
 	}
@@ -46,7 +39,7 @@ public class CargarCondicionVM {
 	}
 
 	private Condicion buildearCondicion() {
-		return builderCondicion.setNombre(nombreCondicion).setIndicador(indicadorSeleccionado)
+		return builderSeleccionado.setNombre(nombreCondicion).setIndicador(indicadorSeleccionado)
 				.setOperador(operacionSeleccionada).setValue(valor).build();
 	}
 
@@ -55,21 +48,17 @@ public class CargarCondicionVM {
 		avisarCambiosCondiciones();
 	}
 
-	private void condicionSeleccionada() {
-		if (!taxativa && !comparativa)
+	private void verSiSeleccionoCondicion() {
+		if (noHayBuilderSeleccionado())
 			throw new RuntimeException("No se seleccionó el tipo de condición");
+	}
+
+	private boolean noHayBuilderSeleccionado() {
+		return builderSeleccionado == null;
 	}
 
 	private void avisarCambiosCondiciones() {
 		ObservableUtils.firePropertyChanged(this, "condiciones");
-	}
-
-	private void crearBuilderComparativa() {
-		this.builderCondicion = new BuilderCondicionComparativa();
-	}
-
-	private void crearBuilderTaxativa() {
-		this.builderCondicion = new BuilderCondicionTaxativa();
 	}
 
 	// GETTERS Y SETTERS
@@ -117,6 +106,19 @@ public class CargarCondicionVM {
 		this.operacionSeleccionada = operacionSeleccionada;
 	}
 
+	public List<BuilderCondicion> getBuilders() {
+		return Arrays.asList(new BuilderCondicionTaxativa(), new BuilderCondicionComparativa());
+	}
+
+	public BuilderCondicion getBuilderSeleccionado() {
+		return builderSeleccionado;
+	}
+
+	public void setbuilderSeleccionado(BuilderCondicion builderSeleccionado) {
+		this.builderSeleccionado = builderSeleccionado;
+		ObservableUtils.firePropertyChanged(this, "esTaxativa");
+	}
+
 	public double getValor() {
 		return valor;
 	}
@@ -125,41 +127,8 @@ public class CargarCondicionVM {
 		this.valor = valor;
 	}
 
-	public boolean getTaxativa() {
-		return taxativa;
-	}
-
-	public void setTaxativa(boolean taxativa) {
-		this.taxativa = taxativa;
-		crearBuilderTaxativa();
-	}
-
-	public boolean getComparativa() {
-		return comparativa;
-	}
-
-	public void setComparativa(boolean comparativa) {
-		this.comparativa = comparativa;
-		crearBuilderComparativa();
-
-	}
-
-	public List<String> getTipos() {
-		return tipos;
-	}
-
-	public String getTipoSeleccionado() {
-		if (tipoSeleccionado == tipos.get(0)) { // Taxativa
-			setTaxativa(true);
-		}
-		if (tipoSeleccionado == tipos.get(1)) { // Comparativa
-			setComparativa(true);
-		}
-		return tipoSeleccionado;
-	}
-
-	public void setTipoSeleccionado(String tipoSeleccionado) {
-		this.tipoSeleccionado = tipoSeleccionado;
+	public boolean esTaxativa() {
+		return builderSeleccionado instanceof BuilderCondicionTaxativa;
 	}
 
 }
