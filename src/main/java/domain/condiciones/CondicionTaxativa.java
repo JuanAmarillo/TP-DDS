@@ -20,7 +20,6 @@ public class CondicionTaxativa extends Condicion {
 	}
 	
 	public  boolean aplicarComparacion(Empresa empresa, String periodo) {
-		checkearCalculabilidad(empresa,periodo);
 		return comparar(indicador.calcularIndicador(empresa, periodo), valorDeComparacion) > 0;
 	}
 

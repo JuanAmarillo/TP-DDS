@@ -27,8 +27,6 @@ public class CondicionComparativa extends Condicion {
 	}
 
 	public int sortMethod(Empresa e1, Empresa e2, String periodo) {
-		checkearCalculabilidad(e1,periodo);
-		checkearCalculabilidad(e2,periodo);
 		return this.comparar(indicador.calcularIndicador(e2, periodo), indicador.calcularIndicador(e1, periodo));
 		
 	}

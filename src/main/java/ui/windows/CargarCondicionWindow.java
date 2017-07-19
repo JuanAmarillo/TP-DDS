@@ -49,23 +49,32 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 
 	private void crearCondicion(Panel form) {
 		Panel condicion = ViewUtils.crearPanel(form, new HorizontalLayout());
-		ViewUtils.crearSelector(condicion, "indicadores", "indicadorSeleccionado");
-		ViewUtils.crearSelectorConAdaptador(condicion, "operaciones", "operacionSeleccionada", OperadorCondicion.class,
-				"nombre").setWidth(100);
-		campoNumericoParaTaxativo(condicion);
+		seleccionarIndicador(condicion);
+		seleccionarOperacion(condicion);
+		mostrarCampoNumericoParaTaxativo(condicion);
 	}
 
-	private void campoNumericoParaTaxativo(Panel condicion) {
-		NumericField num = new NumericField(condicion);
-		num.setWidth(50).bindValueToProperty("valorCondicionTaxativa");
-		num.bindVisibleToProperty("esTaxativa");
+	private void seleccionarIndicador(Panel condicion) {
+		ViewUtils.crearSelector(condicion, "indicadores", "indicadorSeleccionado");
+	}
+
+	private void seleccionarOperacion(Panel condicion) {
+		ViewUtils.crearSelectorConAdaptador(condicion, "operaciones", "operacionSeleccionada", OperadorCondicion.class,
+				"nombre").setWidth(100);
+	}
+
+	private void mostrarCampoNumericoParaTaxativo(Panel condicion) {
+		NumericField campoNumerico = new NumericField(condicion);
+		campoNumerico.setWidth(50);
+		campoNumerico.bindValueToProperty("valorCondicionTaxativa");
+		campoNumerico.bindVisibleToProperty("esTaxativa");
 	}
 
 	private void elegirTipoDeCondicion(Panel form) {
-		RadioSelector<String> radioS = new RadioSelector<String>(form);
-		radioS.bindItemsToProperty("builders").adaptWith(BuilderCondicion.class, "etiquetaBuilder");
-		radioS.bindValueToProperty("builderSeleccionado");
-		radioS.allowNull(false);
+		RadioSelector<String> radioSelector = new RadioSelector<String>(form);
+		radioSelector.bindItemsToProperty("builders").adaptWith(BuilderCondicion.class, "etiquetaBuilder");
+		radioSelector.bindValueToProperty("builderSeleccionado");
+		radioSelector.allowNull(false);
 	}
 
 	private void escribirNombreDeCondicion(Panel form) {

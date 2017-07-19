@@ -20,11 +20,6 @@ public abstract class Condicion {
 		return operador.comparar(valorIndicadorUno, valorIndicadorDos);
 	}
 	
-	public void checkearCalculabilidad(Empresa empresa,String periodo) {
-		if(!indicador.esCalculable(empresa, periodo)) 
-			throw new NoSePuedeCalcularException(indicador.getNombre(), empresa.getNombre(), periodo);
-	}
-	
 	public boolean esCustom(){ 
 		return esCustom;
 	}

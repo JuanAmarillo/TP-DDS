@@ -99,7 +99,7 @@ public class CondicionesTest {
 		assertTrue(listaEmpresas.get(0).esLaMismaEmpresaQue(prepararEmpresa(4)));
 	}
 
-	@Test(expected = NoSePuedeCalcularException.class)
+	@Test(expected = RuntimeException.class)
 	public void testNoSePuedeCalcularCondicion() {
 		CondicionTaxativa condicion = new CondicionTaxativa("Calculame esta");
 		condicion.setIndicador(new IndicadorNoCalculableMock());
