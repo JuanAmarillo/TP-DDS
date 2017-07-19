@@ -10,8 +10,6 @@ import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 
-import com.google.common.collect.ImmutableBiMap.Builder;
-
 import domain.condiciones.BuilderCondicion;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import ui.vm.CargarCondicionVM;
@@ -25,28 +23,28 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 
 	@Override
 	protected void createFormPanel(Panel formPanel) {
-		Panel condicionesPanel = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
-		listarCondiciones(condicionesPanel);
-		armarNuevaCondicion(condicionesPanel);
+		Panel panelPrincipal = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
+		listarCondiciones(panelPrincipal);
+		armarNuevaCondicion(panelPrincipal);
 	}
 
-	public void listarCondiciones(Panel condicionesPanel) {
-		Panel formLista = ViewUtils.crearPanel(condicionesPanel, new VerticalLayout(), "Condiciones cargadas");
-		ViewUtils.crearLista(formLista, "condiciones", "condicionSeleccionada").setHeight(200).setWidth(300);
+	public void listarCondiciones(Panel panelPrincipal) {
+		Panel condiciones = ViewUtils.crearPanel(panelPrincipal, new VerticalLayout(), "Condiciones cargadas");
+		ViewUtils.crearLista(condiciones, "condiciones", "condicionSeleccionada").setHeight(200).setWidth(300);
 	}
 
-	public void armarNuevaCondicion(Panel condicionPanel) {
-		Panel form = ViewUtils.crearPanel(condicionPanel, new ColumnLayout(1), "Agregar una nueva condición");
-		escribirNombreDeCondicion(form);
-		elegirTipoDeCondicion(form);
-		crearCondicion(form);
-		accionesPosibles(form);
+	public void armarNuevaCondicion(Panel panelPrincipal) {
+		Panel nuevaCondicion = ViewUtils.crearPanel(panelPrincipal, new ColumnLayout(1), "Agregar una nueva condición");
+		escribirNombreDeCondicion(nuevaCondicion);
+		elegirTipoDeCondicion(nuevaCondicion);
+		crearCondicion(nuevaCondicion);
+		accionesPosibles(nuevaCondicion);
 	}
 
-	private void accionesPosibles(Panel form) {
-		Panel miniBis = ViewUtils.crearPanel(form, new HorizontalLayout());
-		ViewUtils.crearBoton(miniBis, "Cargar condición", this::cargarCondicion);
-		ViewUtils.crearBoton(miniBis, "Eliminar condición", this::eliminarCondicion);
+	private void accionesPosibles(Panel condicion) {
+		Panel botones = ViewUtils.crearPanel(condicion, new HorizontalLayout());
+		ViewUtils.crearBoton(botones, "Cargar condición", this::cargarCondicion);
+		ViewUtils.crearBoton(botones, "Eliminar condición", this::eliminarCondicion);
 	}
 
 	private void crearCondicion(Panel form) {
@@ -59,7 +57,7 @@ public class CargarCondicionWindow extends Dialog<CargarCondicionVM> {
 
 	private void campoNumericoParaTaxativo(Panel condicion) {
 		NumericField num = new NumericField(condicion);
-		num.setWidth(50).bindValueToProperty("valor");
+		num.setWidth(50).bindValueToProperty("valorCondicionTaxativa");
 		num.bindVisibleToProperty("esTaxativa");
 	}
 

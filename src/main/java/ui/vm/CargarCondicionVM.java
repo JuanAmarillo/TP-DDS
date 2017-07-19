@@ -3,7 +3,6 @@ package ui.vm;
 import java.util.Arrays;
 import java.util.List;
 
-import org.hamcrest.core.IsInstanceOf;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
@@ -11,9 +10,7 @@ import domain.condiciones.BuilderCondicion;
 import domain.condiciones.BuilderCondicionComparativa;
 import domain.condiciones.BuilderCondicionTaxativa;
 import domain.condiciones.Condicion;
-import domain.condiciones.OperadoresCondicion.Mayor;
-import domain.condiciones.OperadoresCondicion.Menor;
-import domain.condiciones.OperadoresCondicion.OperadorCondicion;
+import domain.condiciones.OperadoresCondicion.*;
 import domain.repositorios.RepositorioCondiciones;
 import domain.repositorios.RepositorioIndicadores;
 
@@ -25,12 +22,12 @@ public class CargarCondicionVM {
 	private String indicadorSeleccionado;
 	private OperadorCondicion operacionSeleccionada;
 	private BuilderCondicion builderSeleccionado;
-	private double valor;
+	private double valorCondicionTaxativa;
 
 	public void cargarCondicion() {
 		verSiSeleccionoCondicion();
 		crearCondicion();
-		avisarCambiosCondiciones();
+		avisarCambiosEn("condiciones");
 	}
 
 	private void crearCondicion() {
@@ -40,12 +37,12 @@ public class CargarCondicionVM {
 
 	private Condicion buildearCondicion() {
 		return builderSeleccionado.setNombre(nombreCondicion).setIndicador(indicadorSeleccionado)
-				.setOperador(operacionSeleccionada).setValue(valor).build();
+				.setOperador(operacionSeleccionada).setValue(valorCondicionTaxativa).build();
 	}
 
 	public void eliminarCondicion() {
 		RepositorioCondiciones.instance().eliminarCondicion(condicionSeleccionada);
-		avisarCambiosCondiciones();
+		avisarCambiosEn("condiciones");
 	}
 
 	private void verSiSeleccionoCondicion() {
@@ -57,8 +54,8 @@ public class CargarCondicionVM {
 		return builderSeleccionado == null;
 	}
 
-	private void avisarCambiosCondiciones() {
-		ObservableUtils.firePropertyChanged(this, "condiciones");
+	private void avisarCambiosEn(String property) {
+		ObservableUtils.firePropertyChanged(this, property);
 	}
 
 	// GETTERS Y SETTERS
@@ -116,15 +113,15 @@ public class CargarCondicionVM {
 
 	public void setbuilderSeleccionado(BuilderCondicion builderSeleccionado) {
 		this.builderSeleccionado = builderSeleccionado;
-		ObservableUtils.firePropertyChanged(this, "esTaxativa");
+		avisarCambiosEn("esTaxativa");
 	}
 
-	public double getValor() {
-		return valor;
+	public double getValorCondicionTaxativa() {
+		return valorCondicionTaxativa;
 	}
 
-	public void setValor(double valor) {
-		this.valor = valor;
+	public void setValorCondicionTaxativa(double valor) {
+		this.valorCondicionTaxativa = valor;
 	}
 
 	public boolean esTaxativa() {

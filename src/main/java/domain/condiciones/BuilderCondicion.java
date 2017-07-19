@@ -1,10 +1,13 @@
 package domain.condiciones;
 
+import org.uqbar.commons.utils.Observable;
+
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
 import domain.repositorios.RepositorioIndicadores;
 import exceptions.BuilderCondicionesException;
 
+@Observable
 public abstract class BuilderCondicion {
 	protected String etiquetaBuilder;
 	protected String nombre;
