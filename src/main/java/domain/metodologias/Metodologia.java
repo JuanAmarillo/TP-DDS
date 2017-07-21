@@ -16,6 +16,14 @@ public class Metodologia {
 	private List<CondicionTaxativa> condicionesTaxativas;
 	private List<CondicionComparativa> condicionesComparativas;
 	
+	public Metodologia(String nombre, List<CondicionTaxativa> condicionesTaxativas,
+			List<CondicionComparativa> condicionesComparativas) {
+		super();
+		this.nombre = nombre;
+		this.condicionesTaxativas = condicionesTaxativas;
+		this.condicionesComparativas = condicionesComparativas;
+	}
+
 	public boolean suNombreEs(String nombre){
 		return this.nombre.equals(nombre);
 	}

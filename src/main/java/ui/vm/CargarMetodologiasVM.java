@@ -39,6 +39,7 @@ public class CargarMetodologiasVM {
 
 	public void cargarMetodologia() {
 		realizarValidaciones();
+		RepositorioMetodologias.instance().agregarMetodologia(new Metodologia(nombreMetodologia,condicionesTaxativasAAgregar,condicionesComparativasAAgregar));
 	}
 
 	private void realizarValidaciones() {
