@@ -33,7 +33,14 @@ public class CargarCuentaVM {
 	}
 
 	public void cargarEmpresa() throws IOException {
-		new LevantaArchivoEmpresa(filePath).cargarArchivo();
+		if(!filePath.isEmpty())
+			new LevantaArchivoEmpresa(filePath).cargarArchivo();
+		else
+			throw new RuntimeException("No hay ningun archivo seleccionado");
+	}
+
+	public void resetFilePath() {
+		filePath = "";
 	}
 
 }

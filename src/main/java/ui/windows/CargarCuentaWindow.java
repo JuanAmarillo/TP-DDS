@@ -40,13 +40,14 @@ public class CargarCuentaWindow extends Dialog<CargarCuentaVM> {
 		try {
 			this.getModelObject().cargarEmpresa();
 			this.showInfo("Se ha cargado con éxito el archivo");
-			this.accept();
-			ViewUtils.nuevaPantalla(new CargarCuentaWindow(this));
-		} catch (IOException e) {
-			this.showWarning("El archivo seleccionado posee un formato incorrecto");
-		} catch (RuntimeException e){
-			this.showError("Seleccione un archivo a cargar");
+			this.resetFilePath();
+		} catch (IOException | RuntimeException e) {
+			this.showWarning(e.getMessage());
 		}
+	}
+
+	private void resetFilePath() {
+		this.getModelObject().resetFilePath();
 	}
 
 }
