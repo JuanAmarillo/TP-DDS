@@ -86,7 +86,7 @@ public class RepositorioCondiciones  {
 
 	public void eliminarCondicion(String nombre) {
 		Condicion condicion = buscarCondicion(nombre).get();
-		if(condicion.esCustom)
+		if(condicion.esCustom())
 			condicionesCargadas.remove(condicion);
 		else
 			throw new NoSePuedeBorrarUnPredeterminadoException();

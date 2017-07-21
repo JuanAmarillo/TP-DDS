@@ -73,7 +73,7 @@ public class CondicionesTest {
 	@Test
 	public void testCondicionPredeterminadaValor() {
 		CEmpresaMayorAntiguedad condicion = new CEmpresaMayorAntiguedad();
-		assertFalse(condicion.esCustom);
+		assertFalse(condicion.esCustom());
 	}
 	
 	@Test(expected = NoSePuedeBorrarUnPredeterminadoException.class)

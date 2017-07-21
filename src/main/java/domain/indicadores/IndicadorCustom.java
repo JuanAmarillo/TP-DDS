@@ -14,9 +14,7 @@ public class IndicadorCustom extends Indicador {
 	@JsonIgnore
 	public Calculable calculo;
 
-	public IndicadorCustom(){
-		
-	}
+	public IndicadorCustom(){/*Para jackson*/}
 	
 	public IndicadorCustom(String nombre,String ecuacion,Calculable calculo) {
 		this.nombre   = nombre;

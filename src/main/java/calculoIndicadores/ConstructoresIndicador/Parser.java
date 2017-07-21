@@ -5,13 +5,14 @@ import java.util.List;
 import exceptions.ParsingException;
 
 public class Parser {
-	private TokenToOperationTranslator operation = new TokenToOperationTranslator();
+	private TokenToOperationTranslator operation;
 	private List<String> tokens;
 	private String nombreIndicador;
 	private Integer parentesisAbiertos = 0;
 
 	protected Parser(List<String> tokens) {
-		this.tokens = tokens;
+		this.tokens =  tokens;
+		this.operation =  new TokenToOperationTranslator();
 	}
 
 	public  void parsear(){

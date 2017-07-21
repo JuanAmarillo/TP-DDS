@@ -25,10 +25,8 @@ public class VerMetodologiasWindow extends Dialog<VerMetodologiasVM> {
 	}
 
 	private void cuadroResultados(Panel formPanel) {
-		Label label = new Label(formPanel);
-		label.setText("Empresas condicionadas y ordenadas por la metodología");
-		List<String> empresasCondicionadas = ViewUtils.crearLista(formPanel, "empresasCondicionadas", "empresaCondicionadaSeleccionada");
-		empresasCondicionadas.setHeight(180);
+		new Label(formPanel).setText("Empresas condicionadas y ordenadas por la metodología");
+		ViewUtils.crearLista(formPanel, "empresasCondicionadas", "empresaCondicionadaSeleccionada").setHeight(180);
 		
 	}
 

@@ -10,9 +10,9 @@ import exceptions.NoSePuedeCalcularException;
 public abstract class Condicion {
 
 	protected String nombre;
-	public    Indicador indicador;
-	public    OperadorCondicion operador;
-	public    Boolean esCustom = true;
+	protected Indicador indicador;
+	protected OperadorCondicion operador;
+	protected Boolean esCustom = true;
 	
 	public abstract List<Empresa> aplicarCondicion(List<Empresa> listaEmpresas, String string);
 	

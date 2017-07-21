@@ -17,11 +17,19 @@ public class Analizador {
 	}
 	
 	public List<String> generarTokens(){
-		String[] tokens = ecuacion.split("(?<=[-+()*/=])|(?=[-+()*/=])");
-		return eliminarEspaciosInnecesarios(new LinkedList<String>(Arrays.asList(tokens)));
+		String[] tokens = separarPorTokens();
+		return eliminarEspaciosInnecesarios(convertirALista(tokens));
+	}
+
+	private LinkedList<String> convertirALista(String[] tokens) {
+		return new LinkedList<String>(Arrays.asList(tokens));
+	}
+
+	private String[] separarPorTokens() {
+		return ecuacion.split("(?<=[-+()*/=])|(?=[-+()*/=])");
 	}
 	
-	public List<String> eliminarEspaciosInnecesarios(List<String> tokens){
+	private List<String> eliminarEspaciosInnecesarios(List<String> tokens){
 		return tokens.stream().map(unToken -> unToken.trim()).filter(unToken -> !unToken.isEmpty())
 				.collect(Collectors.toList());
 	}

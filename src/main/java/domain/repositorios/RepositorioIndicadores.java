@@ -40,11 +40,10 @@ public class RepositorioIndicadores implements Repositorio<DatosIndicadores>{
 		return indicadoresCargados;
 	}
 
-	public IndicadorCustom agregarIndicadorAPartirDe(String ecuacion) {
+	public void agregarIndicadorAPartirDe(String ecuacion) {
 		IndicadorCustom indicadorACargar = new BuilderIndicadorCustom(ecuacion).analizar().setEcuacion().setCalculo().build();
 		existeElIndicador(indicadorACargar);
 		agregarIndicador(indicadorACargar);
-		return indicadorACargar;
 	}
 
 	public void eliminarIndicadorAPartirDe(String nombreIndicador) {
