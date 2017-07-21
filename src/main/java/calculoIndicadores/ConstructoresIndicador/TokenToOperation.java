@@ -1,6 +1,7 @@
 package calculoIndicadores.ConstructoresIndicador;
 
 import calculoIndicadores.*;
+import domain.repositorios.RepositorioIndicadores;
 
 public enum TokenToOperation{
 	
@@ -95,18 +96,32 @@ public enum TokenToOperation{
 		}
 	},
 	
-	CUENTAOINDICADOR(){
+	INDICADOR(){
+
+		@Override
+		public boolean matches(String token) {
+			return RepositorioIndicadores.instance().contieneElIndicador(token);
+		}
+
+		@Override
+		public void createOperation(String token, Compilador compilador) {
+			compilador.indicador(token);
+			
+		}
+	},
+	
+	CUENTA(){
 		
 		@Override
 		public boolean matches(String token) {
-			return token.matches("([0-9 ]*[a-zA-Z]+[0-9 ]*)+");
+			return !RepositorioIndicadores.instance().contieneElIndicador(token);
 		}
-		
+
 		@Override
-		public void createOperation(String token,Compilador compilador){
-			compilador.cuentaOIndicador(token);
+		public void createOperation(String token, Compilador compilador) {
+			compilador.cuenta(token);
 		}
-	}
+	};
 	
 	;
 	public abstract boolean matches(String token);

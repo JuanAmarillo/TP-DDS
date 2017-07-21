@@ -31,8 +31,12 @@ public class Compilador {
 	}
 
 	private TokenToOperation obtenerOperacion(String token) {
-		return Arrays.asList(TokenToOperation.values()).stream().filter(operacion-> operacion.matches(token))
+		return valoresDeTokens().stream().filter(operacion-> operacion.matches(token))
 				.findFirst().get();
+	}
+
+	public List<TokenToOperation> valoresDeTokens() {
+		return Arrays.asList(TokenToOperation.values());
 	}
 	
 	public void numero(String token){
@@ -49,9 +53,14 @@ public class Compilador {
 		armarOperadoresDelParentesis();
 	}
 	
-	public void cuentaOIndicador(String token){
-		CuentaOIndicador cuenta = new CuentaOIndicador(token);
+	public void cuenta(String token){
+		CuentaCalculo cuenta = new CuentaCalculo(token);
 		lexemas.push(cuenta);
+	}
+	
+	public void indicador(String token){
+		IndicadorCalculo indicador = new IndicadorCalculo(token);
+		lexemas.push(indicador);
 	}
 	
 	
