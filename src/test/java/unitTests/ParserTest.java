@@ -65,12 +65,12 @@ public class ParserTest {
 	}
 	
 	@Test(expected = ParsingException.class)
-	public void indicadorSinTerminalLuegoDeLaIgualdadTest(){
+	public void indicadorSinTerminalLuegoDeLaIgualdadFallaTest(){
 		parsear("hola", "=");
 	}
 	
 	@Test(expected = ParsingException.class)
-	public void indicadorSinTerminalLuegoDeUnOperadorTest(){
+	public void indicadorSinTerminalLuegoDeUnOperadorFallaTest(){
 		parsear("hola", "=", "2", "+");
 	}
 	
@@ -80,17 +80,17 @@ public class ParserTest {
 	}
 	
 	@Test(expected = ParsingException.class)
-	public void luegoDeUnNoTerminalNoPuedeIrOtroNoTerminaTestl(){
+	public void luegoDeUnNoTerminalNoPuedeIrOtroNoTerminaTest(){
 		parsear("hola", "=", "2", "*", "+", "3");
 	}
 	
 	@Test(expected = ParsingException.class)
-	public void indicadorConParentesisSinCerrarTest(){
+	public void indicadorConParentesisSinCerrarFallaTest(){
 		parsear("hola", "=", "(", "2", "+", "3");
 	}
 	
 	@Test(expected = ParsingException.class)
-	public void indicadorConParentesisDerechoDeMasTest(){
+	public void indicadorConParentesisDerechoDeMasFallaTest(){
 		parsear("hola", "=", "(", "2", "+", "3",")",")");
 	}
 	

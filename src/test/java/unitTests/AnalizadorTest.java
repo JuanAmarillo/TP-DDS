@@ -12,67 +12,69 @@ import calculoIndicadores.ConstructoresIndicador.Analizador;
 
 public class AnalizadorTest {
 
-	Analizador analizador;
+	private List<String> tokens;
 
-	public List<String> generarTokens(String ecuacion) {
-		return new Analizador(ecuacion).generarTokens();
+	public AnalizadorTest elAnalisisDe(String ecuacion) {
+		tokens = new Analizador(ecuacion).generarTokens();
+		return this;
 	}
 
 	public List<String> lista(String... tokens) {
 		return new ArrayList<>(Arrays.asList(tokens));
 	}
 
+	public void resulta(String... tokens) {
+		assertEquals(lista(tokens), this.tokens);
+	}
+
 	@Test
 	public void generarTokensSumaTest() {
-		assertEquals(lista("2", "+", "3"), generarTokens("2+ 3 "));
+		elAnalisisDe("2+ 3  ").resulta("2", "+", "3");
 	}
 
 	@Test
 	public void generarTokensRestaTest() {
-		assertEquals(lista("-", "2", "-", "2"), generarTokens("-2  - 2 "));
+		elAnalisisDe("-2  - 2 ").resulta("-", "2", "-", "2");
 	}
 
 	@Test
 	public void generarTokensMultiplicacionTest() {
-		assertEquals(lista("2", "*", "2", "*", "3"), generarTokens("2   * 2  *3 "));
+		elAnalisisDe("2   * 2  *3 ").resulta("2", "*", "2", "*", "3");
 	}
 
 	@Test
 	public void generarTokensDivisionTest() {
-		assertEquals(lista("/", "/", "2", "/", "2", "/", "3"), generarTokens("/ / 2   / 2  /3 "));
+		elAnalisisDe("/ / 2   / 2  /3 ").resulta("/", "/", "2", "/", "2", "/", "3");
 	}
-	
+
 	@Test
 	public void generarTokensIgualdadTest() {
-		assertEquals(lista("/", "/", "2", "/", "2", "/", "3"), generarTokens("/ / 2   / 2  /3 "));
+		elAnalisisDe("/ / 2   / 2  /3 ").resulta("/", "/", "2", "/", "2", "/", "3");
 	}
 
 	@Test
 	public void generarTokensParentesisTest() {
-		assertEquals(lista("(", "2", "+", "3", "*", "9", ")"), generarTokens("( 2 + 3 * 9 ) "));
+		elAnalisisDe("( 2 + 3 * 9 ) ").resulta("(", "2", "+", "3", "*", "9", ")");
 	}
 
-	
 	@Test
 	public void generarTokensNumerosConComaTest() {
-		assertEquals(lista("2.0","+","3.0"), generarTokens("2.0 + 3.0"));
+		elAnalisisDe("2.0 + 3.0").resulta("2.0", "+", "3.0");
 	}
-	
+
 	@Test
 	public void generarTokensTextoSimpleTest() {
-		assertEquals(lista("aprobame"), generarTokens("aprobame"));
+		elAnalisisDe("aprobame").resulta("aprobame");
 	}
-	
+
 	@Test
-	public void generarTokensTextoIgualacionTest() {
-		assertEquals(lista("aprobame","=", "8"), generarTokens("aprobame = 8"));
+	public void generarTokensTextoConIgualacionTest() {
+		elAnalisisDe("aprobame = 8").resulta("aprobame", "=", "8");
 	}
 
 	public void generarTokensTextoConEspaciosYNumerosTest() {
-		assertEquals(lista("Gaston todavia no me corrigio el tp de funcional del 2015"),
-				generarTokens("Gaston todavia no me corrigio el tp de funcional del 2015"));
+		elAnalisisDe("Gaston todavia no me corrigio el tp de funcional del 2015")
+				.resulta("Gaston todavia no me corrigio el tp de funcional del 2015");
 	}
-	
-	
 
 }
