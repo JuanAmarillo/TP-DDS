@@ -7,8 +7,6 @@ import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import domain.condiciones.Condicion;
-import domain.metodologias.AplicadorDeCondiciones;
-import domain.metodologias.ListaMetodologia;
 import domain.metodologias.Metodologia;
 import domain.repositorios.RepositorioCondiciones;
 import domain.repositorios.RepositorioMetodologias;

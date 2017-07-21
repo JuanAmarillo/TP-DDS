@@ -28,15 +28,10 @@ public class VerMetodologiasVM {
 		empresas = new ArrayList<String>();
 		empresasCondicionadas = new ArrayList<String>();
 		metodologias = new ArrayList<String>();
-		
 	}
 	
 	public void aplicarMetodologia() {
 		validarExistenciaDeEmpresas();
-		Metodologia met = RepositorioMetodologias.instance().buscarMetodologia(metodologiaSeleccionada).get();
-		List<Empresa> intermedia = met.aplicarMetodologia(RepositorioEmpresas.instance().getEmpresasCargadas(), "pascuas");
-		empresasCondicionadas = intermedia.stream().map(emp -> emp.getNombre()).collect(Collectors.toList());
-		ObservableUtils.firePropertyChanged(this, "empresasCondicionadas");
 	}
 
 	private void validarExistenciaDeEmpresas() {
@@ -49,7 +44,6 @@ public class VerMetodologiasVM {
 	}
 	
 	public List<String> getMetodologias() {
-		System.out.println(RepositorioMetodologias.instance().getMetodologiasCargadas().size());
 		return RepositorioMetodologias.instance().getNombresMetodologias();
 	}
 

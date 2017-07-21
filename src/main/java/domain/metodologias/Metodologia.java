@@ -6,11 +6,15 @@ import org.uqbar.commons.utils.Observable;
 
 import domain.Empresa;
 import domain.condiciones.Condicion;
+import domain.condiciones.CondicionComparativa;
+import domain.condiciones.CondicionTaxativa;
 
 @Observable
-public abstract class Metodologia {
+public class Metodologia {
 	
-	protected String nombre;
+	private String nombre;
+	private List<CondicionTaxativa> condicionesTaxativas;
+	private List<CondicionComparativa> condicionesComparativas;
 	
 	public boolean suNombreEs(String nombre){
 		return this.nombre.equals(nombre);
@@ -19,14 +23,24 @@ public abstract class Metodologia {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	public abstract Condicion getCondicionAAplicar();
-	public abstract Metodologia getCadenaCondiciones();
-	
 	public String getNombre() {
 		return this.nombre;
 	}
-	
-	public abstract List<Empresa> aplicarMetodologia(List<Empresa> listaEmpresas, String periodo);
-	
+
+	public List<CondicionTaxativa> getCondicionesTaxativas() {
+		return condicionesTaxativas;
+	}
+
+	public void setCondicionesTaxativas(List<CondicionTaxativa> condicionesTaxativas) {
+		this.condicionesTaxativas = condicionesTaxativas;
+	}
+
+	public List<CondicionComparativa> getCondicionesComparativas() {
+		return condicionesComparativas;
+	}
+
+	public void setCondicionesComparativas(List<CondicionComparativa> condicionesComparativas) {
+		this.condicionesComparativas = condicionesComparativas;
+	}
+
 }
