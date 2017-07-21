@@ -40,7 +40,6 @@ public class VerMetodologiasVM {
 	}
 
 	private void validarExistenciaDeEmpresas() {
-		System.out.println(RepositorioEmpresas.instance().getEmpresasCargadas().size());
 		if(!RepositorioEmpresas.instance().tieneEmpresasCargadas())
 			throw new RuntimeException("No hay empresas cargadas en el sistema para aplicar la metodologia");
 	}

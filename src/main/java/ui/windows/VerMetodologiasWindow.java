@@ -53,7 +53,7 @@ public class VerMetodologiasWindow extends Dialog<VerMetodologiasVM> {
 		try {
 			this.getModelObject().aplicarMetodologia();
 		}
-		catch(RuntimeException e) {this.showWarning("hola"); }
+		catch(RuntimeException e) {this.showWarning(e.getMessage()); }
 	}
 	
 }
