@@ -1,9 +1,5 @@
 package unitTests;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,6 +17,36 @@ public class ParserTest {
 	
 	public void parsear(String... tokens){
 		new Parser(lista(tokens)).parsear();;
+	}
+	
+	@Test
+	public void parserAceptaTexto(){
+		parsear("soy un indicador", "=", "Soy una cuenta");
+	}	
+	
+	@Test
+	public void parserAceptaSuma(){
+		parsear("suma", "=", "4","+","4");
+	}	
+	
+	@Test
+	public void parserAceptaResta(){
+		parsear("suma", "=", "4","-","4");
+	}
+	
+	@Test
+	public void parserAceptaMultiplicacion(){
+		parsear("suma", "=", "4","*","4");
+	}
+	
+	@Test
+	public void parserAceptaDivision(){
+		parsear("suma", "=", "4","/","4");
+	}
+	
+	@Test
+	public void parserAceptaParentesis(){
+		parsear("suma", "=", "(","(","2","+","3",")","*","4",")");
 	}
 	
 	@Test(expected = ParsingException.class)
@@ -66,6 +92,11 @@ public class ParserTest {
 	@Test(expected = ParsingException.class)
 	public void indicadorConParentesisDerechoDeMasTest(){
 		parsear("hola", "=", "(", "2", "+", "3",")",")");
+	}
+	
+	@Test(expected = ParsingException.class)
+	public void indicadorNoSePuedeLLamarASiMismo(){
+		parsear("hola", "=", "hola");
 	}
 	
 
