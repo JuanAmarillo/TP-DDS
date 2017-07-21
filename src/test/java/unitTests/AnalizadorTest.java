@@ -23,52 +23,52 @@ public class AnalizadorTest {
 	}
 
 	@Test
-	public void generarTokensSuma() {
-		assertEquals(lista("2", "+", "2"), generarTokens("2+ 2 "));
+	public void generarTokensSumaTest() {
+		assertEquals(lista("2", "+", "3"), generarTokens("2+ 3 "));
 	}
 
 	@Test
-	public void generarTokensResta() {
+	public void generarTokensRestaTest() {
 		assertEquals(lista("-", "2", "-", "2"), generarTokens("-2  - 2 "));
 	}
 
 	@Test
-	public void generarTokensMultiplicacion() {
+	public void generarTokensMultiplicacionTest() {
 		assertEquals(lista("2", "*", "2", "*", "3"), generarTokens("2   * 2  *3 "));
 	}
 
 	@Test
-	public void generarTokensDivision() {
+	public void generarTokensDivisionTest() {
 		assertEquals(lista("/", "/", "2", "/", "2", "/", "3"), generarTokens("/ / 2   / 2  /3 "));
 	}
 	
 	@Test
-	public void generarTokensIgualdad() {
+	public void generarTokensIgualdadTest() {
 		assertEquals(lista("/", "/", "2", "/", "2", "/", "3"), generarTokens("/ / 2   / 2  /3 "));
 	}
 
 	@Test
-	public void generarTokensParentesis() {
+	public void generarTokensParentesisTest() {
 		assertEquals(lista("(", "2", "+", "3", "*", "9", ")"), generarTokens("( 2 + 3 * 9 ) "));
 	}
 
 	
 	@Test
-	public void generarTokensNumerosConComa() {
+	public void generarTokensNumerosConComaTest() {
 		assertEquals(lista("2.0","+","3.0"), generarTokens("2.0 + 3.0"));
 	}
 	
 	@Test
-	public void generarTokensTextoSimple() {
+	public void generarTokensTextoSimpleTest() {
 		assertEquals(lista("aprobame"), generarTokens("aprobame"));
 	}
 	
 	@Test
-	public void generarTokensTextoIgualacion() {
+	public void generarTokensTextoIgualacionTest() {
 		assertEquals(lista("aprobame","=", "8"), generarTokens("aprobame = 8"));
 	}
 
-	public void generarTokensTextoConEspaciosYNumeros() {
+	public void generarTokensTextoConEspaciosYNumerosTest() {
 		assertEquals(lista("Gaston todavia no me corrigio el tp de funcional del 2015"),
 				generarTokens("Gaston todavia no me corrigio el tp de funcional del 2015"));
 	}

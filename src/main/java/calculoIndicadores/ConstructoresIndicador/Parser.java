@@ -10,7 +10,7 @@ public class Parser {
 	private String nombreIndicador;
 	private Integer parentesisAbiertos = 0;
 
-	protected Parser(List<String> tokens) {
+	public Parser(List<String> tokens) {
 		this.tokens =  tokens;
 		this.operation =  new TokenToOperationTranslator();
 	}
@@ -21,11 +21,15 @@ public class Parser {
 	
 	private void primerToken(String token){
 		if(operation.esUnTexto(token)){
-			this.nombreIndicador = token;
+			guardarNombre(token);
 			segundoToken();
 		}
 		else
-			throw new ParsingException("el Indicador solo puede estar formado por letras");
+			throw new ParsingException("el Indicador solo puede estar formado por letras y numeros");
+	}
+
+	public void guardarNombre(String token) {
+		this.nombreIndicador = token;
 	}
 
 
