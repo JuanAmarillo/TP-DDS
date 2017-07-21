@@ -31,11 +31,6 @@ public class RepositorioMetodologias {
 		instance = null;
 	}
 	
-	public List<Metodologia> getCondicionesCargadas() {
-		List<Metodologia> mets = metodologiasCargadas;
-		return mets;
-	}
-	
 	public Optional<Metodologia> buscarMetodologia(String nombre) {
 		return metodologiasCargadas.stream().filter(metodologia -> metodologia.suNombreEs(nombre)).findFirst();
 	}
