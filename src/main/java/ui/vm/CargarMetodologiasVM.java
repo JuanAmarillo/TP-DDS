@@ -16,34 +16,25 @@ import domain.repositorios.RepositorioMetodologias;
 @Observable
 public class CargarMetodologiasVM {
 
-	public String nombreMetodologia;
+	public String nombreMetodologia = "";
 
 	public List<String> listaCondicionesTaxativas;
-	public String condicionTaxativaSeleccionada;
+	public String condicionTaxativaSeleccionada = "";
 	
 	public List<String> condicionesTaxativasAAgregar;
-	public String condicionTaxativaAAgregarSeleccionada;
+	public String condicionTaxativaAAgregarSeleccionada = "";
 	
 	public List<String> listaCondicionesComparativas;
-	public String condicionComparativaSeleccionada;
+	public String condicionComparativaSeleccionada = "";
 	
 	public List<String> condicionesComparativasAAgregar;
-	public String condicionComparativaAAgregarSeleccionada;
+	public String condicionComparativaAAgregarSeleccionada = "";
 	
 	public CargarMetodologiasVM() {
 		listaCondicionesTaxativas = RepositorioCondiciones.instance().getNombresDeCondicionesTaxativas();
 		listaCondicionesComparativas = RepositorioCondiciones.instance().getNombresDeCondicionesComparativas();
 		condicionesTaxativasAAgregar = new ArrayList<String>();
 		condicionesComparativasAAgregar = new ArrayList<String>();
-		inicializarStrings();
-	}
-	
-	private void inicializarStrings() {
-		condicionTaxativaSeleccionada = "";
-		condicionTaxativaAAgregarSeleccionada = "";
-		condicionComparativaSeleccionada = "";
-		condicionComparativaAAgregarSeleccionada = "";
-		nombreMetodologia = "";
 	}
 
 	public void cargarMetodologia() {
