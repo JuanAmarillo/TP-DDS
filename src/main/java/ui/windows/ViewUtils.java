@@ -51,16 +51,18 @@ public class ViewUtils {
 		bindearElementos(elementos, elementoSeleccionado, lista);
 		return lista;
 	}
+	
+	public static <T> List<T> crearListaConAdaptador(Panel panelAUsar, String elementos,
+			String elementoSeleccionado, Class<T> clase, String adaptador) { 
+		List<T> lista = new List<T>(panelAUsar);
+		lista.bindItemsToProperty(elementos).adaptWith(clase, adaptador);
+		lista.bindValueToProperty(elementoSeleccionado);
+		return lista;
+	}
 
 	private static <T> void bindearElementos(String elementos, String elementoSeleccionado, Selector<T> selector) {
 		selector.bindValueToProperty(elementoSeleccionado);
 		selector.bindItemsToProperty(elementos);
-	}
-
-	public static void crearCheckBoxEnNuevoPanel(Panel panelAUsar, String elementoABindear, String nombreLabel) {
-		Panel comparativo = new Panel(panelAUsar).setLayout(new HorizontalLayout());
-		new CheckBox(comparativo).bindValueToProperty(elementoABindear);
-		new Label(comparativo).setText(nombreLabel);
 	}
 
 	public static Panel crearPanel(Panel panelAnterior, Layout layout) {

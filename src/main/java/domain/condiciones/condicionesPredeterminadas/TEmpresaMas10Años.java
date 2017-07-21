@@ -5,7 +5,9 @@ import domain.condiciones.Condicion;
 import domain.condiciones.CondicionTaxativa;
 import domain.condiciones.OperadoresCondicion.Mayor;
 import domain.indicadores.indicadoresPredeterminados.Antiguedad;
+import org.uqbar.commons.utils.Observable;
 
+@Observable
 public class TEmpresaMas10Años extends CondicionTaxativa {
 	
 	public TEmpresaMas10Años(){

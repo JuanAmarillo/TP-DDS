@@ -10,6 +10,10 @@ import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.lacar.ui.model.Action;
 
+import domain.condiciones.Condicion;
+import domain.condiciones.CondicionComparativa;
+import domain.condiciones.CondicionTaxativa;
+import domain.metodologias.Metodologia;
 import ui.vm.CargarMetodologiasVM;
 
 public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
@@ -28,16 +32,16 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 
 	private void seleccionDeCondicionesComparativas(Panel formPanel) {
 		Panel panelCondiciones = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
-		this.listaCondiciones(panelCondiciones, "Condiciones Comparativas", "listaCondicionesComparativas", "condicionComparativaSeleccionada");
+		this.listaCondiciones(panelCondiciones, "Condiciones comparativas", "listaCondicionesComparativas", "condicionComparativaSeleccionada", CondicionComparativa.class);
 		this.botones(panelCondiciones, this::moverHaciaLaDerechaC, this::moverHaciaLaIzquierdaC);
-		this.listaDeLaMetodologia(panelCondiciones, "condicionesComparativasAAgregar", "condicionComparativaAAgregarSeleccionada");
+		this.listaDeLaMetodologia(panelCondiciones, "condicionesComparativasAAgregar", "condicionComparativaAAgregarSeleccionada", CondicionComparativa.class);
 	}
 
 	private void seleccionDeCondicionesTaxativas(Panel formPanel) {
 		Panel panelCondiciones = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
-		this.listaCondiciones(panelCondiciones, "Condiciones taxativas", "listaCondicionesTaxativas", "condicionTaxativaSeleccionada");
+		this.listaCondiciones(panelCondiciones, "Condiciones taxativas", "listaCondicionesTaxativas", "condicionTaxativaSeleccionada", CondicionTaxativa.class);
 		this.botones(panelCondiciones, this::moverHaciaLaDerechaT, this::moverHaciaLaIzquierdaT);
-		this.listaDeLaMetodologia(panelCondiciones, "condicionesTaxativasAAgregar", "condicionTaxativaAAgregarSeleccionada");
+		this.listaDeLaMetodologia(panelCondiciones, "condicionesTaxativasAAgregar", "condicionTaxativaAAgregarSeleccionada", CondicionTaxativa.class);
 	}
 
 
@@ -46,27 +50,26 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 		new TextBox(formPanel).setWidth(250).bindValueToProperty("nombreMetodologia");
 	}
 
-	private void listaDeLaMetodologia(Panel formPanel, String lista, String elemento) {
+	private void listaDeLaMetodologia(Panel formPanel, String lista, String elemento, Class<?> clase) {
 		Panel panel = ViewUtils.crearPanel(formPanel, new ColumnLayout(1),"Condiciones taxativas de la metodologia");
-		List<String> condiciones = ViewUtils.crearLista(panel, lista, elemento);
+		List<?> condiciones = ViewUtils.crearListaConAdaptador(panel, lista, elemento, clase, "nombre");
 		ViewUtils.setSize(250, 100, condiciones);
 
 	}
 
+	public void listaCondiciones(Panel formPanel, String titulo, String lista, String elemento, Class<?> clase) {
+		Panel panel = ViewUtils.crearPanel(formPanel, new ColumnLayout(1),titulo);
+		List<?> condiciones = ViewUtils.crearListaConAdaptador(panel, lista, elemento, clase, "nombre");
+		ViewUtils.setSize(250, 100, condiciones);
+
+	}
+	
 	private void botones(Panel formPanel, Action metodoHaciaDerecha, Action metodoHaciaIzquierda) {
 		Panel botones = ViewUtils.crearPanel(formPanel, new ColumnLayout(1));
 		Label rellenaVacio = new Label(botones);
 		Label rellenaVacio1 = new Label(botones);
 		ViewUtils.crearBoton(botones, ">"  , metodoHaciaDerecha);
 		ViewUtils.crearBoton(botones, "<"  , metodoHaciaIzquierda);
-		
-	}
-
-	public void listaCondiciones(Panel metodologiasPanel, String titulo, String lista, String elemento) {
-		Panel panel = ViewUtils.crearPanel(metodologiasPanel, new ColumnLayout(1),titulo);
-		List<String> condiciones = ViewUtils.crearLista(panel, lista, elemento);
-		ViewUtils.setSize(250, 100, condiciones);
-
 	}
 	
 	@Override

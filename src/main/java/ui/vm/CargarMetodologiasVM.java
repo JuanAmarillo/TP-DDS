@@ -7,6 +7,8 @@ import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import domain.condiciones.Condicion;
+import domain.condiciones.CondicionComparativa;
+import domain.condiciones.CondicionTaxativa;
 import domain.metodologias.Metodologia;
 import domain.repositorios.RepositorioCondiciones;
 import domain.repositorios.RepositorioMetodologias;
@@ -16,23 +18,23 @@ public class CargarMetodologiasVM {
 
 	public String nombreMetodologia = "";
 
-	public List<String> listaCondicionesTaxativas;
-	public String condicionTaxativaSeleccionada = "";
+	public List<CondicionTaxativa> listaCondicionesTaxativas;
+	public CondicionTaxativa condicionTaxativaSeleccionada = null;
 	
-	public List<String> condicionesTaxativasAAgregar;
-	public String condicionTaxativaAAgregarSeleccionada = "";
+	public List<CondicionTaxativa> condicionesTaxativasAAgregar;
+	public CondicionTaxativa condicionTaxativaAAgregarSeleccionada = null;
 	
-	public List<String> listaCondicionesComparativas;
-	public String condicionComparativaSeleccionada = "";
+	public List<CondicionComparativa> listaCondicionesComparativas;
+	public CondicionComparativa condicionComparativaSeleccionada = null;
 	
-	public List<String> condicionesComparativasAAgregar;
-	public String condicionComparativaAAgregarSeleccionada = "";
+	public List<CondicionComparativa> condicionesComparativasAAgregar;
+	public CondicionComparativa condicionComparativaAAgregarSeleccionada = null;
 	
 	public CargarMetodologiasVM() {
-		listaCondicionesTaxativas = RepositorioCondiciones.instance().getNombresDeCondicionesTaxativas();
-		listaCondicionesComparativas = RepositorioCondiciones.instance().getNombresDeCondicionesComparativas();
-		condicionesTaxativasAAgregar = new ArrayList<String>();
-		condicionesComparativasAAgregar = new ArrayList<String>();
+		listaCondicionesTaxativas = RepositorioCondiciones.instance().getCondicionesTaxativas();
+		listaCondicionesComparativas = RepositorioCondiciones.instance().getCondicionesComparativas();
+		condicionesTaxativasAAgregar = new ArrayList<CondicionTaxativa>();
+		condicionesComparativasAAgregar = new ArrayList<CondicionComparativa>();
 	}
 
 	public void cargarMetodologia() {
@@ -60,37 +62,37 @@ public class CargarMetodologiasVM {
 	}
 	
 	public void moverHaciaLaIzquierdaTaxativa() {
-		String valor = condicionTaxativaAAgregarSeleccionada;
-		if(valor != null) {
-			condicionesTaxativasAAgregar.remove(valor);
-			listaCondicionesTaxativas.add(valor);
+		if(condicionTaxativaAAgregarSeleccionada != null) {
+			listaCondicionesTaxativas.add(condicionTaxativaAAgregarSeleccionada);
+			condicionesTaxativasAAgregar.remove(condicionTaxativaAAgregarSeleccionada);
+			condicionTaxativaAAgregarSeleccionada = null;
 			actualizarListas("listaCondicionesTaxativas", "condicionesTaxativasAAgregar");
 		}
 	}	
 
 	public void moverHaciaLaDerechaTaxativa() {
-		String valor = condicionTaxativaSeleccionada;
-		if(valor != null) {
-			condicionesTaxativasAAgregar.add(valor);
-			listaCondicionesTaxativas.remove(valor);
+		if(condicionTaxativaSeleccionada != null) {
+			condicionesTaxativasAAgregar.add(condicionTaxativaSeleccionada);
+			listaCondicionesTaxativas.remove(condicionTaxativaSeleccionada);
+			condicionTaxativaSeleccionada = null;
 			actualizarListas("listaCondicionesTaxativas", "condicionesTaxativasAAgregar");
 		}
 	}
 	
 	public void moverHaciaLaDerechaComparativa() {
-		String valor = condicionComparativaSeleccionada;
-		if(valor != null) {
-			condicionesComparativasAAgregar.add(valor);
-			listaCondicionesComparativas.remove(valor);
+		if(condicionComparativaSeleccionada != null) {
+			condicionesComparativasAAgregar.add(condicionComparativaSeleccionada);
+			listaCondicionesComparativas.remove(condicionComparativaSeleccionada);
+			condicionComparativaSeleccionada = null;
 			actualizarListas("condicionesComparativasAAgregar", "listaCondicionesComparativas");
 		}
 	}
 
 	public void moverHaciaLaIzquierdaComparativa() {
-		String valor = condicionComparativaAAgregarSeleccionada;
-		if(valor != null) {
-			condicionesComparativasAAgregar.remove(valor);
-			listaCondicionesComparativas.add(valor);
+		if(condicionComparativaAAgregarSeleccionada != null) {
+			listaCondicionesComparativas.add(condicionComparativaAAgregarSeleccionada);
+			condicionesComparativasAAgregar.remove(condicionComparativaAAgregarSeleccionada);
+			condicionComparativaAAgregarSeleccionada = null;
 			actualizarListas("condicionesComparativasAAgregar", "listaCondicionesComparativas");
 		}
 	}
@@ -105,67 +107,67 @@ public class CargarMetodologiasVM {
 		this.nombreMetodologia = nombreMetodologia;
 	}
 
-	public List<String> getListaCondicionesTaxativas() {
+	public List<CondicionTaxativa> getListaCondicionesTaxativas() {
 		return listaCondicionesTaxativas;
 	}
 
-	public void setListaCondicionesTaxativas(List<String> listaCondicionesTaxativas) {
+	public void setListaCondicionesTaxativas(List<CondicionTaxativa> listaCondicionesTaxativas) {
 		this.listaCondicionesTaxativas = listaCondicionesTaxativas;
 	}
 
-	public String getCondicionTaxativaSeleccionada() {
+	public CondicionTaxativa getCondicionTaxativaSeleccionada() {
 		return condicionTaxativaSeleccionada;
 	}
 
-	public void setCondicionTaxativaSeleccionada(String condicionSeleccionada) {
-		this.condicionTaxativaSeleccionada = condicionSeleccionada;
+	public void setCondicionTaxativaSeleccionada(CondicionTaxativa condicionTaxativaSeleccionada) {
+		this.condicionTaxativaSeleccionada = condicionTaxativaSeleccionada;
 	}
 
-	public List<String> getCondicionesTaxativasAAgregar() {
+	public List<CondicionTaxativa> getCondicionesTaxativasAAgregar() {
 		return condicionesTaxativasAAgregar;
 	}
 
-	public void setCondicionesTaxativasAAgregar(List<String> condicionesAAgregar) {
-		this.condicionesTaxativasAAgregar = condicionesAAgregar;
+	public void setCondicionesTaxativasAAgregar(List<CondicionTaxativa> condicionesTaxativasAAgregar) {
+		this.condicionesTaxativasAAgregar = condicionesTaxativasAAgregar;
 	}
 
-	public String getCondicionTaxativaAAgregarSeleccionada() {
+	public CondicionTaxativa getCondicionTaxativaAAgregarSeleccionada() {
 		return condicionTaxativaAAgregarSeleccionada;
 	}
 
-	public void setCondicionTaxativaAAgregarSeleccionada(String condicionAAgregarSeleccionada) {
-		this.condicionTaxativaAAgregarSeleccionada = condicionAAgregarSeleccionada;
+	public void setCondicionTaxativaAAgregarSeleccionada(CondicionTaxativa condicionTaxativaAAgregarSeleccionada) {
+		this.condicionTaxativaAAgregarSeleccionada = condicionTaxativaAAgregarSeleccionada;
 	}
 
-	public List<String> getListaCondicionesComparativas() {
+	public List<CondicionComparativa> getListaCondicionesComparativas() {
 		return listaCondicionesComparativas;
 	}
 
-	public void setListaCondicionesComparativas(List<String> listaCondicionesComparativas) {
+	public void setListaCondicionesComparativas(List<CondicionComparativa> listaCondicionesComparativas) {
 		this.listaCondicionesComparativas = listaCondicionesComparativas;
 	}
 
-	public String getCondicionComparativaSeleccionada() {
+	public CondicionComparativa getCondicionComparativaSeleccionada() {
 		return condicionComparativaSeleccionada;
 	}
 
-	public void setCondicionComparativaSeleccionada(String condicionComparativaSeleccionada) {
+	public void setCondicionComparativaSeleccionada(CondicionComparativa condicionComparativaSeleccionada) {
 		this.condicionComparativaSeleccionada = condicionComparativaSeleccionada;
 	}
 
-	public List<String> getCondicionesComparativasAAgregar() {
+	public List<CondicionComparativa> getCondicionesComparativasAAgregar() {
 		return condicionesComparativasAAgregar;
 	}
 
-	public void setCondicionesComparativasAAgregar(List<String> condicionesComparativasAAgregar) {
+	public void setCondicionesComparativasAAgregar(List<CondicionComparativa> condicionesComparativasAAgregar) {
 		this.condicionesComparativasAAgregar = condicionesComparativasAAgregar;
 	}
 
-	public String getCondicionComparativaAAgregarSeleccionada() {
+	public CondicionComparativa getCondicionComparativaAAgregarSeleccionada() {
 		return condicionComparativaAAgregarSeleccionada;
 	}
 
-	public void setCondicionComparativaAAgregarSeleccionada(String condicionComparativaAAgregarSeleccionada) {
+	public void setCondicionComparativaAAgregarSeleccionada(CondicionComparativa condicionComparativaAAgregarSeleccionada) {
 		this.condicionComparativaAAgregarSeleccionada = condicionComparativaAAgregarSeleccionada;
 	}
 
