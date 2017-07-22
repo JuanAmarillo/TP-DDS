@@ -1,20 +1,12 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Test;
 
 import domain.Empresa;
-import domain.condiciones.Condicion;
-import domain.condiciones.CondicionComparativa;
-import domain.condiciones.CondicionTaxativa;
-import domain.condiciones.OperadoresCondicion.Menor;
-import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
-import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
-import domain.metodologias.Metodologia;
 
 public class MetodologiasTest {
 

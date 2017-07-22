@@ -1,17 +1,14 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import domain.Cuenta;
 import domain.Empresa;
 import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
@@ -20,13 +17,9 @@ import domain.condiciones.OperadoresCondicion.Menor;
 import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.CEndeudamiento;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
-import domain.indicadores.Indicador;
 import domain.indicadores.indicadoresPredeterminados.Antiguedad;
-import domain.indicadores.indicadoresPredeterminados.Solvencia;
 import domain.repositorios.RepositorioCondiciones;
-import domain.repositorios.RepositorioEmpresas;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
-import exceptions.NoSePuedeCalcularException;
 import mocks.IndicadorNoCalculableMock;
 
 public class CondicionesTest {
