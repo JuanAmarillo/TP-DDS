@@ -13,7 +13,7 @@ public enum TokenToOperation{
 		
 		@Override
 		public void createOperation(String token,Compilador compilador){
-			compilador.numero(token);
+			compilador.ingresarTerminal(new Numero(Double.parseDouble(token)));
 		}
 	},
 	
@@ -105,7 +105,7 @@ public enum TokenToOperation{
 
 		@Override
 		public void createOperation(String token, Compilador compilador) {
-			compilador.indicador(token);
+			compilador.ingresarTerminal(new IndicadorCalculo(token));
 			
 		}
 	},
@@ -119,7 +119,7 @@ public enum TokenToOperation{
 
 		@Override
 		public void createOperation(String token, Compilador compilador) {
-			compilador.cuenta(token);
+			compilador.ingresarTerminal(new CuentaCalculo(token));
 		}
 	};
 	

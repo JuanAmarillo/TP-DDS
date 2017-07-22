@@ -39,11 +39,6 @@ public class Compilador {
 		return Arrays.asList(TokenToOperation.values());
 	}
 	
-	public void numero(String token){
-		Calculable numero = new Numero(Double.parseDouble(token));
-		lexemas.push(numero);
-	}
-	
 	public void parentesisIzquierdo(){
 		ParentesisIzquierdo parentesisIzquierdo = new ParentesisIzquierdo();
 		operadores.push(parentesisIzquierdo);
@@ -53,16 +48,9 @@ public class Compilador {
 		armarOperadoresDelParentesis();
 	}
 	
-	public void cuenta(String token){
-		CuentaCalculo cuenta = new CuentaCalculo(token);
-		lexemas.push(cuenta);
+	public void ingresarTerminal(Calculable terminal){
+		lexemas.push(terminal);
 	}
-	
-	public void indicador(String token){
-		IndicadorCalculo indicador = new IndicadorCalculo(token);
-		lexemas.push(indicador);
-	}
-	
 	
 	public void ingresarOperador(Operador operador){
 		if(!operadores.empty() && anteriorTieneMayorPrioridad(operador))
