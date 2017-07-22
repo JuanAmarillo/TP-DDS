@@ -4,37 +4,37 @@
   "cuentas": [
     {
       "nombre": "FDS",
-      "periodo": "2017",
+      "periodo": "1er semestre 2017",
       "balance": 42
     },
     {
       "nombre": "EBITDA",
-      "periodo": "2017",
+      "periodo": "2do semestre 2017",
       "balance": -10000
     },
     {
       "nombre": "ActivoTotal",
-      "periodo": "pascuas",
+      "periodo": "1er semestre 2016",
       "balance": 300
     },
     {
       "nombre": "PasivoTotal",
-      "periodo": "pascuas",
+      "periodo": "2do semestre 2017",
       "balance": 540
     },
     {
       "nombre": "Activo Cte",
-      "periodo": "pascuas",
+      "periodo": "2do semestre 2017",
       "balance": 250
     },
     {
       "nombre": "Pasivo Cte",
-      "periodo": "pascuas",
+      "periodo": "1er semestre 2017",
       "balance": 540
     },
     {
       "nombre": "Ventas",
-      "periodo": "pascuas",
+      "periodo": "2do semestre 2017",
       "balance": 420
     }
   ]

@@ -4,27 +4,27 @@
   "cuentas": [
     {
       "nombre": "BeneficioEconomico",
-      "periodo": "1er Semestre",
+      "periodo": "1er semestre 2017",
       "balance": 1000000.0
     },
     {
       "nombre": "Beneficio",
-      "periodo": "1er Semestre",
+      "periodo": "1er semestre 2017",
       "balance": 800000.0
     },
     {
       "nombre": "ActivoTotal",
-      "periodo": "1er Semestre",
+      "periodo": "1er semestre 2016",
       "balance": 1500000.0
     },
     {
       "nombre": "PatrimonioNeto",
-      "periodo": "1er Semestre",
+      "periodo": "1er semestre 2016",
       "balance": 900000
     },
     {
       "nombre": "Ventas",
-      "periodo": "pascuas",
+      "periodo": "2do semestre 2017",
       "balance": 900000
     }
   ]
