@@ -30,13 +30,13 @@ public class Compilador {
 		obtenerOperacion(token).createOperation(token, this);
 	}
 
-	private TokenToOperation obtenerOperacion(String token) {
+	private TokenToCompilerOperation obtenerOperacion(String token) {
 		return valoresDeTokens().stream().filter(operacion-> operacion.matches(token))
 				.findFirst().get();
 	}
 
-	public List<TokenToOperation> valoresDeTokens() {
-		return Arrays.asList(TokenToOperation.values());
+	public List<TokenToCompilerOperation> valoresDeTokens() {
+		return Arrays.asList(TokenToCompilerOperation.values());
 	}
 	
 	public void parentesisIzquierdo(){

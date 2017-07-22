@@ -6,15 +6,15 @@ import domain.repositorios.RepositorioIndicadores;
 public class TokenToOperationTranslator {
 
 	public boolean esUnNumero(String token) {
-		return TokenToOperation.NUMERO.matches(token);
+		return TokenToCompilerOperation.NUMERO.matches(token);
 	}
 
 	public boolean esUnParentesisIzquierdo(String token) {
-		return TokenToOperation.PARENTESISIZQUIERDO.matches(token);
+		return TokenToCompilerOperation.PARENTESISIZQUIERDO.matches(token);
 	}
 
 	public boolean esUnParentesisDerecho(String token) {
-		return TokenToOperation.PARENTESISDERECHO.matches(token);
+		return TokenToCompilerOperation.PARENTESISDERECHO.matches(token);
 	}
 
 	public boolean esUnOperador(String token) {
