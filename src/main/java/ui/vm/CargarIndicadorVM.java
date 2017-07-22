@@ -13,7 +13,6 @@ import domain.repositorios.RepositorioIndicadores;
 public class CargarIndicadorVM {
 
 	public String indicador;
-	public List<String> indicadores;
 	public String indicadorSeleccionado;
 
 	public String getIndicador() {

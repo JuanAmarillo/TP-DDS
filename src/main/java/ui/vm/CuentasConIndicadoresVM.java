@@ -17,25 +17,25 @@ import ui.windows.CalculadorDeIndicador;
 
 @Observable
 public class CuentasConIndicadoresVM {
-
-	private List<Empresa> empresas;
+	
 	private Empresa empresaSeleccionada;
 	private String periodoSeleccionado;
 	private Cuenta cuentaSeleccionada;
-	private List<CalculadorDeIndicador> calculadores;
 	private CalculadorDeIndicador calculadorSeleccionado;
 
 	public CuentasConIndicadoresVM() {
-		if (RepositorioEmpresas.instance().tieneEmpresasCargadas()) {
-			this.empresas = RepositorioEmpresas.instance().getEmpresasCargadas();
-			this.setEmpresaSeleccionada(this.empresas.get(0));
-		} else
+		if (hayEmpresasCargadas())
+			setEmpresaSeleccionada(getEmpresas().get(0));
+		else
 			throw new NoHayEmpresasCargadasException();
+	}
 
+	public boolean hayEmpresasCargadas() {
+		return RepositorioEmpresas.instance().tieneEmpresasCargadas();
 	}
 
 	public List<Empresa> getEmpresas() {
-		return empresas;
+		return RepositorioEmpresas.instance().getEmpresasCargadas();
 	}
 
 	public Empresa getEmpresaSeleccionada() {
@@ -45,6 +45,8 @@ public class CuentasConIndicadoresVM {
 	public void setEmpresaSeleccionada(Empresa empresaSeleccionada) {
 		this.empresaSeleccionada = empresaSeleccionada;
 		ObservableUtils.firePropertyChanged(this, "periodos");
+		ObservableUtils.firePropertyChanged(this, "cuentas");
+		ObservableUtils.firePropertyChanged(this, "calculadores");
 	}
 
 	public Set<String> getPeriodos() {
@@ -57,9 +59,9 @@ public class CuentasConIndicadoresVM {
 	}
 
 	public void setPeriodoSeleccionado(String periodoSeleccionado) {
-		this.periodoSeleccionado = periodoSeleccionado;
-		this.calculadores = generarCalculadores(empresaSeleccionada, periodoSeleccionado);
+		this.periodoSeleccionado = periodoSeleccionado;;
 		ObservableUtils.firePropertyChanged(this, "cuentas");
+		ObservableUtils.firePropertyChanged(this, "calculadores");
 
 	}
 
@@ -76,7 +78,7 @@ public class CuentasConIndicadoresVM {
 	}
 
 	public List<CalculadorDeIndicador> getCalculadores() {
-		return calculadores;
+		return generarCalculadores(empresaSeleccionada, periodoSeleccionado);
 	}
 
 	private  List<CalculadorDeIndicador> generarCalculadores(Empresa empresa, String periodo) {
