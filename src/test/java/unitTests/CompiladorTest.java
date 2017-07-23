@@ -33,10 +33,6 @@ public class CompiladorTest {
 	public void obtiene(Double resultado) {
 		assertEquals(compilado.calcularValor(empresaMockeada, null), resultado);
 	}
-	
-	public void obtiene(Double resultado,Empresa empresa) {
-		assertEquals(compilado.calcularValor(empresa, null), resultado);
-	}
 
 	public void mockearCalculoIndicador() {
 		Indicador indicadorMockeado = mockearIndicador();
@@ -61,6 +57,7 @@ public class CompiladorTest {
 	public void mockearEmpresa() {
 		empresaMockeada = mock(Empresa.class);
 		when(empresaMockeada.getValorDeLaCuenta("cuenta", null)).thenReturn(5.0);
+		when(empresaMockeada.getValorDeLaCuenta("NoExiste", null)).thenThrow(new RuntimeException());
 	}
 
 	@Before
@@ -136,12 +133,7 @@ public class CompiladorTest {
 
 	@Test(expected = RuntimeException.class)
 	public void cuentaNoExistenteRompeTest() {
-		/*
-		 *  Si se usa empresaMockeada devuelve 0.0 en vez de error como deberia
-		 *  pareciera que en el when() si no tenemos el caso "No existe" devuelve 0.0 de alguna forma
-		 */
-		
-		compilar("No existe", "+", "3").obtiene(3.0, new Empresa());
+		compilar("NoExiste").obtiene(0.0);
 	}
 	
 	@Test
