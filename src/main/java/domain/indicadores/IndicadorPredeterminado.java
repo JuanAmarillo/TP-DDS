@@ -34,6 +34,4 @@ public abstract class IndicadorPredeterminado extends Indicador {
 		return empresa.getValorDeLaCuenta(cuenta, periodo);
 	}
 
-	public abstract boolean esCalculable(Empresa empresa, String periodo);
-
 }

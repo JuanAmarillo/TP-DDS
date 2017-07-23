@@ -10,15 +10,11 @@ public class RAC extends IndicadorPredeterminado{
 	}
 	
 	public String getEcuacion() {
-		return "Ventas/ActivoCte";
-	}
-	
-	public boolean esCalculable(Empresa empresa, String periodo) {
-		return cuentaCalculable("Activo Cte",empresa, periodo) && cuentaCalculable("Ventas",empresa, periodo);
+		return "Ventas/ActivoCorriente";
 	}
 
 	@Override
 	public Double calcularIndicador(Empresa empresa, String periodo) {
-		return valorDeLaCuenta("Ventas", empresa, periodo) /  valorDeLaCuenta("Activo Cte", empresa,periodo);
+		return valorDeLaCuenta("Ventas", empresa, periodo) /  valorDeLaCuenta("ActivoCorriente", empresa,periodo);
 	}
 }

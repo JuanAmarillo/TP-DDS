@@ -12,10 +12,6 @@ public class Solvencia extends IndicadorPredeterminado{
 	public String getEcuacion() {
 		return "ActivoTotal/PasivoTotal";
 	}
-	
-	public boolean esCalculable(Empresa empresa, String periodo) {
-		return cuentaCalculable("ActivoTotal",empresa, periodo) && cuentaCalculable("PasivoTotal",empresa, periodo);
-	}
 
 	@Override
 	public Double calcularIndicador(Empresa empresa, String periodo) {

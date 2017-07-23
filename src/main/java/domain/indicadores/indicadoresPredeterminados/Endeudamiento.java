@@ -13,10 +13,6 @@ public class Endeudamiento extends IndicadorPredeterminado{
 		return "PasivoTotal/ActivoTotal";
 	}
 	
-	public boolean esCalculable(Empresa empresa, String periodo) {
-		return cuentaCalculable("ActivoTotal",empresa, periodo) && cuentaCalculable("PasivoTotal",empresa, periodo);
-	}
-
 	@Override
 	public Double calcularIndicador(Empresa empresa, String periodo) {
 		return valorDeLaCuenta("PasivoTotal", empresa,periodo) / valorDeLaCuenta("ActivoTotal", empresa, periodo);

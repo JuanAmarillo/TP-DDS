@@ -12,11 +12,6 @@ public class ROE extends IndicadorPredeterminado{
 	public String getEcuacion() {
 		return "Beneficio/PatrimonioNeto";
 	}
-
-	public boolean esCalculable(Empresa empresa, String periodo) {
-		return empresa.contieneLaCuentaDePeriodo("Beneficio", periodo) && 
-				empresa.contieneLaCuentaDePeriodo("PatrimonioNeto", periodo);
-	}
 	
 	@Override
 	public Double calcularIndicador(Empresa empresa, String periodo) {

@@ -19,9 +19,4 @@ public class Antiguedad extends IndicadorPredeterminado{
 	public Double calcularIndicador(Empresa empresa, String periodo){
 		return (double)(new DateTime().getYear() -empresa.getAnioFundacion());
 	}
-
-	@Override
-	public boolean esCalculable(Empresa empresa, String periodo) {
-		return true;
-	}
 }

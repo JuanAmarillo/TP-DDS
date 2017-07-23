@@ -12,12 +12,6 @@ public class IndicadorNoCalculableMock extends IndicadorPredeterminado{
 	}
 
 	@Override
-	public boolean esCalculable(Empresa empresa, String periodo) {
-		
-		return false;
-	}
-
-	@Override
 	public String getEcuacion() {
 		// TODO Auto-generated method stub
 		return null;
