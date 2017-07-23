@@ -18,8 +18,6 @@ public class Cuenta {
 		setBalance(balance);
 	}
 
-	// public Cuenta(){};
-
 	public String getNombre() {
 		return nombre;
 	}
