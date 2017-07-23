@@ -33,15 +33,13 @@ public abstract class IndicadorPredeterminado extends Indicador {
 		return RepositorioIndicadores.instance().contieneElIndicador(indicador);
 	}
 
-	protected double valorDelIndicador(String indicador, Empresa empresa, String periodo) {
+	protected Double valorDelIndicador(String indicador, Empresa empresa, String periodo) {
 		return buscarIndicador(indicador).calcularIndicador(empresa, periodo);
 	}
 
 	protected double valorDeLaCuenta(String cuenta, Empresa empresa, String periodo) {
 		return empresa.getValorDeLaCuenta(cuenta, periodo);
 	}
-
-	public abstract Double calcularIndicador(Empresa empresa, String periodo);
 
 	public abstract boolean esCalculable(Empresa empresa, String periodo);
 

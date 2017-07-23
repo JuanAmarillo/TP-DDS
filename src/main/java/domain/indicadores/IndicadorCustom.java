@@ -22,9 +22,11 @@ public class IndicadorCustom extends Indicador {
 		this.calculo  = calculo;
 	}
 
+	@Override
 	public Double calcularIndicador(Empresa empresa, String periodo) {
-		return calculo.calcularValor(empresa, periodo);
+		return calculo.calcularValor(empresa, periodo);			
 	}
+
 
 	public boolean esCalculable(Empresa empresa, String periodo) {
 		return new Analizador(ecuacion).sePuedeCalcular(empresa, periodo);

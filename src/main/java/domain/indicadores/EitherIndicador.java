@@ -3,25 +3,30 @@ package domain.indicadores;
 import java.util.Optional;
 
 public class EitherIndicador {
-
 	private Optional<Double> valorExito;
 	private Optional<String> valorFalla;
+	private String nombreIndicador;
 
-	private EitherIndicador(Optional<Double> valorExito, Optional<String> valorFalla) {
+	private void setEitherIndicador(String nombre,Optional<Double> valorExito, Optional<String> valorFalla) {
 		this.valorExito = valorExito;
 		this.valorFalla = valorFalla;
+		this.nombreIndicador = nombre;
 	}
 
-	public static EitherIndicador left(Double value) {
-		return new EitherIndicador(Optional.of(value), Optional.empty());
+	public EitherIndicador(String nombre,Double value) {
+		setEitherIndicador(nombre,Optional.of(value), Optional.empty());
 	}
 
-	public static EitherIndicador right(String value) {
-		return new EitherIndicador(Optional.empty(), Optional.of(value));
+	public EitherIndicador(String nombre,RuntimeException e) {
+		setEitherIndicador(nombre,Optional.empty(), Optional.of("no pudo calcularse"));
 	}
 
 	public String getValorString() {
 		return valorExito.map(valor-> valor.toString()).orElseGet(valorFalla::get);
+	}
+	
+	public String getNombre(){
+		return nombreIndicador;
 	}
 
 }

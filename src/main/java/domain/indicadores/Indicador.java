@@ -17,6 +17,10 @@ public abstract class Indicador {
 		this.nombre = nombre;
 	}
 	
+	public EitherIndicador calcular(Empresa empresa, String periodo){
+		return new EitherIndicador(nombre, calcularIndicador(empresa, periodo));
+	}
+	
 	abstract public Double calcularIndicador(Empresa empresa, String periodo);
 	
 	abstract public boolean esCustom();
