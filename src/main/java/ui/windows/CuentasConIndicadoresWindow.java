@@ -10,6 +10,7 @@ import org.uqbar.arena.windows.WindowOwner;
 
 import domain.Cuenta;
 import domain.Empresa;
+import domain.indicadores.EitherIndicador;
 import ui.vm.CuentasConIndicadoresVM;
 
 @SuppressWarnings("serial")
@@ -42,21 +43,20 @@ public class CuentasConIndicadoresWindow extends Dialog<CuentasConIndicadoresVM>
 	protected void TablaIndicadores(Panel formPanel) {
 		Panel formTabla = new Panel(formPanel);
 
-		Table<CalculadorDeIndicador> calculadores = new Table<CalculadorDeIndicador>(formTabla,
-				CalculadorDeIndicador.class);
+		Table<EitherIndicador> calculadores = new Table<EitherIndicador>(formTabla, EitherIndicador.class);
 		calculadores.bindItemsToProperty("calculadores");
 		calculadores.bindValueToProperty("calculadorSeleccionado");
-		
-		new Column<CalculadorDeIndicador>(calculadores).setTitle("Indicador").setFixedSize(250)
+
+		new Column<EitherIndicador>(calculadores).setTitle("Indicador").setFixedSize(250)
 				.bindContentsToProperty("nombre");
-		new Column<CalculadorDeIndicador>(calculadores).setTitle("Valor").setFixedSize(250)
-				.bindContentsToProperty("valor");
+		new Column<EitherIndicador>(calculadores).setTitle("Valor").setFixedSize(250)
+				.bindContentsToProperty("valorString");
 	}
 
 	protected void selectorEmpresasPeriodos(Panel formPanel) {
 		Panel form = new Panel(formPanel);
-		form.setLayout(new ColumnLayout(2));		
-		//ViewUtils.crearPanel(formPanel, new ColumnLayout(2));
+		form.setLayout(new ColumnLayout(2));
+		// ViewUtils.crearPanel(formPanel, new ColumnLayout(2));
 
 		new Label(form).setText("Empresa");
 		ViewUtils.crearSelectorConAdaptador(form, "empresas", "empresaSeleccionada", Empresa.class, "nombre");

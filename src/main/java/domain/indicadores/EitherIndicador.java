@@ -2,6 +2,9 @@ package domain.indicadores;
 
 import java.util.Optional;
 
+import org.uqbar.commons.utils.Observable;
+
+@Observable
 public class EitherIndicador {
 	private Optional<Double> valorExito;
 	private Optional<String> valorFalla;
@@ -17,7 +20,7 @@ public class EitherIndicador {
 		setEitherIndicador(nombre,Optional.of(value), Optional.empty());
 	}
 
-	public EitherIndicador(String nombre,RuntimeException e) {
+	public EitherIndicador(String nombre) {
 		setEitherIndicador(nombre,Optional.empty(), Optional.of("No pudo calcularse"));
 	}
 

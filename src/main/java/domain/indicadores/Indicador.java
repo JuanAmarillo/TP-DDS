@@ -18,7 +18,11 @@ public abstract class Indicador {
 	}
 	
 	public EitherIndicador calcular(Empresa empresa, String periodo){
-		return new EitherIndicador(nombre, calcularIndicador(empresa, periodo));
+		try{
+			return new EitherIndicador(nombre, calcularIndicador(empresa, periodo));
+		}catch (RuntimeException e) {
+			return new EitherIndicador(nombre);
+		}
 	}
 	
 	abstract public Double calcularIndicador(Empresa empresa, String periodo);

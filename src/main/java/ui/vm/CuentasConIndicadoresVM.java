@@ -3,12 +3,14 @@ package ui.vm;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import domain.*;
+import domain.indicadores.EitherIndicador;
 import domain.indicadores.Indicador;
 import domain.repositorios.RepositorioEmpresas;
 import domain.repositorios.RepositorioIndicadores;
@@ -17,15 +19,17 @@ import ui.windows.CalculadorDeIndicador;
 
 @Observable
 public class CuentasConIndicadoresVM {
-	
+
 	private Empresa empresaSeleccionada;
 	private String periodoSeleccionado;
 	private Cuenta cuentaSeleccionada;
-	private CalculadorDeIndicador calculadorSeleccionado;
+	private EitherIndicador calculadorSeleccionado;
 
 	public CuentasConIndicadoresVM() {
-		if (hayEmpresasCargadas())
+		if (hayEmpresasCargadas()){
 			setEmpresaSeleccionada(getEmpresas().get(0));
+			setPeriodoSeleccionado("1er semestre 2017");
+		}
 		else
 			throw new NoHayEmpresasCargadasException();
 	}
@@ -59,7 +63,7 @@ public class CuentasConIndicadoresVM {
 	}
 
 	public void setPeriodoSeleccionado(String periodoSeleccionado) {
-		this.periodoSeleccionado = periodoSeleccionado;;
+		this.periodoSeleccionado = periodoSeleccionado;
 		ObservableUtils.firePropertyChanged(this, "cuentas");
 		ObservableUtils.firePropertyChanged(this, "calculadores");
 
@@ -77,25 +81,22 @@ public class CuentasConIndicadoresVM {
 		this.cuentaSeleccionada = cuentaSeleccionada;
 	}
 
-	public List<CalculadorDeIndicador> getCalculadores() {
-		return generarCalculadores(empresaSeleccionada, periodoSeleccionado);
+	public List<EitherIndicador> getCalculadores() {
+		return indicadoresCargados().stream()
+				.map(indicador -> indicador.calcular(empresaSeleccionada, periodoSeleccionado))
+				.collect(Collectors.toList());
 	}
 
-	private  List<CalculadorDeIndicador> generarCalculadores(Empresa empresa, String periodo) {
-		return indicadoresCalculables(empresa, periodo).stream()
-				.map(indicador-> new CalculadorDeIndicador(indicador,empresa,periodo)).collect(Collectors.toList());
+	public List<Indicador> indicadoresCargados() {
+		return RepositorioIndicadores.instance().getIndicadoresCargados();
 	}
 
-	public List<Indicador> indicadoresCalculables(Empresa empresa, String periodo) {
-		return RepositorioIndicadores.instance().getIndicadoresCargados().stream()
-				.filter(indicador -> indicador.esCalculable(empresa, periodo)).collect(Collectors.toList());
-	}
 
-	public CalculadorDeIndicador getCalculadorSeleccionado() {
+	public EitherIndicador getCalculadorSeleccionado() {
 		return calculadorSeleccionado;
 	}
 
-	public void setCalculadorSeleccionado(CalculadorDeIndicador calculadorSeleccionado) {
+	public void setCalculadorSeleccionado(EitherIndicador calculadorSeleccionado) {
 		this.calculadorSeleccionado = calculadorSeleccionado;
 	}
 
