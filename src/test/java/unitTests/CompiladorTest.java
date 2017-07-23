@@ -2,6 +2,7 @@ package unitTests;
 
 import java.util.Arrays;
 import java.util.LinkedList;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -10,7 +11,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import calculoIndicadores.Calculable;
+import calculoIndicadores.IndicadorCalculo;
 import calculoIndicadores.ConstructoresIndicador.Compilador;
+import domain.indicadores.Indicador;
 import domain.repositorios.RepositorioIndicadores;
 
 public class CompiladorTest {
@@ -30,10 +33,19 @@ public class CompiladorTest {
 		assertEquals(arbolDeSintaxis.calcularValor(null, null), resultado);
 	}
 	
-	public void mockearRepositorioIndicador(){
-//		mock(RepositorioIndicadores.class);
-//		when(RepositorioIndicadores.instance().contieneElIndicador("indicador")).thenReturn(true);
-//		when(RepositorioIndicadores.instance().contieneElIndicador("cuenta")).thenReturn(false);
+	public void mockearRepositorioIndicador(Indicador indicadorMockeado){
+		RepositorioIndicadores instance = mock(RepositorioIndicadores.class);
+		when(instance.contieneElIndicador("indicador")).thenReturn(true);
+		when(instance.contieneElIndicador("cuenta")).thenReturn(false);
+		when(instance.buscarIndicador("indicador")).thenReturn(Optional.of(indicadorMockeado));
+		RepositorioIndicadores.setInstance(instance);
+		
+	}
+	
+	public Indicador mockearIndicador(){
+		Indicador  indicadorMockeado = mock(Indicador.class);
+		when(indicadorMockeado.calcularIndicador(null, null)).thenReturn(4.0);
+		return indicadorMockeado;
 	}
 	
 	public void mockearRepositorioEmpresa(){
@@ -42,7 +54,8 @@ public class CompiladorTest {
 	
 	@Before
 	public void init(){
-		mockearRepositorioIndicador();
+		Indicador indicadorMockeado = mockearIndicador();
+		mockearRepositorioIndicador(indicadorMockeado);
 		mockearRepositorioEmpresa();
 	}
 	
@@ -102,14 +115,14 @@ public class CompiladorTest {
 	}
 	
 	
-//	@Test
-//	public void compilaIndicadoresTest(){
-//		compilar("indicador","+","5").obtiene(9.0);
-//	}
-//	
-//	@Test
-//	public void operacionCombinadaTest(){
-//		compilar("20","/","(","3","*","4","-","2",")","+","indicador").obtiene(6.0);
-//	}
+	@Test
+	public void compilaIndicadoresTest(){
+		compilar("indicador","+","5").obtiene(9.0);
+	}
+	
+	@Test
+	public void operacionCombinadaTest(){
+		compilar("20","/","(","3","*","4","-","2",")","+","indicador").obtiene(6.0);
+	}
 	
 }

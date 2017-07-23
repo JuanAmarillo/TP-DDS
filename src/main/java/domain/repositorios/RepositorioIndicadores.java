@@ -1,3 +1,4 @@
+
 package domain.repositorios;
 
 import java.util.ArrayList;
@@ -30,6 +31,10 @@ public class RepositorioIndicadores implements Repositorio<DatosIndicadores>{
 
 	private static boolean noHayInstanciaCargada() {
 		return instance == null;
+	}
+	
+	public static void setInstance(RepositorioIndicadores repositorio){
+		instance = repositorio;
 	}
 
 	public static void resetSingleton() {
