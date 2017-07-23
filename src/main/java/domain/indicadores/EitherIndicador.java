@@ -18,7 +18,7 @@ public class EitherIndicador {
 	}
 
 	public EitherIndicador(String nombre,RuntimeException e) {
-		setEitherIndicador(nombre,Optional.empty(), Optional.of("no pudo calcularse"));
+		setEitherIndicador(nombre,Optional.empty(), Optional.of("No pudo calcularse"));
 	}
 
 	public String getValorString() {
