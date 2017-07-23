@@ -11,18 +11,11 @@ public abstract class IndicadorPredeterminado extends Indicador {
 	}
 
 	protected boolean indicadorCalculable(String indicador, Empresa empresa, String periodo) {
-		if (existeIndicador(indicador))
-			return esPosibleCalcularlo(indicador, empresa, periodo);
-		else
-			return existeIndicador(indicador);
+		return existeIndicador(indicador);
 	}
 
 	protected boolean cuentaCalculable(String indicador, Empresa empresa, String periodo) {
 		return empresa.contieneLaCuentaDePeriodo(indicador, periodo);
-	}
-
-	private boolean esPosibleCalcularlo(String indicador, Empresa empresa, String periodo) {
-		return buscarIndicador(indicador).esCalculable(empresa, periodo);
 	}
 
 	protected Indicador buscarIndicador(String indicador) {

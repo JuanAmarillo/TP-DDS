@@ -42,8 +42,5 @@ public class Analizador {
 		return new Compilador().compilar(generarTokens());
 	}
 	
-	public Boolean sePuedeCalcular(Empresa empresa, String periodo){
-		return new AnalisisSemantico().analizarSemantica(generarTokens(),empresa,periodo);
-	}
 
 }

@@ -61,10 +61,6 @@ public class CalculoIndicadoresTest {
 		return new Analizador(expresion).compilar();
 	}
 	
-	private void puedeCalcular(String expresion,boolean resultado) {
-		assertEquals(new Analizador(expresion).sePuedeCalcular(empresa, periodo),resultado);
-	}
-	
 	private void elCalculoDa(Calculable calculo,double resultado) {
 		assertTrue(calculo.calcularValor(empresa, periodo).equals(resultado));
 	}
@@ -113,22 +109,20 @@ public class CalculoIndicadoresTest {
 	@Test
 	public void testIndicadorConCuentas() {
 		Calculable calculo = compilarExpresion(pasivoCorriente.ecuacion);
-		puedeCalcular(pasivoCorriente.ecuacion,true);
 		elCalculoDa(calculo, 70.0);
 	}
 
 	@Test
 	public void testIndicadorConIndicadores() {
 		Calculable calculo = compilarExpresion(pruebaAcida.ecuacion);	
-		puedeCalcular(pruebaAcida.ecuacion,true);
 		elCalculoDa(calculo, 3.0);
 	}
 		
-	@Test
-	public void testIndicadorConCuentaOIndicadorNoExistenteNoPuedeSerCalculado(){
-		String expresion = "2*pepe";
-		puedeCalcular(expresion, false);
-	}
+//	@Test
+//	public void testIndicadorConCuentaOIndicadorNoExistenteNoPuedeSerCalculado(){
+//		String expresion = "2*pepe";
+//		puedeCalcular(expresion, false);
+//	}
 	
 	@Test
 	public void testSeCalculanLosIndicadoresDeFormaPolimorfica() {

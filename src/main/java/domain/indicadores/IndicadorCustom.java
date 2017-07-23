@@ -27,11 +27,6 @@ public class IndicadorCustom extends Indicador {
 		return calculo.calcularValor(empresa, periodo);			
 	}
 
-
-	public boolean esCalculable(Empresa empresa, String periodo) {
-		return new Analizador(ecuacion).sePuedeCalcular(empresa, periodo);
-	}
-
 	public Calculable generarCalculo() {
 		return new Analizador(ecuacion).compilar();
 	}

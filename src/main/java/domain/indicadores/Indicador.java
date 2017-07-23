@@ -31,6 +31,5 @@ public abstract class Indicador {
 
 	abstract public String getEcuacion();
 	
-	abstract public boolean esCalculable(Empresa empresa, String periodo);
 
 }
