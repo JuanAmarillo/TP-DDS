@@ -114,7 +114,7 @@ public enum TokenToCompilerOperation{
 		
 		@Override
 		public boolean matches(String token) {
-			return !RepositorioIndicadores.instance().contieneElIndicador(token);
+			return token.matches("([0-9 ]*[a-zA-Z]+[0-9 ]*)+");
 		}
 
 		@Override
