@@ -3,10 +3,8 @@ package ui.vm;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
-import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
 import domain.condiciones.CondicionTaxativa;
 import domain.metodologias.Metodologia;
@@ -56,7 +54,7 @@ public class CargarMetodologiasVM {
 		if(condicionesTaxativasAAgregar.size() == 0 || condicionesComparativasAAgregar.size() == 0)
 			throw new RuntimeException("No se seleccionó ninguna condición");
 	}
-	
+		
 	public void moverHaciaLaIzquierdaTaxativa() {
 		if(condicionTaxativaAAgregarSeleccionada != null) {
 			listaCondicionesTaxativas.add(condicionTaxativaAAgregarSeleccionada);
@@ -70,6 +68,8 @@ public class CargarMetodologiasVM {
 		if(condicionTaxativaSeleccionada != null) {
 			condicionesTaxativasAAgregar.add(condicionTaxativaSeleccionada);
 			listaCondicionesTaxativas.remove(condicionTaxativaSeleccionada);
+			//agregarPeso(condicionTaxativaSeleccionada);
+			//crearTupla();
 			condicionTaxativaSeleccionada = null;
 			avisarCambiosEnTaxativa();
 		}
@@ -83,11 +83,13 @@ public class CargarMetodologiasVM {
 		if(condicionComparativaSeleccionada != null) {
 			condicionesComparativasAAgregar.add(condicionComparativaSeleccionada);
 			listaCondicionesComparativas.remove(condicionComparativaSeleccionada);
+			//agregarPeso(condicionComparativaSeleccionada);
 			condicionComparativaSeleccionada = null;
 			avisarCambiosEnComparativa();
 		}
 	}
 
+	
 	public void moverHaciaLaIzquierdaComparativa() {
 		if(condicionComparativaAAgregarSeleccionada != null) {
 			listaCondicionesComparativas.add(condicionComparativaAAgregarSeleccionada);

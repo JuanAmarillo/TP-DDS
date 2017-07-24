@@ -21,7 +21,6 @@ public class MetodologiasWindow extends Dialog {
 	@Override
 	protected void createFormPanel(Panel formPanel) {
 		this.setTitle("Metodologias");
-		
 
 	}
 
@@ -29,21 +28,19 @@ public class MetodologiasWindow extends Dialog {
 	protected void addActions(Panel panelActions) {
 		panelActions.setLayout(new ColumnLayout(1));
 		crearBotonConColor(panelActions, "Cargar condiciones", this::cargarCondiciones);
-		crearBotonConColor(panelActions, "Cargar metodologías" ,this::cargarMetodologias);
-		crearBotonConColor(panelActions, "Evaluar metodologias",this::evaluarMetodologias);
+		crearBotonConColor(panelActions, "Cargar metodologías", this::cargarMetodologias);
+		crearBotonConColor(panelActions, "Evaluar metodologias", this::evaluarMetodologias);
 	}
-	
-	public void crearBotonConColor(Panel panelAUsar, String nombreBoton, Action onClick){
+
+	public void crearBotonConColor(Panel panelAUsar, String nombreBoton, Action onClick) {
 		Button boton = ViewUtils.crearBoton(panelAUsar, nombreBoton, onClick);
 		boton.setBackground(Color.lightGray).setWidth(350);
 	}
 
-	
 	public void cargarCondiciones() {
 		ViewUtils.nuevaPantalla(new CargarCondicionWindow(this));
 	}
 
-	
 	public void cargarMetodologias() {
 		try {
 			ViewUtils.nuevaPantalla(new CargarMetodologiasWindow(this));
@@ -51,7 +48,7 @@ public class MetodologiasWindow extends Dialog {
 			this.showWarning(e.getMessage());
 		}
 	}
-	
+
 	public void evaluarMetodologias() {
 		ViewUtils.nuevaPantalla(new VerMetodologiasWindow(this));
 	}

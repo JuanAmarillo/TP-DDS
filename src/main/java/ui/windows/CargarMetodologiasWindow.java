@@ -10,10 +10,8 @@ import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.lacar.ui.model.Action;
 
-import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
 import domain.condiciones.CondicionTaxativa;
-import domain.metodologias.Metodologia;
 import ui.vm.CargarMetodologiasVM;
 
 public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
@@ -24,26 +22,29 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 
 	@Override
 	protected void createFormPanel(Panel formPanel) {
-		Panel panelCreacion = ViewUtils.crearPanel(formPanel, new ColumnLayout(1),"Creación de nuevas metodologias");
-		nombreMetodologiaACrear(panelCreacion);		
+		Panel panelCreacion = ViewUtils.crearPanel(formPanel, new ColumnLayout(1), "Creación de nuevas metodologias");
+		nombreMetodologiaACrear(panelCreacion);
 		seleccionDeCondicionesTaxativas(panelCreacion);
 		seleccionDeCondicionesComparativas(panelCreacion);
 	}
 
 	private void seleccionDeCondicionesComparativas(Panel formPanel) {
 		Panel panelCondiciones = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
-		this.listaCondiciones(panelCondiciones, "Condiciones comparativas", "listaCondicionesComparativas", "condicionComparativaSeleccionada", CondicionComparativa.class);
+		this.listaCondiciones(panelCondiciones, "Condiciones comparativas", "listaCondicionesComparativas",
+				"condicionComparativaSeleccionada", CondicionComparativa.class);
 		this.botones(panelCondiciones, this::moverHaciaLaDerechaC, this::moverHaciaLaIzquierdaC);
-		this.listaDeLaMetodologia(panelCondiciones, "condicionesComparativasAAgregar", "condicionComparativaAAgregarSeleccionada", CondicionComparativa.class);
+		this.listaDeLaMetodologia(panelCondiciones, "condicionesComparativasAAgregar",
+				"condicionComparativaAAgregarSeleccionada", CondicionComparativa.class);
 	}
 
 	private void seleccionDeCondicionesTaxativas(Panel formPanel) {
 		Panel panelCondiciones = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
-		this.listaCondiciones(panelCondiciones, "Condiciones taxativas", "listaCondicionesTaxativas", "condicionTaxativaSeleccionada", CondicionTaxativa.class);
+		this.listaCondiciones(panelCondiciones, "Condiciones taxativas", "listaCondicionesTaxativas",
+				"condicionTaxativaSeleccionada", CondicionTaxativa.class);
 		this.botones(panelCondiciones, this::moverHaciaLaDerechaT, this::moverHaciaLaIzquierdaT);
-		this.listaDeLaMetodologia(panelCondiciones, "condicionesTaxativasAAgregar", "condicionTaxativaAAgregarSeleccionada", CondicionTaxativa.class);
+		this.listaDeLaMetodologia(panelCondiciones, "condicionesTaxativasAAgregar",
+				"condicionTaxativaAAgregarSeleccionada", CondicionTaxativa.class);
 	}
-
 
 	private void nombreMetodologiaACrear(Panel formPanel) {
 		new Label(formPanel).setText("Nombre");
@@ -51,57 +52,59 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 	}
 
 	private void listaDeLaMetodologia(Panel formPanel, String lista, String elemento, Class<?> clase) {
-		Panel panel = ViewUtils.crearPanel(formPanel, new ColumnLayout(1),"Condiciones taxativas de la metodologia");
+		Panel panel = ViewUtils.crearPanel(formPanel, new ColumnLayout(1), "Condiciones taxativas de la metodologia");
 		List<?> condiciones = ViewUtils.crearListaConAdaptador(panel, lista, elemento, clase, "nombre");
 		ViewUtils.setSize(250, 100, condiciones);
 
 	}
 
 	public void listaCondiciones(Panel formPanel, String titulo, String lista, String elemento, Class<?> clase) {
-		Panel panel = ViewUtils.crearPanel(formPanel, new ColumnLayout(1),titulo);
+		Panel panel = ViewUtils.crearPanel(formPanel, new ColumnLayout(1), titulo);
 		List<?> condiciones = ViewUtils.crearListaConAdaptador(panel, lista, elemento, clase, "nombre");
 		ViewUtils.setSize(250, 100, condiciones);
 
 	}
-	
+
 	private void botones(Panel formPanel, Action metodoHaciaDerecha, Action metodoHaciaIzquierda) {
 		Panel botones = ViewUtils.crearPanel(formPanel, new ColumnLayout(1));
+		@SuppressWarnings("unused")
 		Label rellenaVacio = new Label(botones);
+		@SuppressWarnings("unused")
 		Label rellenaVacio1 = new Label(botones);
-		ViewUtils.crearBoton(botones, ">"  , metodoHaciaDerecha);
-		ViewUtils.crearBoton(botones, "<"  , metodoHaciaIzquierda);
+		ViewUtils.crearBoton(botones, ">", metodoHaciaDerecha);
+		ViewUtils.crearBoton(botones, "<", metodoHaciaIzquierda);
 	}
-	
+
 	@Override
 	protected void addActions(Panel panelActions) {
 		ViewUtils.crearBoton(panelActions, "Volver", this::accept).setAsDefault();
-		ViewUtils.crearBoton(panelActions, "Cargar Metodologia", this::cargarMetodologia );
+		ViewUtils.crearBoton(panelActions, "Cargar Metodologia", this::cargarMetodologia);
 	}
-	
+
 	private void moverHaciaLaDerechaT() {
 		this.getModelObject().moverHaciaLaDerechaTaxativa();
+
 	}
-	
+
 	private void moverHaciaLaIzquierdaT() {
 		this.getModelObject().moverHaciaLaIzquierdaTaxativa();
 	}
-	
+
 	private void moverHaciaLaDerechaC() {
 		this.getModelObject().moverHaciaLaDerechaComparativa();
 	}
-	
+
 	private void moverHaciaLaIzquierdaC() {
 		this.getModelObject().moverHaciaLaIzquierdaComparativa();
 	}
-	
+
 	private void cargarMetodologia() {
 		try {
 			this.getModelObject().cargarMetodologia();
-			this.showInfo("La metodologia se cargo correctamente");
+			this.showInfo("La metodología se cargó correctamente");
+		} catch (RuntimeException e) {
+			this.showWarning(e.getMessage());
 		}
-		catch(RuntimeException e ) {this.showWarning(e.getMessage()); }
 	}
-	
+
 }
-
-
