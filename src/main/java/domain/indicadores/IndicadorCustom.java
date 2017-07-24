@@ -10,16 +10,16 @@ import domain.indicadores.calculoIndicadores.ConstructoresIndicador.Analizador;
 
 @Observable
 public class IndicadorCustom extends Indicador {
-	public String ecuacion;
+	public String expresion;
 	@JsonIgnore
 	public Calculable calculo;
 
 	public IndicadorCustom(){/*Para jackson*/}
 	
-	public IndicadorCustom(String nombre,String ecuacion,Calculable calculo) {
-		this.nombre   = nombre;
-		this.ecuacion = ecuacion;
-		this.calculo  = calculo;
+	public IndicadorCustom(String nombre,String expresion,Calculable calculo) {
+		this.nombre    = nombre;
+		this.expresion = expresion;
+		this.calculo   = calculo;
 	}
 
 	@Override
@@ -28,17 +28,13 @@ public class IndicadorCustom extends Indicador {
 	}
 
 	public Calculable generarCalculo() {
-		return new Analizador(ecuacion).compilar();
+		return new Analizador(expresion).compilar();
 	}
 
 	// SETTERS Y GETTERS //
 
 	public void setCalculo() {
 		this.calculo = generarCalculo();
-	}
-
-	public void setEcuacion(String ecuacion) {
-		this.ecuacion = ecuacion;
 	}
 
 	public Token getCalculo() {
