@@ -4,7 +4,7 @@ import domain.Empresa;
 
 public abstract class Indicador {
 	protected String nombre;
-
+	
 	public boolean suNombreEs(String nombreIndicador){
 		return this.nombre.equals(nombreIndicador);
 	}

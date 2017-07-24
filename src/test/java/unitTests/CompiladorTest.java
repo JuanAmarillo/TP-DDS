@@ -15,18 +15,16 @@ import calculoIndicadores.ConstructoresIndicador.Compilador;
 import domain.Empresa;
 import domain.indicadores.Indicador;
 import domain.repositorios.RepositorioIndicadores;
+import ui.vm.VmUtils;
 
 public class CompiladorTest {
 
 	public Calculable compilado;
 	public Empresa empresaMockeada;
 
-	private LinkedList<String> convertirALista(String[] tokens) {
-		return new LinkedList<String>(Arrays.asList(tokens));
-	}
 
 	public CompiladorTest compilar(String... tokens) {
-		compilado = new Compilador().compilar(convertirALista(tokens));
+		compilado = new Compilador().compilar(VmUtils.convertirALista(tokens));
 		return this;
 	}
 

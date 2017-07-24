@@ -1,22 +1,15 @@
 package unitTests;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import org.junit.Test;
 
 import calculoIndicadores.ConstructoresIndicador.Parser;
 import exceptions.ParsingException;
+import ui.vm.VmUtils;
 
 public class ParserTest {
 	
-	public List<String> lista(String... tokens) {
-		return new ArrayList<>(Arrays.asList(tokens));
-	}
-	
 	public void parsear(String... tokens){
-		new Parser(lista(tokens)).parsear();;
+		new Parser(VmUtils.convertirALista(tokens)).parsear();;
 	}
 	
 	@Test

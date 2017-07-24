@@ -57,17 +57,12 @@ public class CargarMetodologiasVM {
 			throw new RuntimeException("No se seleccionó ninguna condición");
 	}
 	
-	private void actualizarListas(String listaCondiciones, String condicionesAAgregar) {
-		ObservableUtils.firePropertyChanged(this, listaCondiciones);
-		ObservableUtils.firePropertyChanged(this, condicionesAAgregar);		
-	}
-	
 	public void moverHaciaLaIzquierdaTaxativa() {
 		if(condicionTaxativaAAgregarSeleccionada != null) {
 			listaCondicionesTaxativas.add(condicionTaxativaAAgregarSeleccionada);
 			condicionesTaxativasAAgregar.remove(condicionTaxativaAAgregarSeleccionada);
 			condicionTaxativaAAgregarSeleccionada = null;
-			actualizarListas("listaCondicionesTaxativas", "condicionesTaxativasAAgregar");
+			avisarCambiosEnTaxativa();
 		}
 	}	
 
@@ -76,8 +71,12 @@ public class CargarMetodologiasVM {
 			condicionesTaxativasAAgregar.add(condicionTaxativaSeleccionada);
 			listaCondicionesTaxativas.remove(condicionTaxativaSeleccionada);
 			condicionTaxativaSeleccionada = null;
-			actualizarListas("listaCondicionesTaxativas", "condicionesTaxativasAAgregar");
+			avisarCambiosEnTaxativa();
 		}
+	}
+
+	public void avisarCambiosEnTaxativa() {
+		VmUtils.avisarCambios(this,"listaCondicionesTaxativas", "condicionesTaxativasAAgregar");
 	}
 	
 	public void moverHaciaLaDerechaComparativa() {
@@ -85,7 +84,7 @@ public class CargarMetodologiasVM {
 			condicionesComparativasAAgregar.add(condicionComparativaSeleccionada);
 			listaCondicionesComparativas.remove(condicionComparativaSeleccionada);
 			condicionComparativaSeleccionada = null;
-			actualizarListas("condicionesComparativasAAgregar", "listaCondicionesComparativas");
+			avisarCambiosEnComparativa();
 		}
 	}
 
@@ -94,8 +93,12 @@ public class CargarMetodologiasVM {
 			listaCondicionesComparativas.add(condicionComparativaAAgregarSeleccionada);
 			condicionesComparativasAAgregar.remove(condicionComparativaAAgregarSeleccionada);
 			condicionComparativaAAgregarSeleccionada = null;
-			actualizarListas("condicionesComparativasAAgregar", "listaCondicionesComparativas");
+			avisarCambiosEnComparativa();
 		}
+	}
+
+	public void avisarCambiosEnComparativa() {
+		VmUtils.avisarCambios(this,"condicionesComparativasAAgregar", "listaCondicionesComparativas");
 	}
 	
 	// GETTERS Y SETTERS

@@ -26,10 +26,8 @@ public class CuentasConIndicadoresVM {
 	private IndicadorCalculado calculadorSeleccionado;
 
 	public CuentasConIndicadoresVM() {
-		if (hayEmpresasCargadas()){
+		if (hayEmpresasCargadas())
 			setEmpresaSeleccionada(getEmpresas().get(0));
-			setPeriodoSeleccionado("1er semestre 2017");
-		}
 		else
 			throw new NoHayEmpresasCargadasException();
 	}
@@ -48,9 +46,7 @@ public class CuentasConIndicadoresVM {
 
 	public void setEmpresaSeleccionada(Empresa empresaSeleccionada) {
 		this.empresaSeleccionada = empresaSeleccionada;
-		ObservableUtils.firePropertyChanged(this, "periodos");
-		ObservableUtils.firePropertyChanged(this, "cuentas");
-		ObservableUtils.firePropertyChanged(this, "calculadores");
+		VmUtils.avisarCambios(this, "periodos","cuentas","calculadores");
 	}
 
 	public Set<String> getPeriodos() {
@@ -64,9 +60,7 @@ public class CuentasConIndicadoresVM {
 
 	public void setPeriodoSeleccionado(String periodoSeleccionado) {
 		this.periodoSeleccionado = periodoSeleccionado;
-		ObservableUtils.firePropertyChanged(this, "cuentas");
-		ObservableUtils.firePropertyChanged(this, "calculadores");
-
+		VmUtils.avisarCambios(this,"cuentas","calculadores");
 	}
 
 	public Set<Cuenta> getCuentas() {
