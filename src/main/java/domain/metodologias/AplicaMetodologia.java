@@ -16,23 +16,22 @@ public class AplicaMetodologia {
 	}
 
 	public List<Empresa> aplicarMetodologia(Metodologia met, String periodo) {
-		List<Empresa> listaProcesada = aplicarTaxativas(met.getCondicionesTaxativas(), periodo);
-		//listaProcesada = aplicarComparativas(met.getCondicionesComparativas(), listaProcesada);
-		return listaProcesada;
+		aplicarTaxativas(met.getCondicionesTaxativas(), periodo);
+		aplicarComparativas(met.getCondicionesComparativas(), periodo);
+		return empresas;
 	}
 
-	private List<Empresa> aplicarTaxativas(List<CondicionTaxativa> condicionesTaxativas, String periodo) {
+	private void aplicarTaxativas(List<CondicionTaxativa> condicionesTaxativas, String periodo) {
 		condicionesTaxativas.stream().forEach(cond -> aplicarUnicaTaxativa(cond, periodo));
-		return empresas;
 	}
 	
 	private void aplicarUnicaTaxativa(CondicionTaxativa cond, String periodo) {
 		empresas = cond.aplicarCondicion(empresas, periodo);
 	}
 
-	private List<Empresa> aplicarComparativas(List<CondicionComparativa> condicionesComparativas, List<Empresa> intermedia) {
-		// TODO Auto-generated method stub
-		return null;
+	private List<Empresa> aplicarComparativas(List<CondicionComparativa> condicionesComparativas, String periodo) {
+		
+		return empresas;
 	}
 
 	
