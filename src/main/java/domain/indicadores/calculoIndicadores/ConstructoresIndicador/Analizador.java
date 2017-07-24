@@ -1,12 +1,12 @@
-package calculoIndicadores.ConstructoresIndicador;
+package domain.indicadores.calculoIndicadores.ConstructoresIndicador;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import calculoIndicadores.Calculable;
 import domain.Empresa;
+import domain.indicadores.calculoIndicadores.Calculable;
 
 
 public class Analizador {

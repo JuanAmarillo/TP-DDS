@@ -1,10 +1,10 @@
-package calculoIndicadores.ConstructoresIndicador;
+package domain.indicadores.calculoIndicadores.ConstructoresIndicador;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
-import calculoIndicadores.*;
+import domain.indicadores.calculoIndicadores.*;
 public class Compilador {
 	
 	private Stack<Calculable> lexemas;

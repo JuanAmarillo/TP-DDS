@@ -1,6 +1,6 @@
-package calculoIndicadores.ConstructoresIndicador;
+package domain.indicadores.calculoIndicadores.ConstructoresIndicador;
 
-import calculoIndicadores.*;
+import domain.indicadores.calculoIndicadores.*;
 import domain.repositorios.RepositorioIndicadores;
 
 public enum TokenToCompilerOperation{

@@ -1,7 +1,7 @@
 package domain.indicadores;
 
-import calculoIndicadores.Calculable;
-import calculoIndicadores.ConstructoresIndicador.Analizador;
+import domain.indicadores.calculoIndicadores.Calculable;
+import domain.indicadores.calculoIndicadores.ConstructoresIndicador.Analizador;
 
 public class BuilderIndicadorCustom {
 	private String ecuacion;

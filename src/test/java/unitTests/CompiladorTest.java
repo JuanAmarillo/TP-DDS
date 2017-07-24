@@ -10,10 +10,10 @@ import static org.mockito.Mockito.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import calculoIndicadores.Calculable;
-import calculoIndicadores.ConstructoresIndicador.Compilador;
 import domain.Empresa;
 import domain.indicadores.Indicador;
+import domain.indicadores.calculoIndicadores.Calculable;
+import domain.indicadores.calculoIndicadores.ConstructoresIndicador.Compilador;
 import domain.repositorios.RepositorioIndicadores;
 import ui.vm.VmUtils;
 

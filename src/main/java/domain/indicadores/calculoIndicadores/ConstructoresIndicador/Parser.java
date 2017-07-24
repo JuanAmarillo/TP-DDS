@@ -1,4 +1,4 @@
-package calculoIndicadores.ConstructoresIndicador;
+package domain.indicadores.calculoIndicadores.ConstructoresIndicador;
 
 import java.util.List;
 

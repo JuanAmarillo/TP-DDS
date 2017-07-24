@@ -2,7 +2,7 @@ package unitTests;
 
 import org.junit.Test;
 
-import calculoIndicadores.ConstructoresIndicador.Parser;
+import domain.indicadores.calculoIndicadores.ConstructoresIndicador.Parser;
 import exceptions.ParsingException;
 import ui.vm.VmUtils;
 

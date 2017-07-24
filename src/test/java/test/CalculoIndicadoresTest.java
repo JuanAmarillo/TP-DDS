@@ -10,12 +10,12 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import calculoIndicadores.Calculable;
-import calculoIndicadores.ConstructoresIndicador.Analizador;
 import domain.Cuenta;
 import domain.Empresa;
 import domain.indicadores.BuilderIndicadorCustom;
 import domain.indicadores.IndicadorCustom;
+import domain.indicadores.calculoIndicadores.Calculable;
+import domain.indicadores.calculoIndicadores.ConstructoresIndicador.Analizador;
 import domain.repositorios.RepositorioIndicadores;
 
 

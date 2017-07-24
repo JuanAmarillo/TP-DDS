@@ -1,4 +1,4 @@
-package calculoIndicadores;
+package domain.indicadores.calculoIndicadores;
 
 import domain.Empresa;
 

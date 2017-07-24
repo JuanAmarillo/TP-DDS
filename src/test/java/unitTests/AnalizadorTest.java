@@ -8,7 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import calculoIndicadores.ConstructoresIndicador.Analizador;
+import domain.indicadores.calculoIndicadores.ConstructoresIndicador.Analizador;
 
 public class AnalizadorTest {
 

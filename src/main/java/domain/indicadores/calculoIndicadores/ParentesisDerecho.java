@@ -1,4 +1,4 @@
-package calculoIndicadores;
+package domain.indicadores.calculoIndicadores;
 
 public class ParentesisDerecho implements Token {
 	protected int prioridad;
