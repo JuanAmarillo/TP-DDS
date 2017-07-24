@@ -10,7 +10,7 @@ import org.uqbar.arena.windows.WindowOwner;
 
 import domain.Cuenta;
 import domain.Empresa;
-import domain.indicadores.EitherIndicador;
+import domain.indicadores.IndicadorCalculado;
 import ui.vm.CuentasConIndicadoresVM;
 
 @SuppressWarnings("serial")
@@ -43,13 +43,13 @@ public class CuentasConIndicadoresWindow extends Dialog<CuentasConIndicadoresVM>
 	protected void TablaIndicadores(Panel formPanel) {
 		Panel formTabla = new Panel(formPanel);
 
-		Table<EitherIndicador> calculadores = new Table<EitherIndicador>(formTabla, EitherIndicador.class);
+		Table<IndicadorCalculado> calculadores = new Table<IndicadorCalculado>(formTabla, IndicadorCalculado.class);
 		calculadores.bindItemsToProperty("calculadores");
 		calculadores.bindValueToProperty("calculadorSeleccionado");
 
-		new Column<EitherIndicador>(calculadores).setTitle("Indicador").setFixedSize(250)
+		new Column<IndicadorCalculado>(calculadores).setTitle("Indicador").setFixedSize(250)
 				.bindContentsToProperty("nombre");
-		new Column<EitherIndicador>(calculadores).setTitle("Valor").setFixedSize(250)
+		new Column<IndicadorCalculado>(calculadores).setTitle("Valor").setFixedSize(250)
 				.bindContentsToProperty("valorString");
 	}
 

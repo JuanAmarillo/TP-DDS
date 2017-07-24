@@ -10,10 +10,6 @@ public class Antiguedad extends IndicadorPredeterminado{
 	public Antiguedad(){
 		setNombre("Antiguedad");
 	}
-	
-	public String getEcuacion(){
-		return "2017-anioFundacion";
-	}
 		
 	@Override
 	public Double calcularIndicador(Empresa empresa, String periodo){

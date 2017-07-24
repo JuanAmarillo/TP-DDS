@@ -9,10 +9,6 @@ public class Endeudamiento extends IndicadorPredeterminado{
 		setNombre("Indice de Endeudamiento");
 	}
 	
-	public String getEcuacion() {
-		return "PasivoTotal/ActivoTotal";
-	}
-	
 	@Override
 	public Double calcularIndicador(Empresa empresa, String periodo) {
 		return valorDeLaCuenta("PasivoTotal", empresa,periodo) / valorDeLaCuenta("ActivoTotal", empresa, periodo);

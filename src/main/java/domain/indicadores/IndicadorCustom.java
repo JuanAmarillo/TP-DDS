@@ -44,11 +44,6 @@ public class IndicadorCustom extends Indicador {
 	public Token getCalculo() {
 		return calculo;
 	}
-	
-	@Override
-	public String getEcuacion(){
-		return ecuacion;
-	}
 
 	@Override
 	public boolean esCustom() {

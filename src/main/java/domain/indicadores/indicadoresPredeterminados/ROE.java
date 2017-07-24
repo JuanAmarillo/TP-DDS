@@ -9,10 +9,6 @@ public class ROE extends IndicadorPredeterminado{
 		setNombre("ROE");
 	}
 	
-	public String getEcuacion() {
-		return "Beneficio/PatrimonioNeto";
-	}
-	
 	@Override
 	public Double calcularIndicador(Empresa empresa, String periodo) {
 		return valorDeLaCuenta("Beneficio", empresa, periodo) / valorDeLaCuenta("PatrimonioNeto", empresa, periodo);

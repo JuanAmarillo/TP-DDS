@@ -8,10 +8,6 @@ public class RAC extends IndicadorPredeterminado{
 	public RAC() {
 		setNombre("Rotacion de Activo Corriente");
 	}
-	
-	public String getEcuacion() {
-		return "Ventas/ActivoCorriente";
-	}
 
 	@Override
 	public Double calcularIndicador(Empresa empresa, String periodo) {

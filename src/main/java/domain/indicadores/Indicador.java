@@ -17,11 +17,11 @@ public abstract class Indicador {
 		this.nombre = nombre;
 	}
 	
-	public EitherIndicador calcular(Empresa empresa, String periodo){
+	public IndicadorCalculado calcular(Empresa empresa, String periodo){
 		try{
-			return new EitherIndicador(nombre, calcularIndicador(empresa, periodo));
+			return new IndicadorCalculado(nombre, calcularIndicador(empresa, periodo));
 		}catch (RuntimeException e) {
-			return new EitherIndicador(nombre);
+			return new IndicadorCalculado(nombre);
 		}
 	}
 	
@@ -29,7 +29,7 @@ public abstract class Indicador {
 	
 	abstract public boolean esCustom();
 
-	abstract public String getEcuacion();
+//	abstract public String getEcuacion();
 	
 
 }

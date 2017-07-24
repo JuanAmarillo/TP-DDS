@@ -10,7 +10,7 @@ import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import domain.*;
-import domain.indicadores.EitherIndicador;
+import domain.indicadores.IndicadorCalculado;
 import domain.indicadores.Indicador;
 import domain.repositorios.RepositorioEmpresas;
 import domain.repositorios.RepositorioIndicadores;
@@ -23,7 +23,7 @@ public class CuentasConIndicadoresVM {
 	private Empresa empresaSeleccionada;
 	private String periodoSeleccionado;
 	private Cuenta cuentaSeleccionada;
-	private EitherIndicador calculadorSeleccionado;
+	private IndicadorCalculado calculadorSeleccionado;
 
 	public CuentasConIndicadoresVM() {
 		if (hayEmpresasCargadas()){
@@ -81,7 +81,7 @@ public class CuentasConIndicadoresVM {
 		this.cuentaSeleccionada = cuentaSeleccionada;
 	}
 
-	public List<EitherIndicador> getCalculadores() {
+	public List<IndicadorCalculado> getCalculadores() {
 		return indicadoresCargados().stream()
 				.map(indicador -> indicador.calcular(empresaSeleccionada, periodoSeleccionado))
 				.collect(Collectors.toList());
@@ -92,11 +92,11 @@ public class CuentasConIndicadoresVM {
 	}
 
 
-	public EitherIndicador getCalculadorSeleccionado() {
+	public IndicadorCalculado getCalculadorSeleccionado() {
 		return calculadorSeleccionado;
 	}
 
-	public void setCalculadorSeleccionado(EitherIndicador calculadorSeleccionado) {
+	public void setCalculadorSeleccionado(IndicadorCalculado calculadorSeleccionado) {
 		this.calculadorSeleccionado = calculadorSeleccionado;
 	}
 

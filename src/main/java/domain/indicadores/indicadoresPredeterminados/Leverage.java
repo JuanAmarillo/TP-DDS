@@ -9,10 +9,6 @@ public class Leverage extends IndicadorPredeterminado{
 		setNombre("Leverage");
 	}
 	
-	public String getEcuacion() {
-		return "ROE/ROA";
-	}
-	
 	@Override
 	public Double calcularIndicador(Empresa empresa, String periodo) {
 		return valorDelIndicador("ROE",empresa,periodo) / valorDelIndicador("ROA",empresa,periodo);

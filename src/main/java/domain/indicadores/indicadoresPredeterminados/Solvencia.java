@@ -8,10 +8,6 @@ public class Solvencia extends IndicadorPredeterminado{
 	public Solvencia() {
 		setNombre("Solvencia");
 	}
-	
-	public String getEcuacion() {
-		return "ActivoTotal/PasivoTotal";
-	}
 
 	@Override
 	public Double calcularIndicador(Empresa empresa, String periodo) {

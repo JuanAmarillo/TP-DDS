@@ -8,10 +8,6 @@ public class ROA extends IndicadorPredeterminado{
 	public ROA() {
 		setNombre("ROA");
 	}
-	
-	public String getEcuacion() {
-		return "BeneficioEconomico/ActivoTotal";
-	}
 
 	@Override
 	public Double calcularIndicador(Empresa empresa, String periodo) {

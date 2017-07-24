@@ -11,10 +11,5 @@ public class IndicadorNoCalculableMock extends IndicadorPredeterminado{
 		return null;
 	}
 
-	@Override
-	public String getEcuacion() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }
