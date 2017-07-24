@@ -15,11 +15,11 @@ public class CondicionTaxativa extends Condicion {
 	
 	public List<Empresa> aplicarCondicion(List<Empresa> listaEmpresas, String periodo){
 		return listaEmpresas.stream()
-					 .filter(empresa -> aplicarComparacion(empresa, periodo))
+					 .filter(empresa -> evaluarCondicion(empresa, periodo))
 					 .collect(Collectors.toList());
 	}
 	
-	public  boolean aplicarComparacion(Empresa empresa, String periodo) {
+	public boolean evaluarCondicion(Empresa empresa, String periodo) {
 		return comparar(indicador.calcularIndicador(empresa, periodo), valorDeComparacion) > 0;
 	}
 

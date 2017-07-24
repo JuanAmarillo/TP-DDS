@@ -2,11 +2,18 @@ package test;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 import domain.Empresa;
+import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
+import domain.metodologias.AplicaMetodologia;
+import domain.metodologias.Metodologia;
+import mocks.PreparadorDeEmpresas;
 
 public class MetodologiasTest {
 
@@ -25,17 +32,20 @@ public class MetodologiasTest {
 		listaResultante.stream().forEach(empresa -> System.out.println(empresa.getNombre()));		
 	}
 	
-	 //     REWORK IN PROGRESS
-	/*
-	@Test
-	public void testAplicarMetodologiaSimpleTaxativa() {
-		List<Empresa> listaResultante =  prepararTaxativa(new ListaMetodologia(), new TEmpresaMas10Años()).aplicarMetodologia(empresas, "pascuas");
-		asertarCantidad(listaResultante, 2);
-	}
-
 	private void asertarCantidad(List<Empresa> listaResultante, int cantidad) {
 		assertEquals(cantidad, listaResultante.size());
 	}
+	
+	 //     REWORK IN PROGRESS
+	
+	@Test
+	public void testAplicarMetodologiaSimpleTaxativa() {
+		Metodologia met = new Metodologia("Pepita", Arrays.asList(new TEmpresaMas10Años()), null);
+		List<Empresa> empresasFiltradas = new AplicaMetodologia(empresas).aplicarMetodologia(met, "pascuas");
+		asertarCantidad(empresasFiltradas, 2);
+	}
+/*
+	
 	
 	@Test
 	public void testAplicarMetodologiaSimpleComparativa() {

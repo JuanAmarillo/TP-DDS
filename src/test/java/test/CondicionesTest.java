@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
+
 import domain.Empresa;
 import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
@@ -21,6 +22,7 @@ import domain.indicadores.indicadoresPredeterminados.Antiguedad;
 import domain.repositorios.RepositorioCondiciones;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import mocks.IndicadorNoCalculableMock;
+import mocks.PreparadorDeEmpresas;
 
 public class CondicionesTest {
 	
@@ -45,7 +47,7 @@ public class CondicionesTest {
 	@Test
 	public void testCumpleCondicionTaxativaDeAntiguedad() {
 		TEmpresaMas10Años condicion = new TEmpresaMas10Años();
-		assertTrue(condicion.aplicarComparacion(prepararEmpresa(0),"pepito"));
+		assertTrue(condicion.evaluarCondicion(prepararEmpresa(0),"pepito"));
 	}
 	
 	@Test
