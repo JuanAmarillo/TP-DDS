@@ -20,11 +20,11 @@ public class AplicaMetodologia {
 		return empresas.stream().map(empresa -> new EmpresaEnCalculo(empresa)).collect(Collectors.toList());
 	}
 
-	public List<Empresa> aplicarMetodologia(Metodologia met, String periodo) {
+	public AplicaMetodologia aplicarMetodologia(Metodologia met, String periodo) {
 		aplicarTaxativas(met.getCondicionesTaxativas(), periodo);
 		aplicarComparativas(met.getCondicionesComparativas(), periodo);
 		ordenarLista();
-		return obtenerEmpresas();
+		return this;
 	}
 
 	private void ordenarLista() {
@@ -34,7 +34,7 @@ public class AplicaMetodologia {
 	}
 
 	private int compararValores(EmpresaEnCalculo e1, EmpresaEnCalculo e2) {
-		return Double.compare(e1.getPesoAcumulado(),e2.getPesoAcumulado());
+		return Double.compare(e2.getPesoAcumulado(),e1.getPesoAcumulado());
 	}
 
 
@@ -43,7 +43,7 @@ public class AplicaMetodologia {
 	}
 	
 	private void aplicarUnicaTaxativa(CondicionTaxativa cond, String periodo) {
-		actualizarLista(cond.aplicarCondicion(obtenerEmpresas(), periodo));
+		actualizarLista(cond.aplicarCondicion(obtenerLista(), periodo));
 	}
 
 	private void actualizarLista(List<Empresa> listaFiltrada) {
@@ -56,7 +56,7 @@ public class AplicaMetodologia {
 		return empresasEnCalculo.stream().map(empresaMap -> empresaMap.getEmpresa()).anyMatch(empresaFind -> empresaFind.esLaMismaEmpresaQue(empresa));
 	}
 
-	private List<Empresa> obtenerEmpresas() {
+	public List<Empresa> obtenerLista() {
 		return listaEmpresas.stream().map(empresaEnCalculo -> empresaEnCalculo.getEmpresa()).collect(Collectors.toList());
 	}
 
@@ -65,7 +65,7 @@ public class AplicaMetodologia {
 	}
 
 	private void aplicarUnicaComparativa(CondicionComparativa cond, String periodo) {
-		List<Empresa> listaComparada = cond.aplicarCondicion(obtenerEmpresas(), periodo);
+		List<Empresa> listaComparada = cond.aplicarCondicion(obtenerLista(), periodo);
 		agregarPesos(listaComparada, cond.getPeso());
 	}
 
@@ -78,6 +78,6 @@ public class AplicaMetodologia {
 	}
 
 	private double getPosicionDeLaEmpresa(List<Empresa> listaComparada, Empresa empresa) {
-		return (double) listaComparada.indexOf(empresa);
+		return (double) listaComparada.size() - listaComparada.indexOf(empresa);
 	}
 }

@@ -12,6 +12,7 @@ import static org.junit.Assert.*;
 
 import domain.Empresa;
 import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
+import domain.condiciones.condicionesPredeterminadas.CEndeudamiento;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
 import domain.condiciones.condicionesPredeterminadas.TEndeudamiento;
 import domain.indicadores.indicadoresPredeterminados.Endeudamiento;
@@ -41,7 +42,7 @@ public class MetodologiasTest {
 	}
 	
 	private List<Empresa> aplicarMetodologia(Metodologia met) {
-		return new AplicaMetodologia(listaEmpresas).aplicarMetodologia(met, "pascuas");
+		return new AplicaMetodologia(listaEmpresas).aplicarMetodologia(met, "pascuas").obtenerLista();
 	}
 	
 	 //     REWORK IN PROGRESS
@@ -61,10 +62,18 @@ public class MetodologiasTest {
 	}
 	
 	@Test
-	public void testAplicarMetodologiaSimpleComparativa() {
+	public void testAplicarMetodologiaAntiguedad() {
 		Metodologia met = new Metodologia("Pepita", Arrays.asList(), Arrays.asList(new CEmpresaMayorAntiguedad().setPeso(10.0)));
 		List<Empresa> empresasComparadas = aplicarMetodologia(met);
 		asertarEmpresa(empresasComparadas, 0, "Coca-Cola");
+		asertarEmpresa(empresasComparadas, 1, "Pepsi-Co");
+	}
+	
+	@Test
+	public void testAplicarMetodologiaEndeudamiento() {
+		Metodologia met = new Metodologia("Pepita", Arrays.asList(), Arrays.asList(new CEndeudamiento().setPeso(10.0)));
+		List<Empresa> empresasComparadas = aplicarMetodologia(met);
+		asertarEmpresa(empresasComparadas, 0, "Sorny");
 		asertarEmpresa(empresasComparadas, 1, "Pepsi-Co");
 	}
 	
@@ -85,7 +94,16 @@ public class MetodologiasTest {
 		asertarEmpresa(empresas,0,"Coca-Cola");
 	}
 	
-	
+	@Test
+	public void testAplicaDosComparativas() { 
+		Metodologia met = new Metodologia("Pepita", Arrays.asList(),Arrays.asList(new CEmpresaMayorAntiguedad().setPeso(10.0), new CEndeudamiento().setPeso(12.0)));
+		List<Empresa> empresas = aplicarMetodologia(met);
+		asertarEmpresa(empresas, 0, "Pepsi-Co");
+		asertarEmpresa(empresas, 1, "Coca-Cola");
+		asertarEmpresa(empresas, 2, "Sorny");
+		asertarEmpresa(empresas, 3, "MagnetBox");
+		asertarEmpresa(empresas, 4, "Panaphonics");
+	}
 /*
 	
 	
