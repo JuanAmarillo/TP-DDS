@@ -15,14 +15,6 @@ import exceptions.YaExisteElIndicadorException;
 public class RepositorioIndicadoresTest {
 	
 	private RepositorioIndicadores repositorio;
-
-	public IndicadorCustom mockIndicador() {
-		return new IndicadorCustom("indicador", "2", null);
-	}
-	
-	public void verificarSiAgrego(String nombre){
-		assertEquals(RepositorioIndicadores.instance().getIndicadoresCargados().size(), 1);
-	}
 	
 	public IndicadorCustom indicador(String nombreIndicador){
 		return new IndicadorCustom(nombreIndicador, null, null);
@@ -80,7 +72,6 @@ public class RepositorioIndicadoresTest {
 		agregar("No tuve vacaciones");
 		agregar("No tuve vacaciones");
 	}
-	
 	
 	@Test
 	public void testEliminarUnIndicador(){

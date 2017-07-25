@@ -2,13 +2,14 @@ package domain.repositorios;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import domain.Empresa;
 
 public class RepositorioEmpresas implements Repositorio<Empresa>{
-	private List<Empresa> empresasCargadas;
 	private static RepositorioEmpresas instance = null;
+	private List<Empresa> empresasCargadas;
 
 	public static RepositorioEmpresas instance() {
 		if (noHayInstanciaCargada()) 
@@ -49,11 +50,15 @@ public class RepositorioEmpresas implements Repositorio<Empresa>{
 	}
 
 	private boolean existeLaEmpresa(Empresa empresa) {
-		return empresasCargadas.stream().anyMatch(unaEmpresa -> unaEmpresa.esLaMismaQue(empresa));
+		return empresasCargadas.stream().anyMatch(segunNombre(empresa.getNombre()));
 	}
 
 	public Empresa buscarEmpresa(String nombre) {
-		return empresasCargadas.stream().filter(empresa -> empresa.getNombre().equals(nombre)).findFirst().orElse(null);
+		return empresasCargadas.stream().filter(segunNombre(nombre)).findFirst().get();
+	}
+
+	public Predicate<? super Empresa> segunNombre(String nombre) {
+		return empresa -> empresa.suNombreEs(nombre);
 	}
 
 	public boolean tieneEmpresasCargadas() {
@@ -61,7 +66,7 @@ public class RepositorioEmpresas implements Repositorio<Empresa>{
 	}
 
 	public List<String> getNombreEmpresas() {
-		return getEmpresasCargadas().stream().map(emp -> emp.getNombre()).collect(Collectors.toList());
+		return getEmpresasCargadas().stream().map(empresa -> empresa.getNombre()).collect(Collectors.toList());
 	}
 
 }

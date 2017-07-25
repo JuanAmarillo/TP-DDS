@@ -41,7 +41,11 @@ public class Empresa {
 	}
 	
 	public Boolean esLaMismaQue(Empresa empresa){
-		return this.getNombre().equals(empresa.getNombre());
+		return suNombreEs(getNombre());
+	}
+	
+	public Boolean suNombreEs(String nombre){
+		return this.getNombre().equals(nombre);
 	}
 	
 	public void agregarCuentas(Set<Cuenta> cuentas) {
