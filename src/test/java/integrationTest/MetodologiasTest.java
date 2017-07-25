@@ -95,7 +95,7 @@ public class MetodologiasTest {
 	}
 	
 	@Test
-	public void testAplicaDosComparativas() { 
+	public void testAplicaDosComparativas() { //La cuenta sobre este test se encuentra en el archivo Anexo.txt
 		Metodologia met = new Metodologia("Pepita", Arrays.asList(),Arrays.asList(new CEmpresaMayorAntiguedad().setPeso(10.0), new CEndeudamiento().setPeso(12.0)));
 		List<Empresa> empresas = aplicarMetodologia(met);
 		asertarEmpresa(empresas, 0, "Pepsi-Co");
@@ -104,34 +104,4 @@ public class MetodologiasTest {
 		asertarEmpresa(empresas, 3, "MagnetBox");
 		asertarEmpresa(empresas, 4, "Panaphonics");
 	}
-/*
-	
-	
-	@Test
-	public void testAplicarMetodologiaSimpleComparativa() {
-		List<Empresa> listaResultante = prepararComparativa(new ListaMetodologia(), new CEmpresaMayorAntiguedad()).aplicarMetodologia(empresas, "pascuas");
-		asertarEmpresa(listaResultante, 0, "Coca-Cola");
-		asertarEmpresa(listaResultante, 1, "Pepsi-Co");
-	}
-	
-	@Test
-	public void testOrdenaEnOrdenInverso() {
-		CondicionComparativa condicion = new CEmpresaMayorAntiguedad();
-		condicion.setOperador(new Menor());
-		List<Empresa> listaResultante = prepararComparativa(new ListaMetodologia(), condicion).aplicarMetodologia(empresas, "pascuas");
-		asertarEmpresa(listaResultante, 0, "Panaphonics");
-		asertarEmpresa(listaResultante, 1, "Sorny");
-	}
-	
-	@Test
-	public void testAplicarMetodologiaMixtaAntiguedad() {
-		AplicadorDeCondiciones apt = prepararTaxativa(new ListaMetodologia(), new TEmpresaMas10Años());
-		AplicadorDeCondiciones apc = prepararComparativa(apt, new CEmpresaMayorAntiguedad());
-		List<Empresa> listaResultante = apc.aplicarMetodologia(empresas, "pascuas");
-		asertarCantidad(listaResultante, 2);
-		asertarEmpresa(listaResultante, 0, "Coca-Cola");
-		asertarEmpresa(listaResultante, 1, "Pepsi-Co");
-	}
-
-	*/
 }
