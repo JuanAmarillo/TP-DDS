@@ -10,6 +10,7 @@ import net.sf.oval.exception.MethodNotFoundException;
 
 public class CondicionComparativa extends Condicion {
 
+	private Double peso;
 	
 	public CondicionComparativa(String nombre){
 		this.nombre = "Comparativa - " + nombre;
@@ -35,6 +36,15 @@ public class CondicionComparativa extends Condicion {
 	}
 	public boolean esTaxativa() {
 		return false;
+	}
+
+	public Double getPeso() {
+		return peso;
+	}
+	
+	public CondicionComparativa setPeso(Double valor) {
+		this.peso = valor;
+		return this;
 	}
 
 }

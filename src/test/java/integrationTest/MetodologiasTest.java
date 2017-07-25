@@ -2,6 +2,7 @@ package integrationTest;
 
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import domain.Empresa;
+import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
 import domain.metodologias.AplicaMetodologia;
 import domain.metodologias.Metodologia;
@@ -40,9 +42,18 @@ public class MetodologiasTest {
 	
 	@Test
 	public void testAplicarMetodologiaSimpleTaxativa() {
-		Metodologia met = new Metodologia("Pepita", Arrays.asList(new TEmpresaMas10Años()), null);
+		Metodologia met = new Metodologia("Pepita", Arrays.asList(new TEmpresaMas10Años()), Arrays.asList());
 		List<Empresa> empresasFiltradas = new AplicaMetodologia(empresas).aplicarMetodologia(met, "pascuas");
 		asertarCantidad(empresasFiltradas, 2);
+	}
+	
+	@Test
+	public void testAplicarMetodologiaSimpleComparativa() {
+		Metodologia met = new Metodologia("Pepita", Arrays.asList(), Arrays.asList(new CEmpresaMayorAntiguedad().setPeso(10.0)));
+		List<Empresa> empresasComparadas = new AplicaMetodologia(empresas).aplicarMetodologia(met, "pascuas");
+		imprimirNombres(empresasComparadas);
+		asertarEmpresa(empresasComparadas, 0, "Coca-Cola");
+		asertarEmpresa(empresasComparadas, 1, "Pepsi-Co");
 	}
 /*
 	

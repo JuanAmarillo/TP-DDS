@@ -14,6 +14,7 @@ public class Empresa {
 	private String nombre;
 	private Integer anioFundacion;
 	private Set<Cuenta> cuentas = new HashSet<>();
+	private Double peso = 0.0;
 
 	public String getNombre() {
 		return nombre;
@@ -74,6 +75,18 @@ public class Empresa {
 
 	public Optional<Cuenta> buscarCuentaDe(String nombre, String periodo) {
 		return cuentas.stream().filter(cuenta -> cuenta.deNombre(nombre) && cuenta.dePeriodo(periodo)).findFirst();
+	}
+
+	public void sumarPeso(double d) {
+		peso += d;
+	}
+	
+	public Double getPeso() {
+		return peso;
+	}
+
+	public void resetPeso() {
+		peso = 0.0;
 	}
 
 }
