@@ -79,11 +79,11 @@ public class EmpresaTest {
 		assertTrue(getListaEmpresas().stream().anyMatch(emp -> emp.getNombre().equals(empresa.getNombre())));
 	}
 
-	@Test
-	public void testObtenerEmpresaNoCargada() {
+	@Test(expected = RuntimeException.class)
+	public void testObtenerEmpresaNoCargadaFalla() {
 		Empresa empresa = new Empresa();
 		empresa.setNombre("Pirulo");
-		assertEquals(null, RepositorioEmpresas.instance().buscarEmpresa(empresa.getNombre()));
+		RepositorioEmpresas.instance().buscarEmpresa(empresa.getNombre());
 	}
 
 	@Test
