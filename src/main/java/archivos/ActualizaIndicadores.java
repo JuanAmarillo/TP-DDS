@@ -9,6 +9,7 @@ import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import auxiliaresDeArchivo.DatosIndicadores;
+import domain.indicadores.BuilderIndicadorCustom;
 import domain.indicadores.IndicadorCustom;
 import domain.repositorios.RepositorioIndicadores;
 
@@ -25,12 +26,16 @@ public class ActualizaIndicadores {
 	}
 	
 	public void agregar(String indicador) throws IOException{
-		RepositorioIndicadores.instance().agregarIndicadorAPartirDe(indicador);
+		RepositorioIndicadores.instance().agregarIndicador(crearIndicador(indicador));
 		actualizarArchivoJson();
 	}
 	
-	public void eliminar(String indicador) throws IOException{
-		RepositorioIndicadores.instance().eliminarIndicadorAPartirDe(indicador);
+	public IndicadorCustom crearIndicador(String ecuacion) {
+		return new BuilderIndicadorCustom(ecuacion).analizar().setEcuacion().setCalculo().build();
+	}
+	
+	public void eliminar(String nombreIndicador) throws IOException{
+		RepositorioIndicadores.instance().eliminarIndicadorAPartirDel(nombreIndicador);
 		actualizarArchivoJson();
 	}
 

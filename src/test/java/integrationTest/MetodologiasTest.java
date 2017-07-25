@@ -1,4 +1,4 @@
-package test;
+package integrationTest;
 
 import static org.junit.Assert.assertTrue;
 

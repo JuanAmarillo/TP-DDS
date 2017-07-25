@@ -1,4 +1,4 @@
-package test;
+package integrationTest;
 
 import domain.*;
 import domain.repositorios.RepositorioEmpresas;

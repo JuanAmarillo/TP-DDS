@@ -14,8 +14,8 @@ import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 
 
 public class RepositorioIndicadores implements Repositorio<DatosIndicadores>{
-	private static List<Indicador> indicadoresCargados;
 	private static RepositorioIndicadores instance = null;
+	private List<Indicador> indicadoresCargados = new ArrayList<>();
 
 	public static RepositorioIndicadores instance() {
 		if (noHayInstanciaCargada()) 
@@ -24,9 +24,8 @@ public class RepositorioIndicadores implements Repositorio<DatosIndicadores>{
 	}
 
 	private static void cargarNuevaInstancia() {
-		indicadoresCargados = new ArrayList<Indicador>();
-		agregarPredeterminados();
 		instance = new RepositorioIndicadores();
+		instance.agregarPredeterminados();
 	}
 
 	private static boolean noHayInstanciaCargada() {
@@ -35,6 +34,10 @@ public class RepositorioIndicadores implements Repositorio<DatosIndicadores>{
 	
 	public static void setInstance(RepositorioIndicadores repositorio){
 		instance = repositorio;
+	}
+	
+	public  void setIndicadores(List<Indicador> indicadores){
+		indicadoresCargados = indicadores;
 	}
 
 	public static void resetSingleton() {
@@ -45,23 +48,22 @@ public class RepositorioIndicadores implements Repositorio<DatosIndicadores>{
 		return indicadoresCargados;
 	}
 
-	public void agregarIndicadorAPartirDe(String ecuacion) {
-		IndicadorCustom indicadorACargar = new BuilderIndicadorCustom(ecuacion).analizar().setEcuacion().setCalculo().build();
-		existeElIndicador(indicadorACargar);
-		agregarIndicador(indicadorACargar);
-	}
 
-	public void eliminarIndicadorAPartirDe(String nombreIndicador) {
+	public void eliminarIndicadorAPartirDel(String nombreIndicador) {
 		Indicador indicadorASacar = buscarIndicador(nombreIndicador).get();
 		eliminarIndicador(indicadorASacar);
 	}
 
 	public void eliminarIndicador(Indicador indicador) throws NoSePuedeBorrarUnPredeterminadoException{
-		if(indicador.esCustom()) 
-			getIndicadoresCargados().remove(indicador);
+		if(indicador.esCustom())
+			remove(indicador);
 		else 
 			throw new NoSePuedeBorrarUnPredeterminadoException();
 		
+	}
+
+	public void remove(Indicador indicador) {
+		getIndicadoresCargados().remove(indicador);
 	}
 
 	public List<IndicadorCustom> obtenerCustoms() {
@@ -69,7 +71,12 @@ public class RepositorioIndicadores implements Repositorio<DatosIndicadores>{
 				.collect(Collectors.toList());
 	}
 
-	public void agregarIndicador(IndicadorCustom indicador) {
+	public void agregarIndicador(Indicador indicador) {
+		verificarSiExiste(indicador);
+		add(indicador);
+	}
+
+	public void add(Indicador indicador) {
 		getIndicadoresCargados().add(indicador);
 	}
 
@@ -83,7 +90,7 @@ public class RepositorioIndicadores implements Repositorio<DatosIndicadores>{
 		indicadores.stream().forEach(indicador -> indicador.setCalculo());
 	}
 
-	private void existeElIndicador(IndicadorCustom indicador) {
+	private void verificarSiExiste(Indicador indicador) {
 		if (contieneElIndicador(indicador.getNombre()))
 			throw new YaExisteElIndicadorException();
 	}
@@ -100,7 +107,7 @@ public class RepositorioIndicadores implements Repositorio<DatosIndicadores>{
 		return getIndicadoresCargados().stream().map(unIndicador -> unIndicador.getNombre()).collect(Collectors.toList());
 	}
 
-	public static void agregarPredeterminados() {
+	public  void agregarPredeterminados() {
 		indicadoresCargados.add(new Leverage());
 		indicadoresCargados.add(new ROA());
 		indicadoresCargados.add(new ROE());
