@@ -49,7 +49,7 @@ public class AnalizadorTest {
 
 	@Test
 	public void testGenerarTokensIgualdad() {
-		elAnalisisDe("/ / 2   / 2  /3 ").resulta("/", "/", "2", "/", "2", "/", "3");
+		elAnalisisDe("2 =  dos  = two ").resulta("2", "=", "dos", "=", "two");
 	}
 
 	@Test

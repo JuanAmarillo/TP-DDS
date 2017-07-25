@@ -97,10 +97,4 @@ public class EmpresaTest {
 		cargarArchivo("ruta-loca");
 		assertEquals(1, getListaEmpresas().size());
 	}
-	
-	@Test
-	public void testAniosDeLaEmpresa() {
-		empresaB.setAnioFundacion(1950);
-		assertEquals(67,empresaB.antiguedad());
-	}
 }

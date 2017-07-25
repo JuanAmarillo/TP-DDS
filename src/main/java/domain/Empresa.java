@@ -12,7 +12,7 @@ import org.uqbar.commons.utils.Observable;
 @Observable
 public class Empresa {
 	private String nombre;
-	private int anioFundacion;
+	private Integer anioFundacion;
 	private Set<Cuenta> cuentas = new HashSet<>();
 
 	public String getNombre() {
@@ -24,11 +24,11 @@ public class Empresa {
 		return this;
 	}
 
-	public int getAnioFundacion() {
+	public Integer getAnioFundacion() {
 		return anioFundacion;
 	}
 
-	public void setAnioFundacion(int anioFundacion) {
+	public void setAnioFundacion(Integer anioFundacion) {
 		this.anioFundacion = anioFundacion;
 	}
 
@@ -39,17 +39,17 @@ public class Empresa {
 	public void setCuentas(Set<Cuenta> cuentas) {
 		this.cuentas = cuentas;
 	}
-
+	//
 	public void agregarCuentas(Set<Cuenta> cuentas) {
 		this.cuentas.addAll(cuentasSinRepetidos(cuentas));
 	}
-
+//
 	public Set<Cuenta> cuentasSinRepetidos(Set<Cuenta> cuentas) {
 		return cuentas.stream().filter(cuenta -> !contieneLaCuenta(cuenta)).collect(Collectors.toSet());
 	}
 
 	public boolean contieneLaCuenta(Cuenta cuenta) {
-		return cuentas.stream().anyMatch(cuentita -> cuentita.esIgualA(cuenta));
+		return cuentas.stream().anyMatch(unaCuenta -> unaCuenta.esIgualA(cuenta));
 	}
 
 	public boolean contieneLaCuentaDePeriodo(String nombre, String periodo) {
@@ -74,11 +74,6 @@ public class Empresa {
 
 	public Optional<Cuenta> buscarCuentaDe(String nombre, String periodo) {
 		return cuentas.stream().filter(cuenta -> cuenta.deNombre(nombre) && cuenta.dePeriodo(periodo)).findFirst();
-	}
-
-	public int antiguedad() {
-		DateTime dt = new DateTime();
-		return dt.getYear() - anioFundacion;
 	}
 
 }
