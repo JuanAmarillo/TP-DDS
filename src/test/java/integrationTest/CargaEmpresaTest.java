@@ -30,7 +30,8 @@ public class CargaEmpresaTest {
 
 	@Before
 	public void init() {
-		cargarArchivos("Coca-Cola.json");	
+		RepositorioIndicadores.setInstance(new RepositorioIndicadores());
+		cargarArchivos("Coca-Cola.json");
 	}
 
 	@After
@@ -42,14 +43,13 @@ public class CargaEmpresaTest {
 
 	@Test
 	public void testSeCarganLosIndicadores() {
-		assertEquals(7,RepositorioIndicadores.instance().getIndicadoresCargados().size());
+		assertEquals(0,RepositorioIndicadores.instance().getIndicadoresCargados().size());
 	}
 	
 	@Test
-	public void testMismaEmpresaAgregaCuentasDistintas() {
-		cocaCola = RepositorioEmpresas.instance().buscarEmpresa("Coca-Cola");		
+	public void testMismaEmpresaAgregaCuentasDistintas() {	
 		cargarArchivos("Coca-Cola 2.json");
-		assertEquals(12, cocaCola.getCuentas().size());
+		assertEquals(12, RepositorioEmpresas.instance().buscarEmpresa("Coca-Cola").getCuentas().size());
 	}
 	
 
