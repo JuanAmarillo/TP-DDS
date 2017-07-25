@@ -13,6 +13,8 @@ import static org.junit.Assert.*;
 import domain.Empresa;
 import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
+import domain.condiciones.condicionesPredeterminadas.TEndeudamiento;
+import domain.indicadores.indicadoresPredeterminados.Endeudamiento;
 import domain.metodologias.AplicaMetodologia;
 import domain.metodologias.Metodologia;
 import mocks.PreparadorDeEmpresas;
@@ -62,7 +64,6 @@ public class MetodologiasTest {
 	public void testAplicarMetodologiaSimpleComparativa() {
 		Metodologia met = new Metodologia("Pepita", Arrays.asList(), Arrays.asList(new CEmpresaMayorAntiguedad().setPeso(10.0)));
 		List<Empresa> empresasComparadas = aplicarMetodologia(met);
-		imprimirNombres(empresasComparadas);
 		asertarEmpresa(empresasComparadas, 0, "Coca-Cola");
 		asertarEmpresa(empresasComparadas, 1, "Pepsi-Co");
 	}
@@ -75,6 +76,16 @@ public class MetodologiasTest {
 		asertarEmpresa(empresas, 0, "Coca-Cola");
 		asertarEmpresa(empresas, 1, "Pepsi-Co");
 	}
+
+	@Test
+	public void testAplicaDosTaxativas() {
+		Metodologia met = new Metodologia("Pepita", Arrays.asList(new TEmpresaMas10Años(), new TEndeudamiento() ), Arrays.asList());
+		List<Empresa> empresas = aplicarMetodologia(met);
+		asertarCantidad(empresas,1);
+		asertarEmpresa(empresas,0,"Coca-Cola");
+	}
+	
+	
 /*
 	
 	
