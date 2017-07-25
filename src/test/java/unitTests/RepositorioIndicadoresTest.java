@@ -57,10 +57,6 @@ public class RepositorioIndicadoresTest {
 		repositorio = new RepositorioIndicadores();
 	}
 	
-	@Test
-	public void testSeBuscaUnIndicador(){
-		
-	}
 	
 	@Test
 	public void testAgregarUnIndicadorCustom(){
@@ -69,13 +65,18 @@ public class RepositorioIndicadoresTest {
 	}
 	
 	@Test
-	public void agregarUnIndicadorPredeterminadorTest(){
+	public void testNoEncuentraIndicador(){
+		verificarExistencia("RoA", false);
+	}
+	
+	@Test
+	public void testAgregarUnIndicadorPredeterminador(){
 		agregar(new ROE());
 		verificarExistencia("ROE", true);
 	}
 	
 	@Test(expected = YaExisteElIndicadorException.class)
-	public void agregarUnIndicadorYaExistenteFallaTest(){
+	public void testAgregarUnIndicadorYaExistenteFalla(){
 		agregar("No tuve vacaciones");
 		agregar("No tuve vacaciones");
 	}

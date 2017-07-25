@@ -28,51 +28,51 @@ public class AnalizadorTest {
 	}
 
 	@Test
-	public void generarTokensSumaTest() {
+	public void testGenerarTokensSuma() {
 		elAnalisisDe("2+ 3  ").resulta("2", "+", "3");
 	}
 
 	@Test
-	public void generarTokensRestaTest() {
-		elAnalisisDe("-2  - 2 ").resulta("-", "2", "-", "2");
+	public void testGenerarTokensResta() {
+		elAnalisisDe("2  - 2 ").resulta("2", "-", "2");
 	}
 
 	@Test
-	public void generarTokensMultiplicacionTest() {
+	public void testGenerarTokensMultiplicacion() {
 		elAnalisisDe("2   * 2  *3 ").resulta("2", "*", "2", "*", "3");
 	}
 
 	@Test
-	public void generarTokensDivisionTest() {
+	public void testGenerarTokensDivision() {
 		elAnalisisDe("/ / 2   / 2  /3 ").resulta("/", "/", "2", "/", "2", "/", "3");
 	}
 
 	@Test
-	public void generarTokensIgualdadTest() {
+	public void testGenerarTokensIgualdad() {
 		elAnalisisDe("/ / 2   / 2  /3 ").resulta("/", "/", "2", "/", "2", "/", "3");
 	}
 
 	@Test
-	public void generarTokensParentesisTest() {
+	public void testGenerarTokensParentesis() {
 		elAnalisisDe("( 2 + 3 * 9 ) ").resulta("(", "2", "+", "3", "*", "9", ")");
 	}
 
 	@Test
-	public void generarTokensNumerosConComaTest() {
+	public void testGenerarTokensNumerosConComa() {
 		elAnalisisDe("2.0 + 3.0").resulta("2.0", "+", "3.0");
 	}
 
 	@Test
-	public void generarTokensTextoSimpleTest() {
+	public void testGenerarTokensTextoSimple() {
 		elAnalisisDe("aprobame").resulta("aprobame");
 	}
 
 	@Test
-	public void generarTokensTextoConIgualacionTest() {
+	public void testGenerarTokensTextoConIgualacion() {
 		elAnalisisDe("aprobame = 8").resulta("aprobame", "=", "8");
 	}
 
-	public void generarTokensTextoConEspaciosYNumerosTest() {
+	public void testGenerarTokensTextoConEspaciosYNumeros() {
 		elAnalisisDe("Gaston todavia no me corrigio el tp de funcional del 2015")
 				.resulta("Gaston todavia no me corrigio el tp de funcional del 2015");
 	}

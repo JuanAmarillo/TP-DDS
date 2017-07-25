@@ -13,82 +13,82 @@ public class ParserTest {
 	}
 	
 	@Test
-	public void parserAceptaTexto(){
+	public void testParserAceptaTexto(){
 		parsear("soy un indicador", "=", "Soy una cuenta");
 	}	
 	
 	@Test
-	public void parserAceptaSuma(){
+	public void testParserAceptaSuma(){
 		parsear("suma", "=", "4","+","4");
 	}	
 	
 	@Test
-	public void parserAceptaResta(){
+	public void testParserAceptaResta(){
 		parsear("suma", "=", "4","-","4");
 	}
 	
 	@Test
-	public void parserAceptaMultiplicacion(){
+	public void testParserAceptaMultiplicacion(){
 		parsear("suma", "=", "4","*","4");
 	}
 	
 	@Test
-	public void parserAceptaDivision(){
+	public void testParserAceptaDivision(){
 		parsear("suma", "=", "4","/","4");
 	}
 	
 	@Test
-	public void parserAceptaParentesis(){
+	public void testParserAceptaParentesis(){
 		parsear("suma", "=", "(","(","2","+","3",")","*","4",")");
 	}
 	
 	@Test(expected = ParsingException.class)
-	public void indicadorConNombreInvalidoFallaTest(){
+	public void testIndicadorConNombreInvalidoFalla(){
 		parsear("n@mbre", "=", "3");
 	}
 	
 	@Test(expected = ParsingException.class)
-	public void indicadorSinAsignacionFallaTest(){
+	public void testIndicadorSinAsignacionFallas(){
 		parsear("nombre");
 	}
 	
 	@Test(expected = ParsingException.class)
-	public void indicadorConOperacionesAntesDeLaIgualdadFallaTest(){
+	public void testIndicadorConOperacionesAntesDeLaIgualdadFalla(){
 		parsear("spider", "+", "man", "=", "spiderman");
 	}
 	
 	@Test(expected = ParsingException.class)
-	public void indicadorSinTerminalLuegoDeLaIgualdadFallaTest(){
+	public void testIndicadorSinTerminalLuegoDeLaIgualdadFalla(){
 		parsear("hola", "=");
 	}
 	
 	@Test(expected = ParsingException.class)
-	public void indicadorSinTerminalLuegoDeUnOperadorFallaTest(){
+	public void testIndicadorSinTerminalLuegoDeUnOperadorFalla(){
 		parsear("hola", "=", "2", "+");
 	}
 	
 	@Test(expected = ParsingException.class)
-	public void indicadorNoPuedeTenerOperacionLuegoDeUnaIgualdadTest(){
+	public void testIndicadorNoPuedeTenerOperacionLuegoDeUnaIgualdad(){
 		parsear("hola", "=", "*");
 	}
 	
 	@Test(expected = ParsingException.class)
-	public void luegoDeUnNoTerminalNoPuedeIrOtroNoTerminaTest(){
+	public void testLuegoDeUnNoTerminalNoPuedeIrOtroNoTermina(){
 		parsear("hola", "=", "2", "*", "+", "3");
 	}
 	
 	@Test(expected = ParsingException.class)
-	public void indicadorConParentesisSinCerrarFallaTest(){
+	public void testIndicadorConParentesisSinCerrarFalla(){
 		parsear("hola", "=", "(", "2", "+", "3");
 	}
 	
 	@Test(expected = ParsingException.class)
-	public void indicadorConParentesisDerechoDeMasFallaTest(){
+	public void testIndicadorConParentesisDerechoDeMasFalla(){
 		parsear("hola", "=", "(", "2", "+", "3",")",")");
 	}
 	
 	@Test(expected = ParsingException.class)
-	public void indicadorNoSePuedeLLamarASiMismo(){
+	public void testIndicadorNoSePuedeLLamarASiMismo(){
 		parsear("hola", "=", "hola");
 	}
 	

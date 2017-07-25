@@ -63,77 +63,77 @@ public class CompiladorTest {
 	}
 
 	@Test
-	public void compilaSumaTest() {
+	public void testCompilaSuma() {
 		compilar("2", "+", "2", "+", "5").obtiene(9.0);
 	}
 
 	@Test
-	public void compilaRestaTest() {
+	public void testCompilaResta() {
 		compilar("3", "-", "7", "-", "1").obtiene(-5.0);
 	}
 
 	@Test
-	public void compilaMultiplicacionTest() {
+	public void testCompilaMultiplicacion() {
 		compilar("3", "*", "7", "*", "2").obtiene(42.0);
 	}
 
 	@Test
-	public void respetaPrioridadDeMultiplicacionTest() {
+	public void testRespetaPrioridadDeMultiplicacion() {
 		compilar("2", "+", "3", "*", "5").obtiene(17.0);
 	}
 
 	@Test
-	public void compilaDivisionTest() {
+	public void testCompilaDivision() {
 		compilar("6", "/", "3", "/", "2").obtiene(1.0);
 	}
 
 	@Test
-	public void respetaPrioridadDeDivisionTest() {
+	public void testRespetaPrioridadDeDivision() {
 		compilar("2", "-", "10", "/", "5").obtiene(0.0);
 	}
 
 	@Test
-	public void respetaPrioridadDeLosParetensisTest() {
+	public void testRespetaPrioridadDeLosParetensis() {
 		compilar("(", "2", "+", "3", ")", "*", "4").obtiene(20.0);
 	}
 
 	@Test(expected = RuntimeException.class)
-	public void compilarPotenciacionFallaTest() {
+	public void testCompilarPotenciacionFalla() {
 		compilar("2", "^", "3");
 	}
 
 	@Test(expected = RuntimeException.class)
-	public void compilarUnaExpresionQueEmpiezaConOperadorFalla() {
+	public void testCompilarUnaExpresionQueEmpiezaConOperadorFalla() {
 		compilar("*", "5");
 	}
 
 	@Test(expected = RuntimeException.class)
-	public void compilarUnaExpresionQueTerminaConOperadorFalla() {
+	public void testCompilarUnaExpresionQueTerminaConOperadorFalla() {
 		compilar("6", "*");
 	}
 
 	@Test(expected = RuntimeException.class)
-	public void compilarUnaExpresionQueLeFaltaParentesisFalla() {
+	public void testCompilarUnaExpresionQueLeFaltaParentesisFalla() {
 		compilar("(", "2", "+", "3");
 	}
 
 	@Test
-	public void compilaIndicadoresTest() {
+	public void testCompilaIndicadores() {
 		compilar("indicador", "+", "5").obtiene(9.0);
 	}
 
 	@Test
-	public void compilaCuentasTest() {
+	public void testCompilaCuentas() {
 		compilar("cuenta", "-", "2").obtiene(3.0);
 	}
 
 	@Test(expected = RuntimeException.class)
-	public void cuentaNoExistenteRompeTest() {
+	public void testCuentaNoExistenteRompe() {
 		compilar("NoExiste").obtiene(0.0);
 	}
 	
 	@Test
-	public void operacionCombinadaTest() {
+	public void testOperacionCombinada() {
 		compilar("20", "/", "(", "3", "*", "4", "-", "2", ")", "+", "indicador", "-", "cuenta").obtiene(1.0);
 	}
 

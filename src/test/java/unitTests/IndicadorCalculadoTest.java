@@ -8,12 +8,12 @@ import static org.junit.Assert.assertEquals;
 public class IndicadorCalculadoTest {
 
 	@Test
-	public void seCalculoDosMasDosTest() {
+	public void testSeCalculoDosMasDos() {
 		assertEquals(new IndicadorCalculado("indicador", 2.0 + 2.0).getValorString(), "4.0");
 	}
 
 	@Test
-	public void huboErrorTest() {
+	public void testHuboError() {
 		assertEquals(new IndicadorCalculado("indicador").getValorString(), "No pudo calcularse");
 	}
 }
