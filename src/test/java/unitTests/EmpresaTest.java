@@ -97,7 +97,7 @@ public class EmpresaTest {
 	}
 	
 	@Test(expected = RuntimeException.class)
-	public void testElCalculoDelValorDelActivoPara2016Falla(){
+	public void testElValorDelActivoEn2016NoExiste(){
 		valorDeLaCuenta("activo", "2016", 4.0);
 	}
 

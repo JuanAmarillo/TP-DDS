@@ -35,15 +35,19 @@ public class Empresa {
 	public Set<Cuenta> getCuentas() {
 		return cuentas;
 	}
-
+	
 	public void setCuentas(Set<Cuenta> cuentas) {
 		this.cuentas = cuentas;
 	}
-	//
+	
+	public Boolean esLaMismaQue(Empresa empresa){
+		return this.getNombre().equals(empresa.getNombre());
+	}
+	
 	public void agregarCuentas(Set<Cuenta> cuentas) {
 		this.cuentas.addAll(cuentasSinRepetidos(cuentas));
 	}
-//
+
 	public Set<Cuenta> cuentasSinRepetidos(Set<Cuenta> cuentas) {
 		return cuentas.stream().filter(cuenta -> !contieneLaCuenta(cuenta)).collect(Collectors.toSet());
 	}

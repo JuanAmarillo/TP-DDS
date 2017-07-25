@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import domain.Empresa;
 
 public class RepositorioEmpresas implements Repositorio<Empresa>{
-	private static List<Empresa> empresasCargadas;
+	private List<Empresa> empresasCargadas;
 	private static RepositorioEmpresas instance = null;
 
 	public static RepositorioEmpresas instance() {
@@ -17,8 +17,8 @@ public class RepositorioEmpresas implements Repositorio<Empresa>{
 	}
 
 	private static void cargarNuevaInstancia() {
-		empresasCargadas = new ArrayList<Empresa>();
 		instance = new RepositorioEmpresas();
+		instance.empresasCargadas = new ArrayList<Empresa>();
 	}
 
 	private static boolean noHayInstanciaCargada() {
@@ -45,12 +45,11 @@ public class RepositorioEmpresas implements Repositorio<Empresa>{
 	}
 
 	private void agregarCuentas(Empresa empresaLeida) {
-		Empresa empresa = buscarEmpresa(empresaLeida.getNombre());
-		empresa.agregarCuentas(empresaLeida.getCuentas());
+		buscarEmpresa(empresaLeida.getNombre()).agregarCuentas(empresaLeida.getCuentas());
 	}
 
 	private boolean existeLaEmpresa(Empresa empresa) {
-		return empresasCargadas.stream().anyMatch(unaEmpresa -> unaEmpresa.getNombre().equals(empresa.getNombre()));
+		return empresasCargadas.stream().anyMatch(unaEmpresa -> unaEmpresa.esLaMismaQue(empresa));
 	}
 
 	public Empresa buscarEmpresa(String nombre) {
@@ -62,8 +61,7 @@ public class RepositorioEmpresas implements Repositorio<Empresa>{
 	}
 
 	public List<String> getNombreEmpresas() {
-		List<Empresa> auxiliar = getEmpresasCargadas();
-		return auxiliar.stream().map(emp -> emp.getNombre()).collect(Collectors.toList());
+		return getEmpresasCargadas().stream().map(emp -> emp.getNombre()).collect(Collectors.toList());
 	}
 
 }

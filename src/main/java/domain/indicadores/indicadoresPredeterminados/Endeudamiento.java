@@ -6,7 +6,7 @@ import domain.indicadores.IndicadorPredeterminado;
 public class Endeudamiento extends IndicadorPredeterminado{
 
 	public Endeudamiento() {
-		setNombre("Indice de Endeudamiento");
+		setNombre("Endeudamiento");
 	}
 	
 	@Override
