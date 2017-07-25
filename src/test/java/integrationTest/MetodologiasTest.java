@@ -19,11 +19,11 @@ import mocks.PreparadorDeEmpresas;
 
 public class MetodologiasTest {
 
-	List<Empresa> empresas;
+	List<Empresa> listaEmpresas;
 	
 	@Before
 	public void init() {
-		empresas = PreparadorDeEmpresas.prepararEmpresas();
+		listaEmpresas = PreparadorDeEmpresas.prepararEmpresas();
 	}
 	
 	private void asertarEmpresa(List<Empresa> listaResultante, int posicion, String nombre) {
@@ -38,22 +38,35 @@ public class MetodologiasTest {
 		assertEquals(cantidad, listaResultante.size());
 	}
 	
+	private List<Empresa> aplicarMetodologia(Metodologia met) {
+		return new AplicaMetodologia(listaEmpresas).aplicarMetodologia(met, "pascuas");
+	}
+	
 	 //     REWORK IN PROGRESS
 	
 	@Test
 	public void testAplicarMetodologiaSimpleTaxativa() {
 		Metodologia met = new Metodologia("Pepita", Arrays.asList(new TEmpresaMas10Años()), Arrays.asList());
-		List<Empresa> empresasFiltradas = new AplicaMetodologia(empresas).aplicarMetodologia(met, "pascuas");
+		List<Empresa> empresasFiltradas = aplicarMetodologia(met);
 		asertarCantidad(empresasFiltradas, 2);
 	}
 	
 	@Test
 	public void testAplicarMetodologiaSimpleComparativa() {
 		Metodologia met = new Metodologia("Pepita", Arrays.asList(), Arrays.asList(new CEmpresaMayorAntiguedad().setPeso(10.0)));
-		List<Empresa> empresasComparadas = new AplicaMetodologia(empresas).aplicarMetodologia(met, "pascuas");
-		imprimirNombres(empresasComparadas);
+		List<Empresa> empresasComparadas = aplicarMetodologia(met);
 		asertarEmpresa(empresasComparadas, 0, "Coca-Cola");
 		asertarEmpresa(empresasComparadas, 1, "Pepsi-Co");
+	}
+	
+	@Test
+	public void testAplicaUnaYUna() {
+		Metodologia met = new Metodologia("Pepita", Arrays.asList(new TEmpresaMas10Años()), Arrays.asList(new CEmpresaMayorAntiguedad().setPeso(10.0)));
+		List<Empresa> empresas = aplicarMetodologia(met);
+		asertarCantidad(empresas,2);
+		imprimirNombres(empresas);
+		asertarEmpresa(empresas, 0, "Coca-Cola");
+		asertarEmpresa(empresas,1 ,"Pepsi-Co");
 	}
 /*
 	
