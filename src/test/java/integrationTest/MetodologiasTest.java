@@ -45,6 +45,13 @@ public class MetodologiasTest {
 	 //     REWORK IN PROGRESS
 	
 	@Test
+	public void testSinCondicionesDevuelveLaMismaLista() {
+		Metodologia met = new Metodologia("Pepita", Arrays.asList(), Arrays.asList());
+		List<Empresa> empresasFiltradas = aplicarMetodologia(met);
+		assertEquals(empresasFiltradas.size(), listaEmpresas.size());
+	}
+	
+	@Test
 	public void testAplicarMetodologiaSimpleTaxativa() {
 		Metodologia met = new Metodologia("Pepita", Arrays.asList(new TEmpresaMas10Años()), Arrays.asList());
 		List<Empresa> empresasFiltradas = aplicarMetodologia(met);
@@ -55,6 +62,7 @@ public class MetodologiasTest {
 	public void testAplicarMetodologiaSimpleComparativa() {
 		Metodologia met = new Metodologia("Pepita", Arrays.asList(), Arrays.asList(new CEmpresaMayorAntiguedad().setPeso(10.0)));
 		List<Empresa> empresasComparadas = aplicarMetodologia(met);
+		imprimirNombres(empresasComparadas);
 		asertarEmpresa(empresasComparadas, 0, "Coca-Cola");
 		asertarEmpresa(empresasComparadas, 1, "Pepsi-Co");
 	}
@@ -64,9 +72,8 @@ public class MetodologiasTest {
 		Metodologia met = new Metodologia("Pepita", Arrays.asList(new TEmpresaMas10Años()), Arrays.asList(new CEmpresaMayorAntiguedad().setPeso(10.0)));
 		List<Empresa> empresas = aplicarMetodologia(met);
 		asertarCantidad(empresas,2);
-		imprimirNombres(empresas);
 		asertarEmpresa(empresas, 0, "Coca-Cola");
-		asertarEmpresa(empresas,1 ,"Pepsi-Co");
+		asertarEmpresa(empresas, 1, "Pepsi-Co");
 	}
 /*
 	
