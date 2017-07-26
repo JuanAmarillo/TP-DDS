@@ -71,20 +71,6 @@ public class CondicionesTest {
 		assertFalse(condicion.esCustom());
 	}
 	
-	@Test(expected = NoSePuedeBorrarUnPredeterminadoException.class)
-	public void testNoSePuedeBorrarCondicionPredeterminada() {
-		RepositorioCondiciones.instance().eliminarCondicion("Taxativa - Empresa de mas de 10 años");
-	}
-	
-	@Test
-	public void testSePuedeEliminarUnaCondicion() {
-		CondicionComparativa condicion = new CondicionComparativa("pepito");
-		RepositorioCondiciones.instance().agregarCondicion(condicion);
-		assertEquals(5,RepositorioCondiciones.instance().cantidadDeCondiciones());
-		RepositorioCondiciones.instance().eliminarCondicion("Comparativa - pepito");
-		assertEquals(4,RepositorioCondiciones.instance().cantidadDeCondiciones());
-	}
-	
 	@Test
 	public void testCondicionOrdenaListaPorEmpresaMasJoven() {
 		CondicionComparativa condicion = new CondicionComparativa("Prueba Sort");
