@@ -15,7 +15,11 @@ public class RepositorioEmpresaTest {
 	private RepositorioEmpresas repositorio;
 	
 	public void agregarEmpresa(String nombreEmpresa){
-		repositorio.agregarEmpresa(new Empresa(nombreEmpresa));
+		repositorio.agregarEmpresa(crearEmpresa(nombreEmpresa));
+	}
+
+	public Empresa crearEmpresa(String nombreEmpresa) {
+		return new Empresa(nombreEmpresa);
 	}
 	
 	private void buscarEmpresa(String nombre) {
@@ -23,12 +27,45 @@ public class RepositorioEmpresaTest {
 	}
 	
 	public void existe(String nombre, boolean resultado) {
-		assertEquals(repositorio.existeLaEmpresa(new Empresa(nombre)), resultado);
+		assertEquals(repositorio.existeLaEmpresa(crearEmpresa(nombre)), resultado);
+	}
+	
+	public void comprobarLaPrimeraEmpresa(String nombre){
+		assertEquals(repositorio.getEmpresasCargadas().get(0).getNombre(), nombre);
+	}
+	
+	public void laCantidadDeEmpresasCargadasEs(Integer cantidad){
+		assertEquals(repositorio.cantidadDeEmpresasCargadas(),cantidad);
+	}
+	
+	public void agregarEmpresaLuegoDeArchivo(String nombre) {
+		repositorio.agregarDesdeArchivo(crearEmpresa(nombre));
 	}
 	
 	@Before
 	public void init(){
 		repositorio = new RepositorioEmpresas();
+	}
+	
+	@Test
+	public void testAgregaLaEmpresaSteamConExito(){
+		agregarEmpresa("Steam");
+		comprobarLaPrimeraEmpresa("Steam");
+	}
+	
+	@Test
+	public void testAgregaTresEmpresasDistintasLuegoDeArchivo(){
+		agregarEmpresaLuegoDeArchivo("Universidad");
+		agregarEmpresaLuegoDeArchivo("Tecnologica");
+		agregarEmpresaLuegoDeArchivo("Nacional");
+		laCantidadDeEmpresasCargadasEs(3);
+	}
+	
+	@Test
+	public void testAgregaDosVecesLaMismaEmpresaLuegoDeArchivoSoloDejaUna(){
+		agregarEmpresaLuegoDeArchivo("Jackson");
+		agregarEmpresaLuegoDeArchivo("Jackson");
+		laCantidadDeEmpresasCargadasEs(1);
 	}
 	
 	@Test

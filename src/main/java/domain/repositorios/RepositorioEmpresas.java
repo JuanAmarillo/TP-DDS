@@ -63,8 +63,12 @@ public class RepositorioEmpresas implements Repositorio<Empresa>{
 		return empresa -> empresa.suNombreEs(nombre);
 	}
 
-	public boolean tieneEmpresasCargadas() {
-		return empresasCargadas.size() > 0;
+	public Boolean tieneEmpresasCargadas() {
+		return cantidadDeEmpresasCargadas() > 0;
+	}
+	
+	public Integer cantidadDeEmpresasCargadas(){
+		return empresasCargadas.size();
 	}
 
 	public List<String> getNombreEmpresas() {
