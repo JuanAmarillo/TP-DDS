@@ -30,11 +30,7 @@ public class CuentasConIndicadoresWindow extends Dialog<CuentasConIndicadoresVM>
 
 	protected void TablaCuentas(Panel formPanel) {
 		Panel formTabla = new Panel(formPanel);
-
-		Table<Cuenta> cuentas = new Table<Cuenta>(formTabla, Cuenta.class);
-		cuentas.bindItemsToProperty("cuentas");
-		cuentas.bindValueToProperty("cuentaSeleccionada");
-		cuentas.setWidth(250);
+		Table<Cuenta> cuentas = ViewUtils.crearTabla(formTabla, Cuenta.class, "cuentas", "cuentaSeleccionada");
 
 		new Column<Cuenta>(cuentas).setTitle("Cuenta").setFixedSize(250).bindContentsToProperty("nombre");
 		new Column<Cuenta>(cuentas).setTitle("Balance").setFixedSize(250).bindContentsToProperty("balance");
@@ -42,10 +38,7 @@ public class CuentasConIndicadoresWindow extends Dialog<CuentasConIndicadoresVM>
 
 	protected void TablaIndicadores(Panel formPanel) {
 		Panel formTabla = new Panel(formPanel);
-
-		Table<IndicadorCalculado> calculadores = new Table<IndicadorCalculado>(formTabla, IndicadorCalculado.class);
-		calculadores.bindItemsToProperty("calculadores");
-		calculadores.bindValueToProperty("calculadorSeleccionado");
+		Table<IndicadorCalculado> calculadores = ViewUtils.crearTabla(formTabla, IndicadorCalculado.class, "calculadores", "calculadorSeleccionado");
 
 		new Column<IndicadorCalculado>(calculadores).setTitle("Indicador").setFixedSize(250)
 				.bindContentsToProperty("nombre");
@@ -54,9 +47,7 @@ public class CuentasConIndicadoresWindow extends Dialog<CuentasConIndicadoresVM>
 	}
 
 	protected void selectorEmpresasPeriodos(Panel formPanel) {
-		Panel form = new Panel(formPanel);
-		form.setLayout(new ColumnLayout(2));
-		// ViewUtils.crearPanel(formPanel, new ColumnLayout(2));
+		Panel form = ViewUtils.crearPanel(formPanel, new ColumnLayout(2));
 
 		new Label(form).setText("Empresa");
 		ViewUtils.crearSelectorConAdaptador(form, "empresas", "empresaSeleccionada", Empresa.class, "nombre");

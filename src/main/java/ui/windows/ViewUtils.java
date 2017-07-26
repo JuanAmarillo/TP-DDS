@@ -12,6 +12,8 @@ import org.uqbar.arena.windows.Dialog;
 import org.uqbar.lacar.ui.model.Action;
 import org.uqbar.lacar.ui.model.ListBuilder;
 import org.uqbar.lacar.ui.model.bindings.Binding;
+import org.uqbar.arena.widgets.tables.Column;
+import org.uqbar.arena.widgets.tables.Table;
 
 public class ViewUtils {
 	public static void nuevaPantalla(Dialog<?> ventana) {
@@ -58,6 +60,13 @@ public class ViewUtils {
 		lista.bindItemsToProperty(elementos).adaptWith(clase, adaptador);
 		lista.bindValueToProperty(elementoSeleccionado);
 		return lista;
+	}
+	
+	public static <T> Table<T> crearTabla(Panel panelAUsar, Class<T> clase, String elementos, String elementoSeleccionado) {
+		Table<T> tabla = new Table<T>(panelAUsar, clase);
+		tabla.bindItemsToProperty(elementos);
+		tabla.bindValueToProperty(elementoSeleccionado);
+		return tabla;
 	}
 
 	private static <T> void bindearElementos(String elementos, String elementoSeleccionado, Selector<T> selector) {

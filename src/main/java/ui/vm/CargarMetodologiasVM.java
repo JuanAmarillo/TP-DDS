@@ -51,7 +51,7 @@ public class CargarMetodologiasVM {
 	}
 	
 	private void validarQueHayaAlgunaCondicion() {
-		if(condicionesTaxativasAAgregar.size() == 0 || condicionesComparativasAAgregar.size() == 0)
+		if(condicionesTaxativasAAgregar.size() == 0 && condicionesComparativasAAgregar.size() == 0)
 			throw new RuntimeException("No se seleccionó ninguna condición");
 	}
 		
