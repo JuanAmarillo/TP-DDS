@@ -8,10 +8,7 @@ import domain.indicadores.indicadoresPredeterminados.Endeudamiento;
 public class TEndeudamiento extends CondicionTaxativa implements CondicionPredeterminada{
 	
 	public TEndeudamiento(){
-		super("Empresa de mas de 10 años");
-		this.setValorDeComparacion(0.4);
-		this.setIndicador(new Endeudamiento());
-		this.setOperador(new Menor());
+		super("Empresa de mas de 10 años",new Endeudamiento(),new Menor(),0.4);
 	}
 	
 	public String getEcuacion(){

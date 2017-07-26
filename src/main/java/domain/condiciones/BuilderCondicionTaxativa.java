@@ -1,21 +1,15 @@
 package domain.condiciones;
 
 public class BuilderCondicionTaxativa extends BuilderCondicion{
-	
+	private double valorDeComparacion;	
 	
 	public BuilderCondicionTaxativa() {
 		super("Taxativa");
 	}
-
-	private double valorDeComparacion;
 	
 	@Override
 	public Condicion build() {
-		CondicionTaxativa condicion = new CondicionTaxativa(nombre);
-		condicion.setOperador(operador);
-		condicion.setIndicador(indicador);
-		condicion.setValorDeComparacion(valorDeComparacion);
-		return condicion;
+		return new CondicionTaxativa(nombre,indicador,operador,valorDeComparacion);
 	}
 	
 	public void setValorDeComparacion(Double valor){

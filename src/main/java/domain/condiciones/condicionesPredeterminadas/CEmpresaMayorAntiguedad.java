@@ -11,8 +11,6 @@ import org.uqbar.commons.utils.Observable;
 public class CEmpresaMayorAntiguedad extends CondicionComparativa implements CondicionPredeterminada{
 
 	public CEmpresaMayorAntiguedad() {
-		super("Mayor antiguedad");
-		this.setOperador(new Mayor());
-		this.setIndicador(new Antiguedad());
+		super("Mayor antiguedad", new Antiguedad(), new Mayor());
 	}
 }

@@ -13,11 +13,22 @@ public abstract class Condicion implements CondicionCustom{
 	protected Indicador indicador;
 	protected OperadorCondicion operador;
 	
-	public abstract List<Empresa> aplicarCondicion(List<Empresa> listaEmpresas, String string);
-	public abstract Boolean esTaxativa();
+	public Condicion(String nombre,Indicador indicador, OperadorCondicion operador){
+		this.nombre = nombre;
+		this.indicador = indicador;
+		this.operador = operador;
+	}
 	
-	public int comparar (Double valorIndicadorUno, Double valorIndicadorDos) { 
+	public Condicion(String nombre){
+		this.nombre = nombre;
+	}
+	
+	protected Integer comparar (Double valorIndicadorUno, Double valorIndicadorDos) { 
 		return operador.comparar(valorIndicadorUno, valorIndicadorDos);
+	}
+	
+	protected Double calcularIndicador(Empresa empresa, String periodo) {
+		return indicador.calcularIndicador(empresa, periodo);
 	}
 	
 	public boolean suNombreEs(String nombreCondicion) {
@@ -47,6 +58,9 @@ public abstract class Condicion implements CondicionCustom{
 	public void setOperador(OperadorCondicion operador) {
 		this.operador = operador;
 	}
+	
+	public abstract List<Empresa> aplicarCondicion(List<Empresa> listaEmpresas, String string);
+	public abstract Boolean esTaxativa();
 	
 	
 }

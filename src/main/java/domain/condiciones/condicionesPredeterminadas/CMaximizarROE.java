@@ -10,9 +10,7 @@ import org.uqbar.commons.utils.Observable;
 public class CMaximizarROE extends CondicionComparativa implements CondicionPredeterminada {
 	
 	public CMaximizarROE(){
-		super("Maximizar ROE");
-		this.setOperador(new Mayor());
-		this.setIndicador(new ROE());
+		super("Maximizar ROE",new ROE(), new Mayor());
 	}
 
 }

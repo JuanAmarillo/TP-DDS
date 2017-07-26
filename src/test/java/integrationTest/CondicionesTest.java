@@ -56,7 +56,7 @@ public class CondicionesTest {
 		empresaMasJoven.setAnioFundacion(1950);
 		CEmpresaMayorAntiguedad condicion = new CEmpresaMayorAntiguedad();
 		condicion.setIndicador(new Antiguedad());
-		assertTrue( 0 != condicion.sortMethod(prepararEmpresa(0),prepararEmpresa(1),"pepito"));
+		assertTrue( 0 != condicion.evaluarCondicion(prepararEmpresa(0),prepararEmpresa(1),"pepito"));
 	}
 	
 	@Test

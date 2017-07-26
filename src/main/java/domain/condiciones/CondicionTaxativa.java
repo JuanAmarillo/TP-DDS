@@ -4,23 +4,30 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import domain.Empresa;
+import domain.condiciones.OperadoresCondicion.OperadorCondicion;
+import domain.indicadores.Indicador;
 
 public class CondicionTaxativa extends Condicion {
 
 	public Double valorDeComparacion;
 
+	public CondicionTaxativa(String nombre,Indicador indicador, OperadorCondicion operador, Double valorDeComparacion) {
+		super("Taxativa - " + nombre,indicador,operador);
+		this.valorDeComparacion = valorDeComparacion;
+	}
+	
 	public CondicionTaxativa(String nombre) {
-		this.nombre = "Taxativa - " + nombre;
+		super("Taxativa - " + nombre);
 	}
-	
-	public List<Empresa> aplicarCondicion(List<Empresa> listaEmpresas, String periodo){
-		return listaEmpresas.stream()
-					 .filter(empresa -> evaluarCondicion(empresa, periodo))
-					 .collect(Collectors.toList());
+
+	@Override
+	public List<Empresa> aplicarCondicion(List<Empresa> listaEmpresas, String periodo) {
+		return listaEmpresas.stream().filter(empresa -> evaluarCondicion(empresa, periodo))
+				.collect(Collectors.toList());
 	}
-	
-	public boolean evaluarCondicion(Empresa empresa, String periodo) {
-		return comparar(indicador.calcularIndicador(empresa, periodo), valorDeComparacion) > 0;
+
+	public Boolean evaluarCondicion(Empresa empresa, String periodo) {
+		return comparar(calcularIndicador(empresa, periodo), valorDeComparacion) > 0;
 	}
 
 	public Double getValorDeComparacion() {

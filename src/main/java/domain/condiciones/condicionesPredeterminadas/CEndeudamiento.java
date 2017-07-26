@@ -10,9 +10,7 @@ import org.uqbar.commons.utils.Observable;
 public class CEndeudamiento extends CondicionComparativa implements CondicionPredeterminada{
 
 	public CEndeudamiento() {
-		super("Endeudamiento");
-		this.setOperador(new Mayor());
-		this.setIndicador(new Endeudamiento());
+		super("Endeudamiento", new Endeudamiento(), new Mayor());
 	}
 	
 
