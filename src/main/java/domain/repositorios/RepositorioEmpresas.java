@@ -2,14 +2,16 @@ package domain.repositorios;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import domain.Empresa;
+import sun.java2d.pipe.AATextRenderer;
 
 public class RepositorioEmpresas implements Repositorio<Empresa>{
 	private static RepositorioEmpresas instance = null;
-	private List<Empresa> empresasCargadas;
+	private List<Empresa> empresasCargadas = new ArrayList<>();
 
 	public static RepositorioEmpresas instance() {
 		if (noHayInstanciaCargada()) 
@@ -30,7 +32,7 @@ public class RepositorioEmpresas implements Repositorio<Empresa>{
 		instance = null;
 	}
 
-	public void agregarEmpresa(Empresa empresa) {
+	public void agregarEmpresa(Empresa empresa) { 
 		this.getEmpresasCargadas().add(empresa);
 	}
 
@@ -38,7 +40,7 @@ public class RepositorioEmpresas implements Repositorio<Empresa>{
 		return empresasCargadas;
 	}
 	
-	public void agregarDesdeArchivo(Empresa empresaLeida) {
+	public void agregarDesdeArchivo(Empresa empresaLeida) { //testear 
 		if (existeLaEmpresa(empresaLeida))
 			agregarCuentas(empresaLeida);
 		else
@@ -46,18 +48,18 @@ public class RepositorioEmpresas implements Repositorio<Empresa>{
 	}
 
 	private void agregarCuentas(Empresa empresaLeida) {
-		buscarEmpresa(empresaLeida.getNombre()).agregarCuentas(empresaLeida.getCuentas());
+		buscarEmpresa(empresaLeida.getNombre()).get().agregarCuentas(empresaLeida.getCuentas());
 	}
 
-	private boolean existeLaEmpresa(Empresa empresa) {
+	public boolean existeLaEmpresa(Empresa empresa) { 
 		return empresasCargadas.stream().anyMatch(segunNombre(empresa.getNombre()));
 	}
 
-	public Empresa buscarEmpresa(String nombre) {
-		return empresasCargadas.stream().filter(segunNombre(nombre)).findFirst().get();
+	public Optional<Empresa> buscarEmpresa(String nombre) {
+		return empresasCargadas.stream().filter(segunNombre(nombre)).findFirst();
 	}
 
-	public Predicate<? super Empresa> segunNombre(String nombre) {
+	private Predicate<? super Empresa> segunNombre(String nombre) {
 		return empresa -> empresa.suNombreEs(nombre);
 	}
 

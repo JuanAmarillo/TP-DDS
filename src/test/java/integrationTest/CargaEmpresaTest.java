@@ -15,7 +15,6 @@ import static org.junit.Assert.*;
 import java.io.IOException;
 
 public class CargaEmpresaTest {
-	// Auxiliares
 
 	public Empresa cocaCola;
 
@@ -49,7 +48,7 @@ public class CargaEmpresaTest {
 	@Test
 	public void testMismaEmpresaAgregaCuentasDistintas() {	
 		cargarArchivos("Coca-Cola 2.json");
-		assertEquals(12, RepositorioEmpresas.instance().buscarEmpresa("Coca-Cola").getCuentas().size());
+		assertEquals(12, RepositorioEmpresas.instance().buscarEmpresa("Coca-Cola").get().getCuentas().size());
 	}
 	
 

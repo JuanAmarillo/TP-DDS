@@ -25,7 +25,7 @@ public class MetodologiasTest {
 	}
 	
 	private void asertarEmpresa(List<Empresa> listaResultante, int posicion, String nombre) {
-		assertTrue(listaResultante.get(posicion).esLaMismaEmpresaQue(new Empresa().setNombre(nombre)));
+		assertTrue(listaResultante.get(posicion).esLaMismaEmpresaQue(new Empresa(nombre)));
 	}
 	
 	private void imprimirNombres(List<Empresa> listaResultante) {

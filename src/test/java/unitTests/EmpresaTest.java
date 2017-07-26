@@ -55,7 +55,7 @@ public class EmpresaTest {
 	
 	@Before
 	public void init(){
-		empresa = new Empresa();
+		empresa = new Empresa("Manaos");
 		empresa.setCuentas(generarCuentas("activo","pasivo","caja y bancos"));
 	}
 	

@@ -52,7 +52,7 @@ public class CondicionesTest {
 	
 	@Test
 	public void testCumpleCondicionComparativaDeAntiguedad() {
-		Empresa empresaMasJoven = new Empresa();
+		Empresa empresaMasJoven = new Empresa("joven");
 		empresaMasJoven.setAnioFundacion(1950);
 		CEmpresaMayorAntiguedad condicion = new CEmpresaMayorAntiguedad();
 		condicion.setIndicador(new Antiguedad());

@@ -19,9 +19,9 @@ public class Empresa {
 		return nombre;
 	}
 
-	public Empresa setNombre(String nombre) {
+	public Empresa(){}
+	public Empresa(String nombre){
 		this.nombre = nombre;
-		return this;
 	}
 
 	public Integer getAnioFundacion() {

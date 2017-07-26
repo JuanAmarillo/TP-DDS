@@ -22,8 +22,7 @@ public class PreparadorDeEmpresas {
 	}
 	
 	private static Empresa prepararEmpresa(String nombre, Double pasivo, Double activo, int anioFundacion) {
-		Empresa empresa = new Empresa();
-		empresa.setNombre(nombre);
+		Empresa empresa = new Empresa(nombre);
 		Set<Cuenta> cuentas = new HashSet<>();
 		Cuenta cuentita = new Cuenta("PasivoTotal", "pascuas", pasivo);
 		Cuenta cuentitaBis = new Cuenta("ActivoTotal", "pascuas", activo);

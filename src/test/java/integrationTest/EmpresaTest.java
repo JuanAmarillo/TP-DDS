@@ -23,8 +23,7 @@ public class EmpresaTest {
 	public Empresa empresaC;
 
 	private void prepararEmpresaB() {
-		empresaB = new Empresa();
-		empresaB.setNombre("Mocka-Cola");
+		empresaB = new Empresa("Mocka-Cola");
 		Set<Cuenta> cuentas = new HashSet<>();
 		Cuenta cuentita = new Cuenta("ZZZ", "periodo", 12345.6);
 		Cuenta cuentitaBis = new Cuenta("XXX", "periodo", 1000.0);
@@ -74,16 +73,14 @@ public class EmpresaTest {
 
 	@Test
 	public void testBuscaAUnaEmpresaCargada() {
-		Empresa empresa = new Empresa();
-		empresa.setNombre("Mocka-Cola");
+		Empresa empresa = new Empresa("Mocka-Cola");
 		assertTrue(getListaEmpresas().stream().anyMatch(emp -> emp.getNombre().equals(empresa.getNombre())));
 	}
 
 	@Test(expected = RuntimeException.class)
 	public void testObtenerEmpresaNoCargadaFalla() {
-		Empresa empresa = new Empresa();
-		empresa.setNombre("Pirulo");
-		RepositorioEmpresas.instance().buscarEmpresa(empresa.getNombre());
+		Empresa empresa = new Empresa("Pirulo");
+		RepositorioEmpresas.instance().buscarEmpresa(empresa.getNombre()).get();
 	}
 
 	@Test
