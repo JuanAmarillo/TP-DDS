@@ -13,7 +13,4 @@ public class TEmpresaMas10Años extends CondicionTaxativa implements CondicionPr
 		super("Empresa de mas de 10 años",new Antiguedad(), new Mayor(), 10.0);
 	}
 	
-	public String getEcuacion(){
-		return "Antiguedad>10";
-	}
 }

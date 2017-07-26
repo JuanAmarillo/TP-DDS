@@ -10,8 +10,4 @@ public class TEndeudamiento extends CondicionTaxativa implements CondicionPredet
 	public TEndeudamiento(){
 		super("Empresa de mas de 10 años",new Endeudamiento(),new Menor(),0.4);
 	}
-	
-	public String getEcuacion(){
-		return "Endeudamiento<15";
-	}
 }
