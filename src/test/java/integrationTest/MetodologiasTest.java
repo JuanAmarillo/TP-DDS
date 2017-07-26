@@ -47,6 +47,12 @@ public class MetodologiasTest {
 	
 	 //     REWORK IN PROGRESS
 	
+	@Test(expected = NullPointerException.class)
+	public void testSiLePasoNullFalla() {
+		Metodologia met = new Metodologia("Pepita", null, null);
+		aplicarMetodologia(met);
+	}
+	
 	@Test
 	public void testSinCondicionesDevuelveLaMismaLista() {
 		Metodologia met = new Metodologia("Pepita", Arrays.asList(), Arrays.asList());
