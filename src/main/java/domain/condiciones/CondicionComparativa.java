@@ -1,14 +1,11 @@
 package domain.condiciones;
 
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import domain.Empresa;
-import net.sf.oval.exception.MethodNotFoundException;
 
-public class CondicionComparativa extends Condicion {
+public class CondicionComparativa extends Condicion{
 
 	private Double peso = 1.0;
 	
@@ -31,12 +28,6 @@ public class CondicionComparativa extends Condicion {
 		return this.comparar(indicador.calcularIndicador(e2, periodo), indicador.calcularIndicador(e1, periodo));
 		
 	}
-	public boolean esComparativa() {
-		return true;
-	}
-	public boolean esTaxativa() {
-		return false;
-	}
 
 	public Double getPeso() {
 		return peso;
@@ -45,6 +36,11 @@ public class CondicionComparativa extends Condicion {
 	public CondicionComparativa setPeso(Double valor) {
 		this.peso = valor;
 		return this;
+	}
+
+	@Override
+	public Boolean esTaxativa() {
+		return false;
 	}
 
 }

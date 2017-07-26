@@ -49,7 +49,7 @@ public class RepositorioCondiciones {
 	}
 
 	public List<CondicionComparativa> getCondicionesComparativas() {
-		return getCondicionesCargadas().stream().filter(unaCondicion -> unaCondicion.esComparativa())
+		return getCondicionesCargadas().stream().filter(unaCondicion -> !unaCondicion.esTaxativa())
 				.map(unaCondicion -> (CondicionComparativa) unaCondicion).collect(Collectors.toList());
 	}
 

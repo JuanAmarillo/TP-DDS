@@ -27,7 +27,7 @@ public class CargarCondicionVM {
 	public void cargarCondicion() {
 		verSiSeleccionoCondicion();
 		crearCondicion();
-		avisarCambiosEn("condiciones");
+		avisarDeCambiosEnCondiciones();
 	}
 
 	private void crearCondicion() {
@@ -42,7 +42,11 @@ public class CargarCondicionVM {
 
 	public void eliminarCondicion() {
 		RepositorioCondiciones.instance().eliminarCondicion(condicionSeleccionada);
-		avisarCambiosEn("condiciones");
+		avisarDeCambiosEnCondiciones();
+	}
+
+	private void avisarDeCambiosEnCondiciones() {
+		ObservableUtils.firePropertyChanged(this, "condiciones");
 	}
 
 	private void verSiSeleccionoCondicion() {
@@ -52,10 +56,6 @@ public class CargarCondicionVM {
 
 	private boolean noHayBuilderSeleccionado() {
 		return builderSeleccionado == null;
-	}
-
-	private void avisarCambiosEn(String property) {
-		ObservableUtils.firePropertyChanged(this, property);
 	}
 
 	// GETTERS Y SETTERS
@@ -113,7 +113,7 @@ public class CargarCondicionVM {
 
 	public void setbuilderSeleccionado(BuilderCondicion builderSeleccionado) {
 		this.builderSeleccionado = builderSeleccionado;
-		avisarCambiosEn("esTaxativa");
+		ObservableUtils.firePropertyChanged(this, "esTaxativa");
 	}
 
 	public double getValorCondicionTaxativa() {

@@ -30,10 +30,10 @@ public class CondicionTaxativa extends Condicion {
 	public void setValorDeComparacion(Double valorDeComparacion) {
 		this.valorDeComparacion = valorDeComparacion;
 	}
-	public boolean esComparativa() {
-		return false;
-	}
-	public boolean esTaxativa() {
+
+	@Override
+	public Boolean esTaxativa() {
 		return true;
 	}
+
 }

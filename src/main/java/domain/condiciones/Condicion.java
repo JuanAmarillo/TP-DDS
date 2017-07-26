@@ -7,21 +7,17 @@ import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
 import exceptions.NoSePuedeCalcularException;
 
-public abstract class Condicion {
+public abstract class Condicion implements CondicionCustom{
 
 	protected String nombre;
 	protected Indicador indicador;
 	protected OperadorCondicion operador;
-	protected Boolean esCustom = true;
 	
 	public abstract List<Empresa> aplicarCondicion(List<Empresa> listaEmpresas, String string);
+	public abstract Boolean esTaxativa();
 	
 	public int comparar (Double valorIndicadorUno, Double valorIndicadorDos) { 
 		return operador.comparar(valorIndicadorUno, valorIndicadorDos);
-	}
-	
-	public boolean esCustom(){ 
-		return esCustom;
 	}
 	
 	public boolean suNombreEs(String nombreCondicion) {
@@ -51,12 +47,6 @@ public abstract class Condicion {
 	public void setOperador(OperadorCondicion operador) {
 		this.operador = operador;
 	}
-
-	
-	
-	abstract public boolean esTaxativa();
-	
-	abstract public boolean esComparativa();
 	
 	
 }
