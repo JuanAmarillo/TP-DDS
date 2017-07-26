@@ -83,5 +83,4 @@ public class Empresa {
 	public Optional<Cuenta> buscarCuentaDe(String nombre, String periodo) {
 		return cuentas.stream().filter(cuenta -> cuenta.deNombre(nombre) && cuenta.dePeriodo(periodo)).findFirst();
 	}
-
 }
