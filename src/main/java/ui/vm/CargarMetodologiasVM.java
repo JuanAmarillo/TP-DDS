@@ -15,6 +15,7 @@ import domain.repositorios.RepositorioMetodologias;
 public class CargarMetodologiasVM {
 
 	public String nombreMetodologia = "";
+	public Double pesoDeComparativa = 0.0;
 
 	public List<CondicionTaxativa> listaCondicionesTaxativas;
 	public CondicionTaxativa condicionTaxativaSeleccionada = null;
@@ -81,12 +82,17 @@ public class CargarMetodologiasVM {
 	
 	public void moverHaciaLaDerechaComparativa() {
 		if(condicionComparativaSeleccionada != null) {
-			condicionesComparativasAAgregar.add(condicionComparativaSeleccionada);
+			validarPeso();
+			condicionesComparativasAAgregar.add(condicionComparativaSeleccionada.setPeso(pesoDeComparativa));
 			listaCondicionesComparativas.remove(condicionComparativaSeleccionada);
-			//agregarPeso(condicionComparativaSeleccionada);
 			condicionComparativaSeleccionada = null;
-			avisarCambiosEnComparativa();
+			avisarCambiosEnComparativa();			
 		}
+	}
+	
+	private void validarPeso() {
+		if(pesoDeComparativa <= 0) 
+			throw new RuntimeException("Debe agregar un peso para la condicion");
 	}
 
 	
@@ -175,6 +181,14 @@ public class CargarMetodologiasVM {
 
 	public void setCondicionComparativaAAgregarSeleccionada(CondicionComparativa condicionComparativaAAgregarSeleccionada) {
 		this.condicionComparativaAAgregarSeleccionada = condicionComparativaAAgregarSeleccionada;
+	}
+
+	public Double getPesoDeComparativa() {
+		return pesoDeComparativa;
+	}
+
+	public void setPesoDeComparativa(Double pesoDeComparativa) {
+		this.pesoDeComparativa = pesoDeComparativa;
 	}
 
 	

@@ -6,6 +6,7 @@ import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.List;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.TextBox;
+import org.uqbar.arena.widgets.NumericField;
 import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.lacar.ui.model.Action;
@@ -26,6 +27,7 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 		nombreMetodologiaACrear(panelCreacion);
 		seleccionDeCondicionesTaxativas(panelCreacion);
 		seleccionDeCondicionesComparativas(panelCreacion);
+		pesoDeLaComparativa(panelCreacion);
 	}
 
 	private void seleccionDeCondicionesComparativas(Panel formPanel) {
@@ -49,6 +51,12 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 	private void nombreMetodologiaACrear(Panel formPanel) {
 		new Label(formPanel).setText("Nombre");
 		new TextBox(formPanel).setWidth(250).bindValueToProperty("nombreMetodologia");
+	}
+	
+	private void pesoDeLaComparativa(Panel formPanel) {
+		Panel peso = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
+		new Label(peso).setText("Peso de la condicion comparativa");
+		new NumericField(peso).setWidth(80).bindValueToProperty("pesoDeComparativa");
 	}
 
 	private void listaDeLaMetodologia(Panel formPanel, String titulo, String lista, String elemento, Class<?> clase) {
