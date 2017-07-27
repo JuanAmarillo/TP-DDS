@@ -36,7 +36,7 @@ public class VerMetodologiasVM {
 
 	public void aplicarMetodologia() {
 		validaciones();
-		List<Empresa> empresasCalculadas = new AplicaMetodologia(getEmpresas()).aplicarMetodologia(metodologiaSeleccionada, periodoSeleccionado).obtenerLista();
+		List<Empresa> empresasCalculadas = new AplicaMetodologia().aplicar(metodologiaSeleccionada, getEmpresas(),periodoSeleccionado);
 		setEmpresasCondicionadas(empresasCalculadas);
 	}
 

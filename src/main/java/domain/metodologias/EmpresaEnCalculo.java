@@ -5,12 +5,12 @@ import domain.Empresa;
 public class EmpresaEnCalculo {
 
 	private Empresa empresa;
-	private Double pesoAcumulado = 0.0;
+	private Double peso;
 	
 	
-	public EmpresaEnCalculo(Empresa empresa) {
-		super();
+	public EmpresaEnCalculo(Empresa empresa,Double peso) {
 		this.empresa = empresa;
+		this.peso = peso;
 	}
 	
 	public Empresa getEmpresa() {
@@ -20,16 +20,16 @@ public class EmpresaEnCalculo {
 		this.empresa = empresa;
 	}
 
-	public Double getPesoAcumulado() {
-		return pesoAcumulado;
+	public Double getPeso() {
+		return peso;
 	}
 
-	public void setPesoAcumulado(Double pesoAcumulado) {
-		this.pesoAcumulado = pesoAcumulado;
+	public void setPeso(Double pesoAcumulado) {
+		this.peso = pesoAcumulado;
 	}
 
-	public void agregarPeso(Double peso) {
-		this.pesoAcumulado += peso;
-	}
+//	public void agregarPeso(Double peso) {
+//		this.peso += peso;
+//	}
 	
 }

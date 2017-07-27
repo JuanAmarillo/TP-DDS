@@ -1,10 +1,12 @@
 package domain.condiciones;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import domain.Empresa;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
+import domain.metodologias.EmpresaEnCalculo;
 import exceptions.NoSePuedeCalcularException;
 
 public abstract class Condicion implements CondicionCustom{
@@ -59,8 +61,22 @@ public abstract class Condicion implements CondicionCustom{
 		this.operador = operador;
 	}
 	
-	public abstract List<Empresa> aplicarCondicion(List<Empresa> listaEmpresas, String string);
+	public abstract List<Empresa> aplicarCondicion(List<Empresa> empresas, String periodo);
 	public abstract Boolean esTaxativa();
+	public abstract Double getPeso();
+
+	public List<EmpresaEnCalculo> apply(List<Empresa> empresas,String periodo) {
+		List<Empresa> empresasAplicadas = aplicarCondicion(empresas, periodo);
+		return agregarPeso(empresasAplicadas);
+	}
+	
+	public List<EmpresaEnCalculo> agregarPeso(List<Empresa> empresas){
+		return empresas.stream().map(empresa-> agregarPeso(empresa)).collect(Collectors.toList());
+	}
+
+	public EmpresaEnCalculo agregarPeso(Empresa empresa) {
+		return new EmpresaEnCalculo(empresa,getPeso());
+	}
 	
 	
 }

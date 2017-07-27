@@ -1,5 +1,6 @@
 package domain.metodologias;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.uqbar.commons.utils.Observable;
@@ -13,14 +14,15 @@ import domain.condiciones.CondicionTaxativa;
 public class Metodologia {
 	
 	private String nombre;
-	private List<CondicionTaxativa> condicionesTaxativas;
-	private List<CondicionComparativa> condicionesComparativas;
+	private List<Condicion> condiciones;
 	
-	public Metodologia(String nombre, List<CondicionTaxativa> condicionesTaxativas,	List<CondicionComparativa> condicionesComparativas) {
+	public Metodologia(String nombre, List<CondicionTaxativa> condicionesTaxativasAAgregar,	List<CondicionComparativa> condicionesComparativasAAgregar) {
 		super();
 		this.nombre = nombre;
-		this.condicionesTaxativas = condicionesTaxativas;
-		this.condicionesComparativas = condicionesComparativas;
+		//para q funcione por ahora
+		this.condiciones = new ArrayList<>();
+		this.condiciones.addAll(condicionesTaxativasAAgregar);
+		this.condiciones.addAll(condicionesComparativasAAgregar);
 	}
 
 	public boolean suNombreEs(String nombre){
@@ -34,20 +36,11 @@ public class Metodologia {
 		return this.nombre;
 	}
 
-	public List<CondicionTaxativa> getCondicionesTaxativas() {
-		return condicionesTaxativas;
+	public List<Condicion> getCondiciones() {
+		return condiciones;
 	}
 
-	public void setCondicionesTaxativas(List<CondicionTaxativa> condicionesTaxativas) {
-		this.condicionesTaxativas = condicionesTaxativas;
+	public void setCondiciones(List<Condicion> condiciones) {
+		this.condiciones = condiciones;
 	}
-
-	public List<CondicionComparativa> getCondicionesComparativas() {
-		return condicionesComparativas;
-	}
-
-	public void setCondicionesComparativas(List<CondicionComparativa> condicionesComparativas) {
-		this.condicionesComparativas = condicionesComparativas;
-	}
-
 }

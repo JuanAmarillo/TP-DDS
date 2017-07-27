@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import domain.Empresa;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
+import domain.metodologias.EmpresaEnCalculo;
 
 public class CondicionTaxativa extends Condicion {
 
@@ -18,12 +19,6 @@ public class CondicionTaxativa extends Condicion {
 	
 	public CondicionTaxativa(String nombre) {
 		super("Taxativa - " + nombre);
-	}
-
-	@Override
-	public List<Empresa> aplicarCondicion(List<Empresa> listaEmpresas, String periodo) {
-		return listaEmpresas.stream().filter(empresa -> evaluarCondicion(empresa, periodo))
-				.collect(Collectors.toList());
 	}
 
 	public Boolean evaluarCondicion(Empresa empresa, String periodo) {
@@ -41,6 +36,17 @@ public class CondicionTaxativa extends Condicion {
 	@Override
 	public Boolean esTaxativa() {
 		return true;
+	}
+
+	@Override
+	public List<Empresa> aplicarCondicion(List<Empresa> empresas, String periodo) {
+		return empresas.stream().filter(empresa -> evaluarCondicion(empresa, periodo))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public Double getPeso() {
+		return 0.0;
 	}
 
 }

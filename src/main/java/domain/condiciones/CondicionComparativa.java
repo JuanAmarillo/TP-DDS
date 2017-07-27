@@ -6,28 +6,32 @@ import java.util.stream.Collectors;
 import domain.Empresa;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
+import domain.metodologias.EmpresaEnCalculo;
 
 public class CondicionComparativa extends Condicion {
 
 	private Double peso = 1.0;
 
-	public CondicionComparativa(String nombre,Indicador indicador, OperadorCondicion operador) {
-		super("Comparativa - " + nombre,indicador,operador);
+	public CondicionComparativa(String nombre, Indicador indicador, OperadorCondicion operador) {
+		super("Comparativa - " + nombre, indicador, operador);
 	}
-	
-	public  CondicionComparativa(String nombre) {
+
+	public CondicionComparativa(String nombre) {
 		super("Comparativa - " + nombre);
 	}
 
 	@Override
-	public List<Empresa> aplicarCondicion(List<Empresa> listaEmpresas, String periodo) {
-		return listaEmpresas.stream().sorted((e1, e2) -> evaluarCondicion(e1, e2, periodo)).collect(Collectors.toList());
+	public List<Empresa> aplicarCondicion(List<Empresa> empresas, String periodo) {
+		return empresas.stream().sorted(
+				(empresaUno, empresaDos) -> evaluarCondicion(empresaUno, empresaDos, periodo))
+				.collect(Collectors.toList());
 	}
 
 	public Integer evaluarCondicion(Empresa empresaUno, Empresa empresaDos, String periodo) {
 		return comparar(calcularIndicador(empresaDos, periodo), calcularIndicador(empresaUno, periodo));
 	}
 
+	@Override
 	public Double getPeso() {
 		return peso;
 	}
