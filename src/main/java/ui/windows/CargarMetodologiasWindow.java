@@ -33,7 +33,7 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 		this.listaCondiciones(panelCondiciones, "Condiciones comparativas", "listaCondicionesComparativas",
 				"condicionComparativaSeleccionada", CondicionComparativa.class);
 		this.botones(panelCondiciones, this::moverHaciaLaDerechaC, this::moverHaciaLaIzquierdaC);
-		this.listaDeLaMetodologia(panelCondiciones, "condicionesComparativasAAgregar",
+		this.listaDeLaMetodologia(panelCondiciones, "Condiciones comparativas de la metodologia", "condicionesComparativasAAgregar",
 				"condicionComparativaAAgregarSeleccionada", CondicionComparativa.class);
 	}
 
@@ -42,7 +42,7 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 		this.listaCondiciones(panelCondiciones, "Condiciones taxativas", "listaCondicionesTaxativas",
 				"condicionTaxativaSeleccionada", CondicionTaxativa.class);
 		this.botones(panelCondiciones, this::moverHaciaLaDerechaT, this::moverHaciaLaIzquierdaT);
-		this.listaDeLaMetodologia(panelCondiciones, "condicionesTaxativasAAgregar",
+		this.listaDeLaMetodologia(panelCondiciones, "Condiciones taxativas de la metodologia", "condicionesTaxativasAAgregar",
 				"condicionTaxativaAAgregarSeleccionada", CondicionTaxativa.class);
 	}
 
@@ -51,8 +51,8 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 		new TextBox(formPanel).setWidth(250).bindValueToProperty("nombreMetodologia");
 	}
 
-	private void listaDeLaMetodologia(Panel formPanel, String lista, String elemento, Class<?> clase) {
-		Panel panel = ViewUtils.crearPanel(formPanel, new ColumnLayout(1), "Condiciones taxativas de la metodologia");
+	private void listaDeLaMetodologia(Panel formPanel, String titulo, String lista, String elemento, Class<?> clase) {
+		Panel panel = ViewUtils.crearPanel(formPanel, new ColumnLayout(1), titulo);
 		List<?> condiciones = ViewUtils.crearListaConAdaptador(panel, lista, elemento, clase, "nombre");
 		ViewUtils.setSize(250, 100, condiciones);
 
