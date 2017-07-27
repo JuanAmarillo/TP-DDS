@@ -99,7 +99,10 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 	}
 
 	private void moverHaciaLaDerechaC() {
-		this.getModelObject().moverHaciaLaDerechaComparativa();
+		try {
+			this.getModelObject().moverHaciaLaDerechaComparativa();
+		}
+		catch(RuntimeException e) { this.showWarning(e.getMessage()); };
 	}
 
 	private void moverHaciaLaIzquierdaC() {

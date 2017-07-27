@@ -86,10 +86,15 @@ public class CargarMetodologiasVM {
 			condicionesComparativasAAgregar.add(condicionComparativaSeleccionada.setPeso(pesoDeComparativa));
 			listaCondicionesComparativas.remove(condicionComparativaSeleccionada);
 			condicionComparativaSeleccionada = null;
-			avisarCambiosEnComparativa();			
+			avisarCambiosEnComparativa();	
+			resetPeso();
 		}
 	}
 	
+	private void resetPeso() {
+		pesoDeComparativa= 0.0;
+	}
+
 	private void validarPeso() {
 		if(pesoDeComparativa <= 0) 
 			throw new RuntimeException("Debe agregar un peso para la condicion");
