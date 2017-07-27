@@ -8,6 +8,8 @@ import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 
+import domain.Empresa;
+import domain.metodologias.Metodologia;
 import ui.vm.VerMetodologiasVM;
 
 public class VerMetodologiasWindow extends Dialog<VerMetodologiasVM> {
@@ -26,20 +28,20 @@ public class VerMetodologiasWindow extends Dialog<VerMetodologiasVM> {
 
 	private void cuadroResultados(Panel formPanel) {
 		new Label(formPanel).setText("Empresas condicionadas y ordenadas por la metodología");
-		ViewUtils.crearLista(formPanel, "empresasCondicionadas", "empresaCondicionadaSeleccionada").setHeight(180);
+		ViewUtils.crearListaConAdaptador(formPanel, "empresasCondicionadas", "empresaCondicionadaSeleccionada", Empresa.class, "nombre").setHeight(180);
 
 	}
 
 	public void listaMetodologias(Panel metodologiasPanel) {
 		Panel metods = ViewUtils.crearPanel(metodologiasPanel, new VerticalLayout(), "metodologías cargadas");
-		List<String> condiciones = ViewUtils.crearLista(metods, "metodologias", "metodologiaSeleccionada");
+		List<Metodologia> condiciones = ViewUtils.crearListaConAdaptador(metods, "metodologias", "metodologiaSeleccionada", Metodologia.class, "nombre");
 		ViewUtils.setSize(250, 100, condiciones);
 		ViewUtils.crearBoton(metods, "Aplicar metodología", this::aplicarMetodologia);
 	}
 
 	public void listaEmpresas(Panel metodologiasPanel) {
 		Panel empr = ViewUtils.crearPanel(metodologiasPanel, new VerticalLayout(), "Empresas cargadas");
-		List<String> empresas = ViewUtils.crearLista(empr, "empresas", "empresaSeleccionada");
+		List<Empresa> empresas = ViewUtils.crearListaConAdaptador(empr, "empresas", "empresaSeleccionada", Empresa.class, "nombre");
 		empresas.setWidth(150);
 		empresas.setHeight(100);
 	}
