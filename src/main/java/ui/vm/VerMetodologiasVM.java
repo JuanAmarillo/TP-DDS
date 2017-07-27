@@ -2,9 +2,13 @@ package ui.vm;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.uqbar.commons.utils.Observable;
 
+import domain.Empresa;
+import domain.metodologias.AplicaMetodologia;
+import domain.metodologias.Metodologia;
 import domain.repositorios.RepositorioEmpresas;
 import domain.repositorios.RepositorioMetodologias;
 
@@ -28,6 +32,11 @@ public class VerMetodologiasVM {
 
 	public void aplicarMetodologia() {
 		validarExistenciaDeEmpresas();
+		List<Empresa> empresasCargadas = RepositorioEmpresas.instance().getEmpresasCargadas();
+		Metodologia met = RepositorioMetodologias.instance().buscarMetodologia(metodologiaSeleccionada).get();
+		List<Empresa> empresasCalculadas = new AplicaMetodologia(empresasCargadas).aplicarMetodologia(met, "pascuas").obtenerLista();
+		empresasCondicionadas = empresasCalculadas.stream().map(empresa -> empresa.getNombre()).collect(Collectors.toList());
+		//empresasCondicionadas = 
 	}
 
 	private void validarExistenciaDeEmpresas() {
