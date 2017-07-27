@@ -18,6 +18,9 @@ public class VerMetodologiasVM {
 
 	public List<Metodologia> metodologias;
 	public Metodologia metodologiaSeleccionada;
+	
+	public List<String> periodos;
+	public String periodoSeleccionado = "";
 
 	public List<Empresa> empresas;
 	public Empresa empresaSeleccionada;
@@ -32,9 +35,25 @@ public class VerMetodologiasVM {
 	}
 
 	public void aplicarMetodologia() {
-		validarExistenciaDeEmpresas();
-		List<Empresa> empresasCalculadas = new AplicaMetodologia(getEmpresas()).aplicarMetodologia(metodologiaSeleccionada, "pascuas").obtenerLista();
+		validaciones();
+		List<Empresa> empresasCalculadas = new AplicaMetodologia(getEmpresas()).aplicarMetodologia(metodologiaSeleccionada, periodoSeleccionado).obtenerLista();
 		setEmpresasCondicionadas(empresasCalculadas);
+	}
+
+	private void validaciones() {
+		validarMetodologiaSeleccionada();
+		validarExistenciaDeEmpresas();
+		validarPeriodoSeleccionado();	
+	}
+
+	private void validarMetodologiaSeleccionada() {
+		if (metodologiaSeleccionada == null)
+			throw new RuntimeException("No se selecciono ninguna metodología");
+	}
+
+	private void validarPeriodoSeleccionado() {
+		if (periodoSeleccionado.isEmpty())
+			throw new RuntimeException("No se selecciono un periodo para realizar el calculo de la metodología");
 	}
 
 	private void validarExistenciaDeEmpresas() {
@@ -88,6 +107,22 @@ public class VerMetodologiasVM {
 
 	public void setEmpresaCondicionadaSeleccionada(Empresa empresaCondicionadaSeleccionada) {
 		this.empresaCondicionadaSeleccionada = empresaCondicionadaSeleccionada;
+	}
+
+	public List<String> getPeriodos() {
+		return RepositorioEmpresas.instance().getPeriodos();
+	}
+
+	public void setPeriodos(List<String> periodos) {
+		this.periodos = periodos;
+	}
+
+	public String getPeriodoSeleccionado() {
+		return periodoSeleccionado;
+	}
+
+	public void setPeriodoSeleccionado(String periodoSeleccionado) {
+		this.periodoSeleccionado = periodoSeleccionado;
 	}
 
 }

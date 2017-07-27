@@ -1,8 +1,10 @@
 package domain.repositorios;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -73,6 +75,12 @@ public class RepositorioEmpresas implements Repositorio<Empresa>{
 
 	public List<String> getNombreEmpresas() {
 		return getEmpresasCargadas().stream().map(empresa -> empresa.getNombre()).collect(Collectors.toList());
+	}
+
+	public List<String> getPeriodos() {
+		Set<String> periodos = new HashSet<String>();
+		getEmpresasCargadas().stream().forEach(empresa -> periodos.addAll(empresa.getPeriodos()));
+		return periodos.stream().collect(Collectors.toList());
 	}
 
 }

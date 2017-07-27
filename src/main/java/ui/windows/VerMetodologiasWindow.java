@@ -33,9 +33,10 @@ public class VerMetodologiasWindow extends Dialog<VerMetodologiasVM> {
 	}
 
 	public void listaMetodologias(Panel metodologiasPanel) {
-		Panel metods = ViewUtils.crearPanel(metodologiasPanel, new VerticalLayout(), "metodologías cargadas");
+		Panel metods = ViewUtils.crearPanel(metodologiasPanel, new VerticalLayout(), "Metodologías cargadas");
 		List<Metodologia> condiciones = ViewUtils.crearListaConAdaptador(metods, "metodologias", "metodologiaSeleccionada", Metodologia.class, "nombre");
 		ViewUtils.setSize(250, 100, condiciones);
+		ViewUtils.crearSelector(metods, "periodos", "periodoSeleccionado");
 		ViewUtils.crearBoton(metods, "Aplicar metodología", this::aplicarMetodologia);
 	}
 
