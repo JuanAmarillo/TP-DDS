@@ -16,13 +16,10 @@ public class Metodologia {
 	private String nombre;
 	private List<Condicion> condiciones;
 	
-	public Metodologia(String nombre, List<CondicionTaxativa> condicionesTaxativasAAgregar,	List<CondicionComparativa> condicionesComparativasAAgregar) {
+	public Metodologia(String nombre, List<Condicion> condiciones) {
 		super();
 		this.nombre = nombre;
-		//para q funcione por ahora
-		this.condiciones = new ArrayList<>();
-		this.condiciones.addAll(condicionesTaxativasAAgregar);
-		this.condiciones.addAll(condicionesComparativasAAgregar);
+		this.condiciones = condiciones;
 	}
 
 	public boolean suNombreEs(String nombre){

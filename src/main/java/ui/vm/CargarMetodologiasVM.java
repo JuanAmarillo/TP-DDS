@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.uqbar.commons.utils.Observable;
 
+import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
 import domain.condiciones.CondicionTaxativa;
 import domain.metodologias.Metodologia;
@@ -38,7 +39,11 @@ public class CargarMetodologiasVM {
 
 	public void cargarMetodologia() {
 		realizarValidaciones();
-		RepositorioMetodologias.instance().agregarMetodologia(new Metodologia(nombreMetodologia,condicionesTaxativasAAgregar,condicionesComparativasAAgregar));
+		//para que funcione por ahora
+		List<Condicion> condicionesAgregar = new ArrayList<>() ;
+		condicionesAgregar.addAll(condicionesTaxativasAAgregar);
+		condicionesAgregar.addAll(condicionesComparativasAAgregar);
+		RepositorioMetodologias.instance().agregarMetodologia(new Metodologia(nombreMetodologia,condicionesAgregar));
 	}
 
 	private void realizarValidaciones() {

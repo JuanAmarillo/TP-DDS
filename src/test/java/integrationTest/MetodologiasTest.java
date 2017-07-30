@@ -49,27 +49,27 @@ public class MetodologiasTest {
 	
 	@Test(expected = NullPointerException.class)
 	public void testSiLePasoNullFalla() {
-		Metodologia met = new Metodologia("Pepita", null, null);
+		Metodologia met = new Metodologia("Pepita", null);
 		aplicarMetodologia(met);
 	}
 	
 	@Test
 	public void testSinCondicionesDevuelveListaVacia() {
-		Metodologia met = new Metodologia("Pepita", Arrays.asList(), Arrays.asList());
+		Metodologia met = new Metodologia("Pepita", Arrays.asList());
 		List<Empresa> empresasFiltradas = aplicarMetodologia(met);
 		assertEquals(empresasFiltradas.size(), 0);
 	}
 	
 	@Test
 	public void testAplicarMetodologiaSimpleTaxativa() {
-		Metodologia met = new Metodologia("Pepita", Arrays.asList(new TEmpresaMas10Años()), Arrays.asList());
+		Metodologia met = new Metodologia("Pepita", Arrays.asList(new TEmpresaMas10Años()));
 		List<Empresa> empresasFiltradas = aplicarMetodologia(met);
 		asertarCantidad(empresasFiltradas, 2);
 	}
 	
 	@Test
 	public void testAplicarMetodologiaAntiguedad() {
-		Metodologia met = new Metodologia("Pepita", Arrays.asList(), Arrays.asList(new CEmpresaMayorAntiguedad().setPeso(10.0)));
+		Metodologia met = new Metodologia("Pepita", Arrays.asList(new CEmpresaMayorAntiguedad().setPeso(10.0)));
 		List<Empresa> empresasComparadas = aplicarMetodologia(met);
 		asertarEmpresa(empresasComparadas, 0, "Coca-Cola");
 		asertarEmpresa(empresasComparadas, 1, "Pepsi-Co");
@@ -77,7 +77,7 @@ public class MetodologiasTest {
 	
 	@Test
 	public void testAplicarMetodologiaEndeudamiento() {
-		Metodologia met = new Metodologia("Pepita", Arrays.asList(), Arrays.asList(new CEndeudamiento().setPeso(10.0)));
+		Metodologia met = new Metodologia("Pepita", Arrays.asList(new CEndeudamiento().setPeso(10.0)));
 		List<Empresa> empresasComparadas = aplicarMetodologia(met);
 		asertarEmpresa(empresasComparadas, 0, "Sorny");
 		asertarEmpresa(empresasComparadas, 1, "Pepsi-Co");
@@ -85,7 +85,7 @@ public class MetodologiasTest {
 	
 	@Test
 	public void testAplicaUnaYUna() {
-		Metodologia met = new Metodologia("Pepita", Arrays.asList(new TEmpresaMas10Años()), Arrays.asList(new CEmpresaMayorAntiguedad().setPeso(10.0)));
+		Metodologia met = new Metodologia("Pepita", Arrays.asList(new TEmpresaMas10Años(),new CEmpresaMayorAntiguedad().setPeso(10.0)));
 		List<Empresa> empresas = aplicarMetodologia(met);
 		asertarCantidad(empresas,2);		
 		asertarEmpresa(empresas, 0, "Coca-Cola");
@@ -94,7 +94,7 @@ public class MetodologiasTest {
 
 	@Test
 	public void testAplicaDosTaxativas() {
-		Metodologia met = new Metodologia("Pepita", Arrays.asList(new TEmpresaMas10Años(), new TEndeudamiento() ), Arrays.asList());
+		Metodologia met = new Metodologia("Pepita", Arrays.asList(new TEmpresaMas10Años(), new TEndeudamiento()));
 		List<Empresa> empresas = aplicarMetodologia(met);
 		asertarCantidad(empresas,1);
 		asertarEmpresa(empresas,0,"Coca-Cola");
@@ -102,7 +102,7 @@ public class MetodologiasTest {
 	
 	@Test
 	public void testAplicaDosComparativas() { //La cuenta sobre este test se encuentra en el archivo Anexo.txt
-		Metodologia met = new Metodologia("Pepita", Arrays.asList(),Arrays.asList(new CEmpresaMayorAntiguedad().setPeso(10.0), new CEndeudamiento().setPeso(12.0)));
+		Metodologia met = new Metodologia("Pepita",Arrays.asList(new CEmpresaMayorAntiguedad().setPeso(10.0), new CEndeudamiento().setPeso(12.0)));
 		List<Empresa> empresas = aplicarMetodologia(met);
 		empresas.stream().forEach(a -> System.out.println(a.getNombre()));
 		asertarEmpresa(empresas, 0, "Pepsi-Co");

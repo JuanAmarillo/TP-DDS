@@ -61,11 +61,6 @@ public abstract class Condicion implements CondicionCustom {
 		this.operador = operador;
 	}
 
-	public abstract List<Empresa> aplicarCondicion(List<Empresa> empresas, String periodo);
-
-	public abstract Boolean esTaxativa();
-
-	public abstract Double getPeso();
 
 	public List<EmpresaEnCalculo> apply(List<Empresa> empresas, String periodo) {
 		List<Empresa> empresasAplicadas = aplicarCondicion(empresas, periodo);
@@ -89,4 +84,9 @@ public abstract class Condicion implements CondicionCustom {
 		return new EmpresaEnCalculo(empresa, pesoTotal);
 	}
 
+	public abstract List<Empresa> aplicarCondicion(List<Empresa> empresas, String periodo);
+	
+	public abstract Boolean esTaxativa();
+	
+	public abstract Double getPeso();
 }
