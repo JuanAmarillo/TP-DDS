@@ -42,7 +42,7 @@ public class MetodologiasTest {
 	}
 	
 	private List<Empresa> aplicarMetodologia(Metodologia met) {
-		return new AplicaMetodologia(listaEmpresas).aplicarMetodologia(met, "pascuas").obtenerLista();
+		return new AplicaMetodologia().aplicar(met,listaEmpresas, "pascuas");
 	}
 	
 	 //     REWORK IN PROGRESS
@@ -54,10 +54,10 @@ public class MetodologiasTest {
 	}
 	
 	@Test
-	public void testSinCondicionesDevuelveLaMismaLista() {
+	public void testSinCondicionesDevuelveListaVacia() {
 		Metodologia met = new Metodologia("Pepita", Arrays.asList(), Arrays.asList());
 		List<Empresa> empresasFiltradas = aplicarMetodologia(met);
-		assertEquals(empresasFiltradas.size(), listaEmpresas.size());
+		assertEquals(empresasFiltradas.size(), 0);
 	}
 	
 	@Test
@@ -87,7 +87,7 @@ public class MetodologiasTest {
 	public void testAplicaUnaYUna() {
 		Metodologia met = new Metodologia("Pepita", Arrays.asList(new TEmpresaMas10Años()), Arrays.asList(new CEmpresaMayorAntiguedad().setPeso(10.0)));
 		List<Empresa> empresas = aplicarMetodologia(met);
-		asertarCantidad(empresas,2);
+		asertarCantidad(empresas,2);		
 		asertarEmpresa(empresas, 0, "Coca-Cola");
 		asertarEmpresa(empresas, 1, "Pepsi-Co");
 	}
@@ -104,6 +104,7 @@ public class MetodologiasTest {
 	public void testAplicaDosComparativas() { //La cuenta sobre este test se encuentra en el archivo Anexo.txt
 		Metodologia met = new Metodologia("Pepita", Arrays.asList(),Arrays.asList(new CEmpresaMayorAntiguedad().setPeso(10.0), new CEndeudamiento().setPeso(12.0)));
 		List<Empresa> empresas = aplicarMetodologia(met);
+		empresas.stream().forEach(a -> System.out.println(a.getNombre()));
 		asertarEmpresa(empresas, 0, "Pepsi-Co");
 		asertarEmpresa(empresas, 1, "Coca-Cola");
 		asertarEmpresa(empresas, 2, "Sorny");
