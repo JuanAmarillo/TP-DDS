@@ -89,7 +89,6 @@ public class CargarMetodologiasVM {
 			validarPeso();
 			ManejadorDePesos manejadorDePesos = new ManejadorDePesos(pesoDeComparativa);
 			condicionesComparativasAAgregar.add(condicionComparativaSeleccionada.setManejadorDePesos(manejadorDePesos));
-			avisarCambiosEnComparativa();
 		}
 	}
 
@@ -101,12 +100,7 @@ public class CargarMetodologiasVM {
 	public void moverHaciaLaIzquierdaComparativa() {
 		if (condicionComparativaAAgregarSeleccionada != null) {
 			condicionesComparativasAAgregar.remove(condicionComparativaAAgregarSeleccionada);
-			avisarCambiosEnComparativa();
 		}
-	}
-
-	public void avisarCambiosEnComparativa() {
-		VmUtils.avisarCambios(this, "condicionesComparativasAAgregar", "listaCondicionesComparativas");
 	}
 
 	// GETTERS Y SETTERS
