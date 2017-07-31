@@ -44,9 +44,10 @@ public class CondicionTaxativa extends Condicion {
 				.collect(Collectors.toList());
 	}
 
+
 	@Override
-	public Double getPeso() {
-		return 0.0;
+	protected List<EmpresaEnCalculo> crearEmpresasEnCalculo(List<Empresa> empresasAplicadas) {
+		return empresasAplicadas.stream().map(empresa -> new EmpresaEnCalculo(empresa)).collect(Collectors.toList());
 	}
 
 }

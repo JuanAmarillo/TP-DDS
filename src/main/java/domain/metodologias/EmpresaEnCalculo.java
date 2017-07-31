@@ -5,12 +5,16 @@ import domain.Empresa;
 public class EmpresaEnCalculo {
 
 	private Empresa empresa;
-	private Double peso;
+	private Double peso = 0.0;
 	
 	
 	public EmpresaEnCalculo(Empresa empresa,Double peso) {
 		this.empresa = empresa;
 		this.peso = peso;
+	}
+	
+	public EmpresaEnCalculo(Empresa empresa) {
+		this.empresa = empresa;
 	}
 	
 	public Empresa getEmpresa() {

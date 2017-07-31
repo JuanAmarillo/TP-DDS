@@ -11,6 +11,7 @@ import domain.metodologias.EmpresaEnCalculo;
 public class CondicionComparativa extends Condicion {
 
 	private Double peso = 1.0;
+	private ManejadorDePesos manejadorDePesos;
 
 	public CondicionComparativa(String nombre, Indicador indicador, OperadorCondicion operador) {
 		super("Comparativa - " + nombre, indicador, operador);
@@ -31,19 +32,20 @@ public class CondicionComparativa extends Condicion {
 		return comparar(calcularIndicador(empresaDos, periodo), calcularIndicador(empresaUno, periodo));
 	}
 
-	@Override
-	public Double getPeso() {
-		return peso;
-	}
-
 	public CondicionComparativa setPeso(Double peso) {
-		this.peso = peso;
+		// por ahora, deberia setear de una el manejador no crearlo asi
+		manejadorDePesos = new ManejadorDePesos(peso);
 		return this;
 	}
 
 	@Override
 	public Boolean esTaxativa() {
 		return false;
+	}
+
+	@Override
+	protected List<EmpresaEnCalculo> crearEmpresasEnCalculo(List<Empresa> empresasAplicadas) {
+		return manejadorDePesos.agregarPeso(empresasAplicadas);
 	}
 
 }

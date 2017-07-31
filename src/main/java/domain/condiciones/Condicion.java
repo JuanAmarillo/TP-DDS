@@ -61,32 +61,15 @@ public abstract class Condicion implements CondicionCustom {
 		this.operador = operador;
 	}
 
-
 	public List<EmpresaEnCalculo> apply(List<Empresa> empresas, String periodo) {
 		List<Empresa> empresasAplicadas = aplicarCondicion(empresas, periodo);
-		return agregarPeso(empresasAplicadas);
+		return crearEmpresasEnCalculo(empresasAplicadas);
 	}
 
-	public List<EmpresaEnCalculo> agregarPeso(List<Empresa> empresas) {
-		return empresas.stream().map(empresa -> agregarPeso(empresa, pesoTotal(empresas, empresa)))
-				.collect(Collectors.toList());
-	}
-	
-	public Double pesoTotal(List<Empresa> empresas, Empresa empresa){
-		return pesoPorPuesto(empresas, empresa) * getPeso();
-	}
-
-	public Integer pesoPorPuesto(List<Empresa> empresas, Empresa empresa) {
-		return empresas.size() - empresas.indexOf(empresa);
-	}
-
-	public EmpresaEnCalculo agregarPeso(Empresa empresa,Double pesoTotal) {
-		return new EmpresaEnCalculo(empresa, pesoTotal);
-	}
+	protected abstract List<EmpresaEnCalculo> crearEmpresasEnCalculo(List<Empresa> empresasAplicadas);
 
 	public abstract List<Empresa> aplicarCondicion(List<Empresa> empresas, String periodo);
-	
+
 	public abstract Boolean esTaxativa();
-	
-	public abstract Double getPeso();
+
 }
