@@ -14,4 +14,9 @@ public class BuilderCondicionComparativa extends BuilderCondicion{
 		return new CondicionComparativa(nombre,indicador,operador);
 	}
 
+	@Override
+	public Boolean esTaxativa() {
+		return false;
+	}
+
 }

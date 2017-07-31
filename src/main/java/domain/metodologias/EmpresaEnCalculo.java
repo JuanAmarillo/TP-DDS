@@ -31,9 +31,5 @@ public class EmpresaEnCalculo {
 	public void setPeso(Double pesoAcumulado) {
 		this.peso = pesoAcumulado;
 	}
-
-//	public void agregarPeso(Double peso) {
-//		this.peso += peso;
-//	}
 	
 }

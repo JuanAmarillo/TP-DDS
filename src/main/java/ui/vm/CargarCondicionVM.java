@@ -125,7 +125,7 @@ public class CargarCondicionVM {
 	}
 
 	public boolean esTaxativa() {
-		return builderSeleccionado instanceof BuilderCondicionTaxativa;
+		return builderSeleccionado.esTaxativa();
 	}
 
 }

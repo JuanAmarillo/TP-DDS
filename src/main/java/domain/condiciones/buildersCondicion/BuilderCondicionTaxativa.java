@@ -19,4 +19,9 @@ public class BuilderCondicionTaxativa extends BuilderCondicion{
 		this.valorDeComparacion = valor;
 	}
 
+	@Override
+	public Boolean esTaxativa() {
+		return true;
+	}
+
 }

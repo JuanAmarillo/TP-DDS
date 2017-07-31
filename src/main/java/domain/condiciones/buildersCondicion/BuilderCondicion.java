@@ -57,6 +57,7 @@ public abstract class BuilderCondicion {
 	}
 	
 	public abstract Condicion build();
+	public abstract Boolean esTaxativa();
 	
 	
 }

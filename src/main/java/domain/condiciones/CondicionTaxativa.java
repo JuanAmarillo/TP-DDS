@@ -3,6 +3,8 @@ package domain.condiciones;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.uqbar.commons.utils.Observable;
+
 import domain.Empresa;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
