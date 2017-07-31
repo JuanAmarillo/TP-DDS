@@ -32,9 +32,8 @@ public class CondicionComparativa extends Condicion {
 		return comparar(calcularIndicador(empresaDos, periodo), calcularIndicador(empresaUno, periodo));
 	}
 
-	public CondicionComparativa setPeso(Double peso) {
-		// por ahora, deberia setear de una el manejador no crearlo asi
-		manejadorDePesos = new ManejadorDePesos(peso);
+	public CondicionComparativa setPeso(ManejadorDePesos manejadorDePesos) {
+		this.manejadorDePesos = manejadorDePesos;
 		return this;
 	}
 

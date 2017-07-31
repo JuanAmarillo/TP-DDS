@@ -8,6 +8,7 @@ import org.uqbar.commons.utils.Observable;
 import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
 import domain.condiciones.CondicionTaxativa;
+import domain.condiciones.ManejadorDePesos;
 import domain.metodologias.Metodologia;
 import domain.repositorios.RepositorioCondiciones;
 import domain.repositorios.RepositorioMetodologias;
@@ -20,16 +21,16 @@ public class CargarMetodologiasVM {
 
 	public List<CondicionTaxativa> listaCondicionesTaxativas;
 	public CondicionTaxativa condicionTaxativaSeleccionada = null;
-	
+
 	public List<CondicionTaxativa> condicionesTaxativasAAgregar;
 	public CondicionTaxativa condicionTaxativaAAgregarSeleccionada = null;
-	
+
 	public List<CondicionComparativa> listaCondicionesComparativas;
 	public CondicionComparativa condicionComparativaSeleccionada = null;
-	
+
 	public List<CondicionComparativa> condicionesComparativasAAgregar;
 	public CondicionComparativa condicionComparativaAAgregarSeleccionada = null;
-	
+
 	public CargarMetodologiasVM() {
 		listaCondicionesTaxativas = RepositorioCondiciones.instance().getCondicionesTaxativas();
 		listaCondicionesComparativas = RepositorioCondiciones.instance().getCondicionesComparativas();
@@ -39,75 +40,75 @@ public class CargarMetodologiasVM {
 
 	public void cargarMetodologia() {
 		realizarValidaciones();
-		//para que funcione por ahora
-		List<Condicion> condicionesAgregar = new ArrayList<>() ;
+		// para que funcione por ahora
+		List<Condicion> condicionesAgregar = new ArrayList<>();
 		condicionesAgregar.addAll(condicionesTaxativasAAgregar);
 		condicionesAgregar.addAll(condicionesComparativasAAgregar);
-		RepositorioMetodologias.instance().agregarMetodologia(new Metodologia(nombreMetodologia,condicionesAgregar));
+		RepositorioMetodologias.instance().agregarMetodologia(new Metodologia(nombreMetodologia, condicionesAgregar));
 	}
 
 	private void realizarValidaciones() {
 		validarNombre();
- 		validarQueHayaAlgunaCondicion();
+		validarQueHayaAlgunaCondicion();
 	}
-	
+
 	private void validarNombre() {
 		if (nombreMetodologia.isEmpty())
 			throw new RuntimeException("No se ingreso un nombre para la metodologia");
 	}
-	
+
 	private void validarQueHayaAlgunaCondicion() {
-		if(condicionesTaxativasAAgregar.size() == 0 && condicionesComparativasAAgregar.size() == 0)
+		if (condicionesTaxativasAAgregar.size() == 0 && condicionesComparativasAAgregar.size() == 0)
 			throw new RuntimeException("No se seleccionó ninguna condición");
 	}
-		
+
 	public void moverHaciaLaIzquierdaTaxativa() {
-		if(condicionTaxativaAAgregarSeleccionada != null) {
+		if (condicionTaxativaAAgregarSeleccionada != null) {
 			listaCondicionesTaxativas.add(condicionTaxativaAAgregarSeleccionada);
 			condicionesTaxativasAAgregar.remove(condicionTaxativaAAgregarSeleccionada);
 			condicionTaxativaAAgregarSeleccionada = null;
 			avisarCambiosEnTaxativa();
 		}
-	}	
+	}
 
 	public void moverHaciaLaDerechaTaxativa() {
-		if(condicionTaxativaSeleccionada != null) {
+		if (condicionTaxativaSeleccionada != null) {
 			condicionesTaxativasAAgregar.add(condicionTaxativaSeleccionada);
 			listaCondicionesTaxativas.remove(condicionTaxativaSeleccionada);
-			//agregarPeso(condicionTaxativaSeleccionada);
-			//crearTupla();
+			// agregarPeso(condicionTaxativaSeleccionada);
+			// crearTupla();
 			condicionTaxativaSeleccionada = null;
 			avisarCambiosEnTaxativa();
 		}
 	}
 
 	public void avisarCambiosEnTaxativa() {
-		VmUtils.avisarCambios(this,"listaCondicionesTaxativas", "condicionesTaxativasAAgregar");
+		VmUtils.avisarCambios(this, "listaCondicionesTaxativas", "condicionesTaxativasAAgregar");
 	}
-	
+
 	public void moverHaciaLaDerechaComparativa() {
-		if(condicionComparativaSeleccionada != null) {
+		if (condicionComparativaSeleccionada != null) {
 			validarPeso();
-			condicionesComparativasAAgregar.add(condicionComparativaSeleccionada.setPeso(pesoDeComparativa));
+			ManejadorDePesos manejadorDePesos = new ManejadorDePesos(pesoDeComparativa);
+			condicionesComparativasAAgregar.add(condicionComparativaSeleccionada.setPeso(manejadorDePesos));
 			listaCondicionesComparativas.remove(condicionComparativaSeleccionada);
 			condicionComparativaSeleccionada = null;
-			avisarCambiosEnComparativa();	
+			avisarCambiosEnComparativa();
 			resetPeso();
 		}
 	}
-	
+
 	private void resetPeso() {
-		pesoDeComparativa= 0.0;
+		pesoDeComparativa = 0.0;
 	}
 
 	private void validarPeso() {
-		if(pesoDeComparativa <= 0) 
+		if (pesoDeComparativa <= 0)
 			throw new RuntimeException("Debe agregar un peso para la condicion");
 	}
 
-	
 	public void moverHaciaLaIzquierdaComparativa() {
-		if(condicionComparativaAAgregarSeleccionada != null) {
+		if (condicionComparativaAAgregarSeleccionada != null) {
 			listaCondicionesComparativas.add(condicionComparativaAAgregarSeleccionada);
 			condicionesComparativasAAgregar.remove(condicionComparativaAAgregarSeleccionada);
 			condicionComparativaAAgregarSeleccionada = null;
@@ -116,15 +117,15 @@ public class CargarMetodologiasVM {
 	}
 
 	public void avisarCambiosEnComparativa() {
-		VmUtils.avisarCambios(this,"condicionesComparativasAAgregar", "listaCondicionesComparativas");
+		VmUtils.avisarCambios(this, "condicionesComparativasAAgregar", "listaCondicionesComparativas");
 	}
-	
+
 	// GETTERS Y SETTERS
-	
+
 	public String getNombreMetodologia() {
 		return nombreMetodologia;
 	}
-	
+
 	public void setNombreMetodologia(String nombreMetodologia) {
 		this.nombreMetodologia = nombreMetodologia;
 	}
@@ -189,7 +190,8 @@ public class CargarMetodologiasVM {
 		return condicionComparativaAAgregarSeleccionada;
 	}
 
-	public void setCondicionComparativaAAgregarSeleccionada(CondicionComparativa condicionComparativaAAgregarSeleccionada) {
+	public void setCondicionComparativaAAgregarSeleccionada(
+			CondicionComparativa condicionComparativaAAgregarSeleccionada) {
 		this.condicionComparativaAAgregarSeleccionada = condicionComparativaAAgregarSeleccionada;
 	}
 
@@ -201,7 +203,4 @@ public class CargarMetodologiasVM {
 		this.pesoDeComparativa = pesoDeComparativa;
 	}
 
-	
-
-	
 }
