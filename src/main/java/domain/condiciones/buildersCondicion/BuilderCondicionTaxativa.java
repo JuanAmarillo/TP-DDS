@@ -1,4 +1,7 @@
-package domain.condiciones;
+package domain.condiciones.buildersCondicion;
+
+import domain.condiciones.Condicion;
+import domain.condiciones.CondicionTaxativa;
 
 public class BuilderCondicionTaxativa extends BuilderCondicion{
 	private double valorDeComparacion;	

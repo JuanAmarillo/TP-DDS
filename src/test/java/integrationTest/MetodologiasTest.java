@@ -71,7 +71,7 @@ public class MetodologiasTest {
 	@Test
 	public void testAplicarMetodologiaAntiguedad() {
 		Metodologia met = new Metodologia("Pepita",
-				Arrays.asList(new CEmpresaMayorAntiguedad().setPeso(new ManejadorDePesos(10.0))));
+				Arrays.asList(new CEmpresaMayorAntiguedad().setManejadorDePesos(new ManejadorDePesos(10.0))));
 		List<Empresa> empresasComparadas = aplicarMetodologia(met);
 		asertarEmpresa(empresasComparadas, 0, "Coca-Cola");
 		asertarEmpresa(empresasComparadas, 1, "Pepsi-Co");
@@ -80,7 +80,7 @@ public class MetodologiasTest {
 	@Test
 	public void testAplicarMetodologiaEndeudamiento() {
 		Metodologia met = new Metodologia("Pepita",
-				Arrays.asList(new CEndeudamiento().setPeso(new ManejadorDePesos(10.0))));
+				Arrays.asList(new CEndeudamiento().setManejadorDePesos(new ManejadorDePesos(10.0))));
 		List<Empresa> empresasComparadas = aplicarMetodologia(met);
 		asertarEmpresa(empresasComparadas, 0, "Sorny");
 		asertarEmpresa(empresasComparadas, 1, "Pepsi-Co");
@@ -89,7 +89,7 @@ public class MetodologiasTest {
 	@Test
 	public void testAplicaUnaYUna() {
 		Metodologia met = new Metodologia("Pepita", Arrays.asList(new TEmpresaMas10Años(),
-				new CEmpresaMayorAntiguedad().setPeso(new ManejadorDePesos(10.0))));
+				new CEmpresaMayorAntiguedad().setManejadorDePesos(new ManejadorDePesos(10.0))));
 		List<Empresa> empresas = aplicarMetodologia(met);
 		asertarCantidad(empresas, 2);
 		asertarEmpresa(empresas, 0, "Coca-Cola");
@@ -109,8 +109,8 @@ public class MetodologiasTest {
 												// encuentra en el archivo
 												// Anexo.txt
 		Metodologia met = new Metodologia("Pepita",
-				Arrays.asList(new CEmpresaMayorAntiguedad().setPeso(new ManejadorDePesos(10.0)),
-						new CEndeudamiento().setPeso(new ManejadorDePesos(10.0))));
+				Arrays.asList(new CEmpresaMayorAntiguedad().setManejadorDePesos(new ManejadorDePesos(10.0)),
+						new CEndeudamiento().setManejadorDePesos(new ManejadorDePesos(10.0))));
 		List<Empresa> empresas = aplicarMetodologia(met);
 		empresas.stream().forEach(a -> System.out.println(a.getNombre()));
 		asertarEmpresa(empresas, 0, "Pepsi-Co");

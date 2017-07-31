@@ -16,10 +16,6 @@ public class CondicionTaxativa extends Condicion {
 		super("Taxativa - " + nombre,indicador,operador);
 		this.valorDeComparacion = valorDeComparacion;
 	}
-	
-	public CondicionTaxativa(String nombre) {
-		super("Taxativa - " + nombre);
-	}
 
 	public Boolean evaluarCondicion(Empresa empresa, String periodo) {
 		return comparar(calcularIndicador(empresa, periodo), valorDeComparacion) > 0;

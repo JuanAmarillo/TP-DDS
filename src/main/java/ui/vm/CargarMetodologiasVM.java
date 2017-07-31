@@ -90,7 +90,7 @@ public class CargarMetodologiasVM {
 		if (condicionComparativaSeleccionada != null) {
 			validarPeso();
 			ManejadorDePesos manejadorDePesos = new ManejadorDePesos(pesoDeComparativa);
-			condicionesComparativasAAgregar.add(condicionComparativaSeleccionada.setPeso(manejadorDePesos));
+			condicionesComparativasAAgregar.add(condicionComparativaSeleccionada.setManejadorDePesos(manejadorDePesos));
 			listaCondicionesComparativas.remove(condicionComparativaSeleccionada);
 			condicionComparativaSeleccionada = null;
 			avisarCambiosEnComparativa();

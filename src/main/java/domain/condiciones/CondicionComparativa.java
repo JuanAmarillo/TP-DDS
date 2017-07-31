@@ -10,17 +10,17 @@ import domain.metodologias.EmpresaEnCalculo;
 
 public class CondicionComparativa extends Condicion {
 
-	private Double peso = 1.0;
 	private ManejadorDePesos manejadorDePesos;
 
 	public CondicionComparativa(String nombre, Indicador indicador, OperadorCondicion operador) {
 		super("Comparativa - " + nombre, indicador, operador);
 	}
 
-	public CondicionComparativa(String nombre) {
-		super("Comparativa - " + nombre);
+	public CondicionComparativa setManejadorDePesos(ManejadorDePesos manejadorDePesos) {
+		this.manejadorDePesos = manejadorDePesos;
+		return this; // sacar eso luego del refactor
 	}
-
+	
 	@Override
 	public List<Empresa> aplicarCondicion(List<Empresa> empresas, String periodo) {
 		return empresas.stream().sorted(
@@ -32,10 +32,6 @@ public class CondicionComparativa extends Condicion {
 		return comparar(calcularIndicador(empresaDos, periodo), calcularIndicador(empresaUno, periodo));
 	}
 
-	public CondicionComparativa setPeso(ManejadorDePesos manejadorDePesos) {
-		this.manejadorDePesos = manejadorDePesos;
-		return this;
-	}
 
 	@Override
 	public Boolean esTaxativa() {

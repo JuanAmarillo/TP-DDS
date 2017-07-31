@@ -6,11 +6,11 @@ import java.util.List;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
-import domain.condiciones.BuilderCondicion;
-import domain.condiciones.BuilderCondicionComparativa;
-import domain.condiciones.BuilderCondicionTaxativa;
 import domain.condiciones.Condicion;
 import domain.condiciones.OperadoresCondicion.*;
+import domain.condiciones.buildersCondicion.BuilderCondicion;
+import domain.condiciones.buildersCondicion.BuilderCondicionComparativa;
+import domain.condiciones.buildersCondicion.BuilderCondicionTaxativa;
 import domain.repositorios.RepositorioCondiciones;
 import domain.repositorios.RepositorioIndicadores;
 

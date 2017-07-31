@@ -17,7 +17,7 @@ public class RepositorioCondicionesTest {
 	
 	@Test
 	public void testSePuedeEliminarUnaCondicion() {
-		CondicionComparativa condicion = new CondicionComparativa("pepito");
+		CondicionComparativa condicion = new CondicionComparativa("pepito",null,null);
 		RepositorioCondiciones.instance().agregarCondicion(condicion);
 		assertEquals(5,RepositorioCondiciones.instance().cantidadDeCondiciones());
 		RepositorioCondiciones.instance().eliminarCondicion("Comparativa - pepito");

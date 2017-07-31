@@ -1,14 +1,9 @@
 package domain.metodologias;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.uqbar.commons.utils.Observable;
-
-import domain.Empresa;
 import domain.condiciones.Condicion;
-import domain.condiciones.CondicionComparativa;
-import domain.condiciones.CondicionTaxativa;
 
 @Observable
 public class Metodologia {
@@ -17,7 +12,6 @@ public class Metodologia {
 	private List<Condicion> condiciones;
 	
 	public Metodologia(String nombre, List<Condicion> condiciones) {
-		super();
 		this.nombre = nombre;
 		this.condiciones = condiciones;
 	}
@@ -30,7 +24,7 @@ public class Metodologia {
 		this.nombre = nombre;
 	}
 	public String getNombre() {
-		return this.nombre;
+		return nombre;
 	}
 
 	public List<Condicion> getCondiciones() {
