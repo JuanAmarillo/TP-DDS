@@ -20,27 +20,19 @@ public class CargarMetodologiasVM {
 	public Double pesoDeComparativa = 0.0;
 
 	public CondicionTaxativa condicionTaxativaSeleccionada = null;
-
-	public List<CondicionTaxativa> condicionesTaxativasAAgregar;
-	public CondicionTaxativa condicionTaxativaAAgregarSeleccionada = null;
-
+	
 	public CondicionComparativa condicionComparativaSeleccionada = null;
 
-	public List<CondicionComparativa> condicionesComparativasAAgregar;
-	public CondicionComparativa condicionComparativaAAgregarSeleccionada = null;
+	public List<Condicion> condicionesAgregadas;
+	public Condicion condicionAgregadaSeleccionada = null;
 
 	public CargarMetodologiasVM() {
-		condicionesTaxativasAAgregar = new ArrayList<CondicionTaxativa>();
-		condicionesComparativasAAgregar = new ArrayList<CondicionComparativa>();
+		condicionesAgregadas = new ArrayList<Condicion>();
 	}
 
 	public void cargarMetodologia() {
 		realizarValidaciones();
-		// para que funcione por ahora
-		List<Condicion> condicionesAgregar = new ArrayList<>();
-		condicionesAgregar.addAll(condicionesTaxativasAAgregar);
-		condicionesAgregar.addAll(condicionesComparativasAAgregar);
-		RepositorioMetodologias.instance().agregarMetodologia(new Metodologia(nombreMetodologia, condicionesAgregar));
+		RepositorioMetodologias.instance().agregarMetodologia(new Metodologia(nombreMetodologia, condicionesAgregadas));
 	}
 
 	private void realizarValidaciones() {
@@ -54,41 +46,35 @@ public class CargarMetodologiasVM {
 	}
 
 	private void validarQueHayaAlgunaCondicion() {
-		if (condicionesTaxativasAAgregar.size() == 0 && condicionesComparativasAAgregar.size() == 0)
+		if (condicionesAgregadas.size() == 0)
 			throw new RuntimeException("No se seleccionó ninguna condición");
 	}
 
 	public void moverHaciaLaIzquierdaTaxativa() {
-		if (condicionTaxativaAAgregarSeleccionada != null) {
-			condicionesTaxativasAAgregar.remove(condicionTaxativaAAgregarSeleccionada);
-			avisarCambiosEnTaxativa();
+		if (condicionAgregadaSeleccionada != null) {
+			condicionesAgregadas.remove(condicionAgregadaSeleccionada);
 		}
 	}
 
 	public void moverHaciaLaDerechaTaxativa() {
 		if (condicionTaxativaSeleccionada != null && noSeAgregoTaxativa()) {
-			condicionesTaxativasAAgregar.add(condicionTaxativaSeleccionada);
-			avisarCambiosEnTaxativa();
+			condicionesAgregadas.add(condicionTaxativaSeleccionada);
 		}
 	}
 
 	private boolean noSeAgregoTaxativa() {
-		return !condicionesTaxativasAAgregar.contains(condicionTaxativaSeleccionada);
+		return !condicionesAgregadas.contains(condicionTaxativaSeleccionada);
 	}
 
 	private boolean noSeAgregoComparativa() {
-		return !condicionesComparativasAAgregar.contains(condicionComparativaSeleccionada);
-	}
-
-	public void avisarCambiosEnTaxativa() {
-		VmUtils.avisarCambios(this, "listaCondicionesTaxativas", "condicionesTaxativasAAgregar");
+		return !condicionesAgregadas.contains(condicionComparativaSeleccionada);
 	}
 
 	public void moverHaciaLaDerechaComparativa() {
 		if (condicionComparativaSeleccionada != null && noSeAgregoComparativa()) {
 			validarPeso();
 			ManejadorDePesos manejadorDePesos = new ManejadorDePesos(pesoDeComparativa);
-			condicionesComparativasAAgregar.add(condicionComparativaSeleccionada.setManejadorDePesos(manejadorDePesos));
+			condicionesAgregadas.add(condicionComparativaSeleccionada.setManejadorDePesos(manejadorDePesos));
 		}
 	}
 
@@ -98,8 +84,8 @@ public class CargarMetodologiasVM {
 	}
 
 	public void moverHaciaLaIzquierdaComparativa() {
-		if (condicionComparativaAAgregarSeleccionada != null) {
-			condicionesComparativasAAgregar.remove(condicionComparativaAAgregarSeleccionada);
+		if (condicionAgregadaSeleccionada != null) {
+			condicionesAgregadas.remove(condicionAgregadaSeleccionada);
 		}
 	}
 
@@ -113,7 +99,7 @@ public class CargarMetodologiasVM {
 		this.nombreMetodologia = nombreMetodologia;
 	}
 
-	public List<CondicionTaxativa> getListaCondicionesTaxativas() {
+	public List<CondicionTaxativa> getCondicionesTaxativas() {
 		return RepositorioCondiciones.instance().getCondicionesTaxativas();
 	}
 
@@ -125,23 +111,23 @@ public class CargarMetodologiasVM {
 		this.condicionTaxativaSeleccionada = condicionTaxativaSeleccionada;
 	}
 
-	public List<CondicionTaxativa> getCondicionesTaxativasAAgregar() {
-		return condicionesTaxativasAAgregar;
+	public List<Condicion> getCondicionesAgregadas() {
+		return condicionesAgregadas;
 	}
 
-	public void setCondicionesTaxativasAAgregar(List<CondicionTaxativa> condicionesTaxativasAAgregar) {
-		this.condicionesTaxativasAAgregar = condicionesTaxativasAAgregar;
+	public void setCondicionesAgregadas(List<Condicion> condicionesAgregadas) {
+		this.condicionesAgregadas = condicionesAgregadas;
 	}
 
-	public CondicionTaxativa getCondicionTaxativaAAgregarSeleccionada() {
-		return condicionTaxativaAAgregarSeleccionada;
+	public Condicion getCondicionAgregadaSeleccionada() {
+		return condicionAgregadaSeleccionada;
 	}
 
-	public void setCondicionTaxativaAAgregarSeleccionada(CondicionTaxativa condicionTaxativaAAgregarSeleccionada) {
-		this.condicionTaxativaAAgregarSeleccionada = condicionTaxativaAAgregarSeleccionada;
+	public void setCondicionAgregadaSeleccionada(Condicion condicionAgregadaSeleccionada) {
+		this.condicionAgregadaSeleccionada = condicionAgregadaSeleccionada;
 	}
 
-	public List<CondicionComparativa> getListaCondicionesComparativas() {
+	public List<CondicionComparativa> getCondicionesComparativas() {
 		return RepositorioCondiciones.instance().getCondicionesComparativas();
 	}
 
@@ -151,23 +137,6 @@ public class CargarMetodologiasVM {
 
 	public void setCondicionComparativaSeleccionada(CondicionComparativa condicionComparativaSeleccionada) {
 		this.condicionComparativaSeleccionada = condicionComparativaSeleccionada;
-	}
-
-	public List<CondicionComparativa> getCondicionesComparativasAAgregar() {
-		return condicionesComparativasAAgregar;
-	}
-
-	public void setCondicionesComparativasAAgregar(List<CondicionComparativa> condicionesComparativasAAgregar) {
-		this.condicionesComparativasAAgregar = condicionesComparativasAAgregar;
-	}
-
-	public CondicionComparativa getCondicionComparativaAAgregarSeleccionada() {
-		return condicionComparativaAAgregarSeleccionada;
-	}
-
-	public void setCondicionComparativaAAgregarSeleccionada(
-			CondicionComparativa condicionComparativaAAgregarSeleccionada) {
-		this.condicionComparativaAAgregarSeleccionada = condicionComparativaAAgregarSeleccionada;
 	}
 
 	public Double getPesoDeComparativa() {

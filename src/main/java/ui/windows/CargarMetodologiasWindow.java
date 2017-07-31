@@ -32,20 +32,22 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 
 	private void seleccionDeCondicionesComparativas(Panel formPanel) {
 		Panel panelCondiciones = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
-		this.listaCondiciones(panelCondiciones, "Condiciones comparativas", "listaCondicionesComparativas",
+		this.listaCondiciones(panelCondiciones, "Condiciones comparativas", "condicionesComparativas",
 				"condicionComparativaSeleccionada", CondicionComparativa.class);
 		this.botones(panelCondiciones, this::moverHaciaLaDerechaC, this::moverHaciaLaIzquierdaC);
-		this.listaDeLaMetodologia(panelCondiciones, "Condiciones comparativas de la metodologia", "condicionesComparativasAAgregar",
-				"condicionComparativaAAgregarSeleccionada", CondicionComparativa.class);
 	}
 
 	private void seleccionDeCondicionesTaxativas(Panel formPanel) {
 		Panel panelCondiciones = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
-		this.listaCondiciones(panelCondiciones, "Condiciones taxativas", "listaCondicionesTaxativas",
+		this.listaCondiciones(panelCondiciones, "Condiciones taxativas", "condicionesTaxativas",
 				"condicionTaxativaSeleccionada", CondicionTaxativa.class);
 		this.botones(panelCondiciones, this::moverHaciaLaDerechaT, this::moverHaciaLaIzquierdaT);
-		this.listaDeLaMetodologia(panelCondiciones, "Condiciones taxativas de la metodologia", "condicionesTaxativasAAgregar",
-				"condicionTaxativaAAgregarSeleccionada", CondicionTaxativa.class);
+		listaDeCondicionesAgregadas(panelCondiciones);
+	}
+
+	public void listaDeCondicionesAgregadas(Panel panelCondiciones) {
+		this.listaDeLaMetodologia(panelCondiciones, "Condiciones taxativas de la metodologia", "condicionesAgregadas",
+				"condicionAgregadaSeleccionada", CondicionTaxativa.class);
 	}
 
 	private void nombreMetodologiaACrear(Panel formPanel) {
