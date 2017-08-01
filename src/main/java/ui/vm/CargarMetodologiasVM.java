@@ -115,10 +115,6 @@ public class CargarMetodologiasVM {
 		return condicionesAgregadas;
 	}
 
-	public void setCondicionesAgregadas(List<Condicion> condicionesAgregadas) {
-		this.condicionesAgregadas = condicionesAgregadas;
-	}
-
 	public Condicion getCondicionAgregadaSeleccionada() {
 		return condicionAgregadaSeleccionada;
 	}
