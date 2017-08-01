@@ -1,13 +1,28 @@
 package domain.indicadores;
 
+import org.codehaus.jackson.annotate.JsonCreator;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 import domain.indicadores.calculoIndicadores.Calculable;
 import domain.indicadores.calculoIndicadores.ConstructoresIndicador.Analizador;
 
 public class BuilderIndicadorCustom {
+	
+	@JsonIgnore
 	private String ecuacion;
+	@JsonProperty("nombre")
 	private String nombre;
+	@JsonProperty("expresion")
 	private String expresion;
+	@JsonIgnore
 	private Calculable calculo;
+	
+	@JsonCreator
+	public BuilderIndicadorCustom(@JsonProperty("expresion")String expresion, @JsonProperty("nombre") String nombre) {
+		this.nombre = nombre;
+		this.expresion = expresion;
+	}
 	
 	public BuilderIndicadorCustom(String ecuacion){
 		this.ecuacion = ecuacion;
@@ -27,7 +42,6 @@ public class BuilderIndicadorCustom {
 		setExpresion(ecuacion);
 		return this;
 	}
-	
 	
 	private void setNombre(String ecuacion) {
 		this.nombre = generarNombre(ecuacion);
