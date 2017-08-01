@@ -1,7 +1,6 @@
 package domain.repositorios;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -73,12 +72,11 @@ public class RepositorioCondiciones {
 		add(condicion);
 	}
 
-
 	private void verificarQueNoExista(String nombre) {
 		if (existeLaCondicion(nombre))
 			throw new YaExisteLaCondicionException();
 	}
-	
+
 	public boolean add(Condicion condicion) {
 		return condicionesCargadas.add(condicion);
 	}
@@ -89,7 +87,7 @@ public class RepositorioCondiciones {
 	}
 
 	public void siEsCustomBorrala(Condicion condicion) {
-		if(condicion.esCustom())
+		if (condicion.esCustom())
 			remove(condicion);
 		else
 			throw new NoSePuedeBorrarUnPredeterminadoException();
