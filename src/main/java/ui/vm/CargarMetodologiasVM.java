@@ -20,7 +20,7 @@ public class CargarMetodologiasVM {
 	public Double pesoDeComparativa = 0.0;
 
 	public CondicionTaxativa condicionTaxativaSeleccionada = null;
-	
+
 	public CondicionComparativa condicionComparativaSeleccionada = null;
 
 	public List<Condicion> condicionesAgregadas;
@@ -32,7 +32,12 @@ public class CargarMetodologiasVM {
 
 	public void cargarMetodologia() {
 		realizarValidaciones();
-		RepositorioMetodologias.instance().agregarMetodologia(new Metodologia(nombreMetodologia, condicionesAgregadas));
+		agregarMetodologia();
+	}
+
+	public void agregarMetodologia() {
+		Metodologia nuevaMetodologia = new Metodologia(nombreMetodologia, condicionesAgregadas);
+		RepositorioMetodologias.instance().agregarMetodologia(nuevaMetodologia);
 	}
 
 	private void realizarValidaciones() {
@@ -46,48 +51,68 @@ public class CargarMetodologiasVM {
 	}
 
 	private void validarQueHayaAlgunaCondicion() {
-		if (condicionesAgregadas.size() == 0)
+		if (noHayCondicionesAgregadas())
 			throw new RuntimeException("No se seleccionó ninguna condición");
 	}
 
+	public boolean noHayCondicionesAgregadas() {
+		return condicionesAgregadas.size() == 0;
+	}
+
+	// factoryMoverIzquierdaTaxativa
 	public void moverHaciaLaIzquierdaTaxativa() {
 		if (condicionAgregadaSeleccionada != null) {
 			condicionesAgregadas.remove(condicionAgregadaSeleccionada);
 		}
 	}
+	//
 
+	// factoryMoverDerechaTaxativa
 	public void moverHaciaLaDerechaTaxativa() {
-		if (condicionTaxativaSeleccionada != null && noSeAgregoTaxativa()) {
-			condicionesAgregadas.add(condicionTaxativaSeleccionada);
-		}
+		validacionesTaxativa();
+		condicionesAgregadas.add(condicionTaxativaSeleccionada);
 	}
 
-	private boolean noSeAgregoTaxativa() {
-		return !condicionesAgregadas.contains(condicionTaxativaSeleccionada);
+	private void validacionesTaxativa() {
+		if (condicionTaxativaSeleccionada == null)
+			throw new RuntimeException("Seleccione una condicion taxativa");
+		if (seAgregoTaxativa())
+			throw new RuntimeException("Esa condicion ya fue agregada");
 	}
 
-	private boolean noSeAgregoComparativa() {
-		return !condicionesAgregadas.contains(condicionComparativaSeleccionada);
+	private boolean seAgregoTaxativa() {
+		return condicionesAgregadas.contains(condicionTaxativaSeleccionada);
 	}
+	//
 
+	// factoryMoverDerechaComparativa
 	public void moverHaciaLaDerechaComparativa() {
-		if (condicionComparativaSeleccionada != null && noSeAgregoComparativa()) {
-			validarPeso();
-			ManejadorDePesos manejadorDePesos = new ManejadorDePesos(pesoDeComparativa);
-			condicionesAgregadas.add(condicionComparativaSeleccionada.setManejadorDePesos(manejadorDePesos));
-		}
+		validacionesComparativa();
+		ManejadorDePesos manejadorDePesos = new ManejadorDePesos(pesoDeComparativa);
+		condicionesAgregadas.add(condicionComparativaSeleccionada.setManejadorDePesos(manejadorDePesos));
 	}
 
-	private void validarPeso() {
+	private void validacionesComparativa() {
+		if (condicionComparativaSeleccionada == null)
+			throw new RuntimeException("Seleccione una condicion comparativa");
+		if (seAgregoComparativa())
+			throw new RuntimeException("Esa condicion ya fue agregada");
 		if (pesoDeComparativa <= 0)
 			throw new RuntimeException("Debe agregar un peso para la condicion");
 	}
 
+	private boolean seAgregoComparativa() {
+		return !condicionesAgregadas.contains(condicionComparativaSeleccionada);
+	}
+	//
+
+	// factoryMoverIzquierdaComparativa
 	public void moverHaciaLaIzquierdaComparativa() {
 		if (condicionAgregadaSeleccionada != null) {
 			condicionesAgregadas.remove(condicionAgregadaSeleccionada);
 		}
 	}
+	//
 
 	// GETTERS Y SETTERS
 
