@@ -15,7 +15,7 @@ import org.uqbar.lacar.ui.model.Action;
 import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
 import domain.condiciones.CondicionTaxativa;
-import ui.vm.CargarMetodologiasVM;
+import ui.vm.cargarMetodologiaVM.CargarMetodologiasVM;
 
 public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 
@@ -42,24 +42,19 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 		seleccionDeCondicionesTaxativas(panelCondicionesDelSistema);
 		seleccionDeCondicionesComparativas(panelCondicionesDelSistema);
 	}
-
-	/*
-	 * seleccionDeCondicionesComparativas y seleccionDeCondicionesTaxativas
-	 * deberian ser uno solo para eso hay que tener los factory
-	 */
 	
 	private void seleccionDeCondicionesComparativas(Panel formPanel) {
 		Panel panelCondiciones = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
 		listaDeLaMetodologia(panelCondiciones, "Condiciones comparativas", "condicionesComparativas",
 				"condicionComparativaSeleccionada", 167, CondicionComparativa.class);
-		botones(panelCondiciones, this::moverHaciaLaDerechaC, this::moverHaciaLaIzquierdaC);
+		botones(panelCondiciones, this::moverHaciaLaDerechaC, this::moverHaciaLaIzquierda);
 	}
 
 	private void seleccionDeCondicionesTaxativas(Panel formPanel) {
 		Panel panelCondiciones = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
 		listaDeLaMetodologia(panelCondiciones, "Condiciones taxativas", "condicionesTaxativas",
 				"condicionTaxativaSeleccionada", 167, CondicionTaxativa.class);
-		botones(panelCondiciones, this::moverHaciaLaDerechaT, this::moverHaciaLaIzquierdaT);
+		botones(panelCondiciones, this::moverHaciaLaDerechaT, this::moverHaciaLaIzquierda);
 	}
 
 	public void listaDeCondicionesAgregadas(Panel formPanel) {
@@ -109,10 +104,6 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 
 	}
 
-	private void moverHaciaLaIzquierdaT() {
-		this.getModelObject().moverHaciaLaIzquierdaTaxativa();
-	}
-
 	private void moverHaciaLaDerechaC() {
 		try {
 			this.getModelObject().moverHaciaLaDerechaComparativa();
@@ -121,8 +112,8 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 		}
 	}
 
-	private void moverHaciaLaIzquierdaC() {
-		this.getModelObject().moverHaciaLaIzquierdaComparativa();
+	private void moverHaciaLaIzquierda() {
+		this.getModelObject().sacarCondicion();
 	}
 
 	private void cargarMetodologia() {

@@ -1,4 +1,4 @@
-package ui.vm;
+package ui.vm.cargarMetodologiaVM;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +12,9 @@ import domain.condiciones.ManejadorDePesos;
 import domain.metodologias.Metodologia;
 import domain.repositorios.RepositorioCondiciones;
 import domain.repositorios.RepositorioMetodologias;
+import ui.vm.cargarMetodologiaVM.factories.AgregarMetodologia;
+import ui.vm.cargarMetodologiaVM.factories.MoverHaciaDerechaComparativa;
+import ui.vm.cargarMetodologiaVM.factories.MoverHaciaDerechaTaxativa;
 
 @Observable
 public class CargarMetodologiasVM {
@@ -23,96 +26,33 @@ public class CargarMetodologiasVM {
 
 	public CondicionComparativa condicionComparativaSeleccionada = null;
 
-	public List<Condicion> condicionesAgregadas;
+	public List<Condicion> condicionesAgregadas = new ArrayList<Condicion>();;
 	public Condicion condicionAgregadaSeleccionada = null;
 
-	public CargarMetodologiasVM() {
-		condicionesAgregadas = new ArrayList<Condicion>();
-	}
 
 	public void cargarMetodologia() {
-		realizarValidaciones();
-		agregarMetodologia();
+		new AgregarMetodologia().agregar(nombreMetodologia,condicionesAgregadas);
 	}
-
-	public void agregarMetodologia() {
-		Metodologia nuevaMetodologia = new Metodologia(nombreMetodologia, condicionesAgregadas);
-		RepositorioMetodologias.instance().agregarMetodologia(nuevaMetodologia);
-	}
-
-	private void realizarValidaciones() {
-		validarNombre();
-		validarQueHayaAlgunaCondicion();
-	}
-
-	private void validarNombre() {
-		if (nombreMetodologia.isEmpty())
-			throw new RuntimeException("No se ingreso un nombre para la metodologia");
-	}
-
-	private void validarQueHayaAlgunaCondicion() {
-		if (noHayCondicionesAgregadas())
-			throw new RuntimeException("No se seleccionó ninguna condición");
-	}
-
-	public boolean noHayCondicionesAgregadas() {
-		return condicionesAgregadas.size() == 0;
-	}
-
-	// factoryMoverIzquierdaTaxativa
-	public void moverHaciaLaIzquierdaTaxativa() {
-		if (condicionAgregadaSeleccionada != null) {
-			condicionesAgregadas.remove(condicionAgregadaSeleccionada);
-		}
-	}
-	//
-
-	// factoryMoverDerechaTaxativa
+	
 	public void moverHaciaLaDerechaTaxativa() {
-		validacionesTaxativa();
-		condicionesAgregadas.add(condicionTaxativaSeleccionada);
+		new MoverHaciaDerechaTaxativa(condicionTaxativaSeleccionada, condicionesAgregadas).mover();
 	}
 
-	private void validacionesTaxativa() {
-		if (condicionTaxativaSeleccionada == null)
-			throw new RuntimeException("Seleccione una condicion taxativa");
-		if (seAgregoTaxativa())
-			throw new RuntimeException("Esa condicion ya fue agregada");
-	}
-
-	private boolean seAgregoTaxativa() {
-		return condicionesAgregadas.contains(condicionTaxativaSeleccionada);
-	}
-	//
-
-	// factoryMoverDerechaComparativa
 	public void moverHaciaLaDerechaComparativa() {
-		validacionesComparativa();
-		ManejadorDePesos manejadorDePesos = new ManejadorDePesos(pesoDeComparativa);
-		condicionesAgregadas.add(condicionComparativaSeleccionada.setManejadorDePesos(manejadorDePesos));
+		new MoverHaciaDerechaComparativa(condicionComparativaSeleccionada, condicionesAgregadas, pesoDeComparativa)
+				.mover();
 	}
 
-	private void validacionesComparativa() {
-		if (condicionComparativaSeleccionada == null)
-			throw new RuntimeException("Seleccione una condicion comparativa");
-		if (seAgregoComparativa())
-			throw new RuntimeException("Esa condicion ya fue agregada");
-		if (pesoDeComparativa <= 0)
-			throw new RuntimeException("Debe agregar un peso para la condicion");
-	}
-
-	private boolean seAgregoComparativa() {
-		return !condicionesAgregadas.contains(condicionComparativaSeleccionada);
-	}
-	//
-
-	// factoryMoverIzquierdaComparativa
-	public void moverHaciaLaIzquierdaComparativa() {
-		if (condicionAgregadaSeleccionada != null) {
+	public void sacarCondicion() {
+		if (noHayCondicionesParaSacar()) {
 			condicionesAgregadas.remove(condicionAgregadaSeleccionada);
 		}
 	}
-	//
+	
+	public boolean noHayCondicionesParaSacar() {
+		return condicionAgregadaSeleccionada != null;
+	}
+	
 
 	// GETTERS Y SETTERS
 
@@ -138,6 +78,10 @@ public class CargarMetodologiasVM {
 
 	public List<Condicion> getCondicionesAgregadas() {
 		return condicionesAgregadas;
+	}
+
+	public void setCondicionesAgregadas(List<Condicion> condicionesAgregadas) {
+		this.condicionesAgregadas = condicionesAgregadas;
 	}
 
 	public Condicion getCondicionAgregadaSeleccionada() {
