@@ -21,7 +21,6 @@ public class InversionesApp extends Application {
 			e.printStackTrace();
 		}
 		new InversionesApp().start();
-
 	}
 
 	@Override

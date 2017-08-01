@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.layout.VerticalLayout;
+import org.uqbar.arena.widgets.FileSelector;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.List;
 import org.uqbar.arena.widgets.Panel;
@@ -27,7 +28,7 @@ public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 	protected void createFormPanel(Panel formPanel) {
 		Panel indicadoresPanel = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
 		this.listaIndicadores(indicadoresPanel);
-		this.indicadorPersonalizado(indicadoresPanel);
+		this.cargaDeIndicadores(indicadoresPanel);
 
 	}
 
@@ -37,10 +38,19 @@ public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 		ViewUtils.setSize(150, 100, indicadores);
 	}
 
-	public void indicadorPersonalizado(Panel indicadoresPanel) {
+	public void cargaDeIndicadores(Panel indicadoresPanel) {
 		Panel form = ViewUtils.crearPanel(indicadoresPanel, new ColumnLayout(1));
+		cargaDesdeArchivo(form);
 		escribirIndicador(form);
 		accionesIndicador(form);
+	}
+
+	private void cargaDesdeArchivo(Panel form) {
+		new Label(form).setText("Seleccione archivo");
+		new FileSelector(form).path("src/test/resources").setCaption("Examinar").bindValueToProperty("filePath");
+		new Label(form).bindValueToProperty("filePath");
+		ViewUtils.crearBoton(form, "Cargar desde archivo", this::cargarDesdeArchivo);
+		new Label(form); 
 	}
 
 	private void escribirIndicador(Panel form) {
@@ -74,6 +84,15 @@ public class CargarIndicadorWindow extends Dialog<CargarIndicadorVM> {
 		try {
 			this.getModelObject().cargarIndicador();
 		} catch (RuntimeException | IOException e) {
+			this.showWarning(e.getMessage());
+		}
+	}
+	
+	public void cargarDesdeArchivo() {
+		try {
+			this.getModelObject().cargarIndicadorDesdeArchivo();
+		}
+		catch (IOException e) {
 			this.showWarning(e.getMessage());
 		}
 	}
