@@ -73,7 +73,7 @@ public class CondicionesTest {
 	
 	@Test
 	public void testCondicionOrdenaListaPorEmpresaMasJoven() {
-		CondicionComparativa condicion = new CondicionComparativa("Prueba Sort");
+		CondicionComparativa condicion = new CondicionComparativa("Prueba Sort",null,null);
 		condicion.setIndicador(new Antiguedad());
 		condicion.setOperador(new Menor());
 		List<Empresa> listaEmpresas = aplicarCondicionALista(condicion);
@@ -82,7 +82,7 @@ public class CondicionesTest {
 
 	@Test(expected = RuntimeException.class)
 	public void testNoSePuedeCalcularCondicion() {
-		CondicionTaxativa condicion = new CondicionTaxativa("Calculame esta");
+		CondicionTaxativa condicion = new CondicionTaxativa("Calculame esta",null,null,null);
 		condicion.setIndicador(new IndicadorNoCalculableMock());
 		aplicarCondicionALista(condicion);
 	}

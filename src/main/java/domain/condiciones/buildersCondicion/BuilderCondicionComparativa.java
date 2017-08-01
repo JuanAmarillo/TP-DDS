@@ -1,4 +1,7 @@
-package domain.condiciones;
+package domain.condiciones.buildersCondicion;
+
+import domain.condiciones.Condicion;
+import domain.condiciones.CondicionComparativa;
 
 public class BuilderCondicionComparativa extends BuilderCondicion{
 
@@ -9,6 +12,11 @@ public class BuilderCondicionComparativa extends BuilderCondicion{
 	@Override
 	public Condicion build() {
 		return new CondicionComparativa(nombre,indicador,operador);
+	}
+
+	@Override
+	public Boolean esTaxativa() {
+		return false;
 	}
 
 }

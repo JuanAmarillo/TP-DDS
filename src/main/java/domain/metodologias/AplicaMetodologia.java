@@ -1,84 +1,51 @@
 package domain.metodologias;
 
-
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import domain.condiciones.*;
 import domain.Empresa;
 
 public class AplicaMetodologia {
-	
-	List<EmpresaEnCalculo> listaEmpresas = new ArrayList<EmpresaEnCalculo>();
-	
-	public AplicaMetodologia(List<Empresa> empresas) {
-		listaEmpresas = generarEmpresasEnCalculo(empresas);
+
+	public List<Empresa> aplicar(Metodologia metodologia, List<Empresa> empresas, String periodo) {
+		Map<Empresa, Double> empresasAplicadas = empresasAplicadas(metodologia.getCondiciones(),empresas, periodo);
+		return obtenerEmpresasPorMayorPeso(empresasAplicadas);
 	}
 
-	private List<EmpresaEnCalculo> generarEmpresasEnCalculo(List<Empresa> empresas) {
-		return empresas.stream().map(empresa -> new EmpresaEnCalculo(empresa)).collect(Collectors.toList());
+	private List<Empresa> obtenerEmpresasPorMayorPeso(Map<Empresa, Double> empresasAplicadas) {
+		return empresasAplicadas.entrySet().stream()
+				.sorted((unaEmpresa, otraEmpresa) -> mayorPeso(unaEmpresa, otraEmpresa))
+				.map(empresas -> empresas.getKey()).collect(Collectors.toList());
 	}
 
-	public AplicaMetodologia aplicarMetodologia(Metodologia met, String periodo) {
-		aplicarTaxativas(met.getCondicionesTaxativas(), periodo);
-		aplicarComparativas(met.getCondicionesComparativas(), periodo);
-		ordenarLista();
-		return this;
+	public int mayorPeso(Entry<Empresa, Double> e1, Entry<Empresa, Double> e2) {
+		return Double.compare(e2.getValue(), e1.getValue());
 	}
 
-	private void ordenarLista() {
-		listaEmpresas = listaEmpresas.stream()
-					   .sorted((e1,e2) -> compararValores(e1,e2))
-					   .collect(Collectors.toList());
+	private Map<Empresa, Double> empresasAplicadas(List<Condicion> condiciones, List<Empresa> empresas,
+			String periodo) {
+		return aplicarCondiciones(condiciones, empresas, periodo).entrySet().stream()
+				.filter(empresasCondicionadas -> pasoCondiciones(condiciones, empresasCondicionadas))
+				.map(empresasCondicionadas -> empresasCondicionadas.getValue()).flatMap(List::stream)
+				.collect(agruparPorEmpresaYSumarPesos());
 	}
 
-	private int compararValores(EmpresaEnCalculo e1, EmpresaEnCalculo e2) {
-		return Double.compare(e2.getPesoAcumulado(),e1.getPesoAcumulado());
+	private Map<Empresa, List<EmpresaEnCalculo>> aplicarCondiciones(List<Condicion> condiciones, List<Empresa> empresas,
+			String periodo) {
+		return condiciones.stream().map(condicion -> condicion.apply(empresas, periodo)).flatMap(List::stream)
+				.collect(Collectors.groupingBy(EmpresaEnCalculo::getEmpresa));
 	}
 
-	private void aplicarTaxativas(List<CondicionTaxativa> condicionesTaxativas, String periodo) {
-		condicionesTaxativas.stream().forEach(cond -> aplicarUnicaTaxativa(cond, periodo));
-	}
-	
-	private void aplicarUnicaTaxativa(CondicionTaxativa cond, String periodo) {
-		actualizarLista(cond.aplicarCondicion(obtenerLista(), periodo));
+	public Collector<EmpresaEnCalculo, ?, Map<Empresa, Double>> agruparPorEmpresaYSumarPesos() {
+		return Collectors.groupingBy(EmpresaEnCalculo::getEmpresa, Collectors.summingDouble(EmpresaEnCalculo::getPeso));
 	}
 
-	private void aplicarComparativas(List<CondicionComparativa> condicionesComparativas, String periodo) {
-		condicionesComparativas.stream().forEach(cond -> aplicarUnicaComparativa(cond,periodo));
+	public boolean pasoCondiciones(List<Condicion> condiciones, Entry<Empresa, List<EmpresaEnCalculo>> empresas) {
+		return empresas.getValue().size() == condiciones.size();
 	}
 
-	private void aplicarUnicaComparativa(CondicionComparativa cond, String periodo) {
-		List<Empresa> listaComparada = cond.aplicarCondicion(obtenerLista(), periodo);
-		agregarPesosALaLista(listaComparada, cond.getPeso());
-	}
-	
-	// PESOS
-	private void agregarPesosALaLista(List<Empresa> listaComparada, Double pesoDeLaCondicion) {
-		listaComparada.stream().forEach(empresa -> sumarPeso(getPosicionDeLaEmpresa(listaComparada,empresa), pesoDeLaCondicion, empresa));
-	}
-
-	private void sumarPeso(double multiplicador, Double pesoDeLaCondicion, Empresa empresa) {
-		listaEmpresas.stream().filter(emp -> emp.getEmpresa().esLaMismaEmpresaQue(empresa)).findFirst().get().agregarPeso(pesoDeLaCondicion*multiplicador);;	
-	}
-
-	private double getPosicionDeLaEmpresa(List<Empresa> listaComparada, Empresa empresa) {
-		return (double) listaComparada.size() - listaComparada.indexOf(empresa);
-	}
-	
-	//AUXILIARES
-	public List<Empresa> obtenerLista() {
-		return listaEmpresas.stream().map(empresaEnCalculo -> empresaEnCalculo.getEmpresa()).collect(Collectors.toList());
-	}
-	
-	private boolean contieneALaEmpresa(Empresa empresa, List<EmpresaEnCalculo> empresasEnCalculo) {
-		return empresasEnCalculo.stream().map(empresaMap -> empresaMap.getEmpresa()).anyMatch(empresaFind -> empresaFind.esLaMismaEmpresaQue(empresa));
-	}
-	
-	private void actualizarLista(List<Empresa> listaFiltrada) {
-		List<EmpresaEnCalculo> empresasEnCalculo = generarEmpresasEnCalculo(listaFiltrada);
-		listaEmpresas = listaEmpresas.stream()
-					 .filter(empresa -> contieneALaEmpresa(empresa.getEmpresa(), empresasEnCalculo)).collect(Collectors.toList());
-	}
 }

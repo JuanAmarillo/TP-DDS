@@ -15,7 +15,6 @@ import domain.indicadores.Indicador;
 import domain.repositorios.RepositorioEmpresas;
 import domain.repositorios.RepositorioIndicadores;
 import exceptions.NoHayEmpresasCargadasException;
-import ui.windows.CalculadorDeIndicador;
 
 @Observable
 public class CuentasConIndicadoresVM {

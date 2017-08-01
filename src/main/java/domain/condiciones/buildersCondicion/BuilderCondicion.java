@@ -1,7 +1,8 @@
-package domain.condiciones;
+package domain.condiciones.buildersCondicion;
 
 import org.uqbar.commons.utils.Observable;
 
+import domain.condiciones.Condicion;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
 import domain.repositorios.RepositorioIndicadores;
@@ -56,6 +57,7 @@ public abstract class BuilderCondicion {
 	}
 	
 	public abstract Condicion build();
+	public abstract Boolean esTaxativa();
 	
 	
 }

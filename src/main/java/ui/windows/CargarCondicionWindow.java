@@ -10,8 +10,8 @@ import org.uqbar.arena.widgets.TextBox;
 import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 
-import domain.condiciones.BuilderCondicion;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
+import domain.condiciones.buildersCondicion.BuilderCondicion;
 import ui.vm.CargarCondicionVM;
 
 @SuppressWarnings("serial")

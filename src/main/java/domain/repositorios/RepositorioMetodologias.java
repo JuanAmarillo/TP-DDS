@@ -9,8 +9,8 @@ import domain.condiciones.Condicion;
 import domain.metodologias.Metodologia;
 
 public class RepositorioMetodologias {
-	private static List<Metodologia> metodologiasCargadas;
 	private static RepositorioMetodologias instance=null;
+	private  List<Metodologia> metodologiasCargadas;
 	
 	public static RepositorioMetodologias instance() {
 		if (noHayInstanciaCargada()) 
@@ -19,8 +19,8 @@ public class RepositorioMetodologias {
 	}
 
 	private static void cargarNuevaInstancia() {
-		metodologiasCargadas = new ArrayList<Metodologia>();
 		instance = new RepositorioMetodologias();
+		instance.metodologiasCargadas = new ArrayList<Metodologia>();
 	}
 
 	private static boolean noHayInstanciaCargada() {
