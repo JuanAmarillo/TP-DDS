@@ -3,8 +3,6 @@ package domain.condiciones;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.uqbar.commons.utils.Observable;
-
 import domain.Empresa;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
@@ -15,25 +13,23 @@ public class CondicionComparativa extends Condicion {
 	private ManejadorDePesos manejadorDePesos;
 
 	public CondicionComparativa(String nombre, Indicador indicador, OperadorCondicion operador) {
-		super("Comparativa - " + nombre, indicador, operador);
+		super(nombre, indicador, operador);
 	}
 
 	public CondicionComparativa setManejadorDePesos(ManejadorDePesos manejadorDePesos) {
 		this.manejadorDePesos = manejadorDePesos;
-		return this; // sacar eso luego del refactor
+		return this; // sacar eso luego de hacer bien los test
 	}
-	
+
 	@Override
 	public List<Empresa> aplicarCondicion(List<Empresa> empresas, String periodo) {
-		return empresas.stream().sorted(
-				(empresaUno, empresaDos) -> evaluarCondicion(empresaUno, empresaDos, periodo))
+		return empresas.stream().sorted((empresaUno, empresaDos) -> evaluarCondicion(empresaUno, empresaDos, periodo))
 				.collect(Collectors.toList());
 	}
 
 	public Integer evaluarCondicion(Empresa empresaUno, Empresa empresaDos, String periodo) {
 		return comparar(calcularIndicador(empresaDos, periodo), calcularIndicador(empresaUno, periodo));
 	}
-
 
 	@Override
 	public Boolean esTaxativa() {

@@ -1,5 +1,7 @@
 package ui.windows;
 
+import java.util.ArrayList;
+
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.layout.VerticalLayout;
@@ -34,6 +36,7 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 	public void listasDeCondiciones(Panel panelCreacion) {
 		Panel panelCondiciones = ViewUtils.crearPanel(panelCreacion, new HorizontalLayout());
 		listasDeCondicionesDelSistema(panelCondiciones);
+		botonesDeMovimiento(panelCondiciones);
 		listaDeCondicionesAgregadas(panelCondiciones);
 	}
 
@@ -42,24 +45,37 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 		seleccionDeCondicionesTaxativas(panelCondicionesDelSistema);
 		seleccionDeCondicionesComparativas(panelCondicionesDelSistema);
 	}
-	
-	private void seleccionDeCondicionesComparativas(Panel formPanel) {
-		Panel panelCondiciones = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
-		listaDeLaMetodologia(panelCondiciones, "Condiciones comparativas", "condicionesComparativas",
-				"condicionComparativaSeleccionada", 167, CondicionComparativa.class);
-		botones(panelCondiciones, this::moverHaciaLaDerechaC, this::moverHaciaLaIzquierda);
+
+	private void botonesDeMovimiento(Panel panel) {
+		Panel movimiento = ViewUtils.crearPanel(panel, new VerticalLayout());
+		crearBotonMovimiento(movimiento, ">", this::moverHaciaLaDerechaTaxativa);
+		crearBotonMovimiento(movimiento, "<", this::moverHaciaLaIzquierda);
+		crearBotonMovimiento(movimiento, ">", this::moverHaciaLaDerechaComparativa);
+
 	}
 
-	private void seleccionDeCondicionesTaxativas(Panel formPanel) {
-		Panel panelCondiciones = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
-		listaDeLaMetodologia(panelCondiciones, "Condiciones taxativas", "condicionesTaxativas",
-				"condicionTaxativaSeleccionada", 167, CondicionTaxativa.class);
-		botones(panelCondiciones, this::moverHaciaLaDerechaT, this::moverHaciaLaIzquierda);
+	public void crearBotonMovimiento(Panel movimiento, String nombreBoton, Action onClick) {
+		rellenarConVacio(movimiento);
+		ViewUtils.crearBoton(movimiento, nombreBoton, onClick);
+	}
+
+	private void seleccionDeCondiciones(Panel panel, String nombre, String lista, String elemento) {
+		Panel panelCondiciones = ViewUtils.crearPanel(panel, new HorizontalLayout());
+		crearLista(panelCondiciones, nombre, lista, elemento, 167, Condicion.class);
+	}
+
+	private void seleccionDeCondicionesComparativas(Panel panel) {
+		seleccionDeCondiciones(panel, "Condiciones comparativas", "condicionesComparativas",
+				"condicionComparativaSeleccionada");
+	}
+
+	private void seleccionDeCondicionesTaxativas(Panel panel) {
+		seleccionDeCondiciones(panel, "Condiciones taxativas", "condicionesTaxativas", "condicionTaxativaSeleccionada");
 	}
 
 	public void listaDeCondicionesAgregadas(Panel formPanel) {
-		listaDeLaMetodologia(formPanel, "Condiciones de la metodologia", "condicionesAgregadas",
-				"condicionAgregadaSeleccionada", 400, Condicion.class);
+		crearLista(formPanel, "Condiciones de la metodologia", "condicionesAgregadas", "condicionAgregadaSeleccionada",
+				400, Condicion.class);
 	}
 
 	private void nombreMetodologiaACrear(Panel formPanel) {
@@ -73,22 +89,16 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 		new NumericField(peso).setWidth(80).bindValueToProperty("pesoDeComparativa");
 	}
 
-	private void listaDeLaMetodologia(Panel formPanel, String titulo, String lista, String elemento, int height,
-			Class<?> clase) {
+	private void crearLista(Panel formPanel, String titulo, String lista, String elemento, int height, Class<?> clase) {
 		Panel panel = ViewUtils.crearPanel(formPanel, new ColumnLayout(1), titulo);
 		List<?> condiciones = ViewUtils.crearListaConAdaptador(panel, lista, elemento, clase, "nombre");
 		ViewUtils.setSize(250, height, condiciones);
 
 	}
 
-	private void botones(Panel formPanel, Action metodoHaciaDerecha, Action metodoHaciaIzquierda) {
-		Panel botones = ViewUtils.crearPanel(formPanel, new ColumnLayout(1));
-		rellenarConVacio(botones);
-		ViewUtils.crearBoton(botones, ">", metodoHaciaDerecha);
-		ViewUtils.crearBoton(botones, "<", metodoHaciaIzquierda);
-	}
-
 	public void rellenarConVacio(Panel botones) {
+		new Label(botones);
+		new Label(botones);
 		new Label(botones);
 		new Label(botones);
 	}
@@ -99,12 +109,15 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 		ViewUtils.crearBoton(panelActions, "Cargar Metodologia", this::cargarMetodologia);
 	}
 
-	private void moverHaciaLaDerechaT() {
-		this.getModelObject().moverHaciaLaDerechaTaxativa();
-
+	private void moverHaciaLaDerechaTaxativa() {
+		try {
+			this.getModelObject().moverHaciaLaDerechaTaxativa();
+		} catch (RuntimeException e) {
+			this.showWarning(e.getMessage());
+		}
 	}
 
-	private void moverHaciaLaDerechaC() {
+	private void moverHaciaLaDerechaComparativa() {
 		try {
 			this.getModelObject().moverHaciaLaDerechaComparativa();
 		} catch (RuntimeException e) {
