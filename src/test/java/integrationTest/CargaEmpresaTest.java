@@ -21,7 +21,6 @@ public class CargaEmpresaTest {
 	private void cargarArchivos(String nombreArchivo) {
 		try {
 			new LevantaArchivoEmpresa("src/test/resources/" + nombreArchivo).cargarArchivo();
-			new LevantaArchivoIndicadores("src/test/resources/Indicadores.json").cargarArchivo();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -29,20 +28,12 @@ public class CargaEmpresaTest {
 
 	@Before
 	public void init() {
-		RepositorioIndicadores.setInstance(new RepositorioIndicadores());
 		cargarArchivos("Coca-Cola.json");
 	}
 
 	@After
 	public void finalize() {
 		RepositorioEmpresas.resetSingleton();
-		RepositorioIndicadores.resetSingleton();
-	}
-
-
-	@Test
-	public void testSeCarganLosIndicadores() {
-		assertEquals(0,RepositorioIndicadores.instance().getIndicadoresCargados().size());
 	}
 	
 	@Test
@@ -50,7 +41,5 @@ public class CargaEmpresaTest {
 		cargarArchivos("Coca-Cola 2.json");
 		assertEquals(12, RepositorioEmpresas.instance().buscarEmpresa("Coca-Cola").get().getCuentas().size());
 	}
-	
-
 
 }

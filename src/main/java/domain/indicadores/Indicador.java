@@ -1,9 +1,18 @@
 package domain.indicadores;
 
+import org.codehaus.jackson.annotate.JsonProperty;
+
 import domain.Empresa;
 
 public abstract class Indicador {
+	@JsonProperty("nombre")
 	protected String nombre;
+	
+	public Indicador() {}
+	
+	public Indicador(String nombre) {
+		this.nombre = nombre;
+	}
 	
 	public boolean suNombreEs(String nombreIndicador){
 		return this.nombre.equals(nombreIndicador);

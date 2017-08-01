@@ -1,1 +1,6 @@
-{"indicadores":[]}
+{
+	"indicadores": [{
+		"nombre": "indicador",
+		"expresion": " 23+4"
+	}]
+}
