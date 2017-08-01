@@ -58,24 +58,18 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 		rellenarConVacio(movimiento);
 		ViewUtils.crearBoton(movimiento, nombreBoton, onClick);
 	}
-
-	private void seleccionDeCondiciones(Panel panel, String nombre, String lista, String elemento) {
-		Panel panelCondiciones = ViewUtils.crearPanel(panel, new HorizontalLayout());
-		crearLista(panelCondiciones, nombre, lista, elemento, 167, Condicion.class);
-	}
-
+	
 	private void seleccionDeCondicionesComparativas(Panel panel) {
-		seleccionDeCondiciones(panel, "Condiciones comparativas", "condicionesComparativas",
-				"condicionComparativaSeleccionada");
+		crearLista(panel, "Condiciones comparativas", "condicionesComparativas", "condicionComparativaSeleccionada",
+				167);
 	}
 
 	private void seleccionDeCondicionesTaxativas(Panel panel) {
-		seleccionDeCondiciones(panel, "Condiciones taxativas", "condicionesTaxativas", "condicionTaxativaSeleccionada");
+		crearLista(panel, "Condiciones taxativas", "condicionesTaxativas", "condicionTaxativaSeleccionada", 167);
 	}
 
-	public void listaDeCondicionesAgregadas(Panel formPanel) {
-		crearLista(formPanel, "Condiciones de la metodologia", "condicionesAgregadas", "condicionAgregadaSeleccionada",
-				400, Condicion.class);
+	public void listaDeCondicionesAgregadas(Panel form) {
+		crearLista(form, "Condiciones de la metodologia", "condicionesAgregadas", "condicionAgregadaSeleccionada", 400);
 	}
 
 	private void nombreMetodologiaACrear(Panel formPanel) {
@@ -89,9 +83,9 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 		new NumericField(peso).setWidth(80).bindValueToProperty("pesoDeComparativa");
 	}
 
-	private void crearLista(Panel formPanel, String titulo, String lista, String elemento, int height, Class<?> clase) {
+	private void crearLista(Panel formPanel, String titulo, String lista, String elemento, Integer height) {
 		Panel panel = ViewUtils.crearPanel(formPanel, new ColumnLayout(1), titulo);
-		List<?> condiciones = ViewUtils.crearListaConAdaptador(panel, lista, elemento, clase, "nombre");
+		List<?> condiciones = ViewUtils.crearListaConAdaptador(panel, lista, elemento, Condicion.class, "nombre");
 		ViewUtils.setSize(250, height, condiciones);
 
 	}
