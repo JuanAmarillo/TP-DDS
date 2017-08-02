@@ -32,13 +32,14 @@ public class RepositorioCondicionesTest {
 		RepositorioCondiciones.instance().agregarCondicion(cond);
 		assertEquals(5,RepositorioCondiciones.instance().cantidadDeCondiciones());
 	}
-*/
+
 	@Test
 	public void testSePuedeAgregarUnaCondicionComparativa(){
 		CondicionComparativa condicion = new CondicionComparativa("legis",null,null);
 		RepositorioCondiciones.instance().agregarCondicion(condicion);
 		assertEquals(5, RepositorioCondiciones.instance().cantidadDeCondiciones());
 	}
+*/
 	
 	@Test
 	public void testSePuedeFiltrarPorTipoDeCondicion(){

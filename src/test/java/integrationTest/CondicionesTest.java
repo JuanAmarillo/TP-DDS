@@ -61,8 +61,7 @@ public class CondicionesTest {
 	
 	@Test
 	public void testSeAgreganAlRepoLasPredeterminadas() {
-		int cantidadCondiciones = RepositorioCondiciones.instance().cantidadDeCondiciones();
-		assertEquals(4,cantidadCondiciones);
+		assertEquals(4,RepositorioCondiciones.instance().cantidadDeCondiciones());
 	}
 	
 	@Test
