@@ -22,7 +22,7 @@ public class DatosIndicadores {
 	}
 	
 	public List<IndicadorCustom> buildIndicadores() {
-		return indicadores.stream().map(ind -> ind.build()).collect(Collectors.toList());
+		return indicadores.stream().map(ind -> ind.setCalculo().build()).collect(Collectors.toList());
 	}
 	
 }

@@ -24,14 +24,10 @@ public class IndicadorCustom extends Indicador {
 		return calculo.calcularValor(empresa, periodo);			
 	}
 
-	public Calculable generarCalculo() {
-		return new Analizador(expresion).compilar();
-	}
-
 	// SETTERS Y GETTERS //
 
-	public void setCalculo() {
-		this.calculo = generarCalculo();
+	public void setCalculo(Calculable calculo) {
+		this.calculo = calculo;
 	}
 
 	public Token getCalculo() {

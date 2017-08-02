@@ -82,12 +82,7 @@ public class RepositorioIndicadores implements Repositorio<DatosIndicadores>{
 
 	public void agregarDesdeArchivo(DatosIndicadores datosIndicadores) {
 		List<IndicadorCustom> indicadores = datosIndicadores.buildIndicadores();
-		generarCalculoIndicadores(indicadores);
 		indicadoresCargados.addAll(indicadores);
-	}
-	
-	private void generarCalculoIndicadores(List<IndicadorCustom> indicadores){
-		indicadores.stream().forEach(indicador -> indicador.setCalculo());
 	}
 
 	private void verificarSiExiste(Indicador indicador) {
