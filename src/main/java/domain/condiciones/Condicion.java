@@ -25,11 +25,11 @@ public abstract class Condicion implements CondicionCustom {
 		this.nombre = nombre;
 	}
 
-	protected Integer comparar(Double valorIndicadorUno, Double valorIndicadorDos) {
+	public Integer comparar(Double valorIndicadorUno, Double valorIndicadorDos) {
 		return operador.comparar(valorIndicadorUno, valorIndicadorDos);
 	}
 
-	protected Double calcularIndicador(Empresa empresa, String periodo) {
+	public Double calcularIndicador(Empresa empresa, String periodo) {
 		return indicador.calcularIndicador(empresa, periodo);
 	}
 

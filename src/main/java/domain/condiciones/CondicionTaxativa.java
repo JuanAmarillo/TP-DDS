@@ -22,10 +22,6 @@ public class CondicionTaxativa extends Condicion {
 		return comparar(calcularIndicador(empresa, periodo), valorDeComparacion) > 0;
 	}
 
-	public Double getValorDeComparacion() {
-		return valorDeComparacion;
-	}
-
 	public void setValorDeComparacion(Double valorDeComparacion) {
 		this.valorDeComparacion = valorDeComparacion;
 	}
@@ -42,7 +38,11 @@ public class CondicionTaxativa extends Condicion {
 
 	@Override
 	protected List<EmpresaEnCalculo> crearEmpresasEnCalculo(List<Empresa> empresasAplicadas) {
-		return empresasAplicadas.stream().map(empresa -> new EmpresaEnCalculo(empresa)).collect(Collectors.toList());
+		return empresasAplicadas.stream().map(empresa -> crearEmpresaEnCalculo(empresa)).collect(Collectors.toList());
+	}
+
+	public EmpresaEnCalculo crearEmpresaEnCalculo(Empresa empresa) {
+		return new EmpresaEnCalculo(empresa);
 	}
 
 }
