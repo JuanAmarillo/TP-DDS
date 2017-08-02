@@ -17,8 +17,8 @@ import domain.indicadores.Indicador;
 
 public class CondicionTaxativaTest extends CondicionTest<CondicionTaxativa> {
 	
-	public void crearCondicion(Indicador indicadorMock, OperadorCondicion operadorMock) {
-		condicion = new CondicionTaxativa("condicion", indicadorMock, operadorMock, 15.0);
+	public void crearCondicion() {
+		condicion = new CondicionTaxativa("condicion", mockearIndicador(), mockearOperador(), 15.0);
 	}
 	
 	public void evaluarCondicion(Empresa empresa,Boolean resultado){
@@ -28,7 +28,7 @@ public class CondicionTaxativaTest extends CondicionTest<CondicionTaxativa> {
 	@Before
 	public void init(){
 		mockearEmpresas();
-		crearCondicion(mockearIndicador(),mockearOperador());
+		crearCondicion();
 	}
 
 	@Test

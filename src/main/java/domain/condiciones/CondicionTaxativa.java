@@ -22,10 +22,6 @@ public class CondicionTaxativa extends Condicion {
 		return comparar(calcularIndicador(empresa, periodo), valorDeComparacion) > 0;
 	}
 
-	public void setValorDeComparacion(Double valorDeComparacion) {
-		this.valorDeComparacion = valorDeComparacion;
-	}
-
 	@Override
 	public Boolean esTaxativa() {
 		return true;
