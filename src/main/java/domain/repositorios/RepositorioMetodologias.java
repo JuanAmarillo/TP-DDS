@@ -5,11 +5,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.management.RuntimeErrorException;
+
 import domain.metodologias.Metodologia;
+import exceptions.YaExisteLaMetodologiaException;
 
 public class RepositorioMetodologias {
 	private static RepositorioMetodologias instance=null;
-	private  List<Metodologia> metodologiasCargadas;
+	private  List<Metodologia> metodologiasCargadas = new ArrayList<Metodologia>();
 	
 	public static RepositorioMetodologias instance() {
 		if (noHayInstanciaCargada()) 
@@ -19,7 +22,6 @@ public class RepositorioMetodologias {
 
 	private static void cargarNuevaInstancia() {
 		instance = new RepositorioMetodologias();
-		instance.metodologiasCargadas = new ArrayList<Metodologia>();
 	}
 
 	private static boolean noHayInstanciaCargada() {
@@ -35,11 +37,25 @@ public class RepositorioMetodologias {
 	}
 	
 	public void agregarMetodologia(Metodologia metodologia) {
-		getMetodologiasCargadas().add(metodologia);
+		verificarSiExiste(metodologia);
+		add(metodologia);
+	}
+
+	public void add(Metodologia metodologia) {
+		metodologiasCargadas.add(metodologia);
 	}
 
 	public List<Metodologia> getMetodologiasCargadas() {
 		return metodologiasCargadas;
+	}
+	
+	public void verificarSiExiste(Metodologia metodologia){
+		if(existeLaMetodologia(metodologia))
+			throw new YaExisteLaMetodologiaException();
+	}
+
+	public boolean existeLaMetodologia(Metodologia metodologia) {
+		return buscarMetodologia(metodologia.getNombre()).isPresent();
 	}
 
 	public List<String> getNombresMetodologias() {
