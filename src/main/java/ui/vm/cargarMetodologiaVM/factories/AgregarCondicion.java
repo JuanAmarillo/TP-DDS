@@ -4,12 +4,12 @@ import java.util.List;
 
 import domain.condiciones.Condicion;
 
-public abstract class MoverHaciaDerecha<T extends Condicion> {
+public abstract class AgregarCondicion<T extends Condicion> {
 	
 	protected T condicion;
 	protected List<Condicion> condiciones;
 	
-	public MoverHaciaDerecha(T condicion, List<Condicion> condiciones){
+	public AgregarCondicion(T condicion, List<Condicion> condiciones){
 		this.condicion = condicion;
 		this.condiciones = condiciones;
 	}

@@ -13,8 +13,8 @@ import domain.metodologias.Metodologia;
 import domain.repositorios.RepositorioCondiciones;
 import domain.repositorios.RepositorioMetodologias;
 import ui.vm.cargarMetodologiaVM.factories.AgregarMetodologia;
-import ui.vm.cargarMetodologiaVM.factories.MoverHaciaDerechaComparativa;
-import ui.vm.cargarMetodologiaVM.factories.MoverHaciaDerechaTaxativa;
+import ui.vm.cargarMetodologiaVM.factories.AgregarCondicionComparativa;
+import ui.vm.cargarMetodologiaVM.factories.AgregarCondicionTaxativa;
 
 @Observable
 public class CargarMetodologiasVM {
@@ -35,11 +35,11 @@ public class CargarMetodologiasVM {
 	}
 	
 	public void moverHaciaLaDerechaTaxativa() {
-		new MoverHaciaDerechaTaxativa(condicionTaxativaSeleccionada, condicionesAgregadas).mover();
+		new AgregarCondicionTaxativa(condicionTaxativaSeleccionada, condicionesAgregadas).mover();
 	}
 
 	public void moverHaciaLaDerechaComparativa() {
-		new MoverHaciaDerechaComparativa(condicionComparativaSeleccionada, condicionesAgregadas, pesoDeComparativa)
+		new AgregarCondicionComparativa(condicionComparativaSeleccionada, condicionesAgregadas, pesoDeComparativa)
 				.mover();
 	}
 

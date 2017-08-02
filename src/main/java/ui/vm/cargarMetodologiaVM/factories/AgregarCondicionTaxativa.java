@@ -5,9 +5,9 @@ import java.util.List;
 import domain.condiciones.Condicion;
 import domain.condiciones.CondicionTaxativa;
 
-public class MoverHaciaDerechaTaxativa extends MoverHaciaDerecha<CondicionTaxativa> {
+public class AgregarCondicionTaxativa extends AgregarCondicion<CondicionTaxativa> {
 	
-	public MoverHaciaDerechaTaxativa(CondicionTaxativa condicion, List<Condicion> condiciones){
+	public AgregarCondicionTaxativa(CondicionTaxativa condicion, List<Condicion> condiciones){
 		super(condicion,condiciones);
 	}
 
