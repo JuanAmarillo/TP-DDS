@@ -18,15 +18,15 @@ public class ManejadorDePesos {
 				.collect(Collectors.toList());
 	}
 
-	public Double pesoTotal(List<Empresa> empresas, Empresa empresa) {
+	private Double pesoTotal(List<Empresa> empresas, Empresa empresa) {
 		return pesoPorPuesto(empresas, empresa) * peso;
 	}
 
-	public Integer pesoPorPuesto(List<Empresa> empresas, Empresa empresa) {
+	private Integer pesoPorPuesto(List<Empresa> empresas, Empresa empresa) {
 		return empresas.size() - empresas.indexOf(empresa);
 	}
 
-	public EmpresaEnCalculo agregarPeso(Empresa empresa, Double pesoTotal) {
+	private EmpresaEnCalculo agregarPeso(Empresa empresa, Double pesoTotal) {
 		return new EmpresaEnCalculo(empresa, pesoTotal);
 	}
 }

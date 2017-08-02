@@ -116,7 +116,7 @@ public class RepositorioCondicionesTest {
 
 	@Test(expected = RuntimeException.class)
 	public void testIntentarBorrarUnaCondicionInexistenteFalla() {
-		eliminarCondicion("Empresa de mas de 10 años");
+		eliminarCondicion("No existoooo");
 	}
 	
 	@Test

@@ -112,7 +112,6 @@ public class MetodologiasTest {
 				Arrays.asList(new CEmpresaMayorAntiguedad().setManejadorDePesos(new ManejadorDePesos(10.0)),
 						new CEndeudamiento().setManejadorDePesos(new ManejadorDePesos(12.0))));
 		List<Empresa> empresas = aplicarMetodologia(met);
-		empresas.stream().forEach(a -> System.out.println(a.getNombre()));
 		asertarEmpresa(empresas, 0, "Pepsi-Co");
 		asertarEmpresa(empresas, 1, "Coca-Cola");
 		asertarEmpresa(empresas, 2, "Sorny");
