@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import domain.condiciones.Condicion;
 import domain.metodologias.Metodologia;
 
 public class RepositorioMetodologias {

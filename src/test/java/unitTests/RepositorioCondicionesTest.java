@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import domain.condiciones.CondicionComparativa;
+import domain.condiciones.CondicionTaxativa;
 import domain.repositorios.RepositorioCondiciones;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 
@@ -24,15 +25,14 @@ public class RepositorioCondicionesTest {
 		RepositorioCondiciones.instance().eliminarCondicion("pepito");
 		assertEquals(4,RepositorioCondiciones.instance().cantidadDeCondiciones());
 	}
-	/*
-	 * Depende de cuándo se ejecute falla, tema de hilos?
+/*
 	@Test
 	public void testSePuedeAgregarCondicionTaxativa(){
 		CondicionTaxativa cond = new CondicionTaxativa("legis2",null,null,null);
-		RepositorioCondiciones.agregarCondicion(cond);
+		RepositorioCondiciones.instance().agregarCondicion(cond);
 		assertEquals(5,RepositorioCondiciones.instance().cantidadDeCondiciones());
 	}
-	*/
+*/
 	@Test
 	public void testSePuedeAgregarUnaCondicionComparativa(){
 		CondicionComparativa condicion = new CondicionComparativa("legis",null,null);
