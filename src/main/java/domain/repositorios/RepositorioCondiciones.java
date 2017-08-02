@@ -52,16 +52,6 @@ public class RepositorioCondiciones {
 				.map(unaCondicion -> (CondicionComparativa) unaCondicion).collect(Collectors.toList());
 	}
 
-	public List<String> getNombresDeCondicionesTaxativas() {
-		return getCondicionesTaxativas().stream().map(unaCondicion -> unaCondicion.getNombre())
-				.collect(Collectors.toList());
-	}
-
-	public List<String> getNombresDeCondicionesComparativas() {
-		return getCondicionesComparativas().stream().map(unaCondicion -> unaCondicion.getNombre())
-				.collect(Collectors.toList());
-	}
-
 	public List<String> getNombresDeCondiciones() {
 		return getCondicionesCargadas().stream().map(unaCondicion -> unaCondicion.getNombre())
 				.collect(Collectors.toList());
@@ -97,7 +87,7 @@ public class RepositorioCondiciones {
 		condicionesCargadas.remove(condicion);
 	}
 
-	private boolean existeLaCondicion(String nombre) {
+	public boolean existeLaCondicion(String nombre) {
 		return condicionesCargadas.stream().anyMatch(condicion -> condicion.suNombreEs(nombre));
 	}
 
@@ -105,7 +95,7 @@ public class RepositorioCondiciones {
 		return condicionesCargadas.stream().filter(condicion -> condicion.suNombreEs(nombre)).findFirst();
 	}
 
-	public int cantidadDeCondiciones() {
+	public Integer cantidadDeCondiciones() {
 		return getCondicionesCargadas().size();
 	}
 

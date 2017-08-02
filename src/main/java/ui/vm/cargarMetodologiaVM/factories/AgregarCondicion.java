@@ -14,9 +14,9 @@ public abstract class AgregarCondicion<T extends Condicion> {
 		this.condiciones = condiciones;
 	}
 	
-	public void mover(){
+	public void agregar(){
 		validaciones();
-		movimiento();
+		maneraDeAgregar();
 	}
 	
 	protected void validaciones(){
@@ -30,6 +30,6 @@ public abstract class AgregarCondicion<T extends Condicion> {
 		return condiciones.contains(condicion);
 	}
 	
-	protected abstract void movimiento();
+	protected abstract void maneraDeAgregar();
 	
 }

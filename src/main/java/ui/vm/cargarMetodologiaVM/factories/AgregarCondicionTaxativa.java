@@ -12,7 +12,7 @@ public class AgregarCondicionTaxativa extends AgregarCondicion<CondicionTaxativa
 	}
 
 	@Override
-	protected void movimiento() {
+	protected void maneraDeAgregar() {
 		condiciones.add(condicion);
 	}
 }

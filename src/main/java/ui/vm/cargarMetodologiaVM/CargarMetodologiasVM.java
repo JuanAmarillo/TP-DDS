@@ -29,18 +29,17 @@ public class CargarMetodologiasVM {
 	public List<Condicion> condicionesAgregadas = new ArrayList<Condicion>();;
 	public Condicion condicionAgregadaSeleccionada = null;
 
-
 	public void cargarMetodologia() {
-		new AgregarMetodologia().agregar(nombreMetodologia,condicionesAgregadas);
+		new AgregarMetodologia().agregar(nombreMetodologia, condicionesAgregadas);
 	}
-	
+
 	public void moverHaciaLaDerechaTaxativa() {
-		new AgregarCondicionTaxativa(condicionTaxativaSeleccionada, condicionesAgregadas).mover();
+		new AgregarCondicionTaxativa(condicionTaxativaSeleccionada, condicionesAgregadas).agregar();
 	}
 
 	public void moverHaciaLaDerechaComparativa() {
 		new AgregarCondicionComparativa(condicionComparativaSeleccionada, condicionesAgregadas, pesoDeComparativa)
-				.mover();
+				.agregar();
 	}
 
 	public void sacarCondicion() {
@@ -48,11 +47,10 @@ public class CargarMetodologiasVM {
 			condicionesAgregadas.remove(condicionAgregadaSeleccionada);
 		}
 	}
-	
+
 	public boolean noHayCondicionesParaSacar() {
 		return condicionAgregadaSeleccionada != null;
 	}
-	
 
 	// GETTERS Y SETTERS
 

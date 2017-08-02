@@ -16,7 +16,7 @@ public class AgregarCondicionComparativa extends AgregarCondicion<CondicionCompa
 	}
 
 	@Override
-	public void movimiento() {
+	public void maneraDeAgregar() {
 		condicion.setManejadorDePesos(new ManejadorDePesos(peso));
 		condiciones.add(condicion);
 	}

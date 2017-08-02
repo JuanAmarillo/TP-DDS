@@ -20,7 +20,6 @@ public class CompiladorTest {
 	public Calculable compilado;
 	public Empresa empresaMockeada;
 
-
 	public CompiladorTest compilar(String... tokens) {
 		compilado = new Compilador().compilar(VmUtils.convertirALista(tokens));
 		return this;
@@ -131,7 +130,7 @@ public class CompiladorTest {
 	public void testCuentaNoExistenteRompe() {
 		compilar("NoExiste").obtiene(0.0);
 	}
-	
+
 	@Test
 	public void testOperacionCombinada() {
 		compilar("20", "/", "(", "3", "*", "4", "-", "2", ")", "+", "indicador", "-", "cuenta").obtiene(1.0);
