@@ -9,7 +9,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import domain.Empresa;
-import sun.java2d.pipe.AATextRenderer;
 
 public class RepositorioEmpresas implements Repositorio<Empresa>{
 	private static RepositorioEmpresas instance = null;
