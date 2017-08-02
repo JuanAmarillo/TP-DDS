@@ -7,6 +7,7 @@ import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
 import archivos.ActualizaIndicadores;
+import archivos.LevantaArchivoIndicadores;
 import domain.repositorios.RepositorioIndicadores;
 
 @Observable
@@ -14,6 +15,7 @@ public class CargarIndicadorVM {
 
 	public String indicador;
 	public String indicadorSeleccionado;
+	public String filePath;
 
 	public String getIndicador() {
 		return indicador;
@@ -34,6 +36,14 @@ public class CargarIndicadorVM {
 	public void setIndicadorSeleccionado(String indicadorSeleccionado) {
 		this.indicadorSeleccionado = indicadorSeleccionado;
 	}
+	
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
 
 	public void cargarIndicador() throws IOException {
 		new ActualizaIndicadores().agregar(indicador);
@@ -42,6 +52,11 @@ public class CargarIndicadorVM {
 
 	public void eliminarIndicador() throws IOException {
 		new ActualizaIndicadores().eliminar(indicadorSeleccionado);
+		avisarCambioIndicadores();
+	}
+
+	public void cargarIndicadorDesdeArchivo() throws IOException{
+		new LevantaArchivoIndicadores(filePath).cargarArchivo();
 		avisarCambioIndicadores();
 	}
 

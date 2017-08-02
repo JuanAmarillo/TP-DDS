@@ -1,6 +1,7 @@
 {
-	"indicadores": [{
-		"nombre": "indicador",
-		"expresion": " 23+4"
-	}]
+ "indicadores":[
+	{
+	"nombre" : "indicadorDePrueba",
+	"expresion" : "23+4"}
+]
 }

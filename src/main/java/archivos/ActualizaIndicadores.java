@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -51,8 +52,12 @@ public class ActualizaIndicadores {
 		crearArchivoNuevo(jsonIndicadores);
 	}
 
-	private List<IndicadorCustom> obtenerIndicadores() {
-		return RepositorioIndicadores.instance().obtenerCustoms();
+	private List<BuilderIndicadorCustom> obtenerIndicadores() {
+		return generarBuilders(RepositorioIndicadores.instance().obtenerCustoms());
+	}
+	
+	private List<BuilderIndicadorCustom> generarBuilders(List<IndicadorCustom> indicadores) {
+		return indicadores.stream().map(ind -> new BuilderIndicadorCustom(ind.getNombre(), ind.getExpresion())).collect(Collectors.toList());
 	}
 
 	private String obtenerJsonCompleto(DatosIndicadores indicadores) throws IOException {

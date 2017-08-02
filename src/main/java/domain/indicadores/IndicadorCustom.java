@@ -1,8 +1,5 @@
 package domain.indicadores;
 
-import org.codehaus.jackson.annotate.JsonCreator;
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.uqbar.commons.utils.Observable;
 
 import domain.Empresa;
@@ -14,15 +11,7 @@ import domain.indicadores.calculoIndicadores.ConstructoresIndicador.Analizador;
 public class IndicadorCustom extends Indicador {
 	public String expresion;
 
-	@JsonIgnore
 	public Calculable calculo;
-
-	@JsonCreator
-	private IndicadorCustom( @JsonProperty("nombre") String nombre,@JsonProperty("expresion")String expresion ) {
-		super(nombre);
-		this.expresion = expresion;
-		//setCalculo();
-		}
 
 	public IndicadorCustom(String nombre,String expresion,Calculable calculo) {
 		super(nombre);
@@ -49,9 +38,19 @@ public class IndicadorCustom extends Indicador {
 		return calculo;
 	}
 	
+	public String getExpresion() {
+		return expresion;
+	}
+
+	public void setExpresion(String expresion) {
+		this.expresion = expresion;
+	}
+	
 	@Override
 	public boolean esCustom() {
 		return true;
 	}
+
+	
 
 }
