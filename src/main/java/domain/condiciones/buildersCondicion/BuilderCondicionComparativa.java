@@ -10,7 +10,7 @@ public class BuilderCondicionComparativa extends BuilderCondicion{
 	}
 
 	@Override
-	public Condicion build() {
+	public Condicion buildPosta() {
 		return new CondicionComparativa(nombre,indicador,operador);
 	}
 

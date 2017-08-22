@@ -2,6 +2,8 @@ package domain.condiciones.buildersCondicion;
 
 import org.uqbar.commons.utils.Observable;
 
+import java.util.ArrayList;
+import java.util.List;
 import domain.condiciones.Condicion;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
@@ -15,7 +17,7 @@ public abstract class BuilderCondicion {
 	protected OperadorCondicion operador;
 	protected Double value;
 	protected Indicador indicador;
-	
+		
 	public BuilderCondicion(String etiquetaBuilder){
 		this.etiquetaBuilder = etiquetaBuilder;
 	}
@@ -25,29 +27,17 @@ public abstract class BuilderCondicion {
 	}
 	
 	public  BuilderCondicion setNombre(String nombre){
-		if(!nombre.isEmpty())
-			this.nombre = nombre;
-		else
-			throw new BuilderCondicionesException("No se ingresó ningún nombre");
-		
+		this.nombre = nombre;
 		return this;
 	}
 	
 	public BuilderCondicion setOperador(OperadorCondicion operador){
-		if(operador != null)
-			this.operador = operador;
-		else
-			throw new BuilderCondicionesException("No se seleccionó ningún operador");
-		
+		this.operador = operador;
 		return this;
 	}
 	
-	public BuilderCondicion setIndicador(String indicador){
-		if(!indicador.isEmpty())
-			this.indicador = RepositorioIndicadores.instance().buscarIndicador(indicador).get();
-		else
-			throw new BuilderCondicionesException("No se seleccionó ningún indicador");
-		
+	public BuilderCondicion setIndicador(String indicador){		
+		this.indicador = RepositorioIndicadores.instance().buscarIndicador(indicador).get();
 		return this;
 	}
 	
@@ -56,7 +46,29 @@ public abstract class BuilderCondicion {
 		return this;
 	}
 	
-	public abstract Condicion build();
+	public Condicion build() {
+		validar();
+		return buildPosta();
+	}
+	
+	public void validar() {
+		List<String> errores = new ArrayList<String>();
+		if(nombre == null || nombre.isEmpty())
+			errores.add("No se ingresó ningún nombre");
+		if(operador == null)
+			errores.add("No se seleccionó ningún operador");
+		if(indicador == null)	
+			errores.add("No se seleccionó ningún indicador");
+		if(!errores.isEmpty())
+			throw new BuilderCondicionesException(generarMensajeDeError(errores));
+	}
+	
+	public String generarMensajeDeError(List<String> errores) {
+		 String mensajito = String.join("\n", errores);
+		 return mensajito;
+	}
+
+	public abstract Condicion buildPosta();
 	public abstract Boolean esTaxativa();
 	
 	

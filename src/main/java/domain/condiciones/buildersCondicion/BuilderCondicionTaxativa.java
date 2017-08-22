@@ -11,7 +11,7 @@ public class BuilderCondicionTaxativa extends BuilderCondicion{
 	}
 	
 	@Override
-	public Condicion build() {
+	public Condicion buildPosta() {
 		return new CondicionTaxativa(nombre,indicador,operador,valorDeComparacion);
 	}
 	
