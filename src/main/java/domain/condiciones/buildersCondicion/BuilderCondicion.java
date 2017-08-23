@@ -2,13 +2,11 @@ package domain.condiciones.buildersCondicion;
 
 import org.uqbar.commons.utils.Observable;
 
-import java.util.ArrayList;
-import java.util.List;
 import domain.condiciones.Condicion;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
 import domain.repositorios.RepositorioIndicadores;
-import exceptions.BuilderCondicionesException;
+import domain.condiciones.buildersCondicion.Validador;
 
 @Observable
 public abstract class BuilderCondicion {
@@ -37,7 +35,7 @@ public abstract class BuilderCondicion {
 	}
 	
 	public BuilderCondicion setIndicador(String indicador){		
-		this.indicador = RepositorioIndicadores.instance().buscarIndicador(indicador).get();
+		this.indicador = RepositorioIndicadores.instance().buscarIndicador(indicador).orElse(null);
 		return this;
 	}
 	
@@ -47,26 +45,17 @@ public abstract class BuilderCondicion {
 	}
 	
 	public Condicion build() {
-		validar();
+		validar();		
 		return buildPosta();
 	}
 	
 	public void validar() {
-		List<String> errores = new ArrayList<String>();
-		if(nombre == null || nombre.isEmpty())
-			errores.add("No se ingresó ningún nombre");
-		if(operador == null)
-			errores.add("No se seleccionó ningún operador");
-		if(indicador == null)	
-			errores.add("No se seleccionó ningún indicador");
-		if(!errores.isEmpty())
-			throw new BuilderCondicionesException(generarMensajeDeError(errores));
-	}
-	
-	public String generarMensajeDeError(List<String> errores) {
-		 String mensajito = String.join("\n", errores);
-		 return mensajito;
-	}
+		new Validador()
+		.agregarValidacion(nombre == null || nombre.isEmpty(), "No se ingresó ningún nombre")
+		.agregarValidacion(operador == null, "No se seleccionó ningún operador")
+		.agregarValidacion(indicador == null, "No se seleccionó ningún indicador")
+		.validar();
+	}	
 
 	public abstract Condicion buildPosta();
 	public abstract Boolean esTaxativa();
