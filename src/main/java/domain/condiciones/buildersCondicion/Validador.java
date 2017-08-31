@@ -7,7 +7,7 @@ import exceptions.*;
 public class Validador {
 	
 	private List<String> errores = new ArrayList<String>();
-		
+			
 	public Validador agregarValidacion(Boolean condicion, String mensajeError) {
 		if(condicion)
 			errores.add(mensajeError);
@@ -15,8 +15,9 @@ public class Validador {
 	}
 	
 	public void validar() {
+		
 		if(!errores.isEmpty())
-			throw new BuilderCondicionesException(generarMensaje());
+			throw new ValidadorException(generarMensaje());
 	}
 
 	private String generarMensaje() {
