@@ -1,4 +1,4 @@
-package integrationTest;
+package unitTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -22,7 +22,7 @@ import domain.repositorios.RepositorioCondiciones;
 import mocks.IndicadorNoCalculableMock;
 import mocks.PreparadorDeEmpresas;
 
-public class CondicionesTest {
+public class AplicarCondicionesTest {
 
 	List<Empresa> empresas;
 
@@ -100,4 +100,5 @@ public class CondicionesTest {
 		List<Empresa> resultado = aplicarCondicionALista(condicion);
 		assertTrue(resultado.get(0).esLaMismaEmpresaQue(prepararEmpresa(1)));
 	}
+
 }

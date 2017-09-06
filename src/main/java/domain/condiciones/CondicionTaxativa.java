@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 import domain.Empresa;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
-import domain.metodologias.EmpresaEnCalculo;
 
 public class CondicionTaxativa extends Condicion {
 
@@ -30,15 +29,5 @@ public class CondicionTaxativa extends Condicion {
 	@Override
 	public List<Empresa> aplicarCondicion(List<Empresa> empresas, String periodo) {
 		return empresas.stream().filter(empresa -> evaluarCondicion(empresa, periodo)).collect(Collectors.toList());
-	}
-
-	@Override
-	protected List<EmpresaEnCalculo> crearEmpresasEnCalculo(List<Empresa> empresasAplicadas) {
-		return empresasAplicadas.stream().map(empresa -> crearEmpresaEnCalculo(empresa)).collect(Collectors.toList());
-	}
-
-	public EmpresaEnCalculo crearEmpresaEnCalculo(Empresa empresa) {
-		return new EmpresaEnCalculo(empresa);
-	}
-
+}
 }

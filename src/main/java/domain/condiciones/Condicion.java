@@ -1,14 +1,15 @@
 package domain.condiciones;
 
 import java.util.List;
-import java.util.stream.Collectors;
+
+import org.javatuples.Pair;
+import org.uqbar.commons.utils.Observable;
 
 import domain.Empresa;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
-import domain.metodologias.EmpresaEnCalculo;
-import exceptions.NoSePuedeCalcularException;
 
+@Observable
 public abstract class Condicion implements CondicionCustom {
 
 	protected String nombre;
@@ -20,6 +21,16 @@ public abstract class Condicion implements CondicionCustom {
 		this.indicador = indicador;
 		this.operador = operador;
 	}
+
+	public List<Empresa> apply(List<Empresa> empresas, String periodo) {
+		return aplicarCondicion(empresas, periodo);
+	}
+
+	public abstract List<Empresa> aplicarCondicion(List<Empresa> empresas, String periodo);
+
+	public abstract Boolean esTaxativa();
+
+	// GETTERS Y SETTERS
 
 	public Condicion(String nombre) {
 		this.nombre = nombre;
@@ -61,15 +72,9 @@ public abstract class Condicion implements CondicionCustom {
 		this.operador = operador;
 	}
 
-	public List<EmpresaEnCalculo> apply(List<Empresa> empresas, String periodo) {
-		List<Empresa> empresasAplicadas = aplicarCondicion(empresas, periodo);
-		return crearEmpresasEnCalculo(empresasAplicadas);
+	public Pair<List<Empresa>, Double> setAt0(List<Empresa> apply) {
+		// TODO Auto-generated method stub
+		return null;
 	}
-
-	protected abstract List<EmpresaEnCalculo> crearEmpresasEnCalculo(List<Empresa> empresasAplicadas);
-
-	public abstract List<Empresa> aplicarCondicion(List<Empresa> empresas, String periodo);
-
-	public abstract Boolean esTaxativa();
 
 }
