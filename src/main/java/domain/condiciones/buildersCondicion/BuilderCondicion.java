@@ -7,6 +7,8 @@ import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
 import domain.repositorios.RepositorioIndicadores;
 import domain.condiciones.buildersCondicion.Validador;
+import exceptions.ValidadorException;
+import exceptions.BuilderCondicionesException;
 
 @Observable
 public abstract class BuilderCondicion {
@@ -45,8 +47,13 @@ public abstract class BuilderCondicion {
 	}
 	
 	public Condicion build() {
-		validar();		
-		return buildPosta();
+		try {
+			validar();		
+			return buildPosta();
+		}
+		catch(ValidadorException E) {
+			throw new BuilderCondicionesException(E.getMessage());
+		}
 	}
 	
 	public void validar() {
