@@ -41,7 +41,7 @@ public class CondicionTest<T extends Condicion> {
 	}
 	
 	public void aplicarCondicion(Empresa...empresas){
-		empresasAplicadas = condicion.aplicarCondicion(Arrays.asList(empresas), "2017");
+		empresasAplicadas = condicion.aplicarCondicionEnPeriodo(Arrays.asList(empresas), "2017");
 	}
 	
 	public void verificarEmpresa(Integer indice, Empresa empresa){

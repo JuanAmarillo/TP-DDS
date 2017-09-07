@@ -29,8 +29,8 @@ public class VerMetodologiasWindow extends Dialog<VerMetodologiasVM> {
 
 	private void cuadroResultados(Panel formPanel) {
 		new Label(formPanel).setText("Empresas ordenadas por la metodología");
-		ViewUtils.crearListaConAdaptador(formPanel, "empresasOrdenadas", "empresaOrdenadaSeleccionada",
-				Empresa.class, "nombre").setHeight(180);
+		ViewUtils.crearListaConAdaptador(formPanel, "empresasOrdenadas", "empresaOrdenadaSeleccionada", Empresa.class,
+				"nombre").setHeight(180);
 
 	}
 
@@ -39,7 +39,6 @@ public class VerMetodologiasWindow extends Dialog<VerMetodologiasVM> {
 		List<Metodologia> condiciones = ViewUtils.crearListaConAdaptador(metods, "metodologias",
 				"metodologiaSeleccionada", Metodologia.class, "nombre");
 		ViewUtils.setSize(250, 100, condiciones);
-		ViewUtils.crearSelector(metods, "periodos", "periodoSeleccionado");
 		ViewUtils.crearBoton(metods, "Aplicar metodología", this::aplicarMetodologia);
 	}
 
@@ -59,7 +58,7 @@ public class VerMetodologiasWindow extends Dialog<VerMetodologiasVM> {
 	public void aplicarMetodologia() {
 		try {
 			this.getModelObject().aplicarMetodologia();
-			
+
 		} catch (RuntimeException e) {
 			this.showWarning(e.getMessage());
 		}

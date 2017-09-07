@@ -1,4 +1,4 @@
-package integrationTest;
+package unitTests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -23,12 +23,11 @@ import mocks.IndicadorNoCalculableMock;
 import mocks.PreparadorDeEmpresas;
 
 public class CondicionesTest {
-
 	List<Empresa> empresas;
 
 	private List<Empresa> aplicarCondicionALista(Condicion condicion) {
 		List<Empresa> listaEmpresas = empresas;
-		listaEmpresas = condicion.aplicarCondicion(listaEmpresas, "pascuas");
+		listaEmpresas = condicion.aplicarCondicion(listaEmpresas);
 		return listaEmpresas;
 	}
 
@@ -46,7 +45,7 @@ public class CondicionesTest {
 	@Test
 	public void testCumpleCondicionTaxativaDeAntiguedad() {
 		TEmpresaMas10Años condicion = new TEmpresaMas10Años();
-		assertTrue(condicion.evaluarCondicion(prepararEmpresa(0), "pepito"));
+		assertTrue(condicion.evaluarCondicionEnPeriodo(prepararEmpresa(0), "pepito"));
 	}
 
 	@Test
@@ -55,7 +54,7 @@ public class CondicionesTest {
 		empresaMasJoven.setAnioFundacion(1950);
 		CEmpresaMayorAntiguedad condicion = new CEmpresaMayorAntiguedad();
 		condicion.setIndicador(new Antiguedad());
-		assertTrue(0 != condicion.evaluarCondicion(prepararEmpresa(0), prepararEmpresa(1), "pepito"));
+		assertTrue(0 != condicion.evaluarCondicionEnPeriodo(prepararEmpresa(0), prepararEmpresa(1), "pepito"));
 	}
 
 	@Test

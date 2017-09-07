@@ -51,13 +51,13 @@ public class MetodologiaTest {
 
 	@Test
 	public void seAplicanCondicionesTaxativasTest() {
-		List<Empresa> emprFiltradas = metodologiaMixta.aplicarCondicionesT(listaEmpresas, "pascuas");
+		List<Empresa> emprFiltradas = metodologiaMixta.aplicarCondicionesTaxativas(listaEmpresas);
 		assertEquals(emprFiltradas.size(), 2);
 	}
 
 	@Test
 	public void seAplicanCondicionesComparativasTest() {
-		List<Empresa> emprFiltradas = metodologiaMixta.aplicarCondicionesC(listaEmpresas, "pascuas");
+		List<Empresa> emprFiltradas = metodologiaMixta.aplicarCondicionesComparativas(listaEmpresas);
 		Empresa sorny = listaEmpresas.get(1);
 		assertEquals(emprFiltradas.size(), listaEmpresas.size());
 		assertEquals(emprFiltradas.get(0), sorny);
@@ -68,7 +68,7 @@ public class MetodologiaTest {
 
 	@Test
 	public void seAplicanCondicionesTest() {
-		List<Empresa> emprFiltradas = metodologiaMixta.aplicarCondiciones(listaEmpresas, "pascuas");
+		List<Empresa> emprFiltradas = metodologiaMixta.aplicarCondiciones(listaEmpresas);
 		Empresa pepsi = listaEmpresas.get(3);
 		Empresa coca = listaEmpresas.get(0);
 		imprimirNombres(emprFiltradas); // Debería quedar Pepsi-Co,Coca-Cola
@@ -79,13 +79,13 @@ public class MetodologiaTest {
 
 	@Test
 	public void seAplicanSoloCondicionesTaxativasTest() {
-		List<Empresa> emprFiltradas = metodologiaTaxativa.aplicarCondiciones(listaEmpresas, "pascuas");
+		List<Empresa> emprFiltradas = metodologiaTaxativa.aplicarCondiciones(listaEmpresas);
 		assertEquals(emprFiltradas.size(), 2);
 	}
 
 	@Test
 	public void seAplicanSoloCondicionesComparativasTest() {
-		List<Empresa> emprFiltradas = metodologiaComparativa.aplicarCondiciones(listaEmpresas, "pascuas");
+		List<Empresa> emprFiltradas = metodologiaComparativa.aplicarCondiciones(listaEmpresas);
 		assertEquals(emprFiltradas.size(), 5);
 		imprimirNombres(emprFiltradas);
 	}

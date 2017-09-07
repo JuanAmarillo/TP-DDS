@@ -23,35 +23,34 @@ public class Metodologia {
 		this.condiciones = condiciones;
 	}
 
-	public List<Empresa> aplicarCondiciones(List<Empresa> empresas, String periodo) {
-		List<Empresa> emprFiltradas = this.aplicarCondicionesT(empresas, periodo);
-		return aplicarCondicionesC(emprFiltradas, periodo);
+	public List<Empresa> aplicarCondiciones(List<Empresa> empresas/*, String periodo*/) {
+		List<Empresa> emprFiltradas = this.aplicarCondicionesTaxativas(empresas/*, periodo*/);
+		return aplicarCondicionesComparativas(emprFiltradas/*, periodo*/);
 
 	}
 
-	public List<Empresa> aplicarCondicionesT(List<Empresa> empresas, String periodo) {
-		List<CondicionAplicable> condicionesT = this.obtenerCondicionesTaxativas();
-		if (condicionesT.isEmpty()) {
+	public List<Empresa> aplicarCondicionesTaxativas(List<Empresa> empresas /*, String periodo*/) {
+		List<CondicionAplicable> condicionesTaxativas = this.obtenerCondicionesTaxativas();
+		if (condicionesTaxativas.isEmpty()) {
 			return empresas;
 		} else {
-			List<Empresa> emprFiltradas = condicionesT.stream()
-					.map(condicion -> condicion.getCondicion().apply(empresas, periodo)).flatMap(List::stream)
+			List<Empresa> emprFiltradas = condicionesTaxativas.stream()
+					.map(condicion -> condicion.getCondicion().aplicarCondicion(empresas)).flatMap(List::stream)
 					.collect(Collectors.toList());
 			return emprFiltradas.stream().filter(empresa -> Collections.frequency(emprFiltradas, empresa) == this
 					.obtenerCondicionesTaxativas().size()).collect(Collectors.toList());
 		}
 	}
 
-	public List<Empresa> aplicarCondicionesC(List<Empresa> empresas, String periodo) {
-		List<CondicionAplicable> condicionesC = this.obtenerCondicionesComparativas();
-		if (condicionesC.isEmpty()) {
+	public List<Empresa> aplicarCondicionesComparativas(List<Empresa> empresas /*, String periodo*/) {
+		List<CondicionAplicable> condicionesComparativas = this.obtenerCondicionesComparativas();
+		if (condicionesComparativas.isEmpty()) {
 			return empresas;
 		} else {
-			List<EmpresasAPesar> empresasSinPeso = condicionesC.stream()
+			List<EmpresasAPesar> empresasSinPeso = condicionesComparativas.stream()
 					.map(condicionAplicable -> new EmpresasAPesar(
-							condicionAplicable.getCondicion().apply(empresas, periodo), condicionAplicable.getPeso()))
+							condicionAplicable.getCondicion().aplicarCondicion(empresas), condicionAplicable.getPeso()))
 					.collect(Collectors.toList());
-
 			// obtiene diccionario de empresas con su peso
 			Map<Empresa, Double> empresasConPeso = empresasSinPeso.stream().map(e -> e.darPesoYOrdenar())
 					.flatMap(List::stream).collect(Collectors.groupingBy(Pair<Empresa, Double>::getValue0,
@@ -60,6 +59,7 @@ public class Metodologia {
 			Map<Empresa, Double> empresasConPesoOrdenadas = sortByPeso(empresasConPeso);
 			// pasa todo a List<Empresa>
 			return pasarMapAList(empresasConPesoOrdenadas);
+
 		}
 	}
 

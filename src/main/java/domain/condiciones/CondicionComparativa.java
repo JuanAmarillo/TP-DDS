@@ -1,7 +1,9 @@
 package domain.condiciones;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import domain.Empresa;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
@@ -13,32 +15,37 @@ public class CondicionComparativa extends Condicion {
 		super(nombre, indicador, operador);
 	}
 
-	public List<Empresa> aplicarCondicion(List<Empresa> empresas, String periodo) {
-		return empresas.stream()
-				.sorted((empresaUno, empresaDos) -> evaluarCondicion(empresaUno, empresaDos, periodo))
-				.collect(Collectors.toList());
-	}
-
-	public Integer evaluarCondicion(Empresa empresaUno, Empresa empresaDos, String periodo) {
+	public Integer evaluarCondicionEnPeriodo(Empresa empresaUno, Empresa empresaDos, String periodo) {
 		return comparar(calcularIndicador(empresaDos, periodo), calcularIndicador(empresaUno, periodo));
 	}
-/*
-	public List<Empresa> aplicarCondicionEnTodosLosPeriodos(List<Empresa> empresas, List<String> periodos) {
-		return empresas.stream().sorted((empresaUno, empresaDos) -> evaluarCondicion(empresaUno, empresaDos, periodos))
-				.collect(Collectors.toList());
-
 
 	public Integer evaluarCondicion(Empresa empresaUno, Empresa empresaDos, List<String> periodos) {
-		int total = 0;
-		for (int i = 0; i <= periodos.size(); i++) {
-			int resultado = evaluarCondicionEnPeriodo(empresaUno, empresaDos, periodos.get(i));
-			total += resultado;
+		Stream<Integer> retornos = periodos.stream()
+				.map(periodo -> evaluarCondicionEnPeriodo(empresaUno, empresaDos, periodo));
+		if (retornos.anyMatch(e -> e.equals(1))) {
+			return 1;
+		} else {
+			return -1;
 		}
-		return total;
 	}
-*/
+
+	@Override
+	public List<Empresa> aplicarCondicionEnPeriodo(List<Empresa> empresas, String periodo) {
+		return empresas.stream()
+				.sorted((empresaUno, empresaDos) -> evaluarCondicionEnPeriodo(empresaUno, empresaDos, periodo))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<Empresa> aplicarCondicion(List<Empresa> empresas) {
+		List<String> periodos = empresas.stream().map(empresa -> empresa.getPeriodos()).flatMap(Set::stream)
+				.collect(Collectors.toList());
+		return empresas.stream().sorted((empresaUno, empresaDos) -> evaluarCondicion(empresaUno, empresaDos, periodos))
+				.collect(Collectors.toList());
+	}
+
 	@Override
 	public Boolean esTaxativa() {
 		return false;
-}
+	}
 }

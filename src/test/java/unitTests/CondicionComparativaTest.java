@@ -15,7 +15,7 @@ public class CondicionComparativaTest extends CondicionTest<CondicionComparativa
 	}
 	
 	public void evaluarCondicion(Empresa empresaUno,Empresa empresaDos,Integer resultado){
-		assertEquals(condicion.evaluarCondicion(empresaUno,empresaDos, "2017"),resultado);
+		assertEquals(condicion.evaluarCondicionEnPeriodo(empresaUno,empresaDos, "2017"),resultado);
 	}
 	
 	@Before

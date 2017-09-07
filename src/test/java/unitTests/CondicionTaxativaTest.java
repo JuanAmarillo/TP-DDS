@@ -1,19 +1,12 @@
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.*;
-
-import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import domain.Empresa;
 import domain.condiciones.CondicionTaxativa;
-import domain.condiciones.OperadoresCondicion.OperadorCondicion;
-import domain.indicadores.Indicador;
 
 public class CondicionTaxativaTest extends CondicionTest<CondicionTaxativa> {
 	
@@ -22,7 +15,7 @@ public class CondicionTaxativaTest extends CondicionTest<CondicionTaxativa> {
 	}
 	
 	public void evaluarCondicion(Empresa empresa,Boolean resultado){
-		assertEquals(condicion.evaluarCondicion(empresa, "2017"),resultado);
+		assertEquals(condicion.evaluarCondicionEnPeriodo(empresa, "2017"),resultado);
 	}
 	
 	@Before

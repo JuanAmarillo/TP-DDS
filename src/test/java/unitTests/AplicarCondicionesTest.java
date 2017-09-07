@@ -28,7 +28,7 @@ public class AplicarCondicionesTest {
 
 	private List<Empresa> aplicarCondicionALista(Condicion condicion) {
 		List<Empresa> listaEmpresas = empresas;
-		listaEmpresas = condicion.aplicarCondicion(listaEmpresas, "pascuas");
+		listaEmpresas = condicion.aplicarCondicionEnPeriodo(listaEmpresas, "pascuas");
 		return listaEmpresas;
 	}
 
@@ -46,7 +46,7 @@ public class AplicarCondicionesTest {
 	@Test
 	public void testCumpleCondicionTaxativaDeAntiguedad() {
 		TEmpresaMas10Años condicion = new TEmpresaMas10Años();
-		assertTrue(condicion.evaluarCondicion(prepararEmpresa(0), "pepito"));
+		assertTrue(condicion.evaluarCondicionEnPeriodo(prepararEmpresa(0), "pepito"));
 	}
 
 	@Test
@@ -55,7 +55,7 @@ public class AplicarCondicionesTest {
 		empresaMasJoven.setAnioFundacion(1950);
 		CEmpresaMayorAntiguedad condicion = new CEmpresaMayorAntiguedad();
 		condicion.setIndicador(new Antiguedad());
-		assertTrue(0 != condicion.evaluarCondicion(prepararEmpresa(0), prepararEmpresa(1), "pepito"));
+		assertTrue(0 != condicion.evaluarCondicionEnPeriodo(prepararEmpresa(0), prepararEmpresa(1), "pepito"));
 	}
 
 	@Test

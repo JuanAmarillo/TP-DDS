@@ -22,12 +22,10 @@ public abstract class Condicion implements CondicionCustom {
 		this.operador = operador;
 	}
 
-	public List<Empresa> apply(List<Empresa> empresas, String periodo) {
-		return aplicarCondicion(empresas, periodo);
-	}
+	public abstract List<Empresa> aplicarCondicionEnPeriodo(List<Empresa> empresas, String periodo);
 
-	public abstract List<Empresa> aplicarCondicion(List<Empresa> empresas, String periodo);
-
+	public abstract List<Empresa> aplicarCondicion(List<Empresa> empresas);
+	
 	public abstract Boolean esTaxativa();
 
 	// GETTERS Y SETTERS
