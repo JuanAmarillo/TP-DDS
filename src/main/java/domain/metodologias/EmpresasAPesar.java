@@ -4,8 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.javatuples.Pair;
-
 import domain.Empresa;
 
 public class EmpresasAPesar {
@@ -18,19 +16,19 @@ public class EmpresasAPesar {
 		this.peso = peso;
 	}
 
-	public List<Pair<Empresa, Double>> darPesoYOrdenar() {
-		Stream<Pair<Empresa, Double>> empr = empresasAPesar.stream()
-				.map(empresa -> Pair.with(empresa, darPeso(empresa)));
+	public List<EmpresaConPeso> darPesoYOrdenar() {
+		Stream<EmpresaConPeso> empr = empresasAPesar.stream()
+				.map(empresa -> new EmpresaConPeso(empresa, darPeso(empresa)));
 		return ordenarPorPeso(empr);
 	}
 
-	public List<Pair<Empresa, Double>> ordenarPorPeso(Stream<Pair<Empresa, Double>> empresasNoOrdenadas) {
+	public List<EmpresaConPeso> ordenarPorPeso(Stream<EmpresaConPeso> empresasNoOrdenadas) {
 		return empresasNoOrdenadas.sorted((unaEmpresa, otraEmpresa) -> mayorPeso(unaEmpresa, otraEmpresa))
 				.collect(Collectors.toList());
 	}
 
-	public int mayorPeso(Pair<Empresa, Double> unaEmpresa, Pair<Empresa, Double> otraEmpresa) {
-		return Double.compare(unaEmpresa.getValue1(), otraEmpresa.getValue1());
+	public int mayorPeso(EmpresaConPeso unaEmpresa, EmpresaConPeso otraEmpresa) {
+		return Double.compare(unaEmpresa.getPeso(), otraEmpresa.getPeso());
 	}
 
 	public Double darPeso(Empresa empresa) {

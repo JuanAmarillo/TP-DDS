@@ -12,7 +12,7 @@ import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.lacar.ui.model.Action;
 
-import domain.condiciones.CondicionAplicable;
+import domain.condiciones.Condicion;
 import ui.vm.cargarMetodologiaVM.CargarMetodologiasVM;
 
 public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
@@ -65,7 +65,7 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 	}
 
 	public void listaDeCondicionesAgregadas(Panel form) {
-		crearLista(form, "Condiciones de la metodologia", "condicionesAgregadas", "condicionAgregadaSeleccionada", 400);
+		crearListaConPeso(form, "Condiciones de la metodologia", "condicionesAgregadas", "condicionAgregadaSeleccionada", 400);
 	}
 
 	private void nombreMetodologiaACrear(Panel formPanel) {
@@ -81,7 +81,14 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 
 	private void crearLista(Panel formPanel, String titulo, String lista, String elemento, Integer height) {
 		Panel panel = ViewUtils.crearPanel(formPanel, new ColumnLayout(1), titulo);
-		List<?> condiciones = ViewUtils.crearListaConAdaptador(panel, lista, elemento, CondicionAplicable.class, "nombre");
+		List<Condicion> condiciones = ViewUtils.crearListaConAdaptador(panel, lista, elemento, Condicion.class, "nombre");
+		ViewUtils.setSize(250, height, condiciones);
+
+	}
+	
+	private void crearListaConPeso(Panel formPanel, String titulo, String lista, String elemento, Integer height) {
+		Panel panel = ViewUtils.crearPanel(formPanel, new ColumnLayout(1), titulo);
+		List<Condicion> condiciones = ViewUtils.crearListaConAdaptador(panel, lista, elemento, Condicion.class, "nombreYPeso");
 		ViewUtils.setSize(250, height, condiciones);
 
 	}

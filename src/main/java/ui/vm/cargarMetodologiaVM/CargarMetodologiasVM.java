@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.uqbar.commons.utils.Observable;
 
-import domain.condiciones.CondicionAplicable;
+import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
 import domain.condiciones.CondicionTaxativa;
 import domain.repositorios.RepositorioCondiciones;
@@ -21,8 +21,8 @@ public class CargarMetodologiasVM {
 
 	public CondicionComparativa condicionComparativaSeleccionada = null;
 
-	public List<CondicionAplicable> condicionesAgregadas = new ArrayList<CondicionAplicable>();;
-	public CondicionAplicable condicionAgregadaSeleccionada = null;
+	public List<Condicion> condicionesAgregadas = new ArrayList<Condicion>();;
+	public Condicion condicionAgregadaSeleccionada = null;
 
 	public void cargarMetodologia() {
 		new AgregarMetodologia().agregar(nombreMetodologia, condicionesAgregadas);
@@ -35,12 +35,14 @@ public class CargarMetodologiasVM {
 	}
 
 	public void moverHaciaLaDerechaTaxativa() {
-		CondicionAplicable condTaxativa = new CondicionAplicable(condicionTaxativaSeleccionada, 0.0);
+		Condicion condTaxativa = new CondicionTaxativa(condicionTaxativaSeleccionada.getNombre(),
+				condicionTaxativaSeleccionada.getIndicador(), condicionTaxativaSeleccionada.getOperador(), 0.0);
 		condicionesAgregadas.add(condTaxativa);
 	}
 
 	public void moverHaciaLaDerechaComparativa() {
-		CondicionAplicable condComparativa = new CondicionAplicable(condicionComparativaSeleccionada,
+		Condicion condComparativa = new CondicionComparativa(condicionComparativaSeleccionada.getNombre(),
+				condicionComparativaSeleccionada.getIndicador(), condicionComparativaSeleccionada.getOperador(),
 				pesoDeComparativa);
 		condicionesAgregadas.add(condComparativa);
 	}
@@ -77,22 +79,6 @@ public class CargarMetodologiasVM {
 		this.condicionTaxativaSeleccionada = condicionTaxativaSeleccionada;
 	}
 
-	public List<CondicionAplicable> getCondicionesAgregadas() {
-		return condicionesAgregadas;
-	}
-
-	public void setCondicionesAgregadas(List<CondicionAplicable> condicionesAgregadas) {
-		this.condicionesAgregadas = condicionesAgregadas;
-	}
-
-	public CondicionAplicable getCondicionAgregadaSeleccionada() {
-		return condicionAgregadaSeleccionada;
-	}
-
-	public void setCondicionAgregadaSeleccionada(CondicionAplicable condicionAgregadaSeleccionada) {
-		this.condicionAgregadaSeleccionada = condicionAgregadaSeleccionada;
-	}
-
 	public List<CondicionComparativa> getCondicionesComparativas() {
 		return RepositorioCondiciones.instance().getCondicionesComparativas();
 	}
@@ -111,6 +97,22 @@ public class CargarMetodologiasVM {
 
 	public void setPesoDeComparativa(Double pesoDeComparativa) {
 		this.pesoDeComparativa = pesoDeComparativa;
+	}
+
+	public List<Condicion> getCondicionesAgregadas() {
+		return condicionesAgregadas;
+	}
+
+	public void setCondicionesAgregadas(List<Condicion> condicionesAgregadas) {
+		this.condicionesAgregadas = condicionesAgregadas;
+	}
+
+	public Condicion getCondicionAgregadaSeleccionada() {
+		return condicionAgregadaSeleccionada;
+	}
+
+	public void setCondicionAgregadaSeleccionada(Condicion condicionAgregadaSeleccionada) {
+		this.condicionAgregadaSeleccionada = condicionAgregadaSeleccionada;
 	}
 
 }
