@@ -1,22 +1,18 @@
 package ui.windows;
 
-import java.util.ArrayList;
-
 import org.uqbar.arena.layout.ColumnLayout;
 import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.layout.VerticalLayout;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.List;
+import org.uqbar.arena.widgets.NumericField;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.TextBox;
-import org.uqbar.arena.widgets.NumericField;
 import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.lacar.ui.model.Action;
 
-import domain.condiciones.Condicion;
-import domain.condiciones.CondicionComparativa;
-import domain.condiciones.CondicionTaxativa;
+import domain.condiciones.CondicionAplicable;
 import ui.vm.cargarMetodologiaVM.CargarMetodologiasVM;
 
 public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
@@ -79,13 +75,13 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 
 	private void pesoDeLaComparativa(Panel formPanel) {
 		Panel peso = ViewUtils.crearPanel(formPanel, new HorizontalLayout());
-		new Label(peso).setText("Peso de la condicion comparativa");
+		new Label(peso).setText("Peso de la condición comparativa");
 		new NumericField(peso).setWidth(80).bindValueToProperty("pesoDeComparativa");
 	}
 
 	private void crearLista(Panel formPanel, String titulo, String lista, String elemento, Integer height) {
 		Panel panel = ViewUtils.crearPanel(formPanel, new ColumnLayout(1), titulo);
-		List<?> condiciones = ViewUtils.crearListaConAdaptador(panel, lista, elemento, Condicion.class, "nombre");
+		List<?> condiciones = ViewUtils.crearListaConAdaptador(panel, lista, elemento, CondicionAplicable.class, "nombre");
 		ViewUtils.setSize(250, height, condiciones);
 
 	}
@@ -100,7 +96,7 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 	@Override
 	protected void addActions(Panel panelActions) {
 		ViewUtils.crearBoton(panelActions, "Volver", this::accept).setAsDefault();
-		ViewUtils.crearBoton(panelActions, "Cargar Metodologia", this::cargarMetodologia);
+		ViewUtils.crearBoton(panelActions, "Cargar Metodología", this::cargarMetodologia);
 	}
 
 	private void moverHaciaLaDerechaTaxativa() {

@@ -11,9 +11,10 @@ import org.uqbar.lacar.ui.model.Action;
 
 import exceptions.NoHayEmpresasCargadasException;
 
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "rawtypes" })
 public class MetodologiasWindow extends Dialog {
 
+	@SuppressWarnings("unchecked")
 	public MetodologiasWindow(WindowOwner parent) {
 		super(parent, new Object());
 	}

@@ -24,7 +24,7 @@ public class Metodologia {
 	}
 
 	public List<Empresa> aplicarCondiciones(List<Empresa> empresas, String periodo) {
-		List<Empresa> emprFiltradas = this.aplicarCondicionesT(empresas,periodo);
+		List<Empresa> emprFiltradas = this.aplicarCondicionesT(empresas, periodo);
 		return aplicarCondicionesC(emprFiltradas, periodo);
 
 	}
@@ -48,9 +48,10 @@ public class Metodologia {
 			return empresas;
 		} else {
 			List<EmpresasAPesar> empresasSinPeso = condicionesC.stream()
-					.map(condicionAplicable -> new EmpresasAPesar(condicionAplicable.getCondicion().apply(empresas, periodo),condicionAplicable.getPeso()))
+					.map(condicionAplicable -> new EmpresasAPesar(
+							condicionAplicable.getCondicion().apply(empresas, periodo), condicionAplicable.getPeso()))
 					.collect(Collectors.toList());
-		
+
 			// obtiene diccionario de empresas con su peso
 			Map<Empresa, Double> empresasConPeso = empresasSinPeso.stream().map(e -> e.darPesoYOrdenar())
 					.flatMap(List::stream).collect(Collectors.groupingBy(Pair<Empresa, Double>::getValue0,
@@ -65,11 +66,7 @@ public class Metodologia {
 	public List<Empresa> pasarMapAList(Map<Empresa, Double> map) {
 		return map.entrySet().stream().map(empresa -> empresa.getKey()).collect(Collectors.toList());
 	}
-/*
-	public int mayorPeso(EmpresaConPeso empresaUno, EmpresaConPeso empresaDos) {
-		return Double.compare(empresaDos.getPeso(), empresaUno.getPeso());
-	}
-*/
+
 	public Map<Empresa, Double> sortByPeso(Map<Empresa, Double> map) {
 		return map.entrySet().stream().sorted(Map.Entry.comparingByValue(Collections.reverseOrder()))
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));

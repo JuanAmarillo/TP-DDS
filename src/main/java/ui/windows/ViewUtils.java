@@ -1,19 +1,14 @@
 package ui.windows;
 
-import org.uqbar.arena.layout.HorizontalLayout;
 import org.uqbar.arena.layout.Layout;
 import org.uqbar.arena.widgets.Button;
-import org.uqbar.arena.widgets.CheckBox;
 import org.uqbar.arena.widgets.Label;
 import org.uqbar.arena.widgets.List;
 import org.uqbar.arena.widgets.Panel;
 import org.uqbar.arena.widgets.Selector;
+import org.uqbar.arena.widgets.tables.Table;
 import org.uqbar.arena.windows.Dialog;
 import org.uqbar.lacar.ui.model.Action;
-import org.uqbar.lacar.ui.model.ListBuilder;
-import org.uqbar.lacar.ui.model.bindings.Binding;
-import org.uqbar.arena.widgets.tables.Column;
-import org.uqbar.arena.widgets.tables.Table;
 
 public class ViewUtils {
 	public static void nuevaPantalla(Dialog<?> ventana) {
@@ -53,16 +48,17 @@ public class ViewUtils {
 		bindearElementos(elementos, elementoSeleccionado, lista);
 		return lista;
 	}
-	
-	public static <T> List<T> crearListaConAdaptador(Panel panelAUsar, String elementos,
-			String elementoSeleccionado, Class<T> clase, String adaptador) { 
+
+	public static <T> List<T> crearListaConAdaptador(Panel panelAUsar, String elementos, String elementoSeleccionado,
+			Class<T> clase, String adaptador) {
 		List<T> lista = new List<T>(panelAUsar);
 		lista.bindItemsToProperty(elementos).adaptWith(clase, adaptador);
 		lista.bindValueToProperty(elementoSeleccionado);
 		return lista;
 	}
-	
-	public static <T> Table<T> crearTabla(Panel panelAUsar, Class<T> clase, String elementos, String elementoSeleccionado) {
+
+	public static <T> Table<T> crearTabla(Panel panelAUsar, Class<T> clase, String elementos,
+			String elementoSeleccionado) {
 		Table<T> tabla = new Table<T>(panelAUsar, clase);
 		tabla.bindItemsToProperty(elementos);
 		tabla.bindValueToProperty(elementoSeleccionado);
@@ -90,5 +86,4 @@ public class ViewUtils {
 		return new Button(panelAUsar).setCaption(nombreBoton).onClick(onClick);
 	}
 
-	
 }

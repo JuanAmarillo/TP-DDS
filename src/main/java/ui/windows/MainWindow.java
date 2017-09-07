@@ -1,3 +1,4 @@
+
 package ui.windows;
 
 import java.awt.Color;
@@ -29,13 +30,13 @@ public class MainWindow extends SimpleWindow<Object> {
 	@Override
 	protected void addActions(Panel panelActions) {
 		panelActions.setLayout(new ColumnLayout(1));
-		crearBotonConColor(panelActions, "Cargar cuentas"    , this::cargarCuentas);
-		crearBotonConColor(panelActions, "Cargar indicadores", this::cargarIndicadores);		
+		crearBotonConColor(panelActions, "Cargar cuentas", this::cargarCuentas);
+		crearBotonConColor(panelActions, "Cargar indicadores", this::cargarIndicadores);
 		crearBotonConColor(panelActions, "Consultar valores de cuentas e indicadores", this::verCuentasConIndicadores);
-		crearBotonConColor(panelActions, "Metodologías" ,this::metodologias);		
+		crearBotonConColor(panelActions, "Metodologías", this::metodologias);
 	}
-	
-	public void crearBotonConColor(Panel panelAUsar, String nombreBoton, Action onClick){
+
+	public void crearBotonConColor(Panel panelAUsar, String nombreBoton, Action onClick) {
 		Button boton = ViewUtils.crearBoton(panelAUsar, nombreBoton, onClick);
 		boton.setBackground(Color.lightGray).setWidth(350);
 	}
@@ -48,7 +49,6 @@ public class MainWindow extends SimpleWindow<Object> {
 		ViewUtils.nuevaPantalla(new CargarIndicadorWindow(this));
 	}
 
-	
 	public void verCuentasConIndicadores() {
 		try {
 			ViewUtils.nuevaPantalla(new CuentasConIndicadoresWindow(this));
@@ -57,7 +57,6 @@ public class MainWindow extends SimpleWindow<Object> {
 		}
 	}
 
-	
 	public void metodologias() {
 		ViewUtils.nuevaPantalla(new MetodologiasWindow(this));
 	}
