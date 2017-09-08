@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import domain.Empresa;
 import domain.indicadores.calculoIndicadores.Calculable;
 
 
