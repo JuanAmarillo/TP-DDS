@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +30,7 @@ public class CondicionesTest {
 
 	private List<EmpresaConPeso> aplicarCondicionALista(Condicion condicion) {
 		List<EmpresaConPeso> listaEmpresas = empresas.stream().map(empresa->new EmpresaConPeso(empresa, 0.0)).collect(Collectors.toList());
-		listaEmpresas = condicion.aplicarCondicion(listaEmpresas);
+		listaEmpresas = condicion.aplicarCondicion(listaEmpresas, Arrays.asList("pascuas"));
 		return listaEmpresas;
 	}
 
