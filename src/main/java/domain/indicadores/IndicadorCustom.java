@@ -5,6 +5,7 @@ import org.uqbar.commons.utils.Observable;
 import domain.Empresa;
 import domain.indicadores.calculoIndicadores.Calculable;
 import domain.indicadores.calculoIndicadores.Token;
+import domain.indicadores.calculoIndicadores.ConstructoresIndicador.Analizador;
 
 @Observable
 public class IndicadorCustom extends Indicador {

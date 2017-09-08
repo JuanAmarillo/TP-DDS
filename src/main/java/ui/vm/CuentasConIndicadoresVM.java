@@ -1,15 +1,17 @@
 package ui.vm;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
-import domain.Cuenta;
-import domain.Empresa;
-import domain.indicadores.Indicador;
+import domain.*;
 import domain.indicadores.IndicadorCalculado;
+import domain.indicadores.Indicador;
 import domain.repositorios.RepositorioEmpresas;
 import domain.repositorios.RepositorioIndicadores;
 import exceptions.NoHayEmpresasCargadasException;
