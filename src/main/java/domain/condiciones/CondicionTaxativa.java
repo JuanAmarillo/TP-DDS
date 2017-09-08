@@ -24,12 +24,7 @@ public class CondicionTaxativa extends Condicion {
 	}
 
 	public Boolean evaluarCondicion(Empresa empresa, List<String> periodos) {
-		Stream<Boolean> bool = periodos.stream().map(p -> evaluarCondicionEnPeriodo(empresa, p));
-		if (bool.anyMatch(e -> e == false)) {
-			return false;
-		} else {
-			return true;
-		}
+		return !periodos.stream().map(p -> evaluarCondicionEnPeriodo(empresa, p)).anyMatch(e -> e == false);
 	}
 
 	@Override
