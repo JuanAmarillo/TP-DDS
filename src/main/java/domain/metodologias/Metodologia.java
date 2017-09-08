@@ -1,6 +1,7 @@
 package domain.metodologias;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.uqbar.commons.utils.Observable;
@@ -20,19 +21,33 @@ public class Metodologia {
 	}
 
 	public List<Empresa> aplicarCondiciones(List<Empresa> empresas) {
-		List<EmpresaConPeso> empresasConPeso = empresas.stream().map(empresa -> new EmpresaConPeso(empresa, 0.0))
-				.collect(Collectors.toList());
+		List<EmpresaConPeso> empresasConPeso = mapToEmpresasConPeso(empresas);
+		List<String> periodos = obtenerPeriodos(empresas);
 		List<EmpresaConPeso> empr = condiciones.stream().reduce(empresasConPeso,
-				(unasEmpresasConPeso, condicion) -> condicion.aplicarCondicion(unasEmpresasConPeso),
+				(unasEmpresasConPeso, condicion) -> condicion.aplicarCondicion(unasEmpresasConPeso, periodos),
 				(empresaConPesos, empresaConPesos2) -> {
 					throw new RuntimeException("this reduction can't be parallel");
 				} // error para poder cambiar el tipo del retorno
 		);
-		List<Empresa> emprs= empr.stream()
+		return obtenerEmpresasOrdenadas(empr);
+	}
+
+	private List<String> obtenerPeriodos(List<Empresa> empresas) {
+		return empresas.stream()
+				.map(empresa -> empresa.getPeriodos()).flatMap(Set::stream)
+				.collect(Collectors.toList());
+	}
+
+	private List<EmpresaConPeso> mapToEmpresasConPeso(List<Empresa> empresas) {
+		return empresas.stream().map(empresa -> new EmpresaConPeso(empresa, 0.0))
+				.collect(Collectors.toList());
+	}
+
+	private List<Empresa> obtenerEmpresasOrdenadas(List<EmpresaConPeso> empresas) {
+		return empresas.stream()
 				.sorted((empresaConPeso1, empresaConPeso2) -> Double.compare(empresaConPeso2.getPeso(),
 						empresaConPeso1.getPeso()))
 				.map(empresaConPeso -> empresaConPeso.getEmpresa()).collect(Collectors.toList());
-		return emprs;
 	}
 
 	// GETTERS Y SETTERS//

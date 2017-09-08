@@ -43,10 +43,7 @@ public class CondicionTaxativa extends Condicion {
 	}
 
 	@Override
-	public List<EmpresaConPeso> aplicarCondicion(List<EmpresaConPeso> empresasConPeso) {
-		List<String> periodos = empresasConPeso.stream()
-				.map(empresaConPeso -> empresaConPeso.getEmpresa().getPeriodos()).flatMap(Set::stream)
-				.collect(Collectors.toList());
+	public List<EmpresaConPeso> aplicarCondicion(List<EmpresaConPeso> empresasConPeso, List<String> periodos) {
 		return empresasConPeso.stream()
 				.filter(empresaConPeso -> evaluarCondicion(empresaConPeso.getEmpresa(), periodos))
 				.collect(Collectors.toList());
