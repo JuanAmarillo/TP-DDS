@@ -23,7 +23,7 @@ public abstract class Condicion implements CondicionCustom {
 		this.operador = operador;
 	}
 
-	public abstract List<EmpresaConPeso> aplicarCondicion(List<EmpresaConPeso> empresasConPeso);
+	public abstract List<EmpresaConPeso> aplicarCondicion(List<EmpresaConPeso> empresasConPeso, List<String> periodos);
 
 	public abstract List<EmpresaConPeso> aplicarCondicionEnPeriodo(List<EmpresaConPeso> empresasConPeso, String periodo);
 		
