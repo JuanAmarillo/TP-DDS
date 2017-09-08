@@ -1,8 +1,6 @@
 package domain.indicadores.calculoIndicadores;
 
 import domain.Empresa;
-import domain.indicadores.Indicador;
-import domain.repositorios.RepositorioIndicadores;
 
 public class CuentaCalculo extends Calculable{
 
