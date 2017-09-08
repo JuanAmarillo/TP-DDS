@@ -1,4 +1,4 @@
-package unitTests;
+package unitTests.cargaDeArchivos;
 
 import static org.junit.Assert.assertEquals;
 

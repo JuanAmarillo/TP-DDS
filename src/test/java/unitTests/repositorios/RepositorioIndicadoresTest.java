@@ -1,4 +1,4 @@
-package unitTests;
+package unitTests.repositorios;
 
 import static org.junit.Assert.*;
 import org.junit.Before;

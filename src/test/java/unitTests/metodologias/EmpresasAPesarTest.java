@@ -1,4 +1,4 @@
-package unitTests;
+package unitTests.metodologias;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

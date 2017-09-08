@@ -1,4 +1,4 @@
-package unitTests;
+package unitTests.indicadores;
 
 import org.junit.Test;
 
