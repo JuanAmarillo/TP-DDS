@@ -1,3 +1,4 @@
+
 package unitTests;
 
 import static org.junit.Assert.assertEquals;
@@ -5,7 +6,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +19,6 @@ import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.CEndeudamiento;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
 import domain.indicadores.indicadoresPredeterminados.Antiguedad;
-import domain.metodologias.EmpresaConPeso;
 import domain.repositorios.RepositorioCondiciones;
 import mocks.IndicadorNoCalculableMock;
 import mocks.PreparadorDeEmpresas;
@@ -29,9 +28,9 @@ public class AplicarCondicionesTest {
 	List<Empresa> empresas;
 
 	private List<Empresa> aplicarCondicionALista(Condicion condicion) {
-		List<EmpresaConPeso> listaEmpresas = empresas.stream().map(empresa->new EmpresaConPeso(empresa,0.0)).collect(Collectors.toList());
+		List<Empresa> listaEmpresas = empresas;
 		listaEmpresas = condicion.aplicarCondicionEnPeriodo(listaEmpresas, "pascuas");
-		return listaEmpresas.stream().map(empresaConPeso->empresaConPeso.getEmpresa()).collect(Collectors.toList());
+		return listaEmpresas;
 	}
 
 	@Before
@@ -74,7 +73,7 @@ public class AplicarCondicionesTest {
 
 	@Test
 	public void testCondicionOrdenaListaPorEmpresaMasJoven() {
-		CondicionComparativa condicion = new CondicionComparativa("Prueba Sort", null, null, 5.0);
+		CondicionComparativa condicion = new CondicionComparativa("Prueba Sort", null, null);
 		condicion.setIndicador(new Antiguedad());
 		condicion.setOperador(new Menor());
 		List<Empresa> listaEmpresas = aplicarCondicionALista(condicion);
@@ -98,7 +97,7 @@ public class AplicarCondicionesTest {
 
 	@Test
 	public void testEndeudamiento() {
-		CondicionComparativa condicion = new CondicionComparativa(new CEndeudamiento().getNombre(), new CEndeudamiento().getIndicador(), new CEndeudamiento().getOperador(), 10.0);
+		CondicionComparativa condicion = new CEndeudamiento();
 		List<Empresa> resultado = aplicarCondicionALista(condicion);
 		assertTrue(resultado.get(0).esLaMismaEmpresaQue(prepararEmpresa(1)));
 	}

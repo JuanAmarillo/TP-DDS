@@ -8,9 +8,7 @@ import java.util.List;
 import org.junit.Test;
 
 import domain.Empresa;
-import domain.condiciones.Condicion;
-import domain.condiciones.CondicionComparativa;
-import domain.condiciones.CondicionTaxativa;
+import domain.condiciones.CondicionAplicable;
 import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.CEndeudamiento;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
@@ -19,14 +17,13 @@ import mocks.PreparadorDeEmpresas;
 
 public class MetodologiaTest {
 
-	Condicion condicionTAntiguedad =  new CondicionTaxativa(new TEmpresaMas10Años().getNombre(),new TEmpresaMas10Años().getIndicador(), new TEmpresaMas10Años().getOperador() , 0.0);
-	Condicion condicionCEndeudamiento = new CondicionComparativa(new CEndeudamiento().getNombre(), new CEndeudamiento().getIndicador(), new CEndeudamiento().getOperador(), 5.0);
-	Condicion condicionCAntiguedad = new CondicionComparativa(new CEmpresaMayorAntiguedad().getNombre(), new CEmpresaMayorAntiguedad().getIndicador(), new CEmpresaMayorAntiguedad().getOperador(), 10.0);
+	CondicionAplicable condicionTAntiguedad = new CondicionAplicable(new TEmpresaMas10Años(), 0.0);
+	CondicionAplicable condicionCEndeudamiento = new CondicionAplicable(new CEndeudamiento(), 5.0);
+	CondicionAplicable condicionCAntiguedad = new CondicionAplicable(new CEmpresaMayorAntiguedad(), 10.0);
 
-	List<Condicion> condicionesMixtas = Arrays.asList(condicionTAntiguedad, condicionCEndeudamiento);
-	List<Condicion> condicionesTaxativas = Arrays.asList(condicionTAntiguedad);
-	List<Condicion> condicionesComparativas = Arrays.asList(condicionCAntiguedad,
-			condicionCEndeudamiento);
+	List<CondicionAplicable> condicionesMixtas = Arrays.asList(condicionTAntiguedad, condicionCEndeudamiento);
+	List<CondicionAplicable> condicionesTaxativas = Arrays.asList(condicionTAntiguedad);
+	List<CondicionAplicable> condicionesComparativas = Arrays.asList(condicionCAntiguedad, condicionCEndeudamiento);
 
 	Metodologia metodologiaMixta = new Metodologia("PepitaMixta", condicionesMixtas);
 	Metodologia metodologiaTaxativa = new Metodologia("PepitaT", condicionesTaxativas);
@@ -38,7 +35,19 @@ public class MetodologiaTest {
 		listaResultante.stream().forEach(empresa -> System.out.println(empresa.getNombre()));
 		System.out.println("...");
 	}
-/*
+
+	@Test
+	public void metodologiaAplicableFiltraPorCondicionTaxativaTest() {
+		List<CondicionAplicable> condFiltradas = metodologiaMixta.obtenerCondicionesTaxativas();
+		assertEquals(1, condFiltradas.size());
+	}
+
+	@Test
+	public void metodologiaAplicableFiltraPorCondicionComparativaTest() {
+		List<CondicionAplicable> condFiltradas = metodologiaMixta.obtenerCondicionesComparativas();
+		assertEquals(1, condFiltradas.size());
+	}
+
 	@Test
 	public void seAplicanCondicionesTaxativasTest() {
 		List<Empresa> emprFiltradas = metodologiaMixta.aplicarCondicionesTaxativas(listaEmpresas);
@@ -55,7 +64,7 @@ public class MetodologiaTest {
 										// deberían quedar: Sorny, Pepsi-Co,
 										// Coca-Cola, Panaphonics, MagnetBox
 	}
-*/
+
 	@Test
 	public void seAplicanCondicionesTest() {
 		List<Empresa> emprFiltradas = metodologiaMixta.aplicarCondiciones(listaEmpresas);

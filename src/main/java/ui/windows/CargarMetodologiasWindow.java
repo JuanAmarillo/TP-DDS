@@ -12,7 +12,7 @@ import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 import org.uqbar.lacar.ui.model.Action;
 
-import domain.condiciones.Condicion;
+import domain.condiciones.CondicionAplicable;
 import ui.vm.cargarMetodologiaVM.CargarMetodologiasVM;
 
 public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
@@ -54,7 +54,7 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 		rellenarConVacio(movimiento);
 		ViewUtils.crearBoton(movimiento, nombreBoton, onClick);
 	}
-	
+
 	private void seleccionDeCondicionesComparativas(Panel panel) {
 		crearLista(panel, "Condiciones comparativas", "condicionesComparativas", "condicionComparativaSeleccionada",
 				167);
@@ -65,7 +65,7 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 	}
 
 	public void listaDeCondicionesAgregadas(Panel form) {
-		crearListaConPeso(form, "Condiciones de la metodologia", "condicionesAgregadas", "condicionAgregadaSeleccionada", 400);
+		crearLista(form, "Condiciones de la metodologia", "condicionesAgregadas", "condicionAgregadaSeleccionada", 400);
 	}
 
 	private void nombreMetodologiaACrear(Panel formPanel) {
@@ -81,14 +81,8 @@ public class CargarMetodologiasWindow extends Dialog<CargarMetodologiasVM> {
 
 	private void crearLista(Panel formPanel, String titulo, String lista, String elemento, Integer height) {
 		Panel panel = ViewUtils.crearPanel(formPanel, new ColumnLayout(1), titulo);
-		List<Condicion> condiciones = ViewUtils.crearListaConAdaptador(panel, lista, elemento, Condicion.class, "nombre");
-		ViewUtils.setSize(250, height, condiciones);
-
-	}
-	
-	private void crearListaConPeso(Panel formPanel, String titulo, String lista, String elemento, Integer height) {
-		Panel panel = ViewUtils.crearPanel(formPanel, new ColumnLayout(1), titulo);
-		List<Condicion> condiciones = ViewUtils.crearListaConAdaptador(panel, lista, elemento, Condicion.class, "nombreYPeso");
+		List<?> condiciones = ViewUtils.crearListaConAdaptador(panel, lista, elemento, CondicionAplicable.class,
+				"nombre");
 		ViewUtils.setSize(250, height, condiciones);
 
 	}

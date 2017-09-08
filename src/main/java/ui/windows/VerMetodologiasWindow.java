@@ -1,4 +1,3 @@
-
 package ui.windows;
 
 import org.uqbar.arena.layout.HorizontalLayout;

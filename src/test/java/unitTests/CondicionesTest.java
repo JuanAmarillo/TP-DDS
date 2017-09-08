@@ -4,9 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +18,6 @@ import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.CEndeudamiento;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
 import domain.indicadores.indicadoresPredeterminados.Antiguedad;
-import domain.metodologias.EmpresaConPeso;
 import domain.repositorios.RepositorioCondiciones;
 import mocks.IndicadorNoCalculableMock;
 import mocks.PreparadorDeEmpresas;
@@ -28,9 +25,9 @@ import mocks.PreparadorDeEmpresas;
 public class CondicionesTest {
 	List<Empresa> empresas;
 
-	private List<EmpresaConPeso> aplicarCondicionALista(Condicion condicion) {
-		List<EmpresaConPeso> listaEmpresas = empresas.stream().map(empresa->new EmpresaConPeso(empresa, 0.0)).collect(Collectors.toList());
-		listaEmpresas = condicion.aplicarCondicion(listaEmpresas, Arrays.asList("pascuas"));
+	private List<Empresa> aplicarCondicionALista(Condicion condicion) {
+		List<Empresa> listaEmpresas = empresas;
+		listaEmpresas = condicion.aplicarCondicion(listaEmpresas);
 		return listaEmpresas;
 	}
 
@@ -77,8 +74,8 @@ public class CondicionesTest {
 		CondicionComparativa condicion = new CondicionComparativa("Prueba Sort", null, null);
 		condicion.setIndicador(new Antiguedad());
 		condicion.setOperador(new Menor());
-		List<EmpresaConPeso> listaEmpresas = aplicarCondicionALista(condicion);
-		assertTrue(listaEmpresas.get(0).getEmpresa().esLaMismaEmpresaQue(prepararEmpresa(4)));
+		List<Empresa> listaEmpresas = aplicarCondicionALista(condicion);
+		assertTrue(listaEmpresas.get(0).esLaMismaEmpresaQue(prepararEmpresa(4)));
 	}
 
 	@Test(expected = RuntimeException.class)
@@ -91,15 +88,15 @@ public class CondicionesTest {
 	@Test
 	public void testSeFiltraSegunCondicionTaxativa() {
 		CondicionTaxativa condicion = new TEmpresaMas10Años();
-		List<EmpresaConPeso> resultado = aplicarCondicionALista(condicion);
+		List<Empresa> resultado = aplicarCondicionALista(condicion);
 		assertEquals(2, resultado.size());
-		assertTrue(resultado.get(0).getEmpresa().esLaMismaEmpresaQue(prepararEmpresa(0)));
+		assertTrue(resultado.get(0).esLaMismaEmpresaQue(prepararEmpresa(0)));
 	}
 
 	@Test
 	public void testEndeudamiento() {
 		CondicionComparativa condicion = new CEndeudamiento();
-		List<EmpresaConPeso> resultado = aplicarCondicionALista(condicion);
-		assertTrue(resultado.get(0).getEmpresa().esLaMismaEmpresaQue(prepararEmpresa(1)));
+		List<Empresa> resultado = aplicarCondicionALista(condicion);
+		assertTrue(resultado.get(0).esLaMismaEmpresaQue(prepararEmpresa(1)));
 	}
 }
