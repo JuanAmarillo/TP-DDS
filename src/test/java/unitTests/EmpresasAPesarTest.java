@@ -29,7 +29,7 @@ public class EmpresasAPesarTest {
 
 	@Test
 	public void daPesoYOrdenaTest() {
-		List<Pair<Empresa, Double>> emprs = empresasAPesar.darPesoYOrdenar();
+		List<Pair<Empresa, Double>> emprs = empresasAPesar.darPeso();
 		assertEquals(emprs.size(), 5);
 	}
 

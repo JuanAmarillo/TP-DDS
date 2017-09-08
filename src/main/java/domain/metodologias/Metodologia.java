@@ -54,7 +54,7 @@ public class Metodologia {
 							condicionAplicable.aplicarCondicion(empresas), condicionAplicable.getPeso()))
 					.collect(Collectors.toList());
 			// obtiene diccionario de empresas con su peso
-			Map<Empresa, Double> empresasConPeso = empresasSinPeso.stream().map(e -> e.darPesoYOrdenar())
+			Map<Empresa, Double> empresasConPeso = empresasSinPeso.stream().map(e -> e.darPeso())
 					.flatMap(List::stream).collect(Collectors.groupingBy(Pair<Empresa, Double>::getValue0,
 							Collectors.summingDouble(Pair<Empresa, Double>::getValue1)));
 			// ordena por peso

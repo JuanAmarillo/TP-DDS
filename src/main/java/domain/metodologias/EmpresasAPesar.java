@@ -18,10 +18,10 @@ public class EmpresasAPesar {
 		this.peso = peso;
 	}
 
-	public List<Pair<Empresa, Double>> darPesoYOrdenar() {
-		Stream<Pair<Empresa, Double>> empr = empresasAPesar.stream()
-				.map(empresa -> Pair.with(empresa, darPeso(empresa)));
-		return ordenarPorPeso(empr);
+	public List<Pair<Empresa, Double>> darPeso() {
+		List<Pair<Empresa, Double>> empr = empresasAPesar.stream()
+				.map(empresa -> Pair.with(empresa, darPeso(empresa))).collect(Collectors.toList());
+		return empr;
 	}
 
 	public List<Pair<Empresa, Double>> ordenarPorPeso(Stream<Pair<Empresa, Double>> empresasNoOrdenadas) {
