@@ -8,7 +8,8 @@ import java.util.List;
 import org.junit.Test;
 
 import domain.Empresa;
-import domain.condiciones.CondicionAplicable;
+import domain.condiciones.Condicion;
+import domain.condiciones.CondicionComparativa;
 import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.CEndeudamiento;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
@@ -17,13 +18,13 @@ import mocks.PreparadorDeEmpresas;
 
 public class MetodologiaTest {
 
-	CondicionAplicable condicionTAntiguedad = new CondicionAplicable(new TEmpresaMas10Años(), 0.0);
-	CondicionAplicable condicionCEndeudamiento = new CondicionAplicable(new CEndeudamiento(), 5.0);
-	CondicionAplicable condicionCAntiguedad = new CondicionAplicable(new CEmpresaMayorAntiguedad(), 10.0);
+	Condicion condicionTAntiguedad = new TEmpresaMas10Años();
+	Condicion condicionCEndeudamiento = new CEndeudamiento().setPeso(5.0);
+	Condicion condicionCAntiguedad = new CEmpresaMayorAntiguedad().setPeso(10.0);
 
-	List<CondicionAplicable> condicionesMixtas = Arrays.asList(condicionTAntiguedad, condicionCEndeudamiento);
-	List<CondicionAplicable> condicionesTaxativas = Arrays.asList(condicionTAntiguedad);
-	List<CondicionAplicable> condicionesComparativas = Arrays.asList(condicionCAntiguedad, condicionCEndeudamiento);
+	List<Condicion> condicionesMixtas = Arrays.asList(condicionTAntiguedad, condicionCEndeudamiento);
+	List<Condicion> condicionesTaxativas = Arrays.asList(condicionTAntiguedad);
+	List<Condicion> condicionesComparativas = Arrays.asList(condicionCAntiguedad, condicionCEndeudamiento);
 
 	Metodologia metodologiaMixta = new Metodologia("PepitaMixta", condicionesMixtas);
 	Metodologia metodologiaTaxativa = new Metodologia("PepitaT", condicionesTaxativas);
@@ -38,13 +39,13 @@ public class MetodologiaTest {
 
 	@Test
 	public void metodologiaAplicableFiltraPorCondicionTaxativaTest() {
-		List<CondicionAplicable> condFiltradas = metodologiaMixta.obtenerCondicionesTaxativas();
+		List<Condicion> condFiltradas = metodologiaMixta.obtenerCondicionesTaxativas();
 		assertEquals(1, condFiltradas.size());
 	}
 
 	@Test
 	public void metodologiaAplicableFiltraPorCondicionComparativaTest() {
-		List<CondicionAplicable> condFiltradas = metodologiaMixta.obtenerCondicionesComparativas();
+		List<CondicionComparativa> condFiltradas = metodologiaMixta.obtenerCondicionesComparativas();
 		assertEquals(1, condFiltradas.size());
 	}
 

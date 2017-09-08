@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.uqbar.commons.utils.Observable;
 
-import domain.condiciones.CondicionAplicable;
+import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
 import domain.condiciones.CondicionTaxativa;
 import domain.repositorios.RepositorioCondiciones;
@@ -21,8 +21,8 @@ public class CargarMetodologiasVM {
 
 	public CondicionComparativa condicionComparativaSeleccionada = null;
 
-	public List<CondicionAplicable> condicionesAgregadas = new ArrayList<CondicionAplicable>();;
-	public CondicionAplicable condicionAgregadaSeleccionada = null;
+	public List<Condicion> condicionesAgregadas = new ArrayList<Condicion>();;
+	public Condicion condicionAgregadaSeleccionada = null;
 
 	public void cargarMetodologia() {
 		new AgregarMetodologia().agregar(nombreMetodologia, condicionesAgregadas);
@@ -35,14 +35,16 @@ public class CargarMetodologiasVM {
 	}
 
 	public void moverHaciaLaDerechaTaxativa() {
-		CondicionAplicable condTaxativa = new CondicionAplicable(condicionTaxativaSeleccionada, 0.0);
-		condicionesAgregadas.add(condTaxativa);
+		condicionesAgregadas.add(condicionTaxativaSeleccionada);
 	}
 
 	public void moverHaciaLaDerechaComparativa() {
-		CondicionAplicable condComparativa = new CondicionAplicable(condicionComparativaSeleccionada,
-				pesoDeComparativa);
-		condicionesAgregadas.add(condComparativa);
+		if( Double.compare(0.0, pesoDeComparativa) == 0)
+		{
+			throw new RuntimeException("No se ingresó ningun peso para la condicion comparativa");
+		}
+		condicionesAgregadas.add(condicionComparativaSeleccionada);
+		pesoDeComparativa = 0.0;
 	}
 
 	public void sacarCondicion() {
@@ -77,19 +79,19 @@ public class CargarMetodologiasVM {
 		this.condicionTaxativaSeleccionada = condicionTaxativaSeleccionada;
 	}
 
-	public List<CondicionAplicable> getCondicionesAgregadas() {
+	public List<Condicion> getCondicionesAgregadas() {
 		return condicionesAgregadas;
 	}
 
-	public void setCondicionesAgregadas(List<CondicionAplicable> condicionesAgregadas) {
+	public void setCondicionesAgregadas(List<Condicion> condicionesAgregadas) {
 		this.condicionesAgregadas = condicionesAgregadas;
 	}
 
-	public CondicionAplicable getCondicionAgregadaSeleccionada() {
+	public Condicion getCondicionAgregadaSeleccionada() {
 		return condicionAgregadaSeleccionada;
 	}
 
-	public void setCondicionAgregadaSeleccionada(CondicionAplicable condicionAgregadaSeleccionada) {
+	public void setCondicionAgregadaSeleccionada(Condicion condicionAgregadaSeleccionada) {
 		this.condicionAgregadaSeleccionada = condicionAgregadaSeleccionada;
 	}
 

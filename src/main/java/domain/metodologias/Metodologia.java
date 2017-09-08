@@ -10,15 +10,17 @@ import org.javatuples.Pair;
 import org.uqbar.commons.utils.Observable;
 
 import domain.Empresa;
-import domain.condiciones.CondicionAplicable;
+import domain.condiciones.Condicion;
+import domain.condiciones.CondicionComparativa;
+import domain.condiciones.CondicionTaxativa;
 
 @Observable
 public class Metodologia {
 
 	private String nombre;
-	private List<CondicionAplicable> condiciones;
+	private List<Condicion> condiciones;
 
-	public Metodologia(String nombre, List<CondicionAplicable> condiciones) {
+	public Metodologia(String nombre, List<Condicion> condiciones) {
 		this.nombre = nombre;
 		this.condiciones = condiciones;
 	}
@@ -30,12 +32,12 @@ public class Metodologia {
 	}
 
 	public List<Empresa> aplicarCondicionesTaxativas(List<Empresa> empresas /*, String periodo*/) {
-		List<CondicionAplicable> condicionesTaxativas = this.obtenerCondicionesTaxativas();
+		List<Condicion> condicionesTaxativas = this.obtenerCondicionesTaxativas();
 		if (condicionesTaxativas.isEmpty()) {
 			return empresas;
 		} else {
 			List<Empresa> emprFiltradas = condicionesTaxativas.stream()
-					.map(condicion -> condicion.getCondicion().aplicarCondicion(empresas)).flatMap(List::stream)
+					.map(condicion -> condicion.aplicarCondicion(empresas)).flatMap(List::stream)
 					.collect(Collectors.toList());
 			return emprFiltradas.stream().filter(empresa -> Collections.frequency(emprFiltradas, empresa) == this
 					.obtenerCondicionesTaxativas().size()).collect(Collectors.toList());
@@ -43,13 +45,13 @@ public class Metodologia {
 	}
 
 	public List<Empresa> aplicarCondicionesComparativas(List<Empresa> empresas /*, String periodo*/) {
-		List<CondicionAplicable> condicionesComparativas = this.obtenerCondicionesComparativas();
+		List<CondicionComparativa> condicionesComparativas = this.obtenerCondicionesComparativas();
 		if (condicionesComparativas.isEmpty()) {
 			return empresas;
 		} else {
 			List<EmpresasAPesar> empresasSinPeso = condicionesComparativas.stream()
 					.map(condicionAplicable -> new EmpresasAPesar(
-							condicionAplicable.getCondicion().aplicarCondicion(empresas), condicionAplicable.getPeso()))
+							condicionAplicable.aplicarCondicion(empresas), condicionAplicable.getPeso()))
 					.collect(Collectors.toList());
 			// obtiene diccionario de empresas con su peso
 			Map<Empresa, Double> empresasConPeso = empresasSinPeso.stream().map(e -> e.darPesoYOrdenar())
@@ -59,7 +61,6 @@ public class Metodologia {
 			Map<Empresa, Double> empresasConPesoOrdenadas = sortByPeso(empresasConPeso);
 			// pasa todo a List<Empresa>
 			return pasarMapAList(empresasConPesoOrdenadas);
-
 		}
 	}
 
@@ -72,15 +73,16 @@ public class Metodologia {
 				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
 	}
 
-	public List<CondicionAplicable> obtenerCondicionesTaxativas() {
-		List<CondicionAplicable> condicionesTFiltradas = this.getCondiciones().stream()
-				.filter(cond -> cond.getCondicion().esTaxativa()).collect(Collectors.toList());
+	public List<Condicion> obtenerCondicionesTaxativas() {
+		List<Condicion> condicionesTFiltradas = this.getCondiciones().stream()
+				.filter(cond -> cond.esTaxativa()).collect(Collectors.toList());
 		return condicionesTFiltradas;
 	}
 
-	public List<CondicionAplicable> obtenerCondicionesComparativas() {
-		List<CondicionAplicable> condicionesCFiltradas = this.getCondiciones().stream()
-				.filter(cond -> !cond.getCondicion().esTaxativa()).collect(Collectors.toList());
+	public List<CondicionComparativa> obtenerCondicionesComparativas() {
+		List<CondicionComparativa> condicionesCFiltradas = this.getCondiciones().stream()
+				.filter(cond -> !cond.esTaxativa())
+				.map(cond -> (CondicionComparativa) cond).collect(Collectors.toList());
 		return condicionesCFiltradas;
 	}
 
@@ -97,11 +99,11 @@ public class Metodologia {
 		return nombre;
 	}
 
-	public List<CondicionAplicable> getCondiciones() {
+	public List<Condicion> getCondiciones() {
 		return condiciones;
 	}
 
-	public void setCondiciones(List<CondicionAplicable> condiciones) {
+	public void setCondiciones(List<Condicion> condiciones) {
 		this.condiciones = condiciones;
 	}
 

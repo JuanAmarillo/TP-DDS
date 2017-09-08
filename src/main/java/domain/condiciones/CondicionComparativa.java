@@ -11,6 +11,8 @@ import domain.indicadores.Indicador;
 
 public class CondicionComparativa extends Condicion {
 
+	private Double peso;
+	
 	public CondicionComparativa(String nombre, Indicador indicador, OperadorCondicion operador) {
 		super(nombre, indicador, operador);
 	}
@@ -47,5 +49,14 @@ public class CondicionComparativa extends Condicion {
 	@Override
 	public Boolean esTaxativa() {
 		return false;
+	}
+
+	public Double getPeso() {
+		return peso;
+	}
+
+	public CondicionComparativa setPeso(Double peso) {
+		this.peso = peso;
+		return this;
 	}
 }
