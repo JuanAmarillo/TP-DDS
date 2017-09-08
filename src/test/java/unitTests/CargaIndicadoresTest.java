@@ -1,16 +1,16 @@
 package unitTests;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import archivos.LevantaArchivoIndicadores;
 import auxiliaresDeArchivo.DatosIndicadores;
 import domain.repositorios.RepositorioIndicadores;
-import net.sf.oval.constraint.AssertTrue;
 
 public class CargaIndicadoresTest {
 	

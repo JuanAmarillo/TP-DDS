@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,6 +52,11 @@ public class CondicionTest<T extends Condicion> {
 		List<EmpresaConPeso> empresasConPeso = empresas.stream().map(empresa->new EmpresaConPeso(empresa,0.0)).collect(Collectors.toList());
 		List<EmpresaConPeso> emprs =condicion.aplicarCondicionEnPeriodo(empresasConPeso, "2017");
 		return emprs.stream().map(emprConPeso->emprConPeso.getEmpresa()).collect(Collectors.toList());
+	}
+	
+	public List<Empresa> aplicarCondicionAEmpresa(Empresa empresa){
+		EmpresaConPeso empresaConPeso = new EmpresaConPeso(empresa, 0.0);
+		return condicion.aplicarCondicionEnPeriodo(Arrays.asList(empresaConPeso), "2017").stream().map(emprConPeso->emprConPeso.getEmpresa()).collect(Collectors.toList());
 	}
 	
 	public void verificarEmpresa(Integer indice, Empresa empresa){

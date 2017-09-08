@@ -2,8 +2,12 @@ package unitTests;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Before;
 import org.junit.Test;
+
 
 import domain.Empresa;
 import domain.condiciones.CondicionTaxativa;
@@ -36,21 +40,33 @@ public class CondicionTaxativaTest extends CondicionTest<CondicionTaxativa> {
 	
 	@Test
 	public void testAplicaLaCondicionALaEmpresaUnoYNoPasa(){
+		/*
 		aplicarCondicion(empresaUno);
 		verificarTamano(0);
+		*/
+		List<Empresa> listaOrdenada = aplicarCondicionAEmpresa(empresaUno);
+		assertEquals(listaOrdenada.size(),0);
 	}
 	
 	@Test
 	public void testAplicaLaCondicionALaEmpresaDosYPasa(){
+		/*
 		aplicarCondicion(empresaDos);
 		verificarTamano(1);
+		*/
+		List<Empresa> listaOrdenada = aplicarCondicionAEmpresa(empresaDos);
+		assertEquals(listaOrdenada.size(),1);
 	}
 	
 	@Test
 	public void testAplicarLaCondicionAAmbasEmpresasYSoloQuedaLaEmpresaDos(){
-		aplicarCondicion(empresaUno,empresaDos);
+		List<Empresa> empresas = Arrays.asList(empresaUno, empresaDos);
+		List<Empresa> listaOrdenada = aplicarCondicion(empresas);
+		assertEquals(listaOrdenada.size(),1);
+		/*
 		verificarEmpresa(0, empresaDos);
 		verificarTamano(1);
+		*/
 	}
 	
 	
