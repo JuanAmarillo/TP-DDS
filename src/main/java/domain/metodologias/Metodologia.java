@@ -50,18 +50,20 @@ public class Metodologia {
 			return empresas;
 		} else {
 			List<EmpresasAPesar> empresasSinPeso = condicionesComparativas.stream()
-					.map(condicionAplicable -> new EmpresasAPesar(
-							condicionAplicable.aplicarCondicion(empresas), condicionAplicable.getPeso()))
+					.map(condicionComparativa -> new EmpresasAPesar(
+							condicionComparativa.aplicarCondicion(empresas), condicionComparativa.getPeso()))
 					.collect(Collectors.toList());
 			// obtiene diccionario de empresas con su peso
-			Map<Empresa, Double> empresasConPeso = empresasSinPeso.stream().map(e -> e.darPeso())
-					.flatMap(List::stream).collect(Collectors.groupingBy(Pair<Empresa, Double>::getValue0,
-							Collectors.summingDouble(Pair<Empresa, Double>::getValue1)));
-			// ordena por peso
-			Map<Empresa, Double> empresasConPesoOrdenadas = sortByPeso(empresasConPeso);
-			// pasa todo a List<Empresa>
-			return pasarMapAList(empresasConPesoOrdenadas);
+			Map<Empresa, Double> empresasOrdenadas = sortByPeso(darPesoALasEmpresas(empresasSinPeso));
+			// pasa todo a List<Empresa>3¡?
+			return pasarMapAList(empresasOrdenadas);
 		}
+	}
+
+	private Map<Empresa, Double> darPesoALasEmpresas(List<EmpresasAPesar> empresasSinPeso) {
+		return empresasSinPeso.stream().map(e -> e.darPeso())
+				.flatMap(List::stream).collect(Collectors.groupingBy(Pair<Empresa, Double>::getValue0,
+						Collectors.summingDouble(Pair<Empresa, Double>::getValue1)));
 	}
 
 	public List<Empresa> pasarMapAList(Map<Empresa, Double> map) {
