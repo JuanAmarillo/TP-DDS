@@ -1,0 +1,44 @@
+USE basedebatos;
+
+CREATE TABLE IF NOT EXISTS empresas (
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+nombre VARCHAR(30) NOT NULL,
+anio_fundacion YEAR 
+);
+
+CREATE TABLE IF NOT EXISTS cuentas (
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+nombre VARCHAR(30) NOT NULL,
+empresa INT(6) UNSIGNED NOT NULL,
+balance DOUBLE NOT NULL,
+periodo_inicio DATE NOT NULL,
+periodo_fin DATE NOT NULL,
+FOREIGN KEY (empresa) REFERENCES empresas(id)
+);
+
+CREATE TABLE IF NOT EXISTS indicadores (
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+nombre VARCHAR(30) NOT NULL,
+expresion VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS condiciones (
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+nombre VARCHAR(30) NOT NULL,
+indicador INT(6) UNSIGNED NOT NULL,
+operador CHAR(1) NOT NULL,
+valor DOUBLE,
+FOREIGN KEY (indicador) REFERENCES indicadores(id)
+);
+
+CREATE TABLE IF NOT EXISTS metodologias (
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+nombre VARCHAR(30) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS condiciones_x_metodologias (
+metodologia INT(6) UNSIGNED,
+condicion INT(6) UNSIGNED,
+FOREIGN KEY (condicion) REFERENCES condiciones(id),
+FOREIGN KEY (metodologia) REFERENCES metodologias(id)
+);
