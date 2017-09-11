@@ -12,7 +12,6 @@ import org.uqbar.commons.utils.Observable;
 import domain.Empresa;
 import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
-import domain.condiciones.CondicionTaxativa;
 
 @Observable
 public class Metodologia {
@@ -25,13 +24,13 @@ public class Metodologia {
 		this.condiciones = condiciones;
 	}
 
-	public List<Empresa> aplicarCondiciones(List<Empresa> empresas/*, String periodo*/) {
-		List<Empresa> emprFiltradas = this.aplicarCondicionesTaxativas(empresas/*, periodo*/);
-		return aplicarCondicionesComparativas(emprFiltradas/*, periodo*/);
+	public List<Empresa> aplicarCondiciones(List<Empresa> empresas) {
+		List<Empresa> emprFiltradas = this.aplicarCondicionesTaxativas(empresas);
+		return aplicarCondicionesComparativas(emprFiltradas);
 
 	}
 
-	public List<Empresa> aplicarCondicionesTaxativas(List<Empresa> empresas /*, String periodo*/) {
+	public List<Empresa> aplicarCondicionesTaxativas(List<Empresa> empresas) {
 		List<Condicion> condicionesTaxativas = this.obtenerCondicionesTaxativas();
 		if (condicionesTaxativas.isEmpty()) {
 			return empresas;
@@ -44,7 +43,7 @@ public class Metodologia {
 		}
 	}
 
-	public List<Empresa> aplicarCondicionesComparativas(List<Empresa> empresas /*, String periodo*/) {
+	public List<Empresa> aplicarCondicionesComparativas(List<Empresa> empresas) {
 		List<CondicionComparativa> condicionesComparativas = this.obtenerCondicionesComparativas();
 		if (condicionesComparativas.isEmpty()) {
 			return empresas;
@@ -55,7 +54,7 @@ public class Metodologia {
 					.collect(Collectors.toList());
 			// obtiene diccionario de empresas con su peso
 			Map<Empresa, Double> empresasOrdenadas = sortByPeso(darPesoALasEmpresas(empresasSinPeso));
-			// pasa todo a List<Empresa>3¡?
+			// pasa todo a List<Empresa>
 			return pasarMapAList(empresasOrdenadas);
 		}
 	}

@@ -3,7 +3,6 @@ package domain.condiciones;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import domain.Empresa;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;

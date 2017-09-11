@@ -5,8 +5,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.joda.time.DateTime;
-import org.joda.time.JodaTimePermission;
 import org.uqbar.commons.utils.Observable;
 
 @Observable
