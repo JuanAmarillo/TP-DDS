@@ -1,4 +1,4 @@
-package unitTests.parserYAnalizadores;
+package unitTests.analizadores;
 
 import static org.junit.Assert.assertEquals;
 

@@ -40,9 +40,7 @@ public class CondicionComparativa extends Condicion {
 
 	@Override
 	public List<Empresa> aplicarCondicion(List<Empresa> empresas) {
-		List<String> periodos = empresas.stream().map(empresa -> empresa.getPeriodos()).flatMap(Set::stream)
-				.collect(Collectors.toList());
-		return empresas.stream().sorted((empresaUno, empresaDos) -> evaluarCondicion(empresaUno, empresaDos, periodos))
+		return empresas.stream().sorted((empresaUno, empresaDos) -> evaluarCondicion(empresaUno, empresaDos, obtenerPeriodos(empresas)))
 				.collect(Collectors.toList());
 	}
 

@@ -1,4 +1,4 @@
-package unitTests.parserYAnalizadores;
+package unitTests.analizadores;
 
 import java.util.Optional;
 

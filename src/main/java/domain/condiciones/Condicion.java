@@ -1,6 +1,8 @@
 package domain.condiciones;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.javatuples.Pair;
 import org.uqbar.commons.utils.Observable;
@@ -41,6 +43,11 @@ public abstract class Condicion implements CondicionCustom {
 	public Double calcularIndicador(Empresa empresa, String periodo) {
 		return indicador.calcularIndicador(empresa, periodo);
 	}
+	
+	public List<String> obtenerPeriodos(List<Empresa> empresas) {
+		return empresas.stream().map(empresa -> empresa.getPeriodos()).flatMap(Set::stream)
+				.collect(Collectors.toList());
+	}
 
 	public boolean suNombreEs(String nombreCondicion) {
 		return nombre.equals(nombreCondicion);
@@ -68,11 +75,6 @@ public abstract class Condicion implements CondicionCustom {
 
 	public void setOperador(OperadorCondicion operador) {
 		this.operador = operador;
-	}
-
-	public Pair<List<Empresa>, Double> setAt0(List<Empresa> apply) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }

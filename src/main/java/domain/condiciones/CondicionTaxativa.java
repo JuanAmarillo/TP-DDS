@@ -22,8 +22,9 @@ public class CondicionTaxativa extends Condicion {
 		return comparar(calcularIndicador(empresa, periodo), valorDeComparacion) > 0;
 	}
 
+	//ver esto!
 	public Boolean evaluarCondicion(Empresa empresa, List<String> periodos) {
-		return !periodos.stream().map(p -> evaluarCondicionEnPeriodo(empresa, p)).anyMatch(e -> e == false);
+		return periodos.stream().anyMatch(periodo -> evaluarCondicionEnPeriodo(empresa, periodo));
 	}
 
 	@Override
@@ -34,9 +35,8 @@ public class CondicionTaxativa extends Condicion {
 
 	@Override
 	public List<Empresa> aplicarCondicion(List<Empresa> empresas) {
-		List<String> periodos = empresas.stream().map(empresa -> empresa.getPeriodos()).flatMap(Set::stream)
+		return empresas.stream().filter(empresa -> evaluarCondicion(empresa, obtenerPeriodos(empresas)))
 				.collect(Collectors.toList());
-		return empresas.stream().filter(empresa -> evaluarCondicion(empresa, periodos)).collect(Collectors.toList());
 	}
 
 	@Override
