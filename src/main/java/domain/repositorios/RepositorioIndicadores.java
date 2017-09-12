@@ -9,14 +9,13 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
-import auxiliaresDeArchivo.DatosIndicadores;
 import domain.indicadores.*;
 import domain.indicadores.indicadoresPredeterminados.*;
 import exceptions.YaExisteElIndicadorException;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 
 
-public class RepositorioIndicadores implements Repositorio<DatosIndicadores>{
+public class RepositorioIndicadores {//implements Repositorio<DatosIndicadores>{
 	private EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 	private static RepositorioIndicadores instance = null;
 	private List<Indicador> indicadoresCargados = new ArrayList<>();
@@ -104,11 +103,7 @@ public class RepositorioIndicadores implements Repositorio<DatosIndicadores>{
 		getIndicadoresCargados().add(indicador);
 	}
 
-	public void agregarDesdeArchivo(DatosIndicadores datosIndicadores) {
-		List<IndicadorCustom> indicadores = datosIndicadores.buildIndicadores();
-		indicadoresCargados.addAll(indicadores);
-	}
-
+	
 	private void verificarSiExiste(Indicador indicador) {
 		if (contieneElIndicador(indicador.getNombre()))
 			throw new YaExisteElIndicadorException();

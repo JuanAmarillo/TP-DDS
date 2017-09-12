@@ -6,8 +6,6 @@ import java.util.List;
 import org.uqbar.commons.model.ObservableUtils;
 import org.uqbar.commons.utils.Observable;
 
-import archivos.ActualizaIndicadores;
-import archivos.LevantaArchivoIndicadores;
 import domain.repositorios.RepositorioIndicadores;
 
 @Observable
@@ -54,12 +52,7 @@ public class CargarIndicadorVM {
 		RepositorioIndicadores.instance().eliminarIndicadorAPartirDel(indicadorSeleccionado);
 		avisarCambioIndicadores();
 	}
-
-	public void cargarIndicadorDesdeArchivo() throws IOException{
-		new LevantaArchivoIndicadores(filePath).cargarArchivo();
-		avisarCambioIndicadores();
-	}
-
+	
 	private void avisarCambioIndicadores() {
 		ObservableUtils.firePropertyChanged(this, "indicadores");
 	}
