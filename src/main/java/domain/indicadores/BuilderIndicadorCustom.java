@@ -68,4 +68,11 @@ public class BuilderIndicadorCustom {
 		return this;
 	}
 	
+	public IndicadorCustom generarCalculo(IndicadorCustom indicador) {
+		Calculable calculito = new Analizador(indicador.getExpresion()).compilar();
+		indicador.setCalculo(calculito);
+		return indicador;
+				
+	}
+	
 }

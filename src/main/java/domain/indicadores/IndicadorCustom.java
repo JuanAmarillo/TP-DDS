@@ -20,7 +20,7 @@ import domain.indicadores.calculoIndicadores.ConstructoresIndicador.Analizador;
 public class IndicadorCustom extends Indicador {
 	@Id
 	@GeneratedValue
-	private Integer id;
+	public Integer id;
 	@Column(length=100)
 	public String expresion;
 	@Transient
@@ -51,6 +51,10 @@ public class IndicadorCustom extends Indicador {
 		return calculo;
 	}
 	
+	public Integer getId() {
+		return id;
+	}
+
 	public String getExpresion() {
 		return expresion;
 	}
@@ -67,6 +71,10 @@ public class IndicadorCustom extends Indicador {
 	@Override
 	public boolean esCustom() {
 		return true;
+	}
+	
+	public void holi() {
+		
 	}
 
 	

@@ -1,11 +1,27 @@
 package domain.indicadores;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.MappedSuperclass;
+import javax.persistence.Table;
+
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import domain.Empresa;
-
+//@Entity
+//@Table(name="indicadores")
+//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@MappedSuperclass
 public abstract class Indicador {
+//	@Id
+//	@GeneratedValue
+//	private Integer id;
 	@JsonProperty("nombre")
+	@Column(length=30)
 	protected String nombre;
 	
 	public Indicador() {}

@@ -46,12 +46,12 @@ public class CargarIndicadorVM {
 	}
 
 	public void cargarIndicador() throws IOException {
-		new ActualizaIndicadores().agregar(indicador);
+		RepositorioIndicadores.instance().agregarIndicadorAPartirDel(indicador);
 		avisarCambioIndicadores();
 	}
 
-	public void eliminarIndicador() throws IOException {
-		new ActualizaIndicadores().eliminar(indicadorSeleccionado);
+	public void eliminarIndicador() throws IOException {		
+		RepositorioIndicadores.instance().eliminarIndicadorAPartirDel(indicadorSeleccionado);
 		avisarCambioIndicadores();
 	}
 

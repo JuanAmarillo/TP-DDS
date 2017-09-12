@@ -17,14 +17,14 @@ public class RepositorioIndicadoresTest {
 	private RepositorioIndicadores repositorio;
 	
 	public IndicadorCustom indicador(String nombreIndicador){
-		return new IndicadorCustom(nombreIndicador, null, null);
+		return new IndicadorCustom(nombreIndicador, "saraza", null);
 	}
 	
 	public void agregar(String nombreIndicador){
 		agregar(indicador(nombreIndicador));
 	}
 	
-	public void agregar(Indicador indicador){
+	public void agregar(IndicadorCustom indicador){
 		repositorio.agregarIndicador(indicador);
 	}
 	
@@ -63,7 +63,7 @@ public class RepositorioIndicadoresTest {
 	
 	@Test
 	public void testAgregarUnIndicadorPredeterminador(){
-		agregar(new ROE());
+		repositorio.add(new ROE());
 		verificarExistencia("ROE", true);
 	}
 	
@@ -87,7 +87,7 @@ public class RepositorioIndicadoresTest {
 	
 	@Test(expected = NoSePuedeBorrarUnPredeterminadoException.class)
 	public void testEliminarUnPredeterminadorFalla(){
-		agregar(new ROA());
+		repositorio.add(new ROA());
 		borrar(new ROA());
 	}
 	

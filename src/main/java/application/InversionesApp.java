@@ -11,15 +11,15 @@ import ui.windows.MainWindow;
 
 public class InversionesApp extends Application {
 
-	public static String filepath = "src/test/resources/Indicadores.json";
+	//public static String filepath = "src/test/resources/Indicadores.json";
 	
 	public static void main(String[] args) {
-		try {
-			new LevantaArchivoIndicadores(filepath).cargarArchivo();
-			ActualizaIndicadores.setFilepath(filepath);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			new LevantaArchivoIndicadores(filepath).cargarArchivo();
+//			ActualizaIndicadores.setFilepath(filepath);
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 		new InversionesApp().start();
 	}
 
