@@ -21,16 +21,15 @@ public class CondicionComparativa extends Condicion {
 	}
 
 	public Integer evaluarCondicion(Empresa empresaUno, Empresa empresaDos, List<String> periodos) {
-		Stream<Integer> retornos = periodos.stream()
-				.map(periodo -> evaluarCondicionEnPeriodo(empresaUno, empresaDos, periodo));
-		if (retornos.anyMatch(e -> e.equals(1))) { //las comparaciones devuelven 1 siempre que la primera sea mayor que 						
-			return 1;						//la segunda, verifica que cumpla para todos los periodos
-		} else {
-			return -1;
-		}
+		return Integer.signum(periodosEvaluados(empresaUno, empresaDos, periodos));
 	}
 
-	@Override
+	public int periodosEvaluados(Empresa empresaUno, Empresa empresaDos, List<String> periodos) {
+		return periodos.stream()
+				.mapToInt(periodo -> evaluarCondicionEnPeriodo(empresaUno, empresaDos, periodo))
+				.sum();
+	}
+
 	public List<Empresa> aplicarCondicionEnPeriodo(List<Empresa> empresas, String periodo) {
 		return empresas.stream()
 				.sorted((empresaUno, empresaDos) -> evaluarCondicionEnPeriodo(empresaUno, empresaDos, periodo))

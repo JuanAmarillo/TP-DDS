@@ -22,9 +22,8 @@ public class CondicionTaxativa extends Condicion {
 		return comparar(calcularIndicador(empresa, periodo), valorDeComparacion) > 0;
 	}
 
-	//ver esto!
 	public Boolean evaluarCondicion(Empresa empresa, List<String> periodos) {
-		return periodos.stream().anyMatch(periodo -> evaluarCondicionEnPeriodo(empresa, periodo));
+		return periodos.stream().allMatch(periodo -> evaluarCondicionEnPeriodo(empresa, periodo));
 	}
 
 	@Override
