@@ -1,7 +1,6 @@
 package domain.condiciones;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -24,8 +23,8 @@ public class CondicionComparativa extends Condicion {
 	public Integer evaluarCondicion(Empresa empresaUno, Empresa empresaDos, List<String> periodos) {
 		Stream<Integer> retornos = periodos.stream()
 				.map(periodo -> evaluarCondicionEnPeriodo(empresaUno, empresaDos, periodo));
-		if (retornos.anyMatch(e -> e.equals(1))) {
-			return 1;
+		if (retornos.anyMatch(e -> e.equals(1))) { //las comparaciones devuelven 1 siempre que la primera sea mayor que 						
+			return 1;						//la segunda, verifica que cumpla para todos los periodos
 		} else {
 			return -1;
 		}
