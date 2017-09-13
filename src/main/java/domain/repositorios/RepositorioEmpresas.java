@@ -68,10 +68,9 @@ public class RepositorioEmpresas implements Repositorio<Empresa>{
 	}
 
 	private void persistirCuentas(Empresa empresaLeida) {
-		/*hay que persistir las cuentas nuevas, asignandoles en el campo empresa_id
-		 * el id de empresaLeida
-		 */
-		
+		entityManager.getTransaction().begin();
+		empresaLeida.getCuentas().forEach(cuenta -> entityManager.persist(cuenta));
+		entityManager.getTransaction().commit();		
 	}
 
 	public boolean existeLaEmpresa(Empresa empresa) { 
