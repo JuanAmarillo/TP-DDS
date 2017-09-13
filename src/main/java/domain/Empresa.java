@@ -28,8 +28,8 @@ public class Empresa {
 	private String nombre;
 	@Column
 	private Integer anio_fundacion;
-	@OneToMany(fetch=FetchType.EAGER)
-	@JoinColumn(name = "empresa_id")
+	@OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "empresa_id",  nullable=false)
 	private Set<Cuenta> cuentas = new HashSet<>();
 
 	public String getNombre() {
