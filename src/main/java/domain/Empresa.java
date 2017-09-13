@@ -5,12 +5,31 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import org.uqbar.commons.utils.Observable;
 
 @Observable
+@Entity
+@Table(name="empresas")
 public class Empresa {
+	@Id
+	@GeneratedValue
+	public Integer id;
+	@Column(length=30)
 	private String nombre;
-	private Integer anioFundacion;
+	@Column
+	private Integer anio_fundacion;
+	@OneToMany(fetch=FetchType.EAGER)
+	@JoinColumn(name = "empresa_id")
 	private Set<Cuenta> cuentas = new HashSet<>();
 
 	public String getNombre() {
@@ -22,12 +41,16 @@ public class Empresa {
 		this.nombre = nombre;
 	}
 
+	public Integer getId() {
+		return id;
+	}
+
 	public Integer getAnioFundacion() {
-		return anioFundacion;
+		return anio_fundacion;
 	}
 
 	public void setAnioFundacion(Integer anioFundacion) {
-		this.anioFundacion = anioFundacion;
+		this.anio_fundacion = anioFundacion;
 	}
 
 	public Set<Cuenta> getCuentas() {

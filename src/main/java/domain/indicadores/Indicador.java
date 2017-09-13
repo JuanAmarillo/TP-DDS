@@ -12,14 +12,9 @@ import javax.persistence.Table;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import domain.Empresa;
-//@Entity
-//@Table(name="indicadores")
-//@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+
 @MappedSuperclass
 public abstract class Indicador {
-//	@Id
-//	@GeneratedValue
-//	private Integer id;
 	@JsonProperty("nombre")
 	@Column(length=30)
 	protected String nombre;

@@ -8,10 +8,15 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
 import domain.Empresa;
 
 public class RepositorioEmpresas implements Repositorio<Empresa>{
 	private static RepositorioEmpresas instance = null;
+	private EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 	private List<Empresa> empresasCargadas = new ArrayList<>();
 
 	public static RepositorioEmpresas instance() {
@@ -23,6 +28,7 @@ public class RepositorioEmpresas implements Repositorio<Empresa>{
 	private static void cargarNuevaInstancia() {
 		instance = new RepositorioEmpresas();
 		instance.empresasCargadas = new ArrayList<Empresa>();
+		instance.leerBD();
 	}
 
 	private static boolean noHayInstanciaCargada() {
@@ -34,7 +40,14 @@ public class RepositorioEmpresas implements Repositorio<Empresa>{
 	}
 
 	public void agregarEmpresa(Empresa empresa) { 
-		this.getEmpresasCargadas().add(empresa);
+		//persistirEmpresa(empresa);
+		this.getEmpresasCargadas().add(empresa);		
+	}
+
+	private void persistirEmpresa(Empresa empresa) {
+		entityManager.getTransaction().begin();
+		entityManager.persist(empresa);
+		entityManager.getTransaction().commit();		
 	}
 
 	public List<Empresa> getEmpresasCargadas() {
@@ -80,6 +93,13 @@ public class RepositorioEmpresas implements Repositorio<Empresa>{
 		Set<String> periodos = new HashSet<String>();
 		getEmpresasCargadas().stream().forEach(empresa -> periodos.addAll(empresa.getPeriodos()));
 		return periodos.stream().collect(Collectors.toList());
+	}
+	
+	public void leerBD() {
+		List<Empresa> empresasEnBase = entityManager.createQuery("SELECT i FROM Empresa i", Empresa.class).getResultList();
+		empresasEnBase.forEach(e-> System.out.println("Nombre" + e.getNombre()));
+		empresasEnBase.forEach(e-> System.out.println("Cuentas" + e.getCuentas()));
+		empresasCargadas.addAll(empresasEnBase);
 	}
 
 }

@@ -63,10 +63,6 @@ public class IndicadorCustom extends Indicador {
 		this.expresion = expresion;
 	}
 	
-//	@Column(length=30)
-//	public String getNombrecito() {
-//		return getNombre();
-//	}
 	
 	@Override
 	public boolean esCustom() {

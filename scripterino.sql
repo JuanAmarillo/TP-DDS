@@ -3,17 +3,16 @@ USE basedebatos;
 CREATE TABLE IF NOT EXISTS empresas (
 id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 nombre VARCHAR(30) NOT NULL,
-anio_fundacion YEAR 
+anio_fundacion INT(4) UNSIGNED 
 );
 
 CREATE TABLE IF NOT EXISTS cuentas (
 id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 nombre VARCHAR(30) NOT NULL,
-empresa INT(6) UNSIGNED NOT NULL,
+empresa_id INT(6) UNSIGNED NOT NULL,
 balance DOUBLE NOT NULL,
-periodo_inicio DATE NOT NULL,
-periodo_fin DATE NOT NULL,
-FOREIGN KEY (empresa) REFERENCES empresas(id)
+periodo VARCHAR(30) NOT NULL,
+FOREIGN KEY (empresa_id) REFERENCES empresas(id)
 );
 
 CREATE TABLE IF NOT EXISTS indicadores (

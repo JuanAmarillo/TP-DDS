@@ -1,12 +1,25 @@
 package domain;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.codehaus.jackson.annotate.JsonCreator;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.uqbar.commons.utils.Observable;
 
 @Observable
+@Entity
+@Table(name="cuentas")
 public class Cuenta {
+	@Id
+	@GeneratedValue
+	public Integer id;
+	@Column(length=30)
 	private String nombre;
+	@Column(length=30)
 	private String periodo;
 	private Double balance;
 
@@ -16,6 +29,14 @@ public class Cuenta {
 		setNombre(nombre);
 		setPeriodo(periodo);
 		setBalance(balance);
+	}
+	
+	public Cuenta() {
+		
+	}
+
+	public Integer getId() {
+		return id;
 	}
 
 	public String getNombre() {
