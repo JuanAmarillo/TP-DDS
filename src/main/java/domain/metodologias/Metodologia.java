@@ -6,6 +6,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.javatuples.Pair;
 import org.uqbar.commons.utils.Observable;
 
@@ -14,8 +20,13 @@ import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
 
 @Observable
+@Entity
+@Table(name="metodologias")
 public class Metodologia {
-
+	@Id
+	@GeneratedValue
+	public int id;
+	@Column
 	private String nombre;
 	private List<Condicion> condiciones;
 

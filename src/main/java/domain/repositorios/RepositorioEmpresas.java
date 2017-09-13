@@ -9,7 +9,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
