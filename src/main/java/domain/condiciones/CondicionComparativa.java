@@ -4,12 +4,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+
 import domain.Empresa;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
 
+@Entity
 public class CondicionComparativa extends Condicion {
-
+	@Transient
 	private Double peso;
 	
 	public CondicionComparativa(String nombre, Indicador indicador, OperadorCondicion operador) {

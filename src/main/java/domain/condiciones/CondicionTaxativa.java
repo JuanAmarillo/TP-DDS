@@ -3,12 +3,16 @@ package domain.condiciones;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+
 import domain.Empresa;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
 
+@Entity
 public class CondicionTaxativa extends Condicion {
-
+	@Column(name="valor")
 	public Double valorDeComparacion;
 
 	public CondicionTaxativa(String nombre, Indicador indicador, OperadorCondicion operador,

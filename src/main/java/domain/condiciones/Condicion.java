@@ -4,6 +4,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
 import org.javatuples.Pair;
 import org.uqbar.commons.utils.Observable;
 
@@ -12,10 +19,17 @@ import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
 
 @Observable
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public abstract class Condicion implements CondicionCustom {
-
-	protected String nombre;
+	
+	@Id
+	@GeneratedValue
+	public Integer id;
+	@Column(length=30)
+	protected String nombre;	
 	protected Indicador indicador;
+	@Column(length=1)
 	protected OperadorCondicion operador;
 
 	public Condicion(String nombre, Indicador indicador, OperadorCondicion operador) {
@@ -51,6 +65,10 @@ public abstract class Condicion implements CondicionCustom {
 
 	public boolean suNombreEs(String nombreCondicion) {
 		return nombre.equals(nombreCondicion);
+	}
+
+	public Integer getId() {
+		return id;
 	}
 
 	public String getNombre() {
