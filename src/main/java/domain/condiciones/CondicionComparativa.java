@@ -30,6 +30,7 @@ public class CondicionComparativa extends Condicion {
 				.sum();
 	}
 
+	@Override
 	public List<Empresa> aplicarCondicionEnPeriodo(List<Empresa> empresas, String periodo) {
 		return empresas.stream()
 				.sorted((empresaUno, empresaDos) -> evaluarCondicionEnPeriodo(empresaUno, empresaDos, periodo))

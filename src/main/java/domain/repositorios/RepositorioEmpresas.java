@@ -41,7 +41,7 @@ public class RepositorioEmpresas implements Repositorio<Empresa>{
 	}
 
 	public void agregarEmpresa(Empresa empresa) { 
-		persistirEmpresa(empresa);
+		//persistirEmpresa(empresa);
 		this.getEmpresasCargadas().add(empresa);		
 	}
 
@@ -64,7 +64,7 @@ public class RepositorioEmpresas implements Repositorio<Empresa>{
 
 	private void agregarCuentas(Empresa empresaLeida) {
 		buscarEmpresa(empresaLeida.getNombre()).get().agregarCuentas(empresaLeida.getCuentas());
-		persistirCuentas(empresaLeida);
+		//persistirCuentas(empresaLeida);
 	}
 
 	private void persistirCuentas(Empresa empresaLeida) {

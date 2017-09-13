@@ -15,7 +15,7 @@ import exceptions.YaExisteElIndicadorException;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 
 
-public class RepositorioIndicadores {//implements Repositorio<DatosIndicadores>{
+public class RepositorioIndicadores implements Repositorio<Indicador>{
 	private EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 	private static RepositorioIndicadores instance = null;
 	private List<Indicador> indicadoresCargados = new ArrayList<>();
@@ -141,6 +141,12 @@ public class RepositorioIndicadores {//implements Repositorio<DatosIndicadores>{
 	
 	public IndicadorCustom crearIndicador(String ecuacion) {
 		return new BuilderIndicadorCustom(ecuacion).analizar().setEcuacion().setCalculo().build();
+	}
+
+	@Override
+	public void agregarDesdeArchivo(Indicador elementos) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }
