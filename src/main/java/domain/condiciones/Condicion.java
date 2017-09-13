@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
-import org.javatuples.Pair;
 import org.uqbar.commons.utils.Observable;
 
 import domain.Empresa;

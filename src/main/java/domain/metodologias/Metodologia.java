@@ -6,10 +6,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.javatuples.Pair;
@@ -26,10 +30,15 @@ public class Metodologia {
 	@Id
 	@GeneratedValue
 	public int id;
-	@Column
+	@Column(length=30)
 	private String nombre;
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="condiciones_x_metodologias", joinColumns=
+	{@JoinColumn(name="metodologia")},inverseJoinColumns={@JoinColumn(name="condicion")})
 	private List<Condicion> condiciones;
 
+	public Metodologia(){}
+	
 	public Metodologia(String nombre, List<Condicion> condiciones) {
 		this.nombre = nombre;
 		this.condiciones = condiciones;
