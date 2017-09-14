@@ -9,10 +9,9 @@ import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -25,20 +24,19 @@ import domain.condiciones.CondicionComparativa;
 
 @Observable
 @Entity
-@Table(name="metodologias")
+@Table(name = "metodologias")
 public class Metodologia {
 	@Id
 	@GeneratedValue
 	public int id;
-	@Column(length=30)
+	@Column(length = 30)
 	private String nombre;
-	@ManyToMany(cascade=CascadeType.ALL)
-	@JoinTable(name="condiciones_x_metodologias", joinColumns=
-	{@JoinColumn(name="metodologia")},inverseJoinColumns={@JoinColumn(name="condicion")})
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private List<Condicion> condiciones;
 
-	public Metodologia(){}
-	
+	public Metodologia() {
+	}
+
 	public Metodologia(String nombre, List<Condicion> condiciones) {
 		this.nombre = nombre;
 		this.condiciones = condiciones;
@@ -69,8 +67,8 @@ public class Metodologia {
 			return empresas;
 		} else {
 			List<EmpresasAPesar> empresasSinPeso = condicionesComparativas.stream()
-					.map(condicionComparativa -> new EmpresasAPesar(
-							condicionComparativa.aplicarCondicion(empresas), condicionComparativa.getPeso()))
+					.map(condicionComparativa -> new EmpresasAPesar(condicionComparativa.aplicarCondicion(empresas),
+							condicionComparativa.getPeso()))
 					.collect(Collectors.toList());
 			// obtiene diccionario de empresas con su peso
 			Map<Empresa, Double> empresasOrdenadas = sortByPeso(darPesoALasEmpresas(empresasSinPeso));
@@ -80,9 +78,8 @@ public class Metodologia {
 	}
 
 	private Map<Empresa, Double> darPesoALasEmpresas(List<EmpresasAPesar> empresasSinPeso) {
-		return empresasSinPeso.stream().map(e -> e.darPeso())
-				.flatMap(List::stream).collect(Collectors.groupingBy(Pair<Empresa, Double>::getValue0,
-						Collectors.summingDouble(Pair<Empresa, Double>::getValue1)));
+		return empresasSinPeso.stream().map(e -> e.darPeso()).flatMap(List::stream).collect(Collectors.groupingBy(
+				Pair<Empresa, Double>::getValue0, Collectors.summingDouble(Pair<Empresa, Double>::getValue1)));
 	}
 
 	public List<Empresa> pasarMapAList(Map<Empresa, Double> map) {
@@ -95,15 +92,15 @@ public class Metodologia {
 	}
 
 	public List<Condicion> obtenerCondicionesTaxativas() {
-		List<Condicion> condicionesTFiltradas = this.getCondiciones().stream()
-				.filter(cond -> cond.esTaxativa()).collect(Collectors.toList());
+		List<Condicion> condicionesTFiltradas = this.getCondiciones().stream().filter(cond -> cond.esTaxativa())
+				.collect(Collectors.toList());
 		return condicionesTFiltradas;
 	}
 
 	public List<CondicionComparativa> obtenerCondicionesComparativas() {
 		List<CondicionComparativa> condicionesCFiltradas = this.getCondiciones().stream()
-				.filter(cond -> !cond.esTaxativa())
-				.map(cond -> (CondicionComparativa) cond).collect(Collectors.toList());
+				.filter(cond -> !cond.esTaxativa()).map(cond -> (CondicionComparativa) cond)
+				.collect(Collectors.toList());
 		return condicionesCFiltradas;
 	}
 

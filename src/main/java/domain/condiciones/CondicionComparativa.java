@@ -2,7 +2,6 @@ package domain.condiciones;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.persistence.Entity;
 import javax.persistence.Transient;
@@ -15,7 +14,7 @@ import domain.indicadores.Indicador;
 public class CondicionComparativa extends Condicion {
 	@Transient
 	private Double peso;
-	
+
 	public CondicionComparativa(String nombre, Indicador indicador, OperadorCondicion operador) {
 		super(nombre, indicador, operador);
 	}
@@ -29,9 +28,7 @@ public class CondicionComparativa extends Condicion {
 	}
 
 	public int periodosEvaluados(Empresa empresaUno, Empresa empresaDos, List<String> periodos) {
-		return periodos.stream()
-				.mapToInt(periodo -> evaluarCondicionEnPeriodo(empresaUno, empresaDos, periodo))
-				.sum();
+		return periodos.stream().mapToInt(periodo -> evaluarCondicionEnPeriodo(empresaUno, empresaDos, periodo)).sum();
 	}
 
 	@Override
@@ -43,7 +40,8 @@ public class CondicionComparativa extends Condicion {
 
 	@Override
 	public List<Empresa> aplicarCondicion(List<Empresa> empresas) {
-		return empresas.stream().sorted((empresaUno, empresaDos) -> evaluarCondicion(empresaUno, empresaDos, obtenerPeriodos(empresas)))
+		return empresas.stream()
+				.sorted((empresaUno, empresaDos) -> evaluarCondicion(empresaUno, empresaDos, obtenerPeriodos(empresas)))
 				.collect(Collectors.toList());
 	}
 
