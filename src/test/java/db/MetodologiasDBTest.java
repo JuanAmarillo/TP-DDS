@@ -32,7 +32,7 @@ public class MetodologiasDBTest {
 
 	private EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 	
-	/*
+	
 	@Test
 	public void retornaMetodologia(){
 		entityManager.getTransaction().begin();
@@ -41,6 +41,6 @@ public class MetodologiasDBTest {
 		List<Metodologia> metodologiasCargadas = entityManager.createQuery("SELECT i FROM Metodologia i", Metodologia.class).getResultList();
 		assertEquals(metodologiasCargadas.size(),1);
 	}
-	*/
+
 	
 }
