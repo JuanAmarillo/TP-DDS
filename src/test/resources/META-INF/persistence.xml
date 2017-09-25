@@ -9,10 +9,10 @@
     	<provider>org.hibernate.ejb.HibernatePersistence</provider>
     	<class>domain.Empresa</class>
     	<class>domain.Cuenta</class>
-    	<!--   <class>domain.indicadores.Indicador</class>
+    	<class>domain.indicadores.Indicador</class>
     	<class>domain.indicadores.IndicadorCustom</class> 
     	<class>domain.metodologias.Metodologia</class>
-    	<class>domain.condiciones.Condicion</class> -->
+    	<class>domain.condiciones.Condicion</class>
         <properties> 
 	    <property name="hibernate.archive.autodetection" value="class"/>        
         
