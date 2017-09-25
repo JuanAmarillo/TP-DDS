@@ -10,7 +10,7 @@ import domain.Empresa;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
 
-@Entity
+//@Entity
 public class CondicionComparativa extends Condicion {
 	@Transient
 	private Double peso;

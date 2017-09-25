@@ -15,8 +15,8 @@ import domain.indicadores.calculoIndicadores.Token;
 import domain.indicadores.calculoIndicadores.ConstructoresIndicador.Analizador;
 
 @Observable
-@Entity
-@Table(name="indicadores")
+//@Entity
+//@Table(name="indicadores")
 public class IndicadorCustom extends Indicador {
 	@Id
 	@GeneratedValue

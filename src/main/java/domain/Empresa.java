@@ -19,16 +19,16 @@ import org.uqbar.commons.utils.Observable;
 
 @Observable
 @Entity
-@Table(name="empresas")
+@Table(name = "empresas")
 public class Empresa {
 	@Id
 	@GeneratedValue
-	public Integer id;
+	private Integer id;
 	@Column(length=30)
 	private String nombre;
 	@Column
 	private Integer anio_fundacion;
-	@OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "empresa_id",  nullable=false)
 	private Set<Cuenta> cuentas = new HashSet<>();
 

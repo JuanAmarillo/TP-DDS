@@ -10,7 +10,7 @@ import domain.Empresa;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
 
-@Entity
+//@Entity
 public class CondicionTaxativa extends Condicion {
 	@Column(name="valor")
 	public Double valorDeComparacion;

@@ -5,12 +5,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.persistence.EntityManager;
+
+import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
 import domain.metodologias.Metodologia;
 import exceptions.YaExisteLaMetodologiaException;
 
 public class RepositorioMetodologias {
 	private static RepositorioMetodologias instance=null;
-	private  List<Metodologia> metodologiasCargadas = new ArrayList<Metodologia>();
+	private List<Metodologia> metodologiasCargadas = new ArrayList<Metodologia>();
 	
 	public static RepositorioMetodologias instance() {
 		if (noHayInstanciaCargada()) 

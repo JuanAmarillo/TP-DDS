@@ -23,8 +23,8 @@ import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
 
 @Observable
-@Entity
-@Table(name = "metodologias")
+//@Entity
+//@Table(name = "metodologias")
 public class Metodologia {
 	@Id
 	@GeneratedValue
