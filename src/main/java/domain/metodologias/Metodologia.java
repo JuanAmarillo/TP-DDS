@@ -3,12 +3,18 @@ package domain.metodologias;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 import org.uqbar.commons.utils.Observable;
 
 import domain.Empresa;
 import domain.condiciones.Condicion;
 
 @Observable
+@Entity
+@Table(name = "metodologias")
+
 public class Metodologia {
 
 	private String nombre;
@@ -43,5 +49,13 @@ public class Metodologia {
 
 	public String getNombre() {
 		return nombre;
+	}
+
+	public List<Condicion> getCondiciones() {
+		return condiciones;
+	}
+
+	public void setCondiciones(List<Condicion> condiciones) {
+		this.condiciones = condiciones;
 	}
 }

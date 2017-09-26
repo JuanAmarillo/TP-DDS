@@ -13,6 +13,7 @@ import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.CEndeudamiento;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
 import domain.metodologias.Metodologia;
+import unitTests.fixtureEmpresas.PreparadorDeEmpresas;
 
 public class MetodologiaTest {
 
@@ -28,7 +29,7 @@ public class MetodologiaTest {
 	Metodologia metodologiaTaxativa = new Metodologia("PepitaTaxativa", condicionesTaxativas);
 	Metodologia metodologiaComparativa = new Metodologia("PepitaComparativa", condicionesComparativas);
 
-	List<Empresa> listaEmpresas = mocks.PreparadorDeEmpresas.prepararEmpresas();
+	List<Empresa> listaEmpresas = PreparadorDeEmpresas.prepararEmpresas();
 
 	private void imprimirNombres(List<Empresa> listaResultante) {
 		listaResultante.stream().forEach(empresa -> System.out.println(empresa.getNombre()));

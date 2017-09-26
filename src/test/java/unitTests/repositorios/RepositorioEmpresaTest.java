@@ -3,12 +3,18 @@ package unitTests.repositorios;
 import static org.junit.Assert.*;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import domain.Empresa;
 import domain.repositorios.RepositorioEmpresas;
+import junit.framework.Assert;
 
 import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
+import org.junit.After;
 
 public class RepositorioEmpresaTest {
 
@@ -27,30 +33,45 @@ public class RepositorioEmpresaTest {
 	}
 
 	public void verificarExistencia(String nombre, boolean resultado) {
-		assertEquals(repositorio.existeLaEmpresa(crearEmpresa(nombre)), resultado);
+		assertEquals(resultado,repositorio.existeLaEmpresa(crearEmpresa(nombre)));
 	}
 
 	public void comprobarLaPrimeraEmpresa(String nombre) {
 		assertEquals(repositorio.getEmpresasCargadas().get(0).getNombre(), nombre);
 	}
 
-	public void laCantidadDeEmpresasCargadasEs(Integer cantidad) {
-		assertEquals(repositorio.cantidadDeEmpresasCargadas(), cantidad);
+	public void laCantidadDeEmpresasCargadasEs(Long cantidad) {
+		assertEquals(cantidad, repositorio.cantidadDeEmpresasCargadas());
+	}
+	
+	private void borrarEmpresa(String empresa) {
+		repositorio.borrarEmpresa(empresa);
+	}
+	
+	private void imprimirEmpresas(String test) {
+		List<Empresa> empresas = repositorio.getEmpresasCargadas();
+		System.out.println(empresas.size());
+		empresas.forEach(empresa -> System.out.println(test + "   AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + empresa.getNombre()));
 	}
 
 	public void agregarEmpresaLuegoDeArchivo(String nombre) {
 		repositorio.agregarDesdeArchivo(crearEmpresa(nombre));
 	}
-
+	
 	@Before
 	public void init() {
 		repositorio = new RepositorioEmpresas();
-	}
-
-	@Test
-	public void testAgregaLaEmpresaSteamConExito() {
 		agregarEmpresa("Steam");
-		comprobarLaPrimeraEmpresa("Steam");
+	}
+	
+	@After
+	public void finalize() {
+		borrarEmpresa("Steam");
+	}
+	
+	@Test
+	public void tieneEmpresasCargadas(){
+		laCantidadDeEmpresasCargadasEs(1l);
 	}
 
 	@Test
@@ -58,20 +79,28 @@ public class RepositorioEmpresaTest {
 		agregarEmpresaLuegoDeArchivo("Universidad");
 		agregarEmpresaLuegoDeArchivo("Tecnologica");
 		agregarEmpresaLuegoDeArchivo("Nacional");
-		laCantidadDeEmpresasCargadasEs(3);
+		laCantidadDeEmpresasCargadasEs(4l); // Universidad, Tecnologica, Nacional y Steam
+		borrarEmpresa("Universidad");
+		borrarEmpresa("Tecnologica");
+		borrarEmpresa("Nacional");
 	}
+
+	
 
 	@Test
 	public void testAgregaDosVecesLaMismaEmpresaLuegoDeArchivoSoloDejaUna() {
 		agregarEmpresaLuegoDeArchivo("Jackson");
 		agregarEmpresaLuegoDeArchivo("Jackson");
-		laCantidadDeEmpresasCargadasEs(1);
+		imprimirEmpresas("Jackson");
+		laCantidadDeEmpresasCargadasEs(2l); //Jackson y Steam
+		borrarEmpresa("Jackson");
 	}
 
 	@Test
 	public void testAgregaYBuscaLaEmpresa() {
 		agregarEmpresa("Manaos");
 		buscarEmpresa("Manaos");
+		borrarEmpresa("Manaos");
 	}
 
 	@Test(expected = RuntimeException.class)
@@ -83,11 +112,12 @@ public class RepositorioEmpresaTest {
 	public void testExisteLaEmpresaManaos() {
 		agregarEmpresa("Manaos");
 		verificarExistencia("Manaos", true);
+		borrarEmpresa("Manaos");
 	}
 
 	@Test
 	public void testNoExisteLaEmpresaFigureti() {
 		verificarExistencia("Figureti", false);
 	}
-
+	
 }

@@ -6,14 +6,14 @@ public class EmpresaConPeso {
 
 	Empresa empresa;
 	Double peso;
-	
-	public EmpresaConPeso(Empresa empresa, Double peso){
-		this.empresa=empresa;
-		this.peso=peso;
+
+	public EmpresaConPeso(Empresa empresa, Double peso) {
+		this.empresa = empresa;
+		this.peso = peso;
 	}
 
-	//GETTERS Y SETTERS
-	
+	// GETTERS Y SETTERS
+
 	public Empresa getEmpresa() {
 		return empresa;
 	}
@@ -29,7 +29,4 @@ public class EmpresaConPeso {
 	public void setPeso(Double peso) {
 		this.peso = peso;
 	}
-	
-	
-	
 }

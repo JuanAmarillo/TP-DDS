@@ -2,7 +2,6 @@ package unitTests.condiciones;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,10 +15,10 @@ import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.metodologias.EmpresaConPeso;
 import domain.repositorios.RepositorioCondiciones;
 import mocks.IndicadorNoCalculableMock;
-import mocks.PreparadorDeEmpresas;
+import unitTests.fixtureEmpresas.PreparadorDeEmpresas;
 
-public class CondicionTest{
-	
+public class CondicionTest {
+
 	List<Empresa> empresas;
 
 	private List<EmpresaConPeso> aplicarCondicionALista(Condicion condicion) {
@@ -53,4 +52,3 @@ public class CondicionTest{
 		aplicarCondicionALista(condicion);
 	}
 }
-

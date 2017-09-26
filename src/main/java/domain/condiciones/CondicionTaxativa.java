@@ -11,7 +11,7 @@ import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
 import domain.metodologias.EmpresaConPeso;
 
-@Entity
+//@Entity
 public class CondicionTaxativa extends Condicion {
 
 	@Column(name="valor")

@@ -13,7 +13,7 @@ import org.codehaus.jackson.annotate.JsonProperty;
 
 import domain.Empresa;
 
-@MappedSuperclass
+//@MappedSuperclass
 public abstract class Indicador {
 	@JsonProperty("nombre")
 	@Column(length=30)
