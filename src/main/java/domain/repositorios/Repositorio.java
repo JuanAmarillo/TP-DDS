@@ -1,6 +1,5 @@
 package domain.repositorios;
 
-public interface Repositorio<T> {
-	public void agregarDesdeArchivo(T elementos);
+public abstract class Repositorio<T> {
 	
 }

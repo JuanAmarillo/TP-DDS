@@ -16,7 +16,7 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import domain.Empresa;
 
-public class RepositorioEmpresas implements Repositorio<Empresa>{
+public class RepositorioEmpresas extends Repositorio<Empresa>{
 	private static RepositorioEmpresas instance = null;
 	private EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 
