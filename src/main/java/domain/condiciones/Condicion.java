@@ -19,7 +19,7 @@ import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
 
 @Observable
-//@Entity
+@Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Condicion implements CondicionCustom {
 
@@ -30,9 +30,8 @@ public abstract class Condicion implements CondicionCustom {
 	protected String nombre;
 	@Transient
 	protected Indicador indicador;
-	//@Column(length = 1)
 	@Transient
-	protected OperadorCondicion operador;
+	protected OperadorCondicion operador;	
 
 	public Condicion(String nombre, Indicador indicador, OperadorCondicion operador) {
 		this.nombre = nombre;
@@ -40,11 +39,17 @@ public abstract class Condicion implements CondicionCustom {
 		this.operador = operador;
 	}
 
-	public abstract List<Empresa> aplicarCondicionEnPeriodo(List<Empresa> empresas, String periodo);
+	public abstract boolean esTaxativa();
 
-	public abstract List<Empresa> aplicarCondicion(List<Empresa> empresas);
+	public abstract List<EmpresaConPeso> aplicarCondicionEnPeriodo(List<EmpresaConPeso> empresasConPeso,
+			String periodo);
 
-	public abstract Boolean esTaxativa();
+	public abstract List<EmpresaConPeso> aplicarCondicion(List<EmpresaConPeso> empresasConPeso);
+
+	public List<String> obtenerPeriodos(List<EmpresaConPeso> empresasConPeso) {
+		return empresasConPeso.stream().map(empresaConPeso -> empresaConPeso.getEmpresa().getPeriodos())
+				.flatMap(Set::stream).collect(Collectors.toList());
+	}
 
 	// GETTERS Y SETTERS
 
