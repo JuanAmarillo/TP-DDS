@@ -1,54 +1,54 @@
 package unitTests.condiciones;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
-import java.util.Arrays;
+import static org.junit.Assert.assertFalse;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import org.junit.Before;
+import org.junit.Test;
 
 import domain.Empresa;
 import domain.condiciones.Condicion;
-import domain.condiciones.OperadoresCondicion.OperadorCondicion;
-import domain.indicadores.Indicador;
+import domain.condiciones.CondicionTaxativa;
+import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
+import domain.metodologias.EmpresaConPeso;
+import domain.repositorios.RepositorioCondiciones;
+import mocks.IndicadorNoCalculableMock;
+import unitTests.fixtureEmpresas.PreparadorDeEmpresas;
 
-public class CondicionTest<T extends Condicion> {
+public class CondicionTest{
+	
+	List<Empresa> empresas;
 
-	protected List<Empresa> empresasAplicadas;
-	protected Empresa empresaUno;
-	protected Empresa empresaDos;
-	protected T condicion;
-
-	public Indicador mockearIndicador() {
-		Indicador indicadorMock = mock(Indicador.class);
-		when(indicadorMock.calcularIndicador(empresaUno, "2017")).thenReturn(10.0);
-		when(indicadorMock.calcularIndicador(empresaDos, "2017")).thenReturn(20.0);
-		return indicadorMock;
+	private List<EmpresaConPeso> aplicarCondicionALista(Condicion condicion) {
+		List<EmpresaConPeso> listaEmpresas = empresas.stream().map(empresa -> new EmpresaConPeso(empresa, 0.0))
+				.collect(Collectors.toList());
+		listaEmpresas = condicion.aplicarCondicionEnPeriodo(listaEmpresas, "pascuas");
+		return listaEmpresas;
 	}
 
-	public void mockearEmpresas() {
-		empresaUno = mock(Empresa.class);
-		empresaDos = mock(Empresa.class);
+	@Before
+	public void init() {
+		empresas = PreparadorDeEmpresas.prepararEmpresas();
 	}
 
-	public OperadorCondicion mockearOperador() {
-		OperadorCondicion operadorMock = mock(OperadorCondicion.class);
-		when(operadorMock.comparar(10.0, 15.0)).thenReturn(-1);
-		when(operadorMock.comparar(20.0, 15.0)).thenReturn(1);
-		when(operadorMock.comparar(10.0, 20.0)).thenReturn(-1);
-		when(operadorMock.comparar(20.0, 10.0)).thenReturn(1);
-		return operadorMock;
+	@Test
+	public void testSeAgreganAlRepoLasPredeterminadas() {
+		Integer condicionesPredeterminadas = 4;
+		assertEquals(condicionesPredeterminadas, RepositorioCondiciones.instance().cantidadDeCondiciones());
 	}
 
-	public void aplicarCondicion(Empresa... empresas) {
-		empresasAplicadas = condicion.aplicarCondicionEnPeriodo(Arrays.asList(empresas), "2017");
+	@Test
+	public void testCondicionPredeterminadaValor() {
+		CEmpresaMayorAntiguedad condicion = new CEmpresaMayorAntiguedad();
+		assertFalse(condicion.esCustom());
 	}
 
-	public void verificarEmpresa(Integer indice, Empresa empresa) {
-		assertEquals(empresasAplicadas.get(indice), empresa);
-	}
-
-	public void verificarTamano(int tamano) {
-		assertEquals(empresasAplicadas.size(), tamano);
+	@Test(expected = RuntimeException.class)
+	public void testNoSePuedeCalcularCondicion() {
+		CondicionTaxativa condicion = new CondicionTaxativa("Calculame esta", null, null, null);
+		condicion.setIndicador(new IndicadorNoCalculableMock());
+		aplicarCondicionALista(condicion);
 	}
 }
