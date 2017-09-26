@@ -29,8 +29,12 @@ public class AgregarMetodologia {
 	}
 
 	private void validarQueHayaAlgunaCondicion(List<Condicion> condicionesAgregadas) {
-		if (condicionesAgregadas.size() == 0)
+		if (noHayCondicionesAgregadas(condicionesAgregadas))
 			throw new RuntimeException("No se seleccionó ninguna condición");
+	}
+
+	public boolean noHayCondicionesAgregadas(List<Condicion> condicionesAgregadas) {
+		return condicionesAgregadas.size() == 0;
 	}
 
 }

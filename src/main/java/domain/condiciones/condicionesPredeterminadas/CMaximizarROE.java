@@ -12,5 +12,9 @@ public class CMaximizarROE extends CondicionComparativa implements CondicionPred
 	public CMaximizarROE(){
 		super("Maximizar ROE",new ROE(), new Mayor());
 	}
+	
+	public CMaximizarROE(Double peso){
+		super("Maximizar ROE",new ROE(), new Mayor(),peso);
+	}
 
 }

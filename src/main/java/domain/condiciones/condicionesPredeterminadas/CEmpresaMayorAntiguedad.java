@@ -13,4 +13,9 @@ public class CEmpresaMayorAntiguedad extends CondicionComparativa implements Con
 	public CEmpresaMayorAntiguedad() {
 		super("Mayor antiguedad", new Antiguedad(), new Mayor());
 	}
+	
+	public CEmpresaMayorAntiguedad(Double peso){
+		super("Mayor antiguedad", new Antiguedad(), new Mayor(), peso);
+	}
+	
 }

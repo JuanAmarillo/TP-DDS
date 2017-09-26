@@ -38,6 +38,7 @@ public class VerMetodologiasWindow extends Dialog<VerMetodologiasVM> {
 		List<Metodologia> condiciones = ViewUtils.crearListaConAdaptador(metods, "metodologias",
 				"metodologiaSeleccionada", Metodologia.class, "nombre");
 		ViewUtils.setSize(250, 100, condiciones);
+		ViewUtils.crearSelector(metods, "periodos", "periodoSeleccionado");
 		ViewUtils.crearBoton(metods, "Aplicar metodología", this::aplicarMetodologia);
 	}
 

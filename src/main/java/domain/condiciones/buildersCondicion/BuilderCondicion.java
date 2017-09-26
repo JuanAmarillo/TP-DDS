@@ -17,55 +17,52 @@ public abstract class BuilderCondicion {
 	protected OperadorCondicion operador;
 	protected Double value;
 	protected Indicador indicador;
-		
-	public BuilderCondicion(String etiquetaBuilder){
+
+	public BuilderCondicion(String etiquetaBuilder) {
 		this.etiquetaBuilder = etiquetaBuilder;
 	}
-	
-	public String getEtiquetaBuilder(){
+
+	public String getEtiquetaBuilder() {
 		return etiquetaBuilder;
 	}
-	
-	public  BuilderCondicion setNombre(String nombre){
+
+	public BuilderCondicion setNombre(String nombre) {
 		this.nombre = nombre;
 		return this;
 	}
-	
-	public BuilderCondicion setOperador(OperadorCondicion operador){
+
+	public BuilderCondicion setOperador(OperadorCondicion operador) {
 		this.operador = operador;
 		return this;
 	}
-	
-	public BuilderCondicion setIndicador(String indicador){		
+
+	public BuilderCondicion setIndicador(String indicador) {
 		this.indicador = RepositorioIndicadores.instance().buscarIndicador(indicador).orElse(null);
 		return this;
 	}
-	
-	public BuilderCondicion setValue(Double value){
+
+	public BuilderCondicion setValue(Double value) {
 		this.value = value;
 		return this;
 	}
-	
+
 	public Condicion build() {
 		try {
-			validar();		
+			validar();
 			return buildPosta();
-		}
-		catch(ValidadorException E) {
+		} catch (ValidadorException E) {
 			throw new BuilderCondicionesException(E.getMessage());
 		}
 	}
-	
+
 	public void validar() {
-		new Validador()
-		.agregarValidacion(nombre == null || nombre.isEmpty(), "No se ingresó ningún nombre")
-		.agregarValidacion(operador == null, "No se seleccionó ningún operador")
-		.agregarValidacion(indicador == null, "No se seleccionó ningún indicador")
-		.validar();
-	}	
+		new Validador().agregarValidacion(nombre == null || nombre.isEmpty(), "No se ingresó ningún nombre")
+				.agregarValidacion(operador == null, "No se seleccionó ningún operador")
+				.agregarValidacion(indicador == null, "No se seleccionó ningún indicador").validar();
+	}
 
 	public abstract Condicion buildPosta();
+
 	public abstract Boolean esTaxativa();
-	
-	
+
 }

@@ -35,16 +35,16 @@ public class CargarMetodologiasVM {
 	}
 
 	public void moverHaciaLaDerechaTaxativa() {
-		condicionesAgregadas.add(condicionTaxativaSeleccionada);
+		Condicion condTaxativa = new CondicionTaxativa(condicionTaxativaSeleccionada.getNombre(),
+				condicionTaxativaSeleccionada.getIndicador(), condicionTaxativaSeleccionada.getOperador(), 0.0);
+		condicionesAgregadas.add(condTaxativa);
 	}
 
 	public void moverHaciaLaDerechaComparativa() {
-		if( Double.compare(0.0, pesoDeComparativa) == 0)
-		{
-			throw new RuntimeException("No se ingresó ningun peso para la condicion comparativa");
-		}
-		condicionesAgregadas.add(condicionComparativaSeleccionada);
-		pesoDeComparativa = 0.0;
+		Condicion condComparativa = new CondicionComparativa(condicionComparativaSeleccionada.getNombre(),
+				condicionComparativaSeleccionada.getIndicador(), condicionComparativaSeleccionada.getOperador(),
+				pesoDeComparativa);
+		condicionesAgregadas.add(condComparativa);
 	}
 
 	public void sacarCondicion() {

@@ -17,6 +17,7 @@ import org.uqbar.commons.utils.Observable;
 import domain.Empresa;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
+import domain.metodologias.EmpresaConPeso;
 
 @Observable
 @Entity
@@ -30,9 +31,8 @@ public abstract class Condicion implements CondicionCustom {
 	protected String nombre;
 	@Transient
 	protected Indicador indicador;
-	//@Column(length = 1)
 	@Transient
-	protected OperadorCondicion operador;
+	protected OperadorCondicion operador;	
 
 	public Condicion(String nombre, Indicador indicador, OperadorCondicion operador) {
 		this.nombre = nombre;
@@ -40,11 +40,17 @@ public abstract class Condicion implements CondicionCustom {
 		this.operador = operador;
 	}
 
-	public abstract List<Empresa> aplicarCondicionEnPeriodo(List<Empresa> empresas, String periodo);
+	public abstract boolean esTaxativa();
 
-	public abstract List<Empresa> aplicarCondicion(List<Empresa> empresas);
+	public abstract List<EmpresaConPeso> aplicarCondicionEnPeriodo(List<EmpresaConPeso> empresasConPeso,
+			String periodo);
 
-	public abstract Boolean esTaxativa();
+	public abstract List<EmpresaConPeso> aplicarCondicion(List<EmpresaConPeso> empresasConPeso);
+
+	public List<String> obtenerPeriodos(List<EmpresaConPeso> empresasConPeso) {
+		return empresasConPeso.stream().map(empresaConPeso -> empresaConPeso.getEmpresa().getPeriodos())
+				.flatMap(Set::stream).collect(Collectors.toList());
+	}
 
 	// GETTERS Y SETTERS
 
@@ -60,17 +66,8 @@ public abstract class Condicion implements CondicionCustom {
 		return indicador.calcularIndicador(empresa, periodo);
 	}
 
-	public List<String> obtenerPeriodos(List<Empresa> empresas) {
-		return empresas.stream().map(empresa -> empresa.getPeriodos()).flatMap(Set::stream)
-				.collect(Collectors.toList());
-	}
-
 	public boolean suNombreEs(String nombreCondicion) {
 		return nombre.equals(nombreCondicion);
-	}
-
-	public Integer getId() {
-		return id;
 	}
 
 	public String getNombre() {

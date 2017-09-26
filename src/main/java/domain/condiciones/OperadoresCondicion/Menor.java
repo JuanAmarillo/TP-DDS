@@ -1,3 +1,4 @@
+
 package domain.condiciones.OperadoresCondicion;
 
 public class Menor extends OperadorCondicion{

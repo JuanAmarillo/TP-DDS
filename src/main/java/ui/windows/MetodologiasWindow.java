@@ -21,7 +21,7 @@ public class MetodologiasWindow extends Dialog {
 
 	@Override
 	protected void createFormPanel(Panel formPanel) {
-		this.setTitle("Metodologias");
+		this.setTitle("Metodologías");
 
 	}
 
@@ -30,7 +30,7 @@ public class MetodologiasWindow extends Dialog {
 		panelActions.setLayout(new ColumnLayout(1));
 		crearBotonConColor(panelActions, "Cargar condiciones", this::cargarCondiciones);
 		crearBotonConColor(panelActions, "Cargar metodologías", this::cargarMetodologias);
-		crearBotonConColor(panelActions, "Evaluar metodologias", this::evaluarMetodologias);
+		crearBotonConColor(panelActions, "Evaluar metodologías", this::evaluarMetodologias);
 	}
 
 	public void crearBotonConColor(Panel panelAUsar, String nombreBoton, Action onClick) {

@@ -9,14 +9,22 @@ import javax.persistence.Transient;
 import domain.Empresa;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
+import domain.metodologias.EmpresaConPeso;
 
 @Entity
 public class CondicionComparativa extends Condicion {
+
 	@Transient
-	private Double peso;
+	Double peso;
 
 	public CondicionComparativa(String nombre, Indicador indicador, OperadorCondicion operador) {
 		super(nombre, indicador, operador);
+		this.peso = 0.0;
+	}
+
+	public CondicionComparativa(String nombre, Indicador indicador, OperadorCondicion operador, Double peso) {
+		super(nombre, indicador, operador);
+		this.peso = peso;
 	}
 
 	public Integer evaluarCondicionEnPeriodo(Empresa empresaUno, Empresa empresaDos, String periodo) {
@@ -32,30 +40,51 @@ public class CondicionComparativa extends Condicion {
 	}
 
 	@Override
-	public List<Empresa> aplicarCondicionEnPeriodo(List<Empresa> empresas, String periodo) {
-		return empresas.stream()
-				.sorted((empresaUno, empresaDos) -> evaluarCondicionEnPeriodo(empresaUno, empresaDos, periodo))
-				.collect(Collectors.toList());
-	}
-
-	@Override
-	public List<Empresa> aplicarCondicion(List<Empresa> empresas) {
-		return empresas.stream()
-				.sorted((empresaUno, empresaDos) -> evaluarCondicion(empresaUno, empresaDos, obtenerPeriodos(empresas)))
-				.collect(Collectors.toList());
-	}
-
-	@Override
-	public Boolean esTaxativa() {
+	public boolean esTaxativa() {
 		return false;
+	}
+
+	@Override
+	public List<EmpresaConPeso> aplicarCondicionEnPeriodo(List<EmpresaConPeso> empresasConPeso, String periodo) {
+		List<EmpresaConPeso> empresasOrdenadas = this.ordenarEmpresasEnPeriodo(empresasConPeso, periodo);
+		return empresasOrdenadas.stream().map(empresaConPeso -> darPeso(empresasOrdenadas, empresaConPeso))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<EmpresaConPeso> aplicarCondicion(List<EmpresaConPeso> empresasConPeso) {
+		List<EmpresaConPeso> empresasOrdenadas = this.ordenarEmpresas(empresasConPeso);
+		return empresasConPeso.stream().map(empresaConPeso -> darPeso(empresasOrdenadas, empresaConPeso))
+				.collect(Collectors.toList());
+
+	}
+	
+	public List<EmpresaConPeso> ordenarEmpresas(List<EmpresaConPeso> empresasConPeso){
+		List<String> periodos = this.obtenerPeriodos(empresasConPeso);
+		return empresasConPeso.stream().sorted((empresaConPesoUno, empresaConPesoDos) -> evaluarCondicion(
+				empresaConPesoUno.getEmpresa(), empresaConPesoDos.getEmpresa(), periodos))
+		.collect(Collectors.toList());
+	}
+
+	public List<EmpresaConPeso> ordenarEmpresasEnPeriodo(List<EmpresaConPeso> empresasConPeso, String periodo) {
+		return empresasConPeso.stream()
+				.sorted((empresaConPesoUno, empresaConPesoDos) -> evaluarCondicionEnPeriodo(
+						empresaConPesoUno.getEmpresa(), empresaConPesoDos.getEmpresa(), periodo))
+				.collect(Collectors.toList());
+	}
+
+	public EmpresaConPeso darPeso(List<EmpresaConPeso> empresasConPeso, EmpresaConPeso empresaConPeso) {
+		empresaConPeso.setPeso(empresaConPeso.getPeso()
+				+ (empresasConPeso.size() - empresasConPeso.indexOf(empresaConPeso)) * this.getPeso());
+		return empresaConPeso;
 	}
 
 	public Double getPeso() {
 		return peso;
 	}
 
-	public CondicionComparativa setPeso(Double peso) {
+	public void setPeso(Double peso) {
 		this.peso = peso;
-		return this;
 	}
+
 }

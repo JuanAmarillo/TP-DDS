@@ -10,7 +10,7 @@ import org.uqbar.commons.utils.Observable;
 public class TEmpresaMas10Años extends CondicionTaxativa implements CondicionPredeterminada {
 	
 	public TEmpresaMas10Años(){
-		super("Empresa de mas de 10 años",new Antiguedad(), new Mayor(), 10.0);
+		super("Empresa de más de 10 años",new Antiguedad(), new Mayor(), 10.0);
 	}
 	
 }

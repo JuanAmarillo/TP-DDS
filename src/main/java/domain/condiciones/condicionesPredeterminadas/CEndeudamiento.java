@@ -7,11 +7,14 @@ import domain.indicadores.indicadoresPredeterminados.Endeudamiento;
 import org.uqbar.commons.utils.Observable;
 
 @Observable
-public class CEndeudamiento extends CondicionComparativa implements CondicionPredeterminada{
+public class CEndeudamiento extends CondicionComparativa implements CondicionPredeterminada {
 
 	public CEndeudamiento() {
 		super("Endeudamiento", new Endeudamiento(), new Mayor());
 	}
-	
+
+	public CEndeudamiento(Double peso) {
+		super("Endeudamiento", new Endeudamiento(), new Mayor(), peso);
+	}
 
 }

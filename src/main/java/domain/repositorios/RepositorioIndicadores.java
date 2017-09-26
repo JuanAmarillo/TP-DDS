@@ -3,16 +3,25 @@ package domain.repositorios;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;import java.util.stream.Collector;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
+
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
-import domain.indicadores.*;
-import domain.indicadores.indicadoresPredeterminados.*;
-import exceptions.YaExisteElIndicadorException;
+import domain.indicadores.BuilderIndicadorCustom;
+import domain.indicadores.Indicador;
+import domain.indicadores.IndicadorCustom;
+import domain.indicadores.indicadoresPredeterminados.Antiguedad;
+import domain.indicadores.indicadoresPredeterminados.Endeudamiento;
+import domain.indicadores.indicadoresPredeterminados.Leverage;
+import domain.indicadores.indicadoresPredeterminados.RAC;
+import domain.indicadores.indicadoresPredeterminados.ROA;
+import domain.indicadores.indicadoresPredeterminados.ROE;
+import domain.indicadores.indicadoresPredeterminados.Solvencia;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
+import exceptions.YaExisteElIndicadorException;
 
 
 public class RepositorioIndicadores implements Repositorio<Indicador>{
