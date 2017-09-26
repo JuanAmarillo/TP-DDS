@@ -42,68 +42,19 @@ public class Metodologia {
 		this.condiciones = condiciones;
 	}
 
-	public List<Empresa> aplicarCondiciones(List<Empresa> empresas) {
-		List<Empresa> emprFiltradas = this.aplicarCondicionesTaxativas(empresas);
-		return aplicarCondicionesComparativas(emprFiltradas);
-
-	}
-
-	public List<Empresa> aplicarCondicionesTaxativas(List<Empresa> empresas) {
-		List<Condicion> condicionesTaxativas = this.obtenerCondicionesTaxativas();
-		if (condicionesTaxativas.isEmpty()) {
-			return empresas;
-		} else {
-			List<Empresa> emprFiltradas = condicionesTaxativas.stream()
-					.map(condicion -> condicion.aplicarCondicion(empresas)).flatMap(List::stream)
-					.collect(Collectors.toList());
-			return emprFiltradas.stream().filter(empresa -> Collections.frequency(emprFiltradas, empresa) == this
-					.obtenerCondicionesTaxativas().size()).collect(Collectors.toList());
-		}
-	}
-
-	public List<Empresa> aplicarCondicionesComparativas(List<Empresa> empresas) {
-		List<CondicionComparativa> condicionesComparativas = this.obtenerCondicionesComparativas();
-		if (condicionesComparativas.isEmpty()) {
-			return empresas;
-		} else {
-			List<EmpresasAPesar> empresasSinPeso = condicionesComparativas.stream()
-					.map(condicionComparativa -> new EmpresasAPesar(condicionComparativa.aplicarCondicion(empresas),
-							condicionComparativa.getPeso()))
-					.collect(Collectors.toList());
-			// obtiene diccionario de empresas con su peso
-			Map<Empresa, Double> empresasOrdenadas = sortByPeso(darPesoALasEmpresas(empresasSinPeso));
-			// pasa todo a List<Empresa>
-			return pasarMapAList(empresasOrdenadas);
-		}
-	}
-
-	private Map<Empresa, Double> darPesoALasEmpresas(List<EmpresasAPesar> empresasSinPeso) {
-		return empresasSinPeso.stream().map(e -> e.darPeso()).flatMap(List::stream).collect(Collectors.groupingBy(
-				Pair<Empresa, Double>::getValue0, Collectors.summingDouble(Pair<Empresa, Double>::getValue1)));
-	}
-
-	public List<Empresa> pasarMapAList(Map<Empresa, Double> map) {
-		return map.entrySet().stream().map(empresa -> empresa.getKey()).collect(Collectors.toList());
-	}
-
-	public Map<Empresa, Double> sortByPeso(Map<Empresa, Double> map) {
-		return map.entrySet().stream().sorted(Map.Entry.comparingByValue(Collections.reverseOrder()))
-				.collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, (e1, e2) -> e1, LinkedHashMap::new));
-	}
-
-	public List<Condicion> obtenerCondicionesTaxativas() {
-		List<Condicion> condicionesTFiltradas = this.getCondiciones().stream().filter(cond -> cond.esTaxativa())
+	public List<Empresa> aplicarCondiciones(List<Empresa> empresas, String periodo) {
+		List<EmpresaConPeso> empresasConPeso = empresas.stream().map(empresa -> new EmpresaConPeso(empresa, 0.0))
 				.collect(Collectors.toList());
-		return condicionesTFiltradas;
+		List<EmpresaConPeso> empr = condiciones.stream()
+				.reduce(empresasConPeso,
+						(unasEmpresasConPeso, condicion) -> condicion.aplicarCondicion(unasEmpresasConPeso),
+						(empresaConPesos, empresaConPesos2) -> {
+							throw new RuntimeException("this reduction can't be parallel");
+						} // error para poder cambiar el tipo del retorno
+				);
+		return empr.stream().sorted((empresaConPeso1, empresaConPeso2) -> Double.compare(empresaConPeso2.getPeso(), empresaConPeso1.getPeso())).map(empresaConPeso -> empresaConPeso.getEmpresa()).collect(Collectors.toList());
 	}
-
-	public List<CondicionComparativa> obtenerCondicionesComparativas() {
-		List<CondicionComparativa> condicionesCFiltradas = this.getCondiciones().stream()
-				.filter(cond -> !cond.esTaxativa()).map(cond -> (CondicionComparativa) cond)
-				.collect(Collectors.toList());
-		return condicionesCFiltradas;
-	}
-
+	
 	// GETTERS Y SETTERS//
 	public boolean suNombreEs(String nombre) {
 		return this.nombre.equals(nombre);
