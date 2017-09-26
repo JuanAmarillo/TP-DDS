@@ -30,20 +30,21 @@ public class CondicionTaxativa extends Condicion {
 	}
 
 	@Override
-	public List<Empresa> aplicarCondicionEnPeriodo(List<Empresa> empresas, String periodo) {
-		return empresas.stream().filter(empresa -> evaluarCondicionEnPeriodo(empresa, periodo))
-				.collect(Collectors.toList());
-	}
-
-	@Override
-	public List<Empresa> aplicarCondicion(List<Empresa> empresas) {
-		return empresas.stream().filter(empresa -> evaluarCondicion(empresa, obtenerPeriodos(empresas)))
-				.collect(Collectors.toList());
-	}
-
-	@Override
-	public Boolean esTaxativa() {
+	public boolean esTaxativa() {
 		return true;
+	}
+
+	
+	public List<EmpresaConPeso> aplicarCondicionEnPeriodo(List<EmpresaConPeso> empresasConPeso, String periodo) {
+		return empresasConPeso.stream().filter(empresaConPeso -> evaluarCondicionEnPeriodo(empresaConPeso.getEmpresa(), periodo))
+				.collect(Collectors.toList());
+	}
+	
+	@Override
+	public List<EmpresaConPeso> aplicarCondicion(List<EmpresaConPeso> empresasConPeso){
+		 return empresasConPeso.stream().filter(empresaConPeso -> evaluarCondicion(empresaConPeso.getEmpresa(), obtenerPeriodos(empresasConPeso)))
+					.collect(Collectors.toList());
+		
 	}
 
 }
