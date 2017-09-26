@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 import org.uqbar.commons.utils.Observable;
@@ -12,11 +14,16 @@ import domain.Empresa;
 import domain.condiciones.Condicion;
 
 @Observable
+/*
 @Entity
 @Table(name = "metodologias")
-
+*/
 public class Metodologia {
-
+	/*
+	@Id
+	@GeneratedValue
+	public Integer id;
+	*/
 	private String nombre;
 	private List<Condicion> condiciones;
 
@@ -28,14 +35,16 @@ public class Metodologia {
 	public List<Empresa> aplicarCondiciones(List<Empresa> empresas, String periodo) {
 		List<EmpresaConPeso> empresasConPeso = empresas.stream().map(empresa -> new EmpresaConPeso(empresa, 0.0))
 				.collect(Collectors.toList());
-		List<EmpresaConPeso> empr = condiciones.stream()
-				.reduce(empresasConPeso,
-						(unasEmpresasConPeso, condicion) -> condicion.aplicarCondicion(unasEmpresasConPeso),
-						(empresaConPesos, empresaConPesos2) -> {
-							throw new RuntimeException("this reduction can't be parallel");
-						} // error para poder cambiar el tipo del retorno
-				);
-		return empr.stream().sorted((empresaConPeso1, empresaConPeso2) -> Double.compare(empresaConPeso2.getPeso(), empresaConPeso1.getPeso())).map(empresaConPeso -> empresaConPeso.getEmpresa()).collect(Collectors.toList());
+		List<EmpresaConPeso> empr = condiciones.stream().reduce(empresasConPeso,
+				(unasEmpresasConPeso, condicion) -> condicion.aplicarCondicion(unasEmpresasConPeso),
+				(empresaConPesos, empresaConPesos2) -> {
+					throw new RuntimeException("this reduction can't be parallel");
+				} // error para poder cambiar el tipo del retorno
+		);
+		return empr.stream()
+				.sorted((empresaConPeso1, empresaConPeso2) -> Double.compare(empresaConPeso2.getPeso(),
+						empresaConPeso1.getPeso()))
+				.map(empresaConPeso -> empresaConPeso.getEmpresa()).collect(Collectors.toList());
 	}
 
 	// GETTERS Y SETTERS//
