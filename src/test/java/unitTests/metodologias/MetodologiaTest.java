@@ -9,26 +9,25 @@ import org.junit.Test;
 
 import domain.Empresa;
 import domain.condiciones.Condicion;
-import domain.condiciones.CondicionComparativa;
 import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.CEndeudamiento;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
 import domain.metodologias.Metodologia;
-import mocks.PreparadorDeEmpresas;
+import unitTests.fixtureEmpresas.PreparadorDeEmpresas;
 
 public class MetodologiaTest {
 
 	Condicion condicionTAntiguedad = new TEmpresaMas10Años();
-	Condicion condicionCEndeudamiento = new CEndeudamiento().setPeso(5.0);
-	Condicion condicionCAntiguedad = new CEmpresaMayorAntiguedad().setPeso(10.0);
-
+	Condicion condicionCEndeudamiento = new CEndeudamiento(5.0);
+	Condicion condicionCAntiguedad = new CEmpresaMayorAntiguedad(10.0);
+		
 	List<Condicion> condicionesMixtas = Arrays.asList(condicionTAntiguedad, condicionCEndeudamiento);
 	List<Condicion> condicionesTaxativas = Arrays.asList(condicionTAntiguedad);
-	List<Condicion> condicionesComparativas = Arrays.asList(condicionCAntiguedad, condicionCEndeudamiento);
+	List<Condicion> condicionesComparativas = Arrays.asList(condicionCEndeudamiento);
 
 	Metodologia metodologiaMixta = new Metodologia("PepitaMixta", condicionesMixtas);
-	Metodologia metodologiaTaxativa = new Metodologia("PepitaT", condicionesTaxativas);
-	Metodologia metodologiaComparativa = new Metodologia("PepitaC", condicionesComparativas);
+	Metodologia metodologiaTaxativa = new Metodologia("PepitaTaxativa", condicionesTaxativas);
+	Metodologia metodologiaComparativa = new Metodologia("PepitaComparativa", condicionesComparativas);
 
 	List<Empresa> listaEmpresas = PreparadorDeEmpresas.prepararEmpresas();
 
@@ -38,37 +37,21 @@ public class MetodologiaTest {
 	}
 
 	@Test
-	public void metodologiaAplicableFiltraPorCondicionTaxativaTest() {
-		List<Condicion> condFiltradas = metodologiaMixta.obtenerCondicionesTaxativas();
-		assertEquals(1, condFiltradas.size());
-	}
-
-	@Test
-	public void metodologiaAplicableFiltraPorCondicionComparativaTest() {
-		List<CondicionComparativa> condFiltradas = metodologiaMixta.obtenerCondicionesComparativas();
-		assertEquals(1, condFiltradas.size());
-	}
-
-	@Test
-	public void seAplicanCondicionesTaxativasTest() {
-		List<Empresa> emprFiltradas = metodologiaMixta.aplicarCondicionesTaxativas(listaEmpresas);
-		assertEquals(emprFiltradas.size(), 2);
-	}
-
-	@Test
 	public void seAplicanCondicionesComparativasTest() {
-		List<Empresa> emprFiltradas = metodologiaMixta.aplicarCondicionesComparativas(listaEmpresas);
+		List<Empresa> emprFiltradas = metodologiaComparativa.aplicarCondiciones(listaEmpresas, "pascuas");
 		Empresa sorny = listaEmpresas.get(1);
+		imprimirNombres(emprFiltradas);
+		assertEquals(emprFiltradas.size(), 5);
 		assertEquals(emprFiltradas.size(), listaEmpresas.size());
 		assertEquals(emprFiltradas.get(0), sorny);
-		imprimirNombres(emprFiltradas); // Por la condición endeudamiento
+		//Por la condición endeudamiento
 										// deberían quedar: Sorny, Pepsi-Co,
 										// Coca-Cola, Panaphonics, MagnetBox
 	}
 
 	@Test
 	public void seAplicanCondicionesTest() {
-		List<Empresa> emprFiltradas = metodologiaMixta.aplicarCondiciones(listaEmpresas);
+		List<Empresa> emprFiltradas = metodologiaMixta.aplicarCondiciones(listaEmpresas, "pascuas");
 		Empresa pepsi = listaEmpresas.get(3);
 		Empresa coca = listaEmpresas.get(0);
 		imprimirNombres(emprFiltradas); // Debería quedar Pepsi-Co,Coca-Cola
@@ -79,15 +62,9 @@ public class MetodologiaTest {
 
 	@Test
 	public void seAplicanSoloCondicionesTaxativasTest() {
-		List<Empresa> emprFiltradas = metodologiaTaxativa.aplicarCondiciones(listaEmpresas);
+		List<Empresa> emprFiltradas = metodologiaTaxativa.aplicarCondiciones(listaEmpresas, "pascuas");
 		assertEquals(emprFiltradas.size(), 2);
 	}
 
-	@Test
-	public void seAplicanSoloCondicionesComparativasTest() {
-		List<Empresa> emprFiltradas = metodologiaComparativa.aplicarCondiciones(listaEmpresas);
-		assertEquals(emprFiltradas.size(), 5);
-		imprimirNombres(emprFiltradas);
-	}
 
 }
