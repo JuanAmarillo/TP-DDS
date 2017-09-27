@@ -27,6 +27,10 @@ public abstract class Repositorio<T> {
 	public List<T> getElementos() {
 		return obtenerLista(from());
 	}
+	
+	public List<String> getNombres() {
+		return entityManager.createQuery("SELECT i.nombre FROM "+ getEntityName() +" i", String.class).getResultList();
+	}
 
 	public void agregar(T elemento) {
 		// EntityTransaction tx = crearTransaccion();
@@ -34,11 +38,16 @@ public abstract class Repositorio<T> {
 		// tx.commit();
 	}
 
-	protected EntityTransaction crearTransaccion() {
+	public void crearTransaccion() {
 		EntityTransaction tx = entityManager.getTransaction();
 		if (!tx.isActive())
 			tx.begin();
-		return tx;
+	}
+	
+	public void cerrarTransaccion(){
+		EntityTransaction tx = entityManager.getTransaction();
+		if (!tx.isActive())
+			tx.commit();
 	}
 
 	protected void persistir(Object elemento) {

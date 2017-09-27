@@ -69,6 +69,10 @@ public abstract class Condicion implements CondicionCustom {
 	public boolean suNombreEs(String nombreCondicion) {
 		return nombre.equals(nombreCondicion);
 	}
+	
+	public Integer getId(){
+		return id;
+	}
 
 	public String getNombre() {
 		return nombre;

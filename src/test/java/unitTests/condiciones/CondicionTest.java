@@ -34,12 +34,6 @@ public class CondicionTest {
 	}
 
 	@Test
-	public void testSeAgreganAlRepoLasPredeterminadas() {
-		Integer condicionesPredeterminadas = 4;
-		assertEquals(condicionesPredeterminadas, RepositorioCondiciones.instance().cantidadDeCondiciones());
-	}
-
-	@Test
 	public void testCondicionPredeterminadaValor() {
 		CEmpresaMayorAntiguedad condicion = new CEmpresaMayorAntiguedad();
 		assertFalse(condicion.esCustom());

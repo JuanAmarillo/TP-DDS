@@ -21,6 +21,13 @@
     	<class>domain.indicadores.indicadoresPredeterminados.Solvencia</class>
     	<class>domain.metodologias.Metodologia</class>
     	<class>domain.condiciones.Condicion</class>
+    	<class>domain.condiciones.CondicionComparativa</class>
+    	<class>domain.condiciones.CondicionTaxativa</class>
+    	<class>domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad</class>
+    	<class>domain.condiciones.condicionesPredeterminadas.CEndeudamiento</class>
+    	<class>domain.condiciones.condicionesPredeterminadas.CMaximizarROE</class>
+    	<class>domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años</class>
+    	<class>domain.condiciones.condicionesPredeterminadas.TEndeudamiento</class>
         <properties> 
 	    <property name="hibernate.archive.autodetection" value="class"/>        
         

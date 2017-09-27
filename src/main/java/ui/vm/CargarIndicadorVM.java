@@ -24,7 +24,7 @@ public class CargarIndicadorVM {
 	}
 
 	public List<String> getIndicadores() {
-		return RepositorioIndicadores.instance().getNombresDeIndicadores();
+		return RepositorioIndicadores.instance().getNombres();
 	}
 
 	public String getIndicadorSeleccionado() {

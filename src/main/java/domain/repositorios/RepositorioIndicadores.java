@@ -34,8 +34,8 @@ public class RepositorioIndicadores extends Repositorio<Indicador> {
 
 	private static void cargarNuevaInstancia() {
 		instance = new RepositorioIndicadores();
-		// instance.leerBD();
-		instance.agregarPredeterminados();
+		//instance.leerBD();
+		//instance.agregarPredeterminados();
 	}
 
 	private static boolean noHayInstanciaCargada() {
@@ -88,10 +88,6 @@ public class RepositorioIndicadores extends Repositorio<Indicador> {
 			throw new YaExisteElIndicadorException();
 	}
 
-	public List<String> getNombresDeIndicadores() {
-		return entityManager.createQuery("SELECT i.nombre FROM Indicador i", String.class).getResultList();
-	}
-
 	public void agregarPredeterminados() {
 		 agregar(new Leverage());
 		 agregar(new ROA());
@@ -104,12 +100,9 @@ public class RepositorioIndicadores extends Repositorio<Indicador> {
 
 	public void leerBD() {
 		BuilderIndicadorCustom buildercito = new BuilderIndicadorCustom(null);
-		List<IndicadorCustom> indicadoresEnBase = entityManager
-				.createQuery("SELECT i FROM IndicadorCustom i", IndicadorCustom.class).getResultList();
-		List<IndicadorCustom> indicadoresCompletos = indicadoresEnBase.stream()
+		List<IndicadorCustom> indicadoresCompletos = obtenerCustoms().stream()
 				.map(indicadorIncompleto -> buildercito.generarCalculo(indicadorIncompleto))
 				.collect(Collectors.toList());
-		// indicadoresCargados.addAll(indicadoresCompletos);
 	}
 
 	public IndicadorCustom crearIndicador(String ecuacion) {

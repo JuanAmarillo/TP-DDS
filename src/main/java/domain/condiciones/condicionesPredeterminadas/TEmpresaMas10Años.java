@@ -4,9 +4,13 @@ import domain.condiciones.CondicionPredeterminada;
 import domain.condiciones.CondicionTaxativa;
 import domain.condiciones.OperadoresCondicion.Mayor;
 import domain.indicadores.indicadoresPredeterminados.Antiguedad;
+
+import javax.persistence.Entity;
+
 import org.uqbar.commons.utils.Observable;
 
 @Observable
+@Entity
 public class TEmpresaMas10Años extends CondicionTaxativa implements CondicionPredeterminada {
 	
 	public TEmpresaMas10Años(){

@@ -81,8 +81,7 @@ public class RepositorioIndicadoresTest extends AbstractPersistenceTest{
 	public void testEliminarUnIndicador(){
 		agregar("jackson es mi mejor amigo");
 		borrar( "jackson es mi mejor amigo");
-		assertEquals(repositorio.cantidadElementosCargados(),new Long(0));
-		//verificarExistencia("jackson es mi mejor amigo", false);
+		verificarExistencia("jackson es mi mejor amigo", false);
 	}
 	
 	@Test(expected = RuntimeException.class)

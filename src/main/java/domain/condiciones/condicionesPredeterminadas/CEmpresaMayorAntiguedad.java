@@ -5,9 +5,12 @@ import domain.condiciones.CondicionPredeterminada;
 import domain.condiciones.OperadoresCondicion.Mayor;
 import domain.indicadores.indicadoresPredeterminados.Antiguedad;
 
+import javax.persistence.Entity;
+
 import org.uqbar.commons.utils.Observable;
 
 @Observable
+@Entity
 public class CEmpresaMayorAntiguedad extends CondicionComparativa implements CondicionPredeterminada{
 
 	public CEmpresaMayorAntiguedad() {

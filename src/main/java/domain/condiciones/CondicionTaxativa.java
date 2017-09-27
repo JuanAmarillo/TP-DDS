@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 import domain.Empresa;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
@@ -12,6 +14,7 @@ import domain.indicadores.Indicador;
 import domain.metodologias.EmpresaConPeso;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class CondicionTaxativa extends Condicion {
 
 	public Double valorDeComparacion;

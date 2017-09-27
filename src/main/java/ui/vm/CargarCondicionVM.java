@@ -32,7 +32,7 @@ public class CargarCondicionVM {
 
 	private void crearCondicion() {
 		Condicion condicion = buildearCondicion();
-		RepositorioCondiciones.instance().agregarCondicion(condicion);
+		RepositorioCondiciones.instance().agregar(condicion);
 	}
 
 	private Condicion buildearCondicion() {
@@ -68,7 +68,7 @@ public class CargarCondicionVM {
 	}
 
 	public List<String> getCondiciones() {
-		return RepositorioCondiciones.instance().getNombresDeCondiciones();
+		return RepositorioCondiciones.instance().getNombres();
 	}
 
 	public String getCondicionSeleccionada() {
@@ -80,7 +80,7 @@ public class CargarCondicionVM {
 	}
 
 	public List<String> getIndicadores() {
-		return RepositorioIndicadores.instance().getNombresDeIndicadores();
+		return RepositorioIndicadores.instance().getNombres();
 	}
 
 	public String getIndicadorSeleccionado() {

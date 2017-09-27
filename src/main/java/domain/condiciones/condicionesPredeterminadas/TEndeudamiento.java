@@ -1,5 +1,7 @@
 package domain.condiciones.condicionesPredeterminadas;
 
+import javax.persistence.Entity;
+
 import org.uqbar.commons.utils.Observable;
 
 import domain.condiciones.CondicionPredeterminada;
@@ -8,6 +10,7 @@ import domain.condiciones.OperadoresCondicion.Menor;
 import domain.indicadores.indicadoresPredeterminados.Endeudamiento;
 
 @Observable
+@Entity
 public class TEndeudamiento extends CondicionTaxativa implements CondicionPredeterminada{
 	
 	public TEndeudamiento(){

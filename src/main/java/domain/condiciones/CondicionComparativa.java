@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Transient;
 
 import domain.Empresa;
@@ -12,6 +14,7 @@ import domain.indicadores.Indicador;
 import domain.metodologias.EmpresaConPeso;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class CondicionComparativa extends Condicion {
 
 	@Transient
