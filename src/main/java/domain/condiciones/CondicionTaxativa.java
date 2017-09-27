@@ -17,8 +17,11 @@ import domain.metodologias.EmpresaConPeso;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class CondicionTaxativa extends Condicion {
 
-	public Double valorDeComparacion;
+	@Column
+	private Double valorDeComparacion;
 
+	public CondicionTaxativa(){}
+	
 	public CondicionTaxativa(String nombre, Indicador indicador, OperadorCondicion operador,
 			Double valorDeComparacion) {
 		super(nombre, indicador, operador);

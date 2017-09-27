@@ -3,10 +3,10 @@ package domain.condiciones;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.Transient;
 
 import domain.Empresa;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
@@ -17,9 +17,11 @@ import domain.metodologias.EmpresaConPeso;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class CondicionComparativa extends Condicion {
 
-	@Transient
-	Double peso;
+	@Column
+	private Double peso;
 
+	public CondicionComparativa(){}
+	
 	public CondicionComparativa(String nombre, Indicador indicador, OperadorCondicion operador) {
 		super(nombre, indicador, operador);
 		this.peso = 0.0;

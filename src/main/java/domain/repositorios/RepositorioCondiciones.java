@@ -1,9 +1,6 @@
 package domain.repositorios;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
@@ -12,7 +9,6 @@ import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.CEndeudamiento;
 import domain.condiciones.condicionesPredeterminadas.CMaximizarROE;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
-import domain.indicadores.IndicadorCustom;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import exceptions.YaExisteLaCondicionException;
 

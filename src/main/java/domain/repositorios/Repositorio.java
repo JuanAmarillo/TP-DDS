@@ -8,9 +8,6 @@ import javax.persistence.EntityTransaction;
 
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
-import domain.Empresa;
-import domain.indicadores.Indicador;
-
 public abstract class Repositorio<T> {
 
 	protected EntityManager entityManager = PerThreadEntityManagers.getEntityManager();

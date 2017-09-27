@@ -6,12 +6,10 @@ import java.util.stream.Collectors;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 import org.uqbar.commons.utils.Observable;
 
@@ -23,18 +21,14 @@ import domain.condiciones.Condicion;
 @Table(name = "metodologias")
 public class Metodologia {
 	@Id
-	@GeneratedValue
-	public Integer id;
 	@Column(name = "nombre")
 	private String nombre;
-	//@Column(name = "condiciones")
-	//@ManyToMany(cascade={CascadeType.ALL})
-	//@JoinTable(name="Metodologia_Condiciones")
-	@Transient
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private List<Condicion> condiciones;
 
-	public Metodologia(){}
-	
+	public Metodologia() {
+	}
+
 	public Metodologia(String nombre, List<Condicion> condiciones) {
 		this.nombre = nombre;
 		this.condiciones = condiciones;
@@ -76,7 +70,4 @@ public class Metodologia {
 		this.condiciones = condiciones;
 	}
 
-	public Integer getId() {
-		return id;
-	}
 }

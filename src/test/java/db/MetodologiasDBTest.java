@@ -31,15 +31,20 @@ public class MetodologiasDBTest {
 	Metodologia metodologiaComparativa = new Metodologia("PepitaC", condicionesComparativas);
 
 	private EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-	
-	
+
 	@Test
-	public void retornaMetodologia(){
+	public void guardaMetodologia() {
+		
+	}
+
+	@Test
+	public void retornaMetodologia() {
 		entityManager.getTransaction().begin();
 		entityManager.persist(metodologiaMixta);
 		entityManager.getTransaction().commit();
-		List<Metodologia> metodologiasCargadas = entityManager.createQuery("SELECT i FROM Metodologia i", Metodologia.class).getResultList();
-		assertEquals(metodologiasCargadas.size(),1);
+		List<Metodologia> metodologiasCargadas = entityManager
+				.createQuery("SELECT i FROM Metodologia i", Metodologia.class).getResultList();
+		assertEquals(metodologiasCargadas.size(), 1);
 	}
 
 }
