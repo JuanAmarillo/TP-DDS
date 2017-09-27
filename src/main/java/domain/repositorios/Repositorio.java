@@ -13,7 +13,7 @@ import domain.Empresa;
 public abstract class Repositorio<T> {
 
 	protected EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-
+	
 	@SuppressWarnings("unchecked")
 	public List<T> obtenerLista(String query) {
 		return entityManager.createQuery(query).getResultList();
@@ -36,8 +36,8 @@ public abstract class Repositorio<T> {
 		return tx;
 	}
 
-	private void persistir(T empresa) {
-		entityManager.persist(empresa);
+	private void persistir(T elemento) {
+		entityManager.persist(elemento);
 	}
 
 	public Boolean hayElementosCargados() {

@@ -6,15 +6,19 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.Table;
 
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import domain.Empresa;
 
-//@MappedSuperclass
+@Entity
+@Table(name = "indicadores")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Indicador {
+	@Id
+	@GeneratedValue
+	public Integer id;
 	@JsonProperty("nombre")
 	@Column(length=30)
 	protected String nombre;

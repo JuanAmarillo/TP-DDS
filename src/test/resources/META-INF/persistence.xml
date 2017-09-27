@@ -9,7 +9,7 @@
     	<provider>org.hibernate.ejb.HibernatePersistence</provider>
     	<class>domain.Empresa</class>
     	<class>domain.Cuenta</class>
-    	<class>domain.indicadores.Indicador</class>
+    	<class>domain.indicadores.Indicador</class> 
     	<class>domain.indicadores.IndicadorCustom</class> 
     	<class>domain.metodologias.Metodologia</class>
     	<class>domain.condiciones.Condicion</class>
@@ -27,7 +27,7 @@
             <property name="hibernate.connection.password" value="" /> 
             <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
 
-            <property name="hibernate.show_sql" value="false" /> 
+            <property name="hibernate.show_sql" value="true" /> 
             <property name="hibernate.format_sql" value="true" /> 
             <property name="use_sql_comments" value="true" /> 
             <property name="hibernate.hbm2ddl.auto" value="create-drop" /> 

@@ -25,8 +25,8 @@ import exceptions.YaExisteElIndicadorException;
 
 
 public class RepositorioIndicadores extends Repositorio<Indicador>{
-	private EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 	private static RepositorioIndicadores instance = null;
+	
 	private List<Indicador> indicadoresCargados = new ArrayList<>();
 
 	public static RepositorioIndicadores instance() {
@@ -37,7 +37,7 @@ public class RepositorioIndicadores extends Repositorio<Indicador>{
 
 	private static void cargarNuevaInstancia() {
 		instance = new RepositorioIndicadores();
-		instance.leerBD();
+		//instance.leerBD();
 		instance.agregarPredeterminados();
 	}
 
@@ -101,17 +101,17 @@ public class RepositorioIndicadores extends Repositorio<Indicador>{
 		agregarIndicador(indicadorNuevo);		
 	}
 	
-	public void agregarIndicador(IndicadorCustom indicadorNuevo) {
+	public void agregarIndicador(Indicador indicadorNuevo) {
 		verificarSiExiste(indicadorNuevo);
-		persistirIndicador(indicadorNuevo);
+		agregar(indicadorNuevo);
 		add(indicadorNuevo);
 	}
 	
-	public void persistirIndicador(IndicadorCustom indicador) {		
-		entityManager.getTransaction().begin();
-		entityManager.persist(indicador);
-		entityManager.getTransaction().commit();		
-	}
+//	public void persistirIndicador(IndicadorCustom indicador) {		
+//		entityManager.getTransaction().begin();
+//		entityManager.persist(indicador);
+//		entityManager.getTransaction().commit();		
+//	}
 	
 	public void add(Indicador indicador) {
 		getIndicadoresCargados().add(indicador);

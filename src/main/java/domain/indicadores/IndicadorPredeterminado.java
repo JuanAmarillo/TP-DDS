@@ -1,8 +1,11 @@
 package domain.indicadores;
 
+import javax.persistence.Entity;
+
 import domain.Empresa;
 import domain.repositorios.RepositorioIndicadores;
 
+@Entity
 public abstract class IndicadorPredeterminado extends Indicador {
 
 	@Override
