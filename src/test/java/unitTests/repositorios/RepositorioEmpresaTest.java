@@ -55,7 +55,7 @@ public class RepositorioEmpresaTest {
 	}
 
 	public void agregarEmpresaLuegoDeArchivo(String nombre) {
-		repositorio.agregarDesdeArchivo(crearEmpresa(nombre));
+		repositorio.agregar(crearEmpresa(nombre));
 	}
 	
 	@Before

@@ -26,7 +26,7 @@ public class LevantaArchivoEmpresa{
 	}
 	
 	public void cargarArchivo() throws IOException {
-		RepositorioEmpresas.instance().agregarDesdeArchivo(getEmpresaDelArchivo());
+		RepositorioEmpresas.instance().agregar(getEmpresaDelArchivo());
 	}
 	
 }

@@ -43,13 +43,18 @@ public class RepositorioEmpresas extends Repositorio<Empresa> {
 		return Empresa.class.getSimpleName();
 	}
 
-	public void agregarDesdeArchivo(Empresa empresaLeida) {
+	@Override
+	public void agregar(Empresa empresa) {
 		try {
-			Empresa empresa = findByName(empresaLeida.getNombre()).get();
-			empresa.agregarCuentas(empresaLeida.getCuentas());
+			agregarCuentas(empresa);
 		} catch (NoSuchElementException e) {
-			agregar(empresaLeida);
+			super.agregar(empresa);
 		}
+	}
+
+	public void agregarCuentas(Empresa unaEmpresa) {
+		Empresa empresa = findByName(unaEmpresa.getNombre()).get();
+		empresa.agregarCuentas(empresa.getCuentas());
 	}
 
 	public boolean existeLaEmpresa(Empresa empresa) {
