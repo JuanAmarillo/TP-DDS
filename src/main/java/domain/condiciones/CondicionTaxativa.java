@@ -5,16 +5,18 @@ import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 import domain.Empresa;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
 import domain.metodologias.EmpresaConPeso;
 
-//@Entity
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class CondicionTaxativa extends Condicion {
 
-	@Column(name="valor")
 	public Double valorDeComparacion;
 
 	public CondicionTaxativa(String nombre, Indicador indicador, OperadorCondicion operador,
@@ -29,7 +31,7 @@ public class CondicionTaxativa extends Condicion {
 
 	public Boolean evaluarCondicion(Empresa empresa, List<String> periodos) {
 		return periodos.stream().allMatch(periodo -> evaluarCondicionEnPeriodo(empresa, periodo));
-}
+	}
 	
 	@Override
 	public boolean esTaxativa() {

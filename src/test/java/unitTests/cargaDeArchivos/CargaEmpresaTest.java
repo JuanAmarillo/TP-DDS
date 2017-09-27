@@ -1,24 +1,23 @@
 package unitTests.cargaDeArchivos;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import javax.persistence.EntityManager;
+
 import org.junit.Test;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import archivos.LevantaArchivoEmpresa;
-import domain.Empresa;
 import domain.repositorios.RepositorioEmpresas;
 
-public class CargaEmpresaTest {
+public class CargaEmpresaTest extends AbstractPersistenceTest {
 
-	public Empresa cocaCola;
+	public RepositorioEmpresas repositorio = new RepositorioEmpresas();
 
-	private void cargarArchivos(String nombreArchivo) {
+	private void cargarArchivo(String nombreArchivo) {
 		try {
 			new LevantaArchivoEmpresa("src/test/resources/" + nombreArchivo).cargarArchivo();
 		} catch (IOException e) {
@@ -26,20 +25,24 @@ public class CargaEmpresaTest {
 		}
 	}
 	
-	@Before
-	public void init() {
-		cargarArchivos("Coca-Cola.json");
+	@Override
+	public EntityManager entityManager() {
+		return repositorio.getEntityManager();
 	}
-
-	@After
-	public void finalizar() {
-		RepositorioEmpresas.resetSingleton();
+	
+	@Test
+	public void testCargaUnaEmpresa(){
+		cargarArchivo("Coca-Cola.json");
+		assertTrue(repositorio.findByName("Coca-Cola").isPresent());
 	}
 	
 	@Test
 	public void testMismaEmpresaAgregaCuentasDistintas() {	
-		cargarArchivos("Coca-Cola 2.json");
-		assertEquals(12, RepositorioEmpresas.instance().buscarEmpresa("Coca-Cola").get().getCuentas().size());
+		cargarArchivo("Coca-Cola 2.json");
+		cargarArchivo("Coca-Cola.json");
+		assertEquals(12, repositorio.findByName("Coca-Cola").get().getCuentas().size());
 	}
+
+
 	
 }

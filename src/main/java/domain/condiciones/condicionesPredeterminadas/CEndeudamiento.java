@@ -4,9 +4,13 @@ import domain.condiciones.CondicionComparativa;
 import domain.condiciones.CondicionPredeterminada;
 import domain.condiciones.OperadoresCondicion.Mayor;
 import domain.indicadores.indicadoresPredeterminados.Endeudamiento;
+
+import javax.persistence.Entity;
+
 import org.uqbar.commons.utils.Observable;
 
 @Observable
+@Entity
 public class CEndeudamiento extends CondicionComparativa implements CondicionPredeterminada {
 
 	public CEndeudamiento() {

@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import domain.Empresa;
 import domain.repositorios.RepositorioEmpresas;
@@ -14,14 +15,16 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.junit.After;
 
-public class RepositorioEmpresaTest {
+public class RepositorioEmpresaTest extends AbstractPersistenceTest {
 
-	private RepositorioEmpresas repositorio;
+	private RepositorioEmpresas repositorio = new RepositorioEmpresas();
 
 	public void agregarEmpresa(String nombreEmpresa) {
-		repositorio.agregarEmpresa(crearEmpresa(nombreEmpresa));
+		repositorio.agregar(crearEmpresa(nombreEmpresa));
 	}
 
 	public Empresa crearEmpresa(String nombreEmpresa) {
@@ -29,49 +32,43 @@ public class RepositorioEmpresaTest {
 	}
 
 	private void buscarEmpresa(String nombre) {
-		assertEquals(repositorio.buscarEmpresa(nombre).get().getNombre(), nombre);
+		assertEquals(repositorio.findByName(nombre).get().getNombre(), nombre);
 	}
 
 	public void verificarExistencia(String nombre, boolean resultado) {
-		assertEquals(resultado,repositorio.existeLaEmpresa(crearEmpresa(nombre)));
+		assertEquals(resultado,repositorio.verificarExistencia(crearEmpresa(nombre)));
 	}
 
 	public void comprobarLaPrimeraEmpresa(String nombre) {
-		assertEquals(repositorio.getEmpresasCargadas().get(0).getNombre(), nombre);
+		assertEquals(repositorio.getElementos().get(0).getNombre(), nombre);
 	}
 
 	public void laCantidadDeEmpresasCargadasEs(Long cantidad) {
-		assertEquals(cantidad, repositorio.cantidadDeEmpresasCargadas());
+		assertEquals(cantidad, repositorio.cantidadElementosCargados());
 	}
 	
 	private void borrarEmpresa(String empresa) {
-		repositorio.borrarEmpresa(empresa);
+		repositorio.deleteByName(empresa);
 	}
 	
 	private void imprimirEmpresas(String test) {
-		List<Empresa> empresas = repositorio.getEmpresasCargadas();
+		List<Empresa> empresas = repositorio.getElementos();
 		System.out.println(empresas.size());
 		empresas.forEach(empresa -> System.out.println(test + "   AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + empresa.getNombre()));
 	}
 
 	public void agregarEmpresaLuegoDeArchivo(String nombre) {
-		repositorio.agregarDesdeArchivo(crearEmpresa(nombre));
+		repositorio.agregar(crearEmpresa(nombre));
 	}
 	
-	@Before
-	public void init() {
-		repositorio = new RepositorioEmpresas();
-		agregarEmpresa("Steam");
-	}
-	
-	@After
-	public void finalize() {
-		borrarEmpresa("Steam");
+	@Override
+	public EntityManager entityManager() {
+		return repositorio.getEntityManager();
 	}
 	
 	@Test
 	public void tieneEmpresasCargadas(){
-		laCantidadDeEmpresasCargadasEs(1l);
+		laCantidadDeEmpresasCargadasEs(0l);
 	}
 
 	@Test
@@ -79,10 +76,7 @@ public class RepositorioEmpresaTest {
 		agregarEmpresaLuegoDeArchivo("Universidad");
 		agregarEmpresaLuegoDeArchivo("Tecnologica");
 		agregarEmpresaLuegoDeArchivo("Nacional");
-		laCantidadDeEmpresasCargadasEs(4l); // Universidad, Tecnologica, Nacional y Steam
-		borrarEmpresa("Universidad");
-		borrarEmpresa("Tecnologica");
-		borrarEmpresa("Nacional");
+		laCantidadDeEmpresasCargadasEs(3l);
 	}
 
 	
@@ -91,16 +85,20 @@ public class RepositorioEmpresaTest {
 	public void testAgregaDosVecesLaMismaEmpresaLuegoDeArchivoSoloDejaUna() {
 		agregarEmpresaLuegoDeArchivo("Jackson");
 		agregarEmpresaLuegoDeArchivo("Jackson");
-		imprimirEmpresas("Jackson");
-		laCantidadDeEmpresasCargadasEs(2l); //Jackson y Steam
-		borrarEmpresa("Jackson");
+		laCantidadDeEmpresasCargadasEs(1l);
+	}
+	
+	@Test
+	public void testBorraUnaEmpresa(){
+		agregarEmpresa("peron");
+		borrarEmpresa("peron");
+		laCantidadDeEmpresasCargadasEs(0l);
 	}
 
 	@Test
 	public void testAgregaYBuscaLaEmpresa() {
 		agregarEmpresa("Manaos");
 		buscarEmpresa("Manaos");
-		borrarEmpresa("Manaos");
 	}
 
 	@Test(expected = RuntimeException.class)

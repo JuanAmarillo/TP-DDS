@@ -24,7 +24,7 @@ public class CargarIndicadorVM {
 	}
 
 	public List<String> getIndicadores() {
-		return RepositorioIndicadores.instance().getNombresDeIndicadores();
+		return RepositorioIndicadores.instance().getNombres();
 	}
 
 	public String getIndicadorSeleccionado() {
@@ -49,7 +49,7 @@ public class CargarIndicadorVM {
 	}
 
 	public void eliminarIndicador() throws IOException {		
-		RepositorioIndicadores.instance().eliminarIndicadorAPartirDel(indicadorSeleccionado);
+		RepositorioIndicadores.instance().deleteByName(indicadorSeleccionado);
 		avisarCambioIndicadores();
 	}
 	

@@ -12,12 +12,12 @@ import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.CEndeudamiento;
 import domain.condiciones.condicionesPredeterminadas.CMaximizarROE;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
+import domain.indicadores.IndicadorCustom;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import exceptions.YaExisteLaCondicionException;
 
-public class RepositorioCondiciones {
+public class RepositorioCondiciones extends Repositorio<Condicion> {
 	private static RepositorioCondiciones instance = null;
-	private List<Condicion> condicionesCargadas = new ArrayList<>();
 
 	public static RepositorioCondiciones instance() {
 		if (noHayInstanciaCargada())
@@ -27,7 +27,7 @@ public class RepositorioCondiciones {
 
 	private static void cargarNuevaInstancia() {
 		instance = new RepositorioCondiciones();
-		instance.agregarPredeterminados();
+		//instance.agregarPredeterminados();
 	}
 
 	private static boolean noHayInstanciaCargada() {
@@ -38,72 +38,47 @@ public class RepositorioCondiciones {
 		instance = null;
 	}
 
-	public List<Condicion> getCondicionesCargadas() {
-		return condicionesCargadas;
-	}
-
 	public List<CondicionTaxativa> getCondicionesTaxativas() {
-		return getCondicionesCargadas().stream().filter(unaCondicion -> unaCondicion.esTaxativa())
-				.map(cond -> (CondicionTaxativa) cond).collect(Collectors.toList());
+		return entityManager.createQuery("SELECT i FROM CondicionTaxativa i", CondicionTaxativa.class).getResultList();
 	}
 
 	public List<CondicionComparativa> getCondicionesComparativas() {
-		return getCondicionesCargadas().stream().filter(unaCondicion -> !unaCondicion.esTaxativa())
-				.map(unaCondicion -> (CondicionComparativa) unaCondicion).collect(Collectors.toList());
+		return entityManager.createQuery("SELECT i FROM CondicionComparativa i", CondicionComparativa.class).getResultList();
 	}
 
-	public List<String> getNombresDeCondiciones() {
-		return getCondicionesCargadas().stream().map(unaCondicion -> unaCondicion.getNombre())
-				.collect(Collectors.toList());
-	}
-
-	public void agregarCondicion(Condicion condicion) {
+	@Override
+	public void agregar(Condicion condicion) {
 		verificarQueNoExista(condicion.getNombre());
-		add(condicion);
+		super.agregar(condicion);
 	}
 
 	private void verificarQueNoExista(String nombre) {
-		if (existeLaCondicion(nombre))
+		if (verificarExistencia(nombre))
 			throw new YaExisteLaCondicionException();
 	}
 
-	public boolean add(Condicion condicion) {
-		return condicionesCargadas.add(condicion);
-	}
-
 	public void eliminarCondicion(String nombre) {
-		Condicion condicion = buscarCondicion(nombre).get();
+		Condicion condicion = findByName(nombre).get();
 		siEsCustomBorrala(condicion);
 	}
 
 	public void siEsCustomBorrala(Condicion condicion) {
 		if (condicion.esCustom())
-			remove(condicion);
+			deleteById(condicion.getId());
 		else
 			throw new NoSePuedeBorrarUnPredeterminadoException();
 	}
 
-	public void remove(Condicion condicion) {
-		condicionesCargadas.remove(condicion);
-	}
-
-	public boolean existeLaCondicion(String nombre) {
-		return condicionesCargadas.stream().anyMatch(condicion -> condicion.suNombreEs(nombre));
-	}
-
-	public Optional<Condicion> buscarCondicion(String nombre) {
-		return condicionesCargadas.stream().filter(condicion -> condicion.suNombreEs(nombre)).findFirst();
-	}
-
-	public Integer cantidadDeCondiciones() {
-		return getCondicionesCargadas().size();
-	}
-
 	public void agregarPredeterminados() {
-		condicionesCargadas.add(new TEmpresaMas10Años());
-		condicionesCargadas.add(new CEmpresaMayorAntiguedad());
-		condicionesCargadas.add(new CEndeudamiento());
-		condicionesCargadas.add(new CMaximizarROE());
+		agregar(new TEmpresaMas10Años());
+		agregar(new CEmpresaMayorAntiguedad());
+		agregar(new CEndeudamiento());
+		agregar(new CMaximizarROE());
+	}
+
+	@Override
+	protected String getEntityName() {
+		return Condicion.class.getSimpleName();
 	}
 
 }

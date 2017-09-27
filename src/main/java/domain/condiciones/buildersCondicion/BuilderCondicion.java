@@ -37,7 +37,7 @@ public abstract class BuilderCondicion {
 	}
 
 	public BuilderCondicion setIndicador(String indicador) {
-		this.indicador = RepositorioIndicadores.instance().buscarIndicador(indicador).orElse(null);
+		this.indicador = RepositorioIndicadores.instance().findByName(indicador).orElse(null);
 		return this;
 	}
 

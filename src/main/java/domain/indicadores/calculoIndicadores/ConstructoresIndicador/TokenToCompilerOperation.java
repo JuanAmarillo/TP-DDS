@@ -100,7 +100,7 @@ public enum TokenToCompilerOperation{
 
 		@Override
 		public boolean matches(String token) {
-			return RepositorioIndicadores.instance().contieneElIndicador(token);
+			return RepositorioIndicadores.instance().verificarExistencia(token);
 		}
 
 		@Override

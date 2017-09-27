@@ -24,7 +24,7 @@ public class CondicionesTest {
 	@Test
 	public void persisteCondicionCustom() {
 		entityManager.getTransaction().begin();
-		entityManager.persist(condicionCustom);
+		//entityManager.persist(condicionCustom);
 		entityManager.getTransaction().commit();
 	}
 }

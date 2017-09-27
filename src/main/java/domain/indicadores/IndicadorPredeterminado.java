@@ -1,8 +1,14 @@
 package domain.indicadores;
 
+import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
 import domain.Empresa;
 import domain.repositorios.RepositorioIndicadores;
 
+@Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class IndicadorPredeterminado extends Indicador {
 
 	@Override
@@ -11,7 +17,7 @@ public abstract class IndicadorPredeterminado extends Indicador {
 	}
 
 	protected Indicador buscarIndicador(String indicador) {
-		return RepositorioIndicadores.instance().buscarIndicador(indicador).get();
+		return RepositorioIndicadores.instance().findByName(indicador).get();
 	}
 
 	protected Double valorDelIndicador(String indicador, Empresa empresa, String periodo) {

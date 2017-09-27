@@ -4,6 +4,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -15,13 +17,8 @@ import domain.indicadores.calculoIndicadores.Token;
 import domain.indicadores.calculoIndicadores.ConstructoresIndicador.Analizador;
 
 @Observable
-//@Entity
-//@Table(name="indicadores")
+@Entity
 public class IndicadorCustom extends Indicador {
-	@Id
-	@GeneratedValue
-	public Integer id;
-	@Column(length=100)
 	public String expresion;
 	@Transient
 	public Calculable calculo;

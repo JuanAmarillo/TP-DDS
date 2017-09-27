@@ -16,12 +16,12 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import domain.Empresa;
 
-public class RepositorioEmpresas implements Repositorio<Empresa>{
+public class RepositorioEmpresas extends Repositorio<Empresa> {
+
 	private static RepositorioEmpresas instance = null;
-	private EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 
 	public static RepositorioEmpresas instance() {
-		if (noHayInstanciaCargada()) 
+		if (noHayInstanciaCargada())
 			cargarNuevaInstancia();
 		return instance;
 	}
@@ -37,76 +37,31 @@ public class RepositorioEmpresas implements Repositorio<Empresa>{
 	public static void resetSingleton() {
 		instance = null;
 	}
-	
-	@SuppressWarnings("unchecked")
-	public List<Empresa> obtenerLista(String query){
-		return entityManager.createQuery(query).getResultList();
-	}
-	
-	public List<Empresa> getEmpresasCargadas() {
-		return obtenerLista("from Empresa");
+
+	@Override
+	protected String getEntityName() {
+		return Empresa.class.getSimpleName();
 	}
 
-	public void agregarEmpresa(Empresa empresa) { 
-		EntityTransaction tx = crearTransaccion();
-		persistirEmpresa(empresa);
-		tx.commit();
-	}
-
-	private EntityTransaction crearTransaccion() {
-		EntityTransaction tx = entityManager.getTransaction();
-		if(!tx.isActive()) tx.begin();
-		return tx;
-	}
-
-	private void persistirEmpresa(Empresa empresa) {
-		entityManager.persist(empresa);
-	}
-	
-	
-	public void agregarDesdeArchivo(Empresa empresaLeida) {
-		try{
-			Empresa empresa = buscarEmpresa(empresaLeida.getNombre()).get();			
-			empresa.agregarCuentas(empresaLeida.getCuentas());
-		}
-		catch(NoSuchElementException e){
-			agregarEmpresa(empresaLeida);
+	@Override
+	public void agregar(Empresa empresa) {
+		try {
+			agregarCuentas(empresa);
+		} catch (NoSuchElementException e) {
+			super.agregar(empresa);
 		}
 	}
 
-	public boolean existeLaEmpresa(Empresa empresa) { 
-		return buscarEmpresa(empresa.getNombre()).isPresent();
-	}
-
-	public Optional<Empresa> buscarEmpresa(String nombre) {
-		return obtenerLista("from Empresa where nombre= '" + nombre + "'")
-									  .stream()
-									  .findFirst();
-	}
-
-	public Boolean tieneEmpresasCargadas() {
-		return cantidadDeEmpresasCargadas() != 0;// select from Empresas SI EXISTE
+	public void agregarCuentas(Empresa unaEmpresa) {
+		Empresa empresa = findByName(unaEmpresa.getNombre()).get();
+		empresa.agregarCuentas(unaEmpresa.getCuentas());
 	}
 	
-	public Long cantidadDeEmpresasCargadas(){
-		return (Long) entityManager.createQuery("select count(*) from Empresa").getSingleResult();
-	}
-	@SuppressWarnings("unchecked")
-	public List<String> getNombreEmpresas() {
-		return entityManager.createQuery("select nombre from Empresa").getResultList();// select nombre from empresas
+	public boolean verificarExistencia(Empresa empresa) {
+		return verificarExistencia(empresa.getNombre());
 	}
 
 	public List<String> getPeriodos() {
-		return entityManager.createQuery("select unique periodo from Cuenta").getResultList();// select periodos from cuentas
-	}
-	
-	public void borrarEmpresa(String empresa){
-		EntityTransaction tx = crearTransaccion();
-		entityManager.createQuery("delete from Empresa where nombre = '" + empresa + "'").executeUpdate();
-		tx.commit();
-	}
-	
-	public void resetEM() {
-		entityManager.flush();
+		return entityManager.createQuery("select unique periodo from Cuenta").getResultList();
 	}
 }

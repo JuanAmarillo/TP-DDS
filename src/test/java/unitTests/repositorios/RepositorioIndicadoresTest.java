@@ -1,8 +1,12 @@
 package unitTests.repositorios;
 
 import static org.junit.Assert.*;
+
+import javax.persistence.EntityManager;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import domain.indicadores.Indicador;
 import domain.indicadores.IndicadorCustom;
@@ -12,9 +16,9 @@ import domain.repositorios.RepositorioIndicadores;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import exceptions.YaExisteElIndicadorException;
 
-public class RepositorioIndicadoresTest {
+public class RepositorioIndicadoresTest extends AbstractPersistenceTest{
 	
-	private RepositorioIndicadores repositorio;
+	private RepositorioIndicadores repositorio =  new RepositorioIndicadores();
 	
 	public IndicadorCustom indicador(String nombreIndicador){
 		return new IndicadorCustom(nombreIndicador, "saraza", null);
@@ -25,15 +29,15 @@ public class RepositorioIndicadoresTest {
 	}
 	
 	public void agregar(IndicadorCustom indicador){
-		repositorio.agregarIndicador(indicador);
+		repositorio.agregar(indicador);
 	}
 	
 	public void borrar(String nombreIndicador){
-		repositorio.eliminarIndicadorAPartirDel(nombreIndicador);
+		repositorio.deleteByName(nombreIndicador);
 	}
 	
 	public void borrar(Indicador indicador){
-		repositorio.eliminarIndicador(indicador);
+		repositorio.deleteById(indicador);
 	}
 	
 	public void verificarExistencia(String nombreIndicador, Boolean existencia){
@@ -41,19 +45,19 @@ public class RepositorioIndicadoresTest {
 	}
 	
 	private Boolean existe(String nombreIndicador) {
-		return repositorio.buscarIndicador(nombreIndicador).isPresent();
+		return repositorio.verificarExistencia(nombreIndicador);
 	}
-
-	@Before
-	public void init() {
-		repositorio = new RepositorioIndicadores();
+	
+	@Override
+	public EntityManager entityManager() {
+		return repositorio.getEntityManager();
 	}
 	
 	
 	@Test
 	public void testAgregarUnIndicadorCustom(){
 		agregar("hola");
-		verificarExistencia("hola", true);
+		//verificarExistencia("hola", true);
 	}
 	
 	@Test
@@ -63,7 +67,7 @@ public class RepositorioIndicadoresTest {
 	
 	@Test
 	public void testAgregarUnIndicadorPredeterminador(){
-		repositorio.add(new ROE());
+		repositorio.agregar(new ROE());
 		verificarExistencia("ROE", true);
 	}
 	
@@ -76,7 +80,7 @@ public class RepositorioIndicadoresTest {
 	@Test
 	public void testEliminarUnIndicador(){
 		agregar("jackson es mi mejor amigo");
-		borrar("jackson es mi mejor amigo");
+		borrar( "jackson es mi mejor amigo");
 		verificarExistencia("jackson es mi mejor amigo", false);
 	}
 	
@@ -87,9 +91,11 @@ public class RepositorioIndicadoresTest {
 	
 	@Test(expected = NoSePuedeBorrarUnPredeterminadoException.class)
 	public void testEliminarUnPredeterminadorFalla(){
-		repositorio.add(new ROA());
+		repositorio.agregar(new ROA());
 		borrar(new ROA());
 	}
+
+
 	
 
 }

@@ -2,8 +2,11 @@ package unitTests.repositorios;
 
 import static org.junit.Assert.assertEquals;
 
+import javax.persistence.EntityManager;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
@@ -12,9 +15,14 @@ import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
 import domain.repositorios.RepositorioCondiciones;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 
-public class RepositorioCondicionesTest {
+public class RepositorioCondicionesTest extends AbstractPersistenceTest {
 	
-	private RepositorioCondiciones repositorio;
+	private RepositorioCondiciones repositorio = new RepositorioCondiciones();;
+	
+	@Override
+	public EntityManager entityManager() {
+		return repositorio.getEntityManager();
+	}
 	
 	public CondicionComparativa crearCondicionComparativa(String nombre) {
 		return new CondicionComparativa(nombre,null,null);
@@ -25,7 +33,7 @@ public class RepositorioCondicionesTest {
 	}
 	
 	public void agregarCondicion(Condicion condicion){
-		repositorio.agregarCondicion(condicion);
+		repositorio.agregar(condicion);
 	}
 	
 	public void agregarCondicionComparativa(String nombre){
@@ -37,11 +45,11 @@ public class RepositorioCondicionesTest {
 	}
 	
 	public void comprobarLaPrimeraCondicion(String nombre) {
-		assertEquals(repositorio.getCondicionesCargadas().get(0).getNombre(), nombre);
+		assertEquals(repositorio.getElementos().get(0).getNombre(), nombre);
 	}
 	
-	public void laCantidadDeCondicionesCargadasEs(Integer cantidad) {
-		assertEquals(repositorio.cantidadDeCondiciones(), cantidad);
+	public void laCantidadDeCondicionesCargadasEs(Long cantidad) {
+		assertEquals(repositorio.cantidadElementosCargados(), cantidad);
 	}
 	
 	public void eliminarCondicion(String nombre) {
@@ -49,17 +57,11 @@ public class RepositorioCondicionesTest {
 	}
 	
 	public void buscarCondicion(String nombre){
-		assertEquals(repositorio.buscarCondicion(nombre).get().getNombre(), nombre);
+		assertEquals(repositorio.findByName(nombre).get().getNombre(), nombre);
 	}
 	
 	public void verificarExistencia(String nombre, Boolean existe){
-		assertEquals(repositorio.existeLaCondicion(nombre), existe);
-	}
-
-	
-	@Before
-	public void init(){
-		repositorio = new RepositorioCondiciones();
+		assertEquals(repositorio.verificarExistencia(nombre), existe);
 	}
 	
 	@Test
@@ -100,13 +102,13 @@ public class RepositorioCondicionesTest {
 	@Test
 	public void testAgregaUnaCondicionPredeterminada(){
 		agregarCondicion(new TEmpresaMas10Años());
-		buscarCondicion("Empresa de mas de 10 años");
+		buscarCondicion("Empresa de más de 10 años");
 	}
 	
 	@Test(expected = NoSePuedeBorrarUnPredeterminadoException.class)
 	public void testEliminarCondicionPredeterminadaFalla(){
 		agregarCondicion(new TEmpresaMas10Años());
-		eliminarCondicion("Empresa de mas de 10 años");
+		eliminarCondicion("Empresa de más de 10 años");
 	}
 	
 	@Test(expected = RuntimeException.class)
@@ -123,7 +125,7 @@ public class RepositorioCondicionesTest {
 	public void testSePuedeEliminarUnaCondicionCustom() {
 		agregarCondicionComparativa("pepito");
 		eliminarCondicion("pepito");
-		laCantidadDeCondicionesCargadasEs(0);
+		laCantidadDeCondicionesCargadasEs(0l);
 	}
 	
 	@Test

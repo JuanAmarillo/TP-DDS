@@ -9,10 +9,25 @@
     	<provider>org.hibernate.ejb.HibernatePersistence</provider>
     	<class>domain.Empresa</class>
     	<class>domain.Cuenta</class>
-    	<class>domain.indicadores.Indicador</class>
+    	<class>domain.indicadores.Indicador</class> 
     	<class>domain.indicadores.IndicadorCustom</class> 
+    	<class>domain.indicadores.IndicadorPredeterminado</class>
+    	<class>domain.indicadores.indicadoresPredeterminados.Antiguedad</class>
+    	<class>domain.indicadores.indicadoresPredeterminados.Endeudamiento</class>
+    	<class>domain.indicadores.indicadoresPredeterminados.Leverage</class>
+    	<class>domain.indicadores.indicadoresPredeterminados.RAC</class>
+    	<class>domain.indicadores.indicadoresPredeterminados.ROA</class>
+    	<class>domain.indicadores.indicadoresPredeterminados.ROE</class>
+    	<class>domain.indicadores.indicadoresPredeterminados.Solvencia</class>
     	<class>domain.metodologias.Metodologia</class>
     	<class>domain.condiciones.Condicion</class>
+    	<class>domain.condiciones.CondicionComparativa</class>
+    	<class>domain.condiciones.CondicionTaxativa</class>
+    	<class>domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad</class>
+    	<class>domain.condiciones.condicionesPredeterminadas.CEndeudamiento</class>
+    	<class>domain.condiciones.condicionesPredeterminadas.CMaximizarROE</class>
+    	<class>domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años</class>
+    	<class>domain.condiciones.condicionesPredeterminadas.TEndeudamiento</class>
         <properties> 
 	    <property name="hibernate.archive.autodetection" value="class"/>        
         
@@ -27,7 +42,7 @@
             <property name="hibernate.connection.password" value="" /> 
             <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
 
-            <property name="hibernate.show_sql" value="false" /> 
+            <property name="hibernate.show_sql" value="true" /> 
             <property name="hibernate.format_sql" value="true" /> 
             <property name="use_sql_comments" value="true" /> 
             <property name="hibernate.hbm2ddl.auto" value="create-drop" /> 

@@ -1,10 +1,13 @@
 package domain.indicadores.indicadoresPredeterminados;
 
+import javax.persistence.Entity;
+
 import org.joda.time.DateTime;
 
 import domain.Empresa;
 import domain.indicadores.IndicadorPredeterminado;
 
+@Entity
 public class Antiguedad extends IndicadorPredeterminado{
 
 	public Antiguedad(){
