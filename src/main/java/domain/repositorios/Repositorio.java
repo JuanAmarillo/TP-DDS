@@ -45,7 +45,7 @@ public abstract class Repositorio<T> {
 	}
 
 	public Long cantidadElementosCargados() {
-		return (Long) entityManager.createQuery("select count(*) from " + getEntityName()).getSingleResult();
+		return (Long) entityManager.createQuery("select count(*)" + from()).getSingleResult();
 	}
 
 	public void resetEntityManager() {
@@ -57,7 +57,11 @@ public abstract class Repositorio<T> {
 	}
 
 	protected Optional<T> find(String donde,String elemento) {
-		return obtenerLista("from Empresa " + where(donde, elemento) ).stream().findFirst();
+		return obtenerLista( from() + where(donde, elemento) ).stream().findFirst();
+	}
+	
+	private String from(){
+		return "from "+ getEntityName() + " " ;
 	}
 	
 	private String where(String donde, String elemento){
