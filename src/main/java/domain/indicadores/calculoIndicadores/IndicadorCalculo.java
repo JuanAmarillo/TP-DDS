@@ -14,7 +14,7 @@ public class IndicadorCalculo extends Calculable{
 	}
 	
 	public Double calcularValor(Empresa empresa, String periodo) {
-		Indicador indicador = RepositorioIndicadores.instance().buscarIndicador(nombre).get();
+		Indicador indicador = RepositorioIndicadores.instance().findByName(nombre).get();
 		return indicador.calcularIndicador(empresa, periodo);	
 	}
 	

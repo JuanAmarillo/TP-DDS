@@ -9,15 +9,16 @@ import javax.persistence.EntityTransaction;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import domain.Empresa;
+import domain.indicadores.Indicador;
 
 public abstract class Repositorio<T> {
 
 	protected EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-	
-	public EntityManager getEntityManager(){
+
+	public EntityManager getEntityManager() {
 		return entityManager;
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<T> obtenerLista(String query) {
 		return entityManager.createQuery(query).getResultList();
@@ -28,9 +29,9 @@ public abstract class Repositorio<T> {
 	}
 
 	public void agregar(T elemento) {
-		//EntityTransaction tx = crearTransaccion();
+		// EntityTransaction tx = crearTransaccion();
 		persistir(elemento);
-		//tx.commit();
+		// tx.commit();
 	}
 
 	protected EntityTransaction crearTransaccion() {
@@ -57,18 +58,26 @@ public abstract class Repositorio<T> {
 	}
 
 	public Optional<T> findById(Integer id) {
-		return find("id",id.toString());
+		return find("id", id.toString());
 	}
 
-	protected Optional<T> find(String donde,String elemento) {
-		return obtenerLista( from() + where(donde, elemento) ).stream().findFirst();
+	public Optional<T> findByName(String nombre) {
+		return find("nombre", nombre);
 	}
-	
-	private String from(){
-		return "from "+ getEntityName() + " " ;
+
+	protected Optional<T> find(String donde, String elemento) {
+		return obtenerLista(from() + where(donde, elemento)).stream().findFirst();
 	}
-	
-	private String where(String donde, String elemento){
+
+	public boolean verificarExistencia(String nombre) {
+		return findByName(nombre).isPresent();
+	}
+
+	private String from() {
+		return "from " + getEntityName() + " ";
+	}
+
+	private String where(String donde, String elemento) {
 		return "where " + donde + "= '" + elemento + "'";
 	}
 
@@ -76,10 +85,14 @@ public abstract class Repositorio<T> {
 		delete("id", id.toString());
 	}
 
+	public void deleteByName(String nombreEmpresa) {
+		delete("nombre", nombreEmpresa);
+	}
+
 	protected void delete(String donde, String elemento) {
-		//EntityTransaction tx = crearTransaccion();
-		entityManager.createQuery("delete from Empresa " + where(donde, elemento)).executeUpdate();
-		//tx.commit();
+		// EntityTransaction tx = crearTransaccion();
+		entityManager.createQuery("delete from " + getEntityName() + " " + where(donde, elemento)).executeUpdate();
+		// tx.commit();
 	}
 
 	abstract protected String getEntityName();

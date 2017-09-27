@@ -32,6 +32,10 @@ public abstract class Indicador {
 	public boolean suNombreEs(String nombreIndicador){
 		return this.nombre.equals(nombreIndicador);
 	}
+	
+	public Integer getId(){
+		return id;
+	}
 
 	public String getNombre(){
 		return nombre;

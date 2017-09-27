@@ -34,7 +34,7 @@ public class TokenToOperationTranslator {
 	}
 
 	public boolean esUnIndicador(String indicador) {
-		return RepositorioIndicadores.instance().contieneElIndicador(indicador);
+		return RepositorioIndicadores.instance().verificarExistencia(indicador);
 	}
 
 	public boolean esUnaIgualdad(String token) {

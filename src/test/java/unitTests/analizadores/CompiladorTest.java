@@ -36,9 +36,9 @@ public class CompiladorTest {
 
 	public void mockearRepositorioIndicador(Indicador indicadorMockeado) {
 		RepositorioIndicadores instance = mock(RepositorioIndicadores.class);
-		when(instance.contieneElIndicador("indicador")).thenReturn(true);
-		when(instance.contieneElIndicador("cuenta")).thenReturn(false);
-		when(instance.buscarIndicador("indicador")).thenReturn(Optional.of(indicadorMockeado));
+		when(instance.verificarExistencia("indicador")).thenReturn(true);
+		when(instance.verificarExistencia("cuenta")).thenReturn(false);
+		when(instance.findByName("indicador")).thenReturn(Optional.of(indicadorMockeado));
 		RepositorioIndicadores.setInstance(instance);
 
 	}

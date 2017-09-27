@@ -49,7 +49,7 @@ public class CargarIndicadorVM {
 	}
 
 	public void eliminarIndicador() throws IOException {		
-		RepositorioIndicadores.instance().eliminarIndicadorAPartirDel(indicadorSeleccionado);
+		RepositorioIndicadores.instance().deleteByName(indicadorSeleccionado);
 		avisarCambioIndicadores();
 	}
 	

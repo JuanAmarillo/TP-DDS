@@ -36,7 +36,7 @@ public class RepositorioEmpresaTest extends AbstractPersistenceTest {
 	}
 
 	public void verificarExistencia(String nombre, boolean resultado) {
-		assertEquals(resultado,repositorio.existeLaEmpresa(crearEmpresa(nombre)));
+		assertEquals(resultado,repositorio.verificarExistencia(crearEmpresa(nombre)));
 	}
 
 	public void comprobarLaPrimeraEmpresa(String nombre) {
@@ -87,12 +87,18 @@ public class RepositorioEmpresaTest extends AbstractPersistenceTest {
 		agregarEmpresaLuegoDeArchivo("Jackson");
 		laCantidadDeEmpresasCargadasEs(1l);
 	}
+	
+	@Test
+	public void testBorraUnaEmpresa(){
+		agregarEmpresa("peron");
+		borrarEmpresa("peron");
+		laCantidadDeEmpresasCargadasEs(0l);
+	}
 
 	@Test
 	public void testAgregaYBuscaLaEmpresa() {
 		agregarEmpresa("Manaos");
 		buscarEmpresa("Manaos");
-		borrarEmpresa("Manaos");
 	}
 
 	@Test(expected = RuntimeException.class)

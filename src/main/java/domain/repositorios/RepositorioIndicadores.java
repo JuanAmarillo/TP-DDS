@@ -23,30 +23,29 @@ import domain.indicadores.indicadoresPredeterminados.Solvencia;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import exceptions.YaExisteElIndicadorException;
 
-
-public class RepositorioIndicadores extends Repositorio<Indicador>{
+public class RepositorioIndicadores extends Repositorio<Indicador> {
 	private static RepositorioIndicadores instance = null;
 
 	public static RepositorioIndicadores instance() {
-		if (noHayInstanciaCargada()) 
+		if (noHayInstanciaCargada())
 			cargarNuevaInstancia();
 		return instance;
 	}
 
 	private static void cargarNuevaInstancia() {
 		instance = new RepositorioIndicadores();
-		//instance.leerBD();
+		// instance.leerBD();
 		instance.agregarPredeterminados();
 	}
 
 	private static boolean noHayInstanciaCargada() {
 		return instance == null;
 	}
-	
-	public static void setInstance(RepositorioIndicadores repositorio){
+
+	public static void setInstance(RepositorioIndicadores repositorio) {
 		instance = repositorio;
 	}
-	
+
 	@Override
 	protected String getEntityName() {
 		return Indicador.class.getSimpleName();
@@ -56,90 +55,65 @@ public class RepositorioIndicadores extends Repositorio<Indicador>{
 		instance = null;
 	}
 
-	public void eliminarIndicadorAPartirDel(String nombreIndicador) {
-		Indicador indicadorASacar = buscarIndicador(nombreIndicador).get();
-		eliminarIndicador(indicadorASacar);
+	@Override
+	public void deleteByName(String nombre) {
+		Indicador indicadorASacar = findByName(nombre).get();
+		deleteById(indicadorASacar);
 	}
 
-	public void eliminarIndicador(Indicador indicador) throws NoSePuedeBorrarUnPredeterminadoException{
-		if(indicador.esCustom())
-			remove((IndicadorCustom) indicador);
-		else 
-			throw new NoSePuedeBorrarUnPredeterminadoException();		
-	}
-
-	public void remove(IndicadorCustom indicador) {
-		getElementos().remove(indicador);
-		eliminarDeLaBD(indicador);
-	}
-
-	private void eliminarDeLaBD(IndicadorCustom indicador) {
-		IndicadorCustom aEliminar = entityManager.find(IndicadorCustom.class, indicador.getId());
-		//entityManager.getTransaction().begin();
-		entityManager.remove(aEliminar);
-		//entityManager.getTransaction().commit();		
+	public void deleteById(Indicador indicador) throws NoSePuedeBorrarUnPredeterminadoException {
+		if (indicador.esCustom())
+			deleteById(indicador.getId());
+		else
+			throw new NoSePuedeBorrarUnPredeterminadoException();
 	}
 
 	public List<IndicadorCustom> obtenerCustoms() {
-		return getElementos().stream().filter(ind -> ind.esCustom()).map(ind -> (IndicadorCustom) ind)
-				.collect(Collectors.toList());
+		return entityManager.createQuery("SELECT i FROM IndicadorCustom i", IndicadorCustom.class).getResultList();
 	}
-	
+
 	public void agregarIndicadorAPartirDel(String nombreIndicador) {
 		IndicadorCustom indicadorNuevo = crearIndicador(nombreIndicador);
-		agregarIndicador(indicadorNuevo);		
-	}
-	
-	public void agregarIndicador(Indicador indicadorNuevo) {
-		verificarSiExiste(indicadorNuevo);
 		agregar(indicadorNuevo);
 	}
-	
-//	public void persistirIndicador(IndicadorCustom indicador) {		
-//		entityManager.getTransaction().begin();
-//		entityManager.persist(indicador);
-//		entityManager.getTransaction().commit();		
-//	}
-	
-	
+
+	@Override
+	public void agregar(Indicador indicadorNuevo) {
+		verificarSiExiste(indicadorNuevo);
+		super.agregar(indicadorNuevo);
+	}
+
 	private void verificarSiExiste(Indicador indicador) {
-		if (contieneElIndicador(indicador.getNombre()))
+		if (verificarExistencia(indicador.getNombre()))
 			throw new YaExisteElIndicadorException();
 	}
 
-	public Optional<Indicador> buscarIndicador(String nombre) {
-		return getElementos().stream().filter(unIndicador -> unIndicador.suNombreEs(nombre)).findFirst();
-	}
-
-	public boolean contieneElIndicador(String nombre) {
-		return getElementos().stream().anyMatch(unIndicador -> unIndicador.suNombreEs(nombre));
-	}
-
 	public List<String> getNombresDeIndicadores() {
-		return getElementos().stream().map(unIndicador -> unIndicador.getNombre()).collect(Collectors.toList());
+		return entityManager.createQuery("SELECT i.nombre FROM Indicador i", String.class).getResultList();
 	}
 
-	public  void agregarPredeterminados() {
-//		indicadoresCargados.add(new Leverage());
-//		indicadoresCargados.add(new ROA());
-//		indicadoresCargados.add(new ROE());
-//		indicadoresCargados.add(new Antiguedad());
-//		indicadoresCargados.add(new Solvencia());
-//		indicadoresCargados.add(new Endeudamiento());
-//		indicadoresCargados.add(new RAC());
+	public void agregarPredeterminados() {
+		 agregar(new Leverage());
+		 agregar(new ROA());
+		 agregar(new ROE());
+		 agregar(new Antiguedad());
+		 agregar(new Solvencia());
+		 agregar(new Endeudamiento());
+		 agregar(new RAC());
 	}
-	
+
 	public void leerBD() {
 		BuilderIndicadorCustom buildercito = new BuilderIndicadorCustom(null);
-		List<IndicadorCustom> indicadoresEnBase = entityManager.createQuery("SELECT i FROM IndicadorCustom i", IndicadorCustom.class).getResultList();
-		List<IndicadorCustom> indicadoresCompletos = indicadoresEnBase.stream().map(indicadorIncompleto -> buildercito.generarCalculo(indicadorIncompleto))
+		List<IndicadorCustom> indicadoresEnBase = entityManager
+				.createQuery("SELECT i FROM IndicadorCustom i", IndicadorCustom.class).getResultList();
+		List<IndicadorCustom> indicadoresCompletos = indicadoresEnBase.stream()
+				.map(indicadorIncompleto -> buildercito.generarCalculo(indicadorIncompleto))
 				.collect(Collectors.toList());
-//		indicadoresCargados.addAll(indicadoresCompletos);
+		// indicadoresCargados.addAll(indicadoresCompletos);
 	}
-	
+
 	public IndicadorCustom crearIndicador(String ecuacion) {
 		return new BuilderIndicadorCustom(ecuacion).analizar().setEcuacion().setCalculo().build();
 	}
 
-	
 }

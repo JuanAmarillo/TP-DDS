@@ -56,17 +56,9 @@ public class RepositorioEmpresas extends Repositorio<Empresa> {
 		Empresa empresa = findByName(unaEmpresa.getNombre()).get();
 		empresa.agregarCuentas(unaEmpresa.getCuentas());
 	}
-
-	public boolean existeLaEmpresa(Empresa empresa) {
-		return findByName(empresa.getNombre()).isPresent();
-	}
-
-	public Optional<Empresa> findByName(String nombre) {
-		return find("nombre", nombre);
-	}
-
-	public void deleteByName(String nombreEmpresa) {
-		delete("nombre", nombreEmpresa);
+	
+	public boolean verificarExistencia(Empresa empresa) {
+		return verificarExistencia(empresa.getNombre());
 	}
 
 	public List<String> getPeriodos() {

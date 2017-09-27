@@ -29,15 +29,15 @@ public class RepositorioIndicadoresTest extends AbstractPersistenceTest{
 	}
 	
 	public void agregar(IndicadorCustom indicador){
-		repositorio.agregarIndicador(indicador);
+		repositorio.agregar(indicador);
 	}
 	
 	public void borrar(String nombreIndicador){
-		repositorio.eliminarIndicadorAPartirDel(nombreIndicador);
+		repositorio.deleteByName(nombreIndicador);
 	}
 	
 	public void borrar(Indicador indicador){
-		repositorio.eliminarIndicador(indicador);
+		repositorio.deleteById(indicador);
 	}
 	
 	public void verificarExistencia(String nombreIndicador, Boolean existencia){
@@ -45,7 +45,7 @@ public class RepositorioIndicadoresTest extends AbstractPersistenceTest{
 	}
 	
 	private Boolean existe(String nombreIndicador) {
-		return repositorio.buscarIndicador(nombreIndicador).isPresent();
+		return repositorio.verificarExistencia(nombreIndicador);
 	}
 	
 	@Override
@@ -80,8 +80,9 @@ public class RepositorioIndicadoresTest extends AbstractPersistenceTest{
 	@Test
 	public void testEliminarUnIndicador(){
 		agregar("jackson es mi mejor amigo");
-		borrar("jackson es mi mejor amigo");
-		verificarExistencia("jackson es mi mejor amigo", false);
+		borrar( "jackson es mi mejor amigo");
+		assertEquals(repositorio.cantidadElementosCargados(),new Long(0));
+		//verificarExistencia("jackson es mi mejor amigo", false);
 	}
 	
 	@Test(expected = RuntimeException.class)

@@ -17,7 +17,7 @@ public abstract class IndicadorPredeterminado extends Indicador {
 	}
 
 	protected Indicador buscarIndicador(String indicador) {
-		return RepositorioIndicadores.instance().buscarIndicador(indicador).get();
+		return RepositorioIndicadores.instance().findByName(indicador).get();
 	}
 
 	protected Double valorDelIndicador(String indicador, Empresa empresa, String periodo) {
