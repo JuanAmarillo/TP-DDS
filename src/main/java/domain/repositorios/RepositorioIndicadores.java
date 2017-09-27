@@ -86,9 +86,9 @@ public class RepositorioIndicadores extends Repositorio<Indicador>{
 
 	private void eliminarDeLaBD(IndicadorCustom indicador) {
 		IndicadorCustom aEliminar = entityManager.find(IndicadorCustom.class, indicador.getId());
-		entityManager.getTransaction().begin();
+		//entityManager.getTransaction().begin();
 		entityManager.remove(aEliminar);
-		entityManager.getTransaction().commit();		
+		//entityManager.getTransaction().commit();		
 	}
 
 	public List<IndicadorCustom> obtenerCustoms() {

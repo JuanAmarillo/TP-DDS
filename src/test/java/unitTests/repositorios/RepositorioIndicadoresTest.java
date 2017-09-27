@@ -1,8 +1,12 @@
 package unitTests.repositorios;
 
 import static org.junit.Assert.*;
+
+import javax.persistence.EntityManager;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import domain.indicadores.Indicador;
 import domain.indicadores.IndicadorCustom;
@@ -90,6 +94,7 @@ public class RepositorioIndicadoresTest {
 		repositorio.add(new ROA());
 		borrar(new ROA());
 	}
+
 	
 
 }

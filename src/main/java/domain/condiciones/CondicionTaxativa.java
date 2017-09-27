@@ -11,10 +11,9 @@ import domain.condiciones.OperadoresCondicion.OperadorCondicion;
 import domain.indicadores.Indicador;
 import domain.metodologias.EmpresaConPeso;
 
-//@Entity
+@Entity
 public class CondicionTaxativa extends Condicion {
 
-	@Column(name="valor")
 	public Double valorDeComparacion;
 
 	public CondicionTaxativa(String nombre, Indicador indicador, OperadorCondicion operador,
@@ -29,7 +28,7 @@ public class CondicionTaxativa extends Condicion {
 
 	public Boolean evaluarCondicion(Empresa empresa, List<String> periodos) {
 		return periodos.stream().allMatch(periodo -> evaluarCondicionEnPeriodo(empresa, periodo));
-}
+	}
 	
 	@Override
 	public boolean esTaxativa() {

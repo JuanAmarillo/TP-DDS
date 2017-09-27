@@ -14,6 +14,10 @@ public abstract class Repositorio<T> {
 
 	protected EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 	
+	public EntityManager getEntityManager(){
+		return entityManager;
+	}
+	
 	@SuppressWarnings("unchecked")
 	public List<T> obtenerLista(String query) {
 		return entityManager.createQuery(query).getResultList();
@@ -24,9 +28,9 @@ public abstract class Repositorio<T> {
 	}
 
 	public void agregar(T elemento) {
-		EntityTransaction tx = crearTransaccion();
+		//EntityTransaction tx = crearTransaccion();
 		persistir(elemento);
-		tx.commit();
+		//tx.commit();
 	}
 
 	protected EntityTransaction crearTransaccion() {
@@ -73,9 +77,9 @@ public abstract class Repositorio<T> {
 	}
 
 	protected void delete(String donde, String elemento) {
-		EntityTransaction tx = crearTransaccion();
+		//EntityTransaction tx = crearTransaccion();
 		entityManager.createQuery("delete from Empresa " + where(donde, elemento)).executeUpdate();
-		tx.commit();
+		//tx.commit();
 	}
 
 	abstract protected String getEntityName();

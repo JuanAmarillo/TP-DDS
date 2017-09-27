@@ -100,13 +100,13 @@ public class RepositorioCondicionesTest {
 	@Test
 	public void testAgregaUnaCondicionPredeterminada(){
 		agregarCondicion(new TEmpresaMas10Años());
-		buscarCondicion("Empresa de mas de 10 años");
+		buscarCondicion("Empresa de más de 10 años");
 	}
 	
 	@Test(expected = NoSePuedeBorrarUnPredeterminadoException.class)
 	public void testEliminarCondicionPredeterminadaFalla(){
 		agregarCondicion(new TEmpresaMas10Años());
-		eliminarCondicion("Empresa de mas de 10 años");
+		eliminarCondicion("Empresa de más de 10 años");
 	}
 	
 	@Test(expected = RuntimeException.class)

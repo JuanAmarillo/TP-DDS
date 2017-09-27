@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import domain.Empresa;
 import domain.repositorios.RepositorioEmpresas;
@@ -14,11 +15,13 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import org.junit.After;
 
-public class RepositorioEmpresaTest {
+public class RepositorioEmpresaTest extends AbstractPersistenceTest {
 
-	private RepositorioEmpresas repositorio;
+	private RepositorioEmpresas repositorio = new RepositorioEmpresas();
 
 	public void agregarEmpresa(String nombreEmpresa) {
 		repositorio.agregar(crearEmpresa(nombreEmpresa));
@@ -58,20 +61,14 @@ public class RepositorioEmpresaTest {
 		repositorio.agregar(crearEmpresa(nombre));
 	}
 	
-	@Before
-	public void init() {
-		repositorio = new RepositorioEmpresas();
-		agregarEmpresa("Steam");
-	}
-	
-	@After
-	public void finalize() {
-		borrarEmpresa("Steam");
+	@Override
+	public EntityManager entityManager() {
+		return repositorio.getEntityManager();
 	}
 	
 	@Test
 	public void tieneEmpresasCargadas(){
-		laCantidadDeEmpresasCargadasEs(1l);
+		laCantidadDeEmpresasCargadasEs(0l);
 	}
 
 	@Test
@@ -79,10 +76,7 @@ public class RepositorioEmpresaTest {
 		agregarEmpresaLuegoDeArchivo("Universidad");
 		agregarEmpresaLuegoDeArchivo("Tecnologica");
 		agregarEmpresaLuegoDeArchivo("Nacional");
-		laCantidadDeEmpresasCargadasEs(4l); // Universidad, Tecnologica, Nacional y Steam
-		borrarEmpresa("Universidad");
-		borrarEmpresa("Tecnologica");
-		borrarEmpresa("Nacional");
+		laCantidadDeEmpresasCargadasEs(3l);
 	}
 
 	
@@ -91,9 +85,7 @@ public class RepositorioEmpresaTest {
 	public void testAgregaDosVecesLaMismaEmpresaLuegoDeArchivoSoloDejaUna() {
 		agregarEmpresaLuegoDeArchivo("Jackson");
 		agregarEmpresaLuegoDeArchivo("Jackson");
-		imprimirEmpresas("Jackson");
-		laCantidadDeEmpresasCargadasEs(2l); //Jackson y Steam
-		borrarEmpresa("Jackson");
+		laCantidadDeEmpresasCargadasEs(1l);
 	}
 
 	@Test
