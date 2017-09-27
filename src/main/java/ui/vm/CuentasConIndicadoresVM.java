@@ -30,11 +30,11 @@ public class CuentasConIndicadoresVM {
 	}
 
 	public boolean hayEmpresasCargadas() {
-		return RepositorioEmpresas.instance().tieneEmpresasCargadas();
+		return RepositorioEmpresas.instance().hayElementosCargados();
 	}
 
 	public List<Empresa> getEmpresas() {
-		return RepositorioEmpresas.instance().getEmpresasCargadas();
+		return RepositorioEmpresas.instance().getElementos();
 	}
 
 	public Empresa getEmpresaSeleccionada() {

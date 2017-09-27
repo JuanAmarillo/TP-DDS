@@ -26,7 +26,7 @@ public class VerMetodologiasVM {
 	public Empresa empresaOrdenadaSeleccionada;
 
 	public VerMetodologiasVM() {
-		empresas = RepositorioEmpresas.instance().getEmpresasCargadas();
+		empresas = RepositorioEmpresas.instance().getElementos();
 		;
 		empresasOrdenadas = new ArrayList<Empresa>();
 		metodologias = new ArrayList<Metodologia>();
@@ -50,7 +50,7 @@ public class VerMetodologiasVM {
 	}
 
 	private void validarExistenciaDeEmpresas() {
-		if (!RepositorioEmpresas.instance().tieneEmpresasCargadas())
+		if (!RepositorioEmpresas.instance().hayElementosCargados())
 			throw new RuntimeException("No hay empresas cargadas en el sistema para aplicar la metodología");
 	}
 
@@ -94,7 +94,7 @@ public class VerMetodologiasVM {
 	}
 
 	public List<Empresa> getEmpresas() {
-		return RepositorioEmpresas.instance().getEmpresasCargadas();
+		return RepositorioEmpresas.instance().getElementos();
 	}
 
 	public void setEmpresas(List<Empresa> empresas) {

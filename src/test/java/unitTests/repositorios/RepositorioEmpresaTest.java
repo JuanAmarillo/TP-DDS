@@ -21,7 +21,7 @@ public class RepositorioEmpresaTest {
 	private RepositorioEmpresas repositorio;
 
 	public void agregarEmpresa(String nombreEmpresa) {
-		repositorio.agregarEmpresa(crearEmpresa(nombreEmpresa));
+		repositorio.agregar(crearEmpresa(nombreEmpresa));
 	}
 
 	public Empresa crearEmpresa(String nombreEmpresa) {
@@ -29,7 +29,7 @@ public class RepositorioEmpresaTest {
 	}
 
 	private void buscarEmpresa(String nombre) {
-		assertEquals(repositorio.buscarEmpresa(nombre).get().getNombre(), nombre);
+		assertEquals(repositorio.findByName(nombre).get().getNombre(), nombre);
 	}
 
 	public void verificarExistencia(String nombre, boolean resultado) {
@@ -37,19 +37,19 @@ public class RepositorioEmpresaTest {
 	}
 
 	public void comprobarLaPrimeraEmpresa(String nombre) {
-		assertEquals(repositorio.getEmpresasCargadas().get(0).getNombre(), nombre);
+		assertEquals(repositorio.getElementos().get(0).getNombre(), nombre);
 	}
 
 	public void laCantidadDeEmpresasCargadasEs(Long cantidad) {
-		assertEquals(cantidad, repositorio.cantidadDeEmpresasCargadas());
+		assertEquals(cantidad, repositorio.cantidadElementosCargados());
 	}
 	
 	private void borrarEmpresa(String empresa) {
-		repositorio.borrarEmpresa(empresa);
+		repositorio.deleteByName(empresa);
 	}
 	
 	private void imprimirEmpresas(String test) {
-		List<Empresa> empresas = repositorio.getEmpresasCargadas();
+		List<Empresa> empresas = repositorio.getElementos();
 		System.out.println(empresas.size());
 		empresas.forEach(empresa -> System.out.println(test + "   AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + empresa.getNombre()));
 	}

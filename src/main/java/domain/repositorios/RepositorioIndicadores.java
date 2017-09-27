@@ -49,10 +49,15 @@ public class RepositorioIndicadores extends Repositorio<Indicador>{
 		instance = repositorio;
 	}
 	
+	@Override
+	protected String getEntityName() {
+		return Indicador.class.getSimpleName();
+	}
+
+	
 	public  void setIndicadores(List<Indicador> indicadores){
 		indicadoresCargados = indicadores;
 	}
-
 	public static void resetSingleton() {
 		instance = null;
 	}
@@ -151,5 +156,6 @@ public class RepositorioIndicadores extends Repositorio<Indicador>{
 	public IndicadorCustom crearIndicador(String ecuacion) {
 		return new BuilderIndicadorCustom(ecuacion).analizar().setEcuacion().setCalculo().build();
 	}
+
 	
 }

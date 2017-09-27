@@ -39,7 +39,7 @@ public class CargaEmpresaTest {
 	@Test
 	public void testMismaEmpresaAgregaCuentasDistintas() {	
 		cargarArchivos("Coca-Cola 2.json");
-		assertEquals(12, RepositorioEmpresas.instance().buscarEmpresa("Coca-Cola").get().getCuentas().size());
+		assertEquals(12, RepositorioEmpresas.instance().findByName("Coca-Cola").get().getCuentas().size());
 	}
 	
 }
