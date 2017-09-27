@@ -1,11 +1,14 @@
 package domain.indicadores;
 
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 import domain.Empresa;
 import domain.repositorios.RepositorioIndicadores;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class IndicadorPredeterminado extends Indicador {
 
 	@Override

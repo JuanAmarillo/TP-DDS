@@ -79,7 +79,7 @@ public class CuentasConIndicadoresVM {
 	}
 
 	public List<Indicador> indicadoresCargados() {
-		return RepositorioIndicadores.instance().getIndicadoresCargados();
+		return RepositorioIndicadores.instance().getElementos();
 	}
 
 

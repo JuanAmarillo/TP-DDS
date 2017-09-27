@@ -11,6 +11,14 @@
     	<class>domain.Cuenta</class>
     	<class>domain.indicadores.Indicador</class> 
     	<class>domain.indicadores.IndicadorCustom</class> 
+    	<class>domain.indicadores.IndicadorPredeterminado</class>
+    	<class>domain.indicadores.indicadoresPredeterminados.Antiguedad</class>
+    	<class>domain.indicadores.indicadoresPredeterminados.Endeudamiento</class>
+    	<class>domain.indicadores.indicadoresPredeterminados.Leverage</class>
+    	<class>domain.indicadores.indicadoresPredeterminados.RAC</class>
+    	<class>domain.indicadores.indicadoresPredeterminados.ROA</class>
+    	<class>domain.indicadores.indicadoresPredeterminados.ROE</class>
+    	<class>domain.indicadores.indicadoresPredeterminados.Solvencia</class>
     	<class>domain.metodologias.Metodologia</class>
     	<class>domain.condiciones.Condicion</class>
         <properties> 

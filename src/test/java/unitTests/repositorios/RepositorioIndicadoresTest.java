@@ -16,9 +16,9 @@ import domain.repositorios.RepositorioIndicadores;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import exceptions.YaExisteElIndicadorException;
 
-public class RepositorioIndicadoresTest {
+public class RepositorioIndicadoresTest extends AbstractPersistenceTest{
 	
-	private RepositorioIndicadores repositorio;
+	private RepositorioIndicadores repositorio =  new RepositorioIndicadores();
 	
 	public IndicadorCustom indicador(String nombreIndicador){
 		return new IndicadorCustom(nombreIndicador, "saraza", null);
@@ -47,10 +47,10 @@ public class RepositorioIndicadoresTest {
 	private Boolean existe(String nombreIndicador) {
 		return repositorio.buscarIndicador(nombreIndicador).isPresent();
 	}
-
-	@Before
-	public void init() {
-		repositorio = new RepositorioIndicadores();
+	
+	@Override
+	public EntityManager entityManager() {
+		return repositorio.getEntityManager();
 	}
 	
 	
@@ -67,7 +67,7 @@ public class RepositorioIndicadoresTest {
 	
 	@Test
 	public void testAgregarUnIndicadorPredeterminador(){
-		repositorio.add(new ROE());
+		repositorio.agregar(new ROE());
 		verificarExistencia("ROE", true);
 	}
 	
@@ -91,9 +91,10 @@ public class RepositorioIndicadoresTest {
 	
 	@Test(expected = NoSePuedeBorrarUnPredeterminadoException.class)
 	public void testEliminarUnPredeterminadorFalla(){
-		repositorio.add(new ROA());
+		repositorio.agregar(new ROA());
 		borrar(new ROA());
 	}
+
 
 	
 

@@ -54,7 +54,7 @@ public class RepositorioEmpresas extends Repositorio<Empresa> {
 
 	public void agregarCuentas(Empresa unaEmpresa) {
 		Empresa empresa = findByName(unaEmpresa.getNombre()).get();
-		empresa.agregarCuentas(empresa.getCuentas());
+		empresa.agregarCuentas(unaEmpresa.getCuentas());
 	}
 
 	public boolean existeLaEmpresa(Empresa empresa) {

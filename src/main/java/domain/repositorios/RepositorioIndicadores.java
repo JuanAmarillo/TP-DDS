@@ -26,8 +26,6 @@ import exceptions.YaExisteElIndicadorException;
 
 public class RepositorioIndicadores extends Repositorio<Indicador>{
 	private static RepositorioIndicadores instance = null;
-	
-	private List<Indicador> indicadoresCargados = new ArrayList<>();
 
 	public static RepositorioIndicadores instance() {
 		if (noHayInstanciaCargada()) 
@@ -54,18 +52,9 @@ public class RepositorioIndicadores extends Repositorio<Indicador>{
 		return Indicador.class.getSimpleName();
 	}
 
-	
-	public  void setIndicadores(List<Indicador> indicadores){
-		indicadoresCargados = indicadores;
-	}
 	public static void resetSingleton() {
 		instance = null;
 	}
-
-	public List<Indicador> getIndicadoresCargados() {
-		return indicadoresCargados;
-	}
-
 
 	public void eliminarIndicadorAPartirDel(String nombreIndicador) {
 		Indicador indicadorASacar = buscarIndicador(nombreIndicador).get();
@@ -80,7 +69,7 @@ public class RepositorioIndicadores extends Repositorio<Indicador>{
 	}
 
 	public void remove(IndicadorCustom indicador) {
-		getIndicadoresCargados().remove(indicador);
+		getElementos().remove(indicador);
 		eliminarDeLaBD(indicador);
 	}
 
@@ -92,7 +81,7 @@ public class RepositorioIndicadores extends Repositorio<Indicador>{
 	}
 
 	public List<IndicadorCustom> obtenerCustoms() {
-		return indicadoresCargados.stream().filter(ind -> ind.esCustom()).map(ind -> (IndicadorCustom) ind)
+		return getElementos().stream().filter(ind -> ind.esCustom()).map(ind -> (IndicadorCustom) ind)
 				.collect(Collectors.toList());
 	}
 	
@@ -104,7 +93,6 @@ public class RepositorioIndicadores extends Repositorio<Indicador>{
 	public void agregarIndicador(Indicador indicadorNuevo) {
 		verificarSiExiste(indicadorNuevo);
 		agregar(indicadorNuevo);
-		add(indicadorNuevo);
 	}
 	
 //	public void persistirIndicador(IndicadorCustom indicador) {		
@@ -113,10 +101,6 @@ public class RepositorioIndicadores extends Repositorio<Indicador>{
 //		entityManager.getTransaction().commit();		
 //	}
 	
-	public void add(Indicador indicador) {
-		getIndicadoresCargados().add(indicador);
-	}
-
 	
 	private void verificarSiExiste(Indicador indicador) {
 		if (contieneElIndicador(indicador.getNombre()))
@@ -124,25 +108,25 @@ public class RepositorioIndicadores extends Repositorio<Indicador>{
 	}
 
 	public Optional<Indicador> buscarIndicador(String nombre) {
-		return getIndicadoresCargados().stream().filter(unIndicador -> unIndicador.suNombreEs(nombre)).findFirst();
+		return getElementos().stream().filter(unIndicador -> unIndicador.suNombreEs(nombre)).findFirst();
 	}
 
 	public boolean contieneElIndicador(String nombre) {
-		return getIndicadoresCargados().stream().anyMatch(unIndicador -> unIndicador.suNombreEs(nombre));
+		return getElementos().stream().anyMatch(unIndicador -> unIndicador.suNombreEs(nombre));
 	}
 
 	public List<String> getNombresDeIndicadores() {
-		return getIndicadoresCargados().stream().map(unIndicador -> unIndicador.getNombre()).collect(Collectors.toList());
+		return getElementos().stream().map(unIndicador -> unIndicador.getNombre()).collect(Collectors.toList());
 	}
 
 	public  void agregarPredeterminados() {
-		indicadoresCargados.add(new Leverage());
-		indicadoresCargados.add(new ROA());
-		indicadoresCargados.add(new ROE());
-		indicadoresCargados.add(new Antiguedad());
-		indicadoresCargados.add(new Solvencia());
-		indicadoresCargados.add(new Endeudamiento());
-		indicadoresCargados.add(new RAC());
+//		indicadoresCargados.add(new Leverage());
+//		indicadoresCargados.add(new ROA());
+//		indicadoresCargados.add(new ROE());
+//		indicadoresCargados.add(new Antiguedad());
+//		indicadoresCargados.add(new Solvencia());
+//		indicadoresCargados.add(new Endeudamiento());
+//		indicadoresCargados.add(new RAC());
 	}
 	
 	public void leerBD() {
@@ -150,7 +134,7 @@ public class RepositorioIndicadores extends Repositorio<Indicador>{
 		List<IndicadorCustom> indicadoresEnBase = entityManager.createQuery("SELECT i FROM IndicadorCustom i", IndicadorCustom.class).getResultList();
 		List<IndicadorCustom> indicadoresCompletos = indicadoresEnBase.stream().map(indicadorIncompleto -> buildercito.generarCalculo(indicadorIncompleto))
 				.collect(Collectors.toList());
-		indicadoresCargados.addAll(indicadoresCompletos);
+//		indicadoresCargados.addAll(indicadoresCompletos);
 	}
 	
 	public IndicadorCustom crearIndicador(String ecuacion) {

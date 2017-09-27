@@ -24,7 +24,7 @@ public abstract class Repositorio<T> {
 	}
 
 	public List<T> getElementos() {
-		return obtenerLista("from " + this.getEntityName());
+		return obtenerLista(from());
 	}
 
 	public void agregar(T elemento) {
@@ -40,7 +40,7 @@ public abstract class Repositorio<T> {
 		return tx;
 	}
 
-	private void persistir(T elemento) {
+	protected void persistir(Object elemento) {
 		entityManager.persist(elemento);
 	}
 
