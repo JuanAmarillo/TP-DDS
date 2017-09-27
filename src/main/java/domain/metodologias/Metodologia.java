@@ -3,10 +3,15 @@ package domain.metodologias;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.uqbar.commons.utils.Observable;
 
@@ -14,19 +19,22 @@ import domain.Empresa;
 import domain.condiciones.Condicion;
 
 @Observable
-/*
 @Entity
 @Table(name = "metodologias")
-*/
 public class Metodologia {
-	/*
 	@Id
 	@GeneratedValue
 	public Integer id;
-	*/
+	@Column(name = "nombre")
 	private String nombre;
+	//@Column(name = "condiciones")
+	//@ManyToMany(cascade={CascadeType.ALL})
+	//@JoinTable(name="Metodologia_Condiciones")
+	@Transient
 	private List<Condicion> condiciones;
 
+	public Metodologia(){}
+	
 	public Metodologia(String nombre, List<Condicion> condiciones) {
 		this.nombre = nombre;
 		this.condiciones = condiciones;
@@ -66,5 +74,9 @@ public class Metodologia {
 
 	public void setCondiciones(List<Condicion> condiciones) {
 		this.condiciones = condiciones;
+	}
+
+	public Integer getId() {
+		return id;
 	}
 }

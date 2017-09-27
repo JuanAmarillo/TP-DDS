@@ -23,7 +23,6 @@ import domain.metodologias.EmpresaConPeso;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Condicion implements CondicionCustom {
-
 	@Id
 	@GeneratedValue
 	public Integer id;

@@ -17,7 +17,7 @@ import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
 import domain.metodologias.Metodologia;
 
 public class MetodologiasDBTest {
-/*
+
 	Condicion condicionTAntiguedad = new TEmpresaMas10Años();
 	Condicion condicionCEndeudamiento = new CEndeudamiento(5.0);
 	Condicion condicionCAntiguedad = new CEmpresaMayorAntiguedad(10.0);
@@ -41,6 +41,5 @@ public class MetodologiasDBTest {
 		List<Metodologia> metodologiasCargadas = entityManager.createQuery("SELECT i FROM Metodologia i", Metodologia.class).getResultList();
 		assertEquals(metodologiasCargadas.size(),1);
 	}
-*/
-	
+
 }
