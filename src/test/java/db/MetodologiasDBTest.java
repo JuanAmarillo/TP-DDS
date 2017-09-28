@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import org.junit.After;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
@@ -17,6 +18,8 @@ import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
 import domain.metodologias.Metodologia;
 
 public class MetodologiasDBTest {
+
+	private EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 
 	Condicion condicionTAntiguedad = new TEmpresaMas10Años();
 	Condicion condicionCEndeudamiento = new CEndeudamiento(5.0);
@@ -30,15 +33,13 @@ public class MetodologiasDBTest {
 	Metodologia metodologiaTaxativa = new Metodologia("PepitaT", condicionesTaxativas);
 	Metodologia metodologiaComparativa = new Metodologia("PepitaC", condicionesComparativas);
 
-	private EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-
-	@Test
-	public void guardaMetodologia() {
-		
+	@After
+	public void finalize(){
+		entityManager.clear();
 	}
 
 	@Test
-	public void retornaMetodologia() {
+	public void persisteMetodologia() {
 		entityManager.getTransaction().begin();
 		entityManager.persist(metodologiaMixta);
 		entityManager.getTransaction().commit();
