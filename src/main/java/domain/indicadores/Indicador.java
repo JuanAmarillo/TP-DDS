@@ -19,8 +19,6 @@ public abstract class Indicador {
 	@Id
 	@GeneratedValue
 	Integer id;
-	@JsonProperty("nombre")
-	@Column(length = 30)
 	protected String nombre;
 
 	public Indicador() {

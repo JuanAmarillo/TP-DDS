@@ -12,7 +12,7 @@ import org.uqbar.commons.utils.Observable;
 
 @Observable
 @Entity
-@Table
+@Table(name = "cuentas")
 public class Cuenta {
 	@Id
 	@GeneratedValue

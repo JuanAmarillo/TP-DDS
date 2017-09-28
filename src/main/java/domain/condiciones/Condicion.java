@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.uqbar.commons.utils.Observable;
@@ -22,6 +23,7 @@ import domain.metodologias.EmpresaConPeso;
 @Observable
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Table(name = "condiciones")
 public abstract class Condicion implements CondicionCustom {
 	@Id
 	@GeneratedValue
