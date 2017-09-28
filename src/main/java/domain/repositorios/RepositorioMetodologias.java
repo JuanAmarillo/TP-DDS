@@ -1,21 +1,20 @@
 package domain.repositorios;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import domain.condiciones.Condicion;
+import org.hibernate.HibernateException;
+
 import domain.metodologias.Metodologia;
 import exceptions.YaExisteLaMetodologiaException;
 
 public class RepositorioMetodologias extends Repositorio<Metodologia> {
-	
-	private static RepositorioMetodologias instance=null;
-	//private List<Metodologia> metodologiasCargadas = new ArrayList<Metodologia>();
-	
+
+	private static RepositorioMetodologias instance = null;
+
 	public static RepositorioMetodologias instance() {
-		if (noHayInstanciaCargada()) 
+		if (noHayInstanciaCargada())
 			cargarNuevaInstancia();
 		return instance;
 	}
@@ -31,27 +30,32 @@ public class RepositorioMetodologias extends Repositorio<Metodologia> {
 	public static void resetSingleton() {
 		instance = null;
 	}
-	
-	public List<Metodologia> buscarMetodologia(String nombre) {
-		//return metodologiasCargadas.stream().filter(metodologia -> metodologia.suNombreEs(nombre)).findFirst();
-		return entityManager.createQuery("SELECT i FROM Metodologia i", Metodologia.class).getResultList();
+
+	public Optional<Metodologia> buscarMetodologia(String nombre) {
+		return find("nombre", nombre);
 	}
-	
+
 	public void agregarMetodologia(Metodologia metodologia) {
 		verificarSiExiste(metodologia);
 		add(metodologia);
 	}
 
 	public void add(Metodologia metodologia) {
-		metodologiasCargadas.add(metodologia);
+		try {
+			entityManager.getTransaction().begin();
+			entityManager.persist(metodologia);
+			entityManager.getTransaction().commit();
+		} catch (HibernateException hb) {
+			entityManager.getTransaction().rollback();
+		}
 	}
 
 	public List<Metodologia> getMetodologiasCargadas() {
-		return metodologiasCargadas;
+		return entityManager.createQuery("SELECT i FROM Metodologia i", Metodologia.class).getResultList();
 	}
-	
-	public void verificarSiExiste(Metodologia metodologia){
-		if(existeLaMetodologia(metodologia))
+
+	public void verificarSiExiste(Metodologia metodologia) {
+		if (existeLaMetodologia(metodologia))
 			throw new YaExisteLaMetodologiaException();
 	}
 
@@ -65,7 +69,6 @@ public class RepositorioMetodologias extends Repositorio<Metodologia> {
 
 	@Override
 	protected String getEntityName() {
-		// TODO Auto-generated method stub
-		return null;
+		return Metodologia.class.getSimpleName();
 	}
 }

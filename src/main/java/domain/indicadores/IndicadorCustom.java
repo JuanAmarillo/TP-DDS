@@ -1,12 +1,6 @@
 package domain.indicadores;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.uqbar.commons.utils.Observable;
@@ -14,7 +8,6 @@ import org.uqbar.commons.utils.Observable;
 import domain.Empresa;
 import domain.indicadores.calculoIndicadores.Calculable;
 import domain.indicadores.calculoIndicadores.Token;
-import domain.indicadores.calculoIndicadores.ConstructoresIndicador.Analizador;
 
 @Observable
 @Entity
