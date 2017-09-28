@@ -6,7 +6,10 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
+import org.hibernate.HibernateException;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
+
+import exceptions.NoSePudoCargarAlRepositorioException;
 
 public abstract class Repositorio<T> {
 
@@ -30,9 +33,7 @@ public abstract class Repositorio<T> {
 	}
 
 	public void agregar(T elemento) {
-		// EntityTransaction tx = crearTransaccion();
 		persistir(elemento);
-		// tx.commit();
 	}
 
 	public void crearTransaccion() {
@@ -41,10 +42,16 @@ public abstract class Repositorio<T> {
 			tx.begin();
 	}
 	
-	public void cerrarTransaccion(){
+	public void cerrarTransaccion(String entidad){
 		EntityTransaction tx = entityManager.getTransaction();
-		if (!tx.isActive())
-			tx.commit();
+		try {
+			if (!tx.isActive())
+				tx.commit();
+		}
+		catch(HibernateException e) {
+			tx.rollback();
+			throw new NoSePudoCargarAlRepositorioException("No se pudo cargar " + entidad + " correctamente. Intente mas tarde.");
+		}
 	}
 
 	protected void persistir(Object elemento) {

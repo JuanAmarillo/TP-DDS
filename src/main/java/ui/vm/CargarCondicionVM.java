@@ -32,7 +32,13 @@ public class CargarCondicionVM {
 
 	private void crearCondicion() {
 		Condicion condicion = buildearCondicion();
+		agregarAlRepositorio(condicion);
+	}
+
+	private void agregarAlRepositorio(Condicion condicion) {
+		RepositorioCondiciones.instance().crearTransaccion();
 		RepositorioCondiciones.instance().agregar(condicion);
+		RepositorioCondiciones.instance().cerrarTransaccion("la condición");
 	}
 
 	private Condicion buildearCondicion() {

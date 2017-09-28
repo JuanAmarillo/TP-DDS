@@ -12,7 +12,7 @@ import domain.indicadores.calculoIndicadores.Token;
 @Observable
 @Entity
 public class IndicadorCustom extends Indicador {
-	public String expresion;
+	protected String expresion;
 	@Transient
 	public Calculable calculo;
 
@@ -53,16 +53,8 @@ public class IndicadorCustom extends Indicador {
 		this.expresion = expresion;
 	}
 	
-	
 	@Override
 	public boolean esCustom() {
 		return true;
 	}
-	
-	public void holi() {
-		
-	}
-
-	
-
 }

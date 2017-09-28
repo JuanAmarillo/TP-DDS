@@ -2,14 +2,18 @@ package unitTests.repositorios;
 
 import static org.junit.Assert.*;
 
+import javax.persistence.EntityExistsException;
+import javax.persistence.EntityManager;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import domain.metodologias.Metodologia;
 import domain.repositorios.RepositorioMetodologias;
 import exceptions.YaExisteLaMetodologiaException;
 
-public class RepositorioMetodologiasTest {
+public class RepositorioMetodologiasTest extends AbstractPersistenceTest{
 	
 	private RepositorioMetodologias repositorio;
 	
@@ -18,7 +22,7 @@ public class RepositorioMetodologiasTest {
 	}
 	
 	public void agregarMetodologiaSinVerificar(String nombre){
-		repositorio.add(new Metodologia(nombre, null));
+		repositorio.agregar(new Metodologia(nombre, null));
 	}
 	
 	public void comprobarLaPrimeraMetodologia(String nombre){
@@ -57,10 +61,15 @@ public class RepositorioMetodologiasTest {
 		comprobarLaPrimeraMetodologia("odiosos, babosos, ya no queremos osos");
 	}
 	
-	@Test(expected = YaExisteLaMetodologiaException.class)
+	@Test(expected = EntityExistsException.class)
 	public void testIntentarAgregarDosVecesLaMismaMetodologiaFalla(){
 		agregarMetodologia("el autobus que tenia que ir rapido");
 		agregarMetodologia("el autobus que tenia que ir rapido");
+	}
+
+	@Override
+	public EntityManager entityManager() {
+		return RepositorioMetodologias.instance().getEntityManager();
 	}
 	
 	

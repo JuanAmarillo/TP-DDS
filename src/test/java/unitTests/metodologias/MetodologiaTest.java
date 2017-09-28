@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import domain.Empresa;
 import domain.condiciones.Condicion;
+import domain.condiciones.CondicionComparativa;
 import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.CEndeudamiento;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
@@ -51,7 +52,7 @@ public class MetodologiaTest {
 
 	@Test
 	public void seAplicanCondicionesTest() {
-		List<Empresa> emprFiltradas = metodologiaMixta.aplicarCondiciones(listaEmpresas, "pascuas");
+	List<Empresa> emprFiltradas = metodologiaMixta.aplicarCondiciones(listaEmpresas, "pascuas");
 		Empresa pepsi = listaEmpresas.get(3);
 		Empresa coca = listaEmpresas.get(0);
 		imprimirNombres(emprFiltradas); // Debería quedar Pepsi-Co,Coca-Cola
@@ -66,5 +67,10 @@ public class MetodologiaTest {
 		assertEquals(emprFiltradas.size(), 2);
 	}
 
-
+	@Test
+		public void seAplicanSoloCondicionesComparativasTest() {
+			List<Empresa> emprFiltradas = metodologiaComparativa.aplicarCondiciones(listaEmpresas, "pascuas");
+			assertEquals(emprFiltradas.size(), 5);
+			imprimirNombres(emprFiltradas);
+	}
 }

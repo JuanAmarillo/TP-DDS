@@ -36,33 +36,12 @@ public class RepositorioMetodologias extends Repositorio<Metodologia> {
 	}
 
 	public void agregarMetodologia(Metodologia metodologia) {
-		verificarSiExiste(metodologia);
-		add(metodologia);
-	}
-
-	public void add(Metodologia metodologia) {
-		try {
-			entityManager.getTransaction().begin();
-			entityManager.persist(metodologia);
-			entityManager.getTransaction().commit();
-		} catch (HibernateException hb) {
-			entityManager.getTransaction().rollback();
-		}
+		agregar(metodologia);
 	}
 
 	public List<Metodologia> getMetodologiasCargadas() {
 		return entityManager.createQuery("SELECT i FROM Metodologia i", Metodologia.class).getResultList();
 	}
-
-	public void verificarSiExiste(Metodologia metodologia) {
-		if (existeLaMetodologia(metodologia))
-			throw new YaExisteLaMetodologiaException();
-	}
-
-	public boolean existeLaMetodologia(Metodologia metodologia) {
-		return buscarMetodologia(metodologia.getNombre()).isPresent();
-	}
-
 	public List<String> getNombresMetodologias() {
 		return getMetodologiasCargadas().stream().map(met -> met.getNombre()).collect(Collectors.toList());
 	}

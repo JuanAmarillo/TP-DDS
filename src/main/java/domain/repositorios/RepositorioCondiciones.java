@@ -39,7 +39,9 @@ public class RepositorioCondiciones extends Repositorio<Condicion> {
 	}
 
 	public List<CondicionComparativa> getCondicionesComparativas() {
-		return entityManager.createQuery("SELECT i FROM CondicionComparativa i", CondicionComparativa.class).getResultList();
+		List<CondicionComparativa> asd = entityManager.createQuery("SELECT i FROM CondicionComparativa i", CondicionComparativa.class).getResultList();
+		asd.forEach(cond -> System.out.println("AAAAAAAAAAAAAAAAAAAAAA              " + cond.getNombre()));
+		return asd;
 	}
 
 	@Override
