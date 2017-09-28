@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -23,15 +24,18 @@ import domain.metodologias.EmpresaConPeso;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class Condicion implements CondicionCustom {
 	@Id
+	@GeneratedValue
+	Integer id;
 	@Column(length = 30)
 	protected String nombre;
 	@Transient
 	protected Indicador indicador;
 	@Transient
-	protected OperadorCondicion operador;	
+	protected OperadorCondicion operador;
 
-	public Condicion(){}
-	
+	public Condicion() {
+	}
+
 	public Condicion(String nombre, Indicador indicador, OperadorCondicion operador) {
 		this.nombre = nombre;
 		this.indicador = indicador;
@@ -90,6 +94,10 @@ public abstract class Condicion implements CondicionCustom {
 
 	public void setOperador(OperadorCondicion operador) {
 		this.operador = operador;
+	}
+
+	public Integer getId() {
+		return id;
 	}
 
 }

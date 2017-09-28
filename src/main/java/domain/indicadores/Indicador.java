@@ -18,46 +18,44 @@ import domain.Empresa;
 public abstract class Indicador {
 	@Id
 	@GeneratedValue
-	public Integer id;
+	Integer id;
 	@JsonProperty("nombre")
-	@Column(length=30)
+	@Column(length = 30)
 	protected String nombre;
-	
-	public Indicador() {}
-	
+
+	public Indicador() {
+	}
+
 	public Indicador(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	public boolean suNombreEs(String nombreIndicador){
+
+	public boolean suNombreEs(String nombreIndicador) {
 		return this.nombre.equals(nombreIndicador);
 	}
-	
-	public Integer getId(){
+
+	public Integer getId() {
 		return id;
 	}
 
-	public String getNombre(){
+	public String getNombre() {
 		return nombre;
 	}
-	
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-	
-	public IndicadorCalculado calcular(Empresa empresa, String periodo){
-		try{
+
+	public IndicadorCalculado calcular(Empresa empresa, String periodo) {
+		try {
 			return new IndicadorCalculado(nombre, calcularIndicador(empresa, periodo));
-		}catch (RuntimeException e) {
+		} catch (RuntimeException e) {
 			return new IndicadorCalculado(nombre);
 		}
 	}
-	
-	abstract public Double calcularIndicador(Empresa empresa, String periodo);
-	
-	abstract public boolean esCustom();
 
-//	abstract public String getEcuacion();
-	
+	abstract public Double calcularIndicador(Empresa empresa, String periodo);
+
+	abstract public boolean esCustom();
 
 }
