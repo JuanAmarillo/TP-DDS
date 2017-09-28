@@ -5,6 +5,8 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
+import javax.persistence.Embeddable;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -18,6 +20,7 @@ import org.uqbar.commons.utils.Observable;
 
 import domain.Empresa;
 import domain.condiciones.OperadoresCondicion.OperadorCondicion;
+import domain.condiciones.OperadoresCondicion.OperadorConverter;
 import domain.indicadores.Indicador;
 import domain.metodologias.EmpresaConPeso;
 
@@ -33,7 +36,7 @@ public abstract class Condicion implements CondicionCustom {
 	protected String nombre;
 	@Transient
 	protected Indicador indicador;
-	@Embedded
+	@Convert(converter = OperadorConverter.class)
 	protected OperadorCondicion operador;
 
 	public Condicion() {
