@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -32,7 +33,7 @@ public abstract class Condicion implements CondicionCustom {
 	protected String nombre;
 	@Transient
 	protected Indicador indicador;
-	@Transient
+	@Embedded
 	protected OperadorCondicion operador;
 
 	public Condicion() {
