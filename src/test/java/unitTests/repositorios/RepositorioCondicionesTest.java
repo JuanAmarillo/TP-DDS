@@ -10,7 +10,9 @@ import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
 import domain.condiciones.CondicionTaxativa;
+import domain.condiciones.condicionesPredeterminadas.CMaximizarROE;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
+import domain.condiciones.condicionesPredeterminadas.TEndeudamiento;
 import domain.repositorios.RepositorioCondiciones;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 
@@ -44,7 +46,7 @@ public class RepositorioCondicionesTest extends AbstractPersistenceTest {
 	}
 	
 	public void comprobarLaPrimeraCondicion(String nombre) {
-		assertEquals(repositorio.getElementos().get(0).getNombre(), nombre);
+		assertEquals(repositorio.getNombres().get(0), nombre);
 	}
 	
 	public void laCantidadDeCondicionesCargadasEs(Long cantidad) {
@@ -100,14 +102,14 @@ public class RepositorioCondicionesTest extends AbstractPersistenceTest {
 	
 	@Test
 	public void testAgregaUnaCondicionPredeterminada(){
-		agregarCondicion(new TEmpresaMas10Años());
-		buscarCondicion("Empresa de más de 10 años");
+		agregarCondicion(new TEndeudamiento());
+		buscarCondicion("Endeudamiento menor a 4");
 	}
 	
 	@Test(expected = NoSePuedeBorrarUnPredeterminadoException.class)
 	public void testEliminarCondicionPredeterminadaFalla(){
-		agregarCondicion(new TEmpresaMas10Años());
-		eliminarCondicion("Empresa de más de 10 años");
+		agregarCondicion(new CMaximizarROE());
+		eliminarCondicion("Maximizar ROE");
 	}
 	
 	@Test(expected = RuntimeException.class)

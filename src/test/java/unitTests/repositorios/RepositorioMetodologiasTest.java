@@ -18,7 +18,7 @@ public class RepositorioMetodologiasTest extends AbstractPersistenceTest{
 	private RepositorioMetodologias repositorio;
 	
 	public void agregarMetodologia(String nombre){
-		repositorio.agregarMetodologia(new Metodologia(nombre, null));
+		repositorio.agregar(new Metodologia(nombre, null));
 	}
 	
 	public void agregarMetodologiaSinVerificar(String nombre){
@@ -26,11 +26,11 @@ public class RepositorioMetodologiasTest extends AbstractPersistenceTest{
 	}
 	
 	public void comprobarLaPrimeraMetodologia(String nombre){
-		assertEquals(repositorio.getMetodologiasCargadas().get(0).getNombre(),nombre);
+		assertEquals(repositorio.getElementos().get(0).getNombre(),nombre);
 	}
 	
 	public void buscarMetodologia(String nombre){
-		assertEquals(repositorio.buscarMetodologia(nombre).get().getNombre(),nombre);
+		assertEquals(repositorio.findByName(nombre).get().getNombre(),nombre);
 	}
 	
 	@Before

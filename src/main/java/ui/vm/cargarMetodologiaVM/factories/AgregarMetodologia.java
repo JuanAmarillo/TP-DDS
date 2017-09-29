@@ -16,8 +16,8 @@ public class AgregarMetodologia {
 	private void crearYAgregarAlRepositorio(String nombreMetodologia, List<Condicion> condicionesAgregadas) {
 		Metodologia nuevaMetodologia = new Metodologia(nombreMetodologia, condicionesAgregadas);
 		RepositorioMetodologias.instance().crearTransaccion();
-		RepositorioMetodologias.instance().agregarMetodologia(nuevaMetodologia);
-		RepositorioMetodologias.instance().cerrarTransaccion("la metodología");
+		RepositorioMetodologias.instance().agregar(nuevaMetodologia);
+		RepositorioMetodologias.instance().cerrarTransaccion();
 	}
 
 	private void validaciones(String nombreMetodologia, List<Condicion> condicionesAgregadas) {

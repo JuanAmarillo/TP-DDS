@@ -31,16 +31,23 @@ public abstract class Repositorio<T> {
 			tx.begin();
 	}
 
-	public void cerrarTransaccion(String entidad) {
+	public void cerrarTransaccion() {
 		EntityTransaction tx = entityManager.getTransaction();
 		try {
-			if (!tx.isActive())
-				tx.commit();
+			commit(tx);
 		} catch (HibernateException e) {
-			tx.rollback();
-			throw new NoSePudoCargarAlRepositorioException(
-					"No se pudo cargar " + entidad + " correctamente. Intente mas tarde.");
+			rollback(tx);
 		}
+	}
+
+	private void rollback(EntityTransaction tx) {
+		tx.rollback();
+		throw new NoSePudoCargarAlRepositorioException(getEntityName());
+	}
+
+	private void commit(EntityTransaction tx) {
+		if (!tx.isActive())
+			tx.commit();
 	}
 
 	public void resetEntityManager() {
@@ -52,25 +59,28 @@ public abstract class Repositorio<T> {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<T> obtenerLista(String query) {
-		return createQuery(query).getResultList();
+	public <G> List<G> obtenerLista(String query,Class<G> clase) {
+		return createQuery(query,clase).getResultList();
 	}
 
-	protected Query createQuery(String query) {
+	protected <G> Query createQuery(String query,Class<G> clase) {
+		return entityManager.createQuery(query,clase);
+	}
+	
+	protected <G> Query createQuery(String query) {
 		return entityManager.createQuery(query);
 	}
 
 	public List<T> getElementos() {
-		return obtenerLista(from());
+		return getElementosDe(getEntity());
 	}
 
 	public <G> List<G> getElementosDe(Class<G> clase) {
-		return entityManager.createQuery("from " + clase.getSimpleName(), clase).getResultList();
+		return obtenerLista("from " + clase.getSimpleName(), clase);
 	}
 
-	@SuppressWarnings("unchecked")
 	public List<String> getNombres() {
-		return createQuery("select nombre" + from()).getResultList();
+		return obtenerLista("select nombre" + from(),String.class);
 	}
 
 	public void agregar(T elemento) {
@@ -82,7 +92,7 @@ public abstract class Repositorio<T> {
 	}
 
 	public Long cantidadElementosCargados() {
-		return (Long) createQuery("select count(*)" + from()).getSingleResult();
+		return (Long) createQuery("select count(*)" + from(),Long.class).getSingleResult();
 	}
 
 	public Optional<T> findById(Integer id) {
@@ -94,7 +104,7 @@ public abstract class Repositorio<T> {
 	}
 
 	protected Optional<T> find(String donde, String elemento) {
-		return obtenerLista(from() + where(donde, elemento)).stream().findFirst();
+		return obtenerLista(from() + where(donde, elemento),getEntity()).stream().findFirst();
 	}
 
 	public boolean verificarExistencia(String nombre) {
@@ -120,8 +130,12 @@ public abstract class Repositorio<T> {
 	private String where(String donde, String elemento) {
 		return " where " + donde + "= '" + elemento + "'";
 	}
+	
+	private String getEntityName(){
+		return getEntity().getSimpleName();
+	}
 
-	abstract protected String getEntityName();
+	abstract protected Class<T> getEntity();
 	// abstract protected String getId(T elemento);
 
 }

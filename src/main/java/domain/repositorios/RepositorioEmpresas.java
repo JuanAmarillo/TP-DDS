@@ -39,8 +39,8 @@ public class RepositorioEmpresas extends Repositorio<Empresa> {
 	}
 
 	@Override
-	protected String getEntityName() {
-		return Empresa.class.getSimpleName();
+	protected Class<Empresa> getEntity() {
+		return Empresa.class;
 	}
 
 	@Override

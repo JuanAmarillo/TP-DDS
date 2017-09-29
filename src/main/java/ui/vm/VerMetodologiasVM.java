@@ -62,7 +62,7 @@ public class VerMetodologiasVM {
 	// GETTERS Y SETTERS//
 
 	public List<Metodologia> getMetodologias() {
-		return RepositorioMetodologias.instance().getMetodologiasCargadas();
+		return RepositorioMetodologias.instance().getElementos();
 	}
 
 	public void setMetodologias(List<Metodologia> metodologias) {

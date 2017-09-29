@@ -22,10 +22,13 @@ public class CondicionTest {
 	List<Empresa> empresas;
 
 	private List<EmpresaConPeso> aplicarCondicionALista(Condicion condicion) {
-		List<EmpresaConPeso> listaEmpresas = empresas.stream().map(empresa -> new EmpresaConPeso(empresa, 0.0))
+		List<EmpresaConPeso> listaEmpresas = empresasConPesos();
+		return condicion.aplicarCondicionEnPeriodo(listaEmpresas, "pascuas");
+	}
+
+	public List<EmpresaConPeso> empresasConPesos() {
+		return empresas.stream().map(empresa -> new EmpresaConPeso(empresa, 0.0))
 				.collect(Collectors.toList());
-		listaEmpresas = condicion.aplicarCondicionEnPeriodo(listaEmpresas, "pascuas");
-		return listaEmpresas;
 	}
 
 	@Before

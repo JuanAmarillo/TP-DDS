@@ -47,8 +47,8 @@ public class RepositorioIndicadores extends Repositorio<Indicador> {
 	}
 
 	@Override
-	protected String getEntityName() {
-		return Indicador.class.getSimpleName();
+	protected Class<Indicador> getEntity() {
+		return Indicador.class;
 	}
 
 	public static void resetSingleton() {

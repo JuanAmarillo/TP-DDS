@@ -73,8 +73,8 @@ public class RepositorioCondiciones extends Repositorio<Condicion> {
 	}
 
 	@Override
-	protected String getEntityName() {
-		return Condicion.class.getSimpleName();
+	protected Class<Condicion> getEntity() {
+		return Condicion.class;
 	}
 
 }

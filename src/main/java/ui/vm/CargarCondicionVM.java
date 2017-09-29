@@ -38,7 +38,7 @@ public class CargarCondicionVM {
 	private void agregarAlRepositorio(Condicion condicion) {
 		RepositorioCondiciones.instance().crearTransaccion();
 		RepositorioCondiciones.instance().agregar(condicion);
-		RepositorioCondiciones.instance().cerrarTransaccion("la condición");
+		RepositorioCondiciones.instance().cerrarTransaccion();
 	}
 
 	private Condicion buildearCondicion() {
