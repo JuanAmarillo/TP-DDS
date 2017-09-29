@@ -50,12 +50,6 @@ public class RepositorioEmpresaTest extends AbstractPersistenceTest {
 	private void borrarEmpresa(String empresa) {
 		repositorio.deleteByName(empresa);
 	}
-	
-	private void imprimirEmpresas(String test) {
-		List<Empresa> empresas = repositorio.getElementos();
-		System.out.println(empresas.size());
-		empresas.forEach(empresa -> System.out.println(test + "   AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" + empresa.getNombre()));
-	}
 
 	public void agregarEmpresaLuegoDeArchivo(String nombre) {
 		repositorio.agregar(crearEmpresa(nombre));
@@ -73,13 +67,11 @@ public class RepositorioEmpresaTest extends AbstractPersistenceTest {
 
 	@Test
 	public void testAgregaTresEmpresasDistintasLuegoDeArchivo() {
-		agregarEmpresaLuegoDeArchivo("Universidad");
-		agregarEmpresaLuegoDeArchivo("Tecnologica");
+		agregarEmpresaLuegoDeArchivo("no metas al Sr Burns en esto");
+		agregarEmpresaLuegoDeArchivo("ya comete la maldita naranja");
 		agregarEmpresaLuegoDeArchivo("Nacional");
 		laCantidadDeEmpresasCargadasEs(3l);
 	}
-
-	
 
 	@Test
 	public void testAgregaDosVecesLaMismaEmpresaLuegoDeArchivoSoloDejaUna() {

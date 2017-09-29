@@ -35,13 +35,11 @@ public class RepositorioCondiciones extends Repositorio<Condicion> {
 	}
 
 	public List<CondicionTaxativa> getCondicionesTaxativas() {
-		return entityManager.createQuery("SELECT i FROM CondicionTaxativa i", CondicionTaxativa.class).getResultList();
+		return getElementosDe(CondicionTaxativa.class);
 	}
 
 	public List<CondicionComparativa> getCondicionesComparativas() {
-		List<CondicionComparativa> asd = entityManager.createQuery("SELECT i FROM CondicionComparativa i", CondicionComparativa.class).getResultList();
-		asd.forEach(cond -> System.out.println("AAAAAAAAAAAAAAAAAAAAAA              " + cond.getNombre()));
-		return asd;
+		return getElementosDe(CondicionComparativa.class);
 	}
 
 	@Override

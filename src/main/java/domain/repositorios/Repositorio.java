@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 
 import org.hibernate.HibernateException;
 import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
@@ -13,27 +14,15 @@ import exceptions.NoSePudoCargarAlRepositorioException;
 
 public abstract class Repositorio<T> {
 
+	// ver el caso de agregar y tira excepcion si ya existe
+	
+	// ver si se puede crear una clase para arreglar los problemas de pedir id o
+	// nombre (deletebyid repoIndicadores=
+
 	protected EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 
 	public EntityManager getEntityManager() {
 		return entityManager;
-	}
-
-	@SuppressWarnings("unchecked")
-	public List<T> obtenerLista(String query) {
-		return entityManager.createQuery(query).getResultList();
-	}
-
-	public List<T> getElementos() {
-		return obtenerLista(from());
-	}
-	
-	public List<String> getNombres() {
-		return entityManager.createQuery("SELECT i.nombre FROM "+ getEntityName() +" i", String.class).getResultList();
-	}
-
-	public void agregar(T elemento) {
-		persistir(elemento);
 	}
 
 	public void crearTransaccion() {
@@ -41,21 +30,51 @@ public abstract class Repositorio<T> {
 		if (!tx.isActive())
 			tx.begin();
 	}
-	
-	public void cerrarTransaccion(String entidad){
+
+	public void cerrarTransaccion(String entidad) {
 		EntityTransaction tx = entityManager.getTransaction();
 		try {
 			if (!tx.isActive())
 				tx.commit();
-		}
-		catch(HibernateException e) {
+		} catch (HibernateException e) {
 			tx.rollback();
-			throw new NoSePudoCargarAlRepositorioException("No se pudo cargar " + entidad + " correctamente. Intente mas tarde.");
+			throw new NoSePudoCargarAlRepositorioException(
+					"No se pudo cargar " + entidad + " correctamente. Intente mas tarde.");
 		}
+	}
+
+	public void resetEntityManager() {
+		entityManager.flush();
 	}
 
 	protected void persistir(Object elemento) {
 		entityManager.persist(elemento);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<T> obtenerLista(String query) {
+		return createQuery(query).getResultList();
+	}
+
+	protected Query createQuery(String query) {
+		return entityManager.createQuery(query);
+	}
+
+	public List<T> getElementos() {
+		return obtenerLista(from());
+	}
+
+	public <G> List<G> getElementosDe(Class<G> clase) {
+		return entityManager.createQuery("from " + clase.getSimpleName(), clase).getResultList();
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<String> getNombres() {
+		return createQuery("select nombre" + from()).getResultList();
+	}
+
+	public void agregar(T elemento) {
+		persistir(elemento);
 	}
 
 	public Boolean hayElementosCargados() {
@@ -63,11 +82,7 @@ public abstract class Repositorio<T> {
 	}
 
 	public Long cantidadElementosCargados() {
-		return (Long) entityManager.createQuery("select count(*)" + from()).getSingleResult();
-	}
-
-	public void resetEntityManager() {
-		entityManager.flush();
+		return (Long) createQuery("select count(*)" + from()).getSingleResult();
 	}
 
 	public Optional<T> findById(Integer id) {
@@ -86,14 +101,6 @@ public abstract class Repositorio<T> {
 		return findByName(nombre).isPresent();
 	}
 
-	private String from() {
-		return "from " + getEntityName() + " ";
-	}
-
-	private String where(String donde, String elemento) {
-		return "where " + donde + "= '" + elemento + "'";
-	}
-
 	public void deleteById(Integer id) {
 		delete("id", id.toString());
 	}
@@ -103,9 +110,15 @@ public abstract class Repositorio<T> {
 	}
 
 	protected void delete(String donde, String elemento) {
-		// EntityTransaction tx = crearTransaccion();
-		entityManager.createQuery("delete from " + getEntityName() + " " + where(donde, elemento)).executeUpdate();
-		// tx.commit();
+		createQuery("delete" + from() + where(donde, elemento)).executeUpdate();
+	}
+
+	private String from() {
+		return " from " + getEntityName() + " ";
+	}
+
+	private String where(String donde, String elemento) {
+		return " where " + donde + "= '" + elemento + "'";
 	}
 
 	abstract protected String getEntityName();

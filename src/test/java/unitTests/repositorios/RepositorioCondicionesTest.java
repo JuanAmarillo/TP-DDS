@@ -77,8 +77,8 @@ public class RepositorioCondicionesTest extends AbstractPersistenceTest {
 	
 	@Test(expected = RuntimeException.class)
 	public void testAgregaDosVecesLaMismaCondicionFalla(){
-		agregarCondicionTaxativa("soy la misma");
-		agregarCondicionTaxativa("soy la misma");
+		agregarCondicionTaxativa("soy la cerda");
+		agregarCondicionTaxativa("soy la cerda");
 	}
 	
 	@Test

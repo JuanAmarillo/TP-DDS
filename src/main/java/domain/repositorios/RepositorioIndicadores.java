@@ -69,7 +69,7 @@ public class RepositorioIndicadores extends Repositorio<Indicador> {
 	}
 
 	public List<IndicadorCustom> obtenerCustoms() {
-		return entityManager.createQuery("SELECT i FROM IndicadorCustom i", IndicadorCustom.class).getResultList();
+		return getElementosDe(IndicadorCustom.class);
 	}
 
 	public void agregarIndicadorAPartirDel(String nombreIndicador) {
