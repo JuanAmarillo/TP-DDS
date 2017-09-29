@@ -115,8 +115,8 @@ public abstract class Repositorio<T> {
 		delete("id", id.toString());
 	}
 
-	public void deleteByName(String nombreEmpresa) {
-		delete("nombre", nombreEmpresa);
+	public void deleteByName(String nombre) {
+		delete("nombre", nombre);
 	}
 
 	protected void delete(String donde, String elemento) {
