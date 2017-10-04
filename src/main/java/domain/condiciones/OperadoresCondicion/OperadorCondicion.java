@@ -1,6 +1,5 @@
 package domain.condiciones.OperadoresCondicion;
 
-import javax.persistence.Embeddable;
 import javax.persistence.MappedSuperclass;
 
 import org.uqbar.commons.utils.Observable;

@@ -1,10 +1,9 @@
 package unitTests.repositorios;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import javax.persistence.EntityManager;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 

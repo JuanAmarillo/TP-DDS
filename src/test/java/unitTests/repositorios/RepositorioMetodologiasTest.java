@@ -1,6 +1,6 @@
 package unitTests.repositorios;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityManager;
@@ -11,7 +11,6 @@ import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import domain.metodologias.Metodologia;
 import domain.repositorios.RepositorioMetodologias;
-import exceptions.YaExisteLaMetodologiaException;
 
 public class RepositorioMetodologiasTest extends AbstractPersistenceTest{
 	

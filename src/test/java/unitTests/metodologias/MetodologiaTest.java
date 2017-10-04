@@ -9,7 +9,6 @@ import org.junit.Test;
 
 import domain.Empresa;
 import domain.condiciones.Condicion;
-import domain.condiciones.CondicionComparativa;
 import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.CEndeudamiento;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;

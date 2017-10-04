@@ -1,14 +1,8 @@
 
 package domain.repositorios;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-
-import javax.persistence.EntityManager;
-
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import domain.indicadores.BuilderIndicadorCustom;
 import domain.indicadores.Indicador;

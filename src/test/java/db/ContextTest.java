@@ -1,12 +1,10 @@
 package db;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.WithGlobalEntityManager;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
-
-import domain.Empresa;
 
 public class ContextTest extends AbstractPersistenceTest implements WithGlobalEntityManager {
 

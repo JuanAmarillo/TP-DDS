@@ -11,7 +11,6 @@ import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
 import domain.condiciones.CondicionTaxativa;
 import domain.condiciones.condicionesPredeterminadas.CMaximizarROE;
-import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
 import domain.condiciones.condicionesPredeterminadas.TEndeudamiento;
 import domain.repositorios.RepositorioCondiciones;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;

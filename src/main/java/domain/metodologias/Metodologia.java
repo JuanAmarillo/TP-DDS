@@ -23,7 +23,7 @@ public class Metodologia {
 	@Id
 	@Column(name = "nombre")
 	private String nombre;
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	private List<Condicion> condiciones;
 
 	public Metodologia() {

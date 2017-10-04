@@ -1,23 +1,14 @@
 package unitTests.repositorios;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
+import javax.persistence.EntityManager;
+
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import domain.Empresa;
 import domain.repositorios.RepositorioEmpresas;
-import junit.framework.Assert;
-
-import static org.junit.Assert.assertEquals;
-
-import java.util.List;
-
-import javax.persistence.EntityManager;
-
-import org.junit.After;
 
 public class RepositorioEmpresaTest extends AbstractPersistenceTest {
 

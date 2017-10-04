@@ -1,18 +1,7 @@
 package domain.repositorios;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Optional;
-import java.util.Set;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
-
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import domain.Empresa;
 
