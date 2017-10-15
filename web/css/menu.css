@@ -1,0 +1,36 @@
+.row {
+height: 100%;
+}
+
+#menu {
+background-color: #FF977F;
+
+}
+
+#content {
+margin-bottom: 0;
+padding-top: 1rem;
+}
+
+a {
+color: #dc3545;
+}
+
+a:hover {
+color: #fff;
+}
+
+.dropdown-menu {
+background-color: #FF977F;
+border-color: white;
+}
+
+.dropdown-item:hover {
+background-color: #d66d55;
+}
+
+video {
+border-color: #dc3545;
+border-style: solid;
+border-radius: 15px;
+}
