@@ -1,0 +1,19 @@
+{{#partial "title"}}Nuevo indicador{{/partial}}
+
+{{#partial "body"}}
+
+	<h3>Cree un nuevo indicador</h3>
+	<br/>
+	<form method="POST" action="/indicadores/new" name="form-indicador">
+		<div class="form-row">
+			<div class="form-group col-10>
+				<label for="nuevo-indicador">Introduzca un nuevo indicador:</label>
+				<input type="text" name="nuevo-indicador" class="form-control" id="nuevo-indicador" placeholder="Nombre = Ecuación" required autofocus></input>
+			</div>
+		</div>
+		<button type="submit" class="btn btn-md btn-primary">Agregar</button>
+	</form> 
+
+{{/partial}}
+{{>layout.hbs}}
+
