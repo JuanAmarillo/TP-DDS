@@ -4,13 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
-
-import org.hibernate.HibernateException;
-import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
-
-import exceptions.NoSePudoCargarAlRepositorioException;
+import persistencia.TransactionManager;
 
 public abstract class Repositorio<T> {
 
@@ -19,66 +14,27 @@ public abstract class Repositorio<T> {
 	// ver si se puede crear una clase para arreglar los problemas de pedir id o
 	// nombre (deletebyid repoIndicadores=
 
-	protected EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
-
 	public EntityManager getEntityManager() {
-		return entityManager;
+		return TransactionManager.instance().getEntityManager();
 	}
-
-	public void crearTransaccion() {
-		EntityTransaction tx = entityManager.getTransaction();
-		if (!tx.isActive())
-			tx.begin();
-	}
-
-	public void cerrarTransaccion() {
-		EntityTransaction tx = entityManager.getTransaction();
-		terminarTransaccion(tx);
-		limpiarEntityManager();
-	}
-
-	private void limpiarEntityManager(){
-		getEntityManager().clear();
-		
-	}
-
-	private void terminarTransaccion(EntityTransaction tx) {
-		try {
-			commit(tx);
-		} catch (HibernateException e) {
-			rollback(tx);
-		}
-	}
-
-	private void rollback(EntityTransaction tx) {
-		tx.rollback();
-		throw new NoSePudoCargarAlRepositorioException(getEntityName());
-	}
-
-	private void commit(EntityTransaction tx) {
-		if (!tx.isActive())
-			tx.commit();
-	}
-
-	public void resetEntityManager() {
-		entityManager.flush();
-	}
-
+	
+	
 	protected void persistir(Object elemento) {
-		entityManager.persist(elemento);
+		getEntityManager().persist(elemento);
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	public <G> List<G> obtenerLista(String query,Class<G> clase) {
 		return createQuery(query,clase).getResultList();
 	}
 
 	protected <G> Query createQuery(String query,Class<G> clase) {
-		return entityManager.createQuery(query,clase);
+		return getEntityManager().createQuery(query,clase);
 	}
+
 	
 	protected <G> Query createQuery(String query) {
-		return entityManager.createQuery(query);
+		return getEntityManager().createQuery(query);
 	}
 
 	public List<T> getElementos() {

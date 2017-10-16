@@ -1,4 +1,4 @@
-package archivos;
+package persistencia;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,9 +26,9 @@ public class LevantaArchivoEmpresa{
 	}
 	
 	public void cargarArchivo() throws IOException {
-		RepositorioEmpresas.instance().crearTransaccion();
+		TransactionManager.instance().crearTransaccion();
 		RepositorioEmpresas.instance().agregar(getEmpresaDelArchivo());
-		RepositorioEmpresas.instance().cerrarTransaccion();
+		TransactionManager.instance().cerrarTransaccion();
 	}
 	
 }

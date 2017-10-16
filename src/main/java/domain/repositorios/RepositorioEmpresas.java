@@ -51,6 +51,6 @@ public class RepositorioEmpresas extends Repositorio<Empresa> {
 	}
 
 	public List<String> getPeriodos() {
-		return entityManager.createQuery("select unique periodo from Cuenta").getResultList();
+		return getEntityManager().createQuery("select unique periodo from Cuenta").getResultList();
 	}
 }

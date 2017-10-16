@@ -10,8 +10,8 @@ import javax.persistence.EntityManager;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
-import archivos.LevantaArchivoEmpresa;
 import domain.repositorios.RepositorioEmpresas;
+import persistencia.LevantaArchivoEmpresa;
 
 public class CargaEmpresaTest extends AbstractPersistenceTest {
 
