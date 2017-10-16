@@ -113,7 +113,7 @@ public abstract class Repositorio<T> {
 		return find("nombre", nombre);
 	}
 
-	protected Optional<T> find(String donde, String elemento) {
+	public Optional<T> find(String donde, String elemento) {
 		return obtenerLista(from() + where(donde, elemento),getEntity()).stream().findFirst();
 	}
 

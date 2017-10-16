@@ -24,7 +24,6 @@ public class RepositorioUsuariosTest extends AbstractPersistenceTest{
 		RepositorioUsuarios.instance().agregar(usuario);
 	}
 	
-	
 	@Test
 	public void seAgregaAlRepositorio() {
 		assertEquals(1l, RepositorioUsuarios.instance().cantidadElementosCargados(), 0l);
@@ -32,17 +31,17 @@ public class RepositorioUsuariosTest extends AbstractPersistenceTest{
 	
 	@Test
 	public void login() {
-		assertTrue(RepositorioUsuarios.instance().login("gabrielElCapo", "jajajaja"));
+		RepositorioUsuarios.instance().login("gabrielElCapo", "jajajaja");
 	}
 	
 	@Test(expected = RuntimeException.class)
 	public void nombreIncorrecto() {
-		assertTrue(RepositorioUsuarios.instance().login("NoSoyGabriel", "jajajaja"));
+		RepositorioUsuarios.instance().login("NoSoyGabriel", "jajajaja");
 	}
 	
 	@Test(expected = RuntimeException.class)
 	public void contraseñaIncorrecta() {
-		assertTrue(RepositorioUsuarios.instance().login("gabrielElCapo", "MalaPassword"));
+		RepositorioUsuarios.instance().login("gabrielElCapo", "MalaPassword");
 	}
 	
 	@Override

@@ -1,5 +1,8 @@
 package domain.repositorios;
 
+import java.util.List;
+
+import domain.login.Usuario;
 import domain.metodologias.Metodologia;
 
 public class RepositorioMetodologias extends Repositorio<Metodologia> {
@@ -23,7 +26,7 @@ public class RepositorioMetodologias extends Repositorio<Metodologia> {
 	public static void resetSingleton() {
 		instance = null;
 	}
-
+	
 	@Override
 	protected Class<Metodologia> getEntity() {
 		return Metodologia.class;
