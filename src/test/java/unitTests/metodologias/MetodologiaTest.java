@@ -12,11 +12,13 @@ import domain.condiciones.Condicion;
 import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
 import domain.condiciones.condicionesPredeterminadas.CEndeudamiento;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
+import domain.login.Usuario;
 import domain.metodologias.Metodologia;
 import unitTests.fixtureEmpresas.PreparadorDeEmpresas;
 
 public class MetodologiaTest {
-
+	Usuario gabriel = new Usuario("Gabriel", "ElMasCapito", "soyyo");
+	
 	Condicion condicionTAntiguedad = new TEmpresaMas10Años();
 	Condicion condicionCEndeudamiento = new CEndeudamiento(5.0);
 	Condicion condicionCAntiguedad = new CEmpresaMayorAntiguedad(10.0);
@@ -27,8 +29,8 @@ public class MetodologiaTest {
 
 	Metodologia metodologiaMixta = new Metodologia("PepitaMixta", condicionesMixtas);
 	Metodologia metodologiaTaxativa = new Metodologia("PepitaTaxativa", condicionesTaxativas);
-	Metodologia metodologiaComparativa = new Metodologia("PepitaComparativa", condicionesComparativas);
-
+	Metodologia metodologiaComparativa = new Metodologia("PepitaComparativa", condicionesComparativas);	
+	
 	List<Empresa> listaEmpresas = PreparadorDeEmpresas.prepararEmpresas();
 
 	private void imprimirNombres(List<Empresa> listaResultante) {

@@ -8,13 +8,18 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.uqbar.commons.utils.Observable;
 
 import domain.Empresa;
 import domain.condiciones.Condicion;
+import domain.login.Usuario;
 
 @Observable
 @Entity
@@ -28,7 +33,7 @@ public class Metodologia {
 
 	public Metodologia() {
 	}
-
+	
 	public Metodologia(String nombre, List<Condicion> condiciones) {
 		this.nombre = nombre;
 		this.condiciones = condiciones;

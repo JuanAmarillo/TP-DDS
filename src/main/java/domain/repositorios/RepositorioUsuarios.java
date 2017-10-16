@@ -17,7 +17,6 @@ public class RepositorioUsuarios extends Repositorio<Usuario> {
 
 	private static void cargarNuevaInstancia() {
 		instance = new RepositorioUsuarios();
-		//instance.agregarPredeterminados();
 	}
 
 	private static boolean noHayInstanciaCargada() {
@@ -28,17 +27,12 @@ public class RepositorioUsuarios extends Repositorio<Usuario> {
 		instance = null;
 	}
 	
-	public Boolean login(String nombreCuenta, String Password) {
+	public void login(String nombreCuenta, String Password) {
 		//Encriptar pw
-		//Buscar fila
-		try {
-			Usuario usuario = encontrarUsuario(nombreCuenta).get();
-			if(!usuario.getPassword().equals(Password)) {
-				throw new RuntimeException("Contraseña incorrecta");
-			}
-			return true;
+		Optional<Usuario> usuario = encontrarUsuario(nombreCuenta);
+		if(!usuario.isPresent() || !usuario.get().getPassword().equals(Password)) {
+			throw new RuntimeException("Datos incorrectos");
 		}
-		catch(NoSuchElementException e) { throw new RuntimeException("No existe la cuenta"); }
 	}
 
 	public Optional<Usuario> encontrarUsuario(String nombreCuenta){
