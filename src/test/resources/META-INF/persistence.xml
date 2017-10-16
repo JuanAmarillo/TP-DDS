@@ -31,6 +31,7 @@
     	<class>domain.condiciones.condicionesPredeterminadas.CMaximizarROE</class>
     	<class>domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años</class>
     	<class>domain.condiciones.condicionesPredeterminadas.TEndeudamiento</class>
+    	<class>domain.login.Usuario</class>
         <properties> 
 	    <property name="hibernate.archive.autodetection" value="class"/>        
         

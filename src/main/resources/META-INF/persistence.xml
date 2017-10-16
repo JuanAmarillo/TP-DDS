@@ -16,6 +16,7 @@
 		<class>domain.condiciones.CondicionComparativa</class>
 		<class>domain.condiciones.CondicionTaxativa</class>
 		<class>domain.metodologias.Metodologia</class>
+		<class>domain.login.Usuario</class>
 		<properties>
 			<property name="hibernate.archive.autodetection" value="class" />
 
