@@ -1,6 +1,7 @@
 package server;
 
 import controllers.CuentasController;
+import controllers.FiltersController;
 import controllers.HomeController;
 import controllers.IndicadoresController;
 import spark.Spark;
@@ -14,10 +15,13 @@ public class Router {
 
 		Spark.staticFiles.location("/public");
 		
+		Spark.before(FiltersController::before);
 		Spark.get("/", HomeController::home,engine);
 		Spark.get("/cuentas", CuentasController::get,engine);
 		Spark.get("/indicadores", IndicadoresController::get,engine);
 		Spark.get("/indicadores/new",IndicadoresController::nuevo,engine);
+		Spark.after(FiltersController::after);
+		
 		
 	}
 

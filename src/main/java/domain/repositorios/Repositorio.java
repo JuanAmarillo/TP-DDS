@@ -33,6 +33,16 @@ public abstract class Repositorio<T> {
 
 	public void cerrarTransaccion() {
 		EntityTransaction tx = entityManager.getTransaction();
+		terminarTransaccion(tx);
+		limpiarEntityManager();
+	}
+
+	private void limpiarEntityManager(){
+		getEntityManager().clear();
+		
+	}
+
+	private void terminarTransaccion(EntityTransaction tx) {
 		try {
 			commit(tx);
 		} catch (HibernateException e) {
