@@ -4,12 +4,12 @@ import org.junit.Test;
 
 import domain.indicadores.calculoIndicadores.ConstructoresIndicador.Parser;
 import exceptions.ParsingException;
-import ui.vm.VmUtils;
+import unitTests.TestUtils;
 
 public class ParserTest {
 	
 	public void parsear(String... tokens){
-		new Parser(VmUtils.convertirALista(tokens)).parsear();;
+		new Parser(TestUtils.convertirALista(tokens)).parsear();;
 	}
 	
 	@Test

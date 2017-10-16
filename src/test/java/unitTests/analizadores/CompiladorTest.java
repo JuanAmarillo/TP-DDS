@@ -13,7 +13,8 @@ import domain.indicadores.Indicador;
 import domain.indicadores.calculoIndicadores.Calculable;
 import domain.indicadores.calculoIndicadores.ConstructoresIndicador.Compilador;
 import domain.repositorios.RepositorioIndicadores;
-import ui.vm.VmUtils;
+import unitTests.TestUtils;
+
 
 public class CompiladorTest {
 
@@ -21,7 +22,7 @@ public class CompiladorTest {
 	public Empresa empresaMockeada;
 
 	public CompiladorTest compilar(String... tokens) {
-		compilado = new Compilador().compilar(VmUtils.convertirALista(tokens));
+		compilado = new Compilador().compilar(TestUtils.convertirALista(tokens));
 		return this;
 	}
 

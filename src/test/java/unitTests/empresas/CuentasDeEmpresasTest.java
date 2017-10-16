@@ -9,13 +9,13 @@ import static org.junit.Assert.*;
 
 import domain.Cuenta;
 import domain.Empresa;
-import ui.vm.VmUtils;
+import unitTests.TestUtils;
 
 public class CuentasDeEmpresasTest {
 	private Empresa empresa;
 
 	public Set<Cuenta> generarCuentas(String... nombres) {
-		return VmUtils.convertirALista(nombres).stream().map(nombre -> crearCuenta(nombre)).collect(Collectors.toSet());
+		return TestUtils.convertirALista(nombres).stream().map(nombre -> crearCuenta(nombre)).collect(Collectors.toSet());
 	}
 
 	public Cuenta crearCuenta(String nombre) {
