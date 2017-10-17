@@ -1,0 +1,49 @@
+{{#partial "title"}}Metodologias{{/partial}}
+
+{{#partial "body"}}
+	<h3>Evaluar metodologías cargadas en el sistema</h3>
+	<br />
+	<form method="POST" action="/metodologias" name="form-metodologias" class="form-inline">
+		<div class="form-row">
+		
+			<div class="form-group">
+				<label for="metodologia-select">Seleccione una metodologia:</label>
+					<select class="form-control col-3" id="metodologia-select">
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+					</select>
+			</div>
+						
+			<button type="submit" class="btn btn-md btn-primary">Evaluar</button>
+			
+		</div>
+	</form> 
+	<div class="col-6">
+	<table class="table table-striped">
+		<thead>
+    		<tr>
+      			<th style="width:10px">#</th>
+			    <th>Empresa</th>			    
+			</tr>
+		</thead>
+		
+		<tbody>
+		    <tr>
+				<th scope="row">1</th>
+		      	<td>Empresa 1</td>
+		    </tr>
+    		<tr>
+		        <th scope="row">2</th>
+		     	<td>Empresa 2</td>
+		    </tr>
+    		<tr>
+			     <th scope="row">3</th>
+			     <td>Empresa 3</td>
+			</tr>
+  		</tbody>
+	</table>
+	</div>
+	
+{{/partial}}
+{{>layout.hbs}}

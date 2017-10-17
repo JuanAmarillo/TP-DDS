@@ -1,10 +1,6 @@
 package server;
 
-import controllers.CondicionesController;
-import controllers.CuentasController;
-import controllers.FiltersController;
-import controllers.HomeController;
-import controllers.IndicadoresController;
+import controllers.*;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import spark.utils.HandlebarsTemplateEngineBuilder;
@@ -23,6 +19,7 @@ public class Router {
 		Spark.get("/indicadores/new", IndicadoresController::nuevo, engine);
 		Spark.get("/condiciones", CondicionesController::get, engine);
 		Spark.get("/condiciones/new", CondicionesController::nuevo, engine);
+		Spark.get("/metodologias", MetodologiasController::get, engine);
 		Spark.after(FiltersController::after);
 
 	}
