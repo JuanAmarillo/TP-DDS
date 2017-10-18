@@ -23,5 +23,4 @@ public class LoginController {
 		}
 		return new ModelAndView(null, "home/home.hbs");
 	}
-	
 }

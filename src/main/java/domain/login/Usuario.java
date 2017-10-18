@@ -24,7 +24,7 @@ public class Usuario {
 	private String nombreCuenta; // login credential
 	private String password;
 	@OneToMany(fetch = FetchType.LAZY)
-	@JoinColumn(name = "metodologia_id", nullable = false)
+	@JoinColumn(name = "usuario_id", nullable = false)
 	private Set<Metodologia> metodologias = new HashSet<Metodologia>();
 
 	public Usuario(String nombreUsuario, String nombreCuenta, String password) {
