@@ -1,0 +1,48 @@
+{{#partial "title"}}Cuentas{{/partial}}
+
+{{#partial "body"}}
+
+	<h3>Cuentas de las empresas cargadas en el sistema</h3>
+	<br />
+	<form method="POST" action="/proyecto/cuentas" name="form-cuentas" class="form-inline">
+		<div class="form-row">
+	
+			<div class="form-group">
+				<label for="empresa-select">Seleccione una empresa:</label>
+	    	    <select class="form-control col-6" name="empresa" ic-post-to="cuentas/periodos" ic-target="#select-periodos">
+       				{{#each empresas}}
+        				<option>{{nombre}}</option>
+        			{{/each}}
+      			</select>
+			</div>
+	
+			<div class="form-group">
+				<label>Seleccione un periodo:</label>
+				<select class="form-control col-6" name="periodo" id="select-periodos"></select>			
+			</div> 
+		
+			<button type="submit" class="btn btn-md btn-primary">Buscar</button>
+	
+		</div>
+	</form> 
+	
+	<table class="table table-striped">
+  		<thead>
+    		<tr>
+      			<th>Cuenta</th>
+     			 <th>Valor</th>
+    		</tr>
+		</thead>
+	
+	    <tbody>
+	    	{{#each cuentas}}
+		    	<tr>
+	        		<td>{{nombre}}</td>
+	        		<td>{{balance}}</td>
+		    	</tr>
+	       	{{/each}}
+	  	</tbody>
+	  	
+	</table>
+{{/partial}}
+{{>layout.hbs}}
