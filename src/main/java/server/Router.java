@@ -1,6 +1,7 @@
 package server;
 
 import controllers.*;
+import domain.login.Authenticator;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import spark.utils.HandlebarsTemplateEngineBuilder;
@@ -14,7 +15,9 @@ public class Router {
 		
 		Spark.before(FiltersController::before);
 		Spark.before("/proyecto/*", (request, response) -> {
-			
+			if(!Authenticator.isLoggedIn()) { 
+				response.redirect("/html/login.html");
+			}
 		});
 		Spark.get("/", HomeController::home, engine);
 		Spark.post("/login", LoginController::loguearse, engine);
