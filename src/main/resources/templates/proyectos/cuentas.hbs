@@ -1,0 +1,28 @@
+{{#partial "title"}}Cuentas{{/partial}}
+
+{{#partial "presentacion"}}
+	<h3>Cuentas de las empresas cargadas en el sistema</h3>
+{{/partial}}
+
+{{#partial "tabla"}}
+	<table class="table table-striped">
+  		<thead>
+    		<tr>
+      			<th>Cuenta</th>
+     			 <th>Valor</th>
+    		</tr>
+		</thead>
+	
+	    <tbody>
+	    	{{#each cuentas}}
+		    	<tr>
+	        		<td>{{nombre}}</td>
+	        		<td>{{balance}}</td>
+		    	</tr>
+	       	{{/each}}
+	  	</tbody>
+	  	
+	</table>
+
+{{/partial}}
+{{>proyectos/selectores/select-empresa-periodo.hbs}}
