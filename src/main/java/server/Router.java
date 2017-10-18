@@ -25,6 +25,7 @@ public class Router {
 		Spark.get("/proyecto/cuentas", CuentasController::get, engine);
 		Spark.get("/proyecto/indicadores", IndicadoresController::get, engine);
 		Spark.get("/proyecto/indicadores/new", IndicadoresController::nuevo, engine);
+		Spark.post("/proyecto/indicadores/new", IndicadoresController::agregar, engine);
 		Spark.get("/proyecto/condiciones", CondicionesController::get, engine);
 		Spark.get("/proyecto/condiciones/new", CondicionesController::nuevo, engine);
 		Spark.get("/proyecto/metodologias", MetodologiasController::get, engine);

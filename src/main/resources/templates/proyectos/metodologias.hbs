@@ -9,9 +9,9 @@
 			<div class="form-group">
 				<label for="metodologia-select">Seleccione una metodologia:</label>
 					<select class="form-control col-3" id="metodologia-select">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
+					{{#each metodologias}}
+						<option>{{nombre}}</option>
+					{{/each}}						
 					</select>
 			</div>
 						
