@@ -12,19 +12,44 @@ public class Router {
 
 		Spark.staticFiles.location("/public");
 		
-		Spark.before(FiltersController::before);
-		Spark.before("/proyecto/*", FiltersController::estaLogeado);
+		filters();
+		views(engine);
+
+	}
+
+	public static void views(HandlebarsTemplateEngine engine) {
+		generalViews(engine);
+		cuentasViews(engine);
+		indicadoresViews(engine);
+		metodologiasViews(engine);
+	}
+
+	public static void metodologiasViews(HandlebarsTemplateEngine engine) {
+		Spark.get("/proyecto/metodologias", MetodologiasController::get, engine);
+	}
+
+	public static void generalViews(HandlebarsTemplateEngine engine) {
 		Spark.get("/", HomeController::home, engine);
 		Spark.post("/login", LoginController::loguearse, engine);
-		Spark.get("/proyecto/cuentas", CuentasController::get, engine);
-		Spark.post("/proyecto/cuentas",CuentasController::mostrarCuentas,engine);
-		Spark.post("proyecto/cuentas/periodos", CuentasController::elegirPeriodo, engine);
+	}
+
+	public static void filters() {
+		Spark.before(FiltersController::before);
+		Spark.before("/proyecto/*", FiltersController::estaLogeado);
+		Spark.after(FiltersController::after);
+	}
+
+	public static void indicadoresViews(HandlebarsTemplateEngine engine) {
 		Spark.get("/proyecto/indicadores", IndicadoresController::get, engine);
 		Spark.get("/proyecto/indicadores/new", IndicadoresController::nuevo, engine);
 		Spark.post("/proyecto/indicadores/new", IndicadoresController::agregar, engine);
-		Spark.get("/proyecto/metodologias", MetodologiasController::get, engine);
-		Spark.after(FiltersController::after);
+	}
 
+	public static void cuentasViews(HandlebarsTemplateEngine engine) {
+		CuentasController controller = new CuentasController();
+		Spark.get("/proyecto/cuentas", controller::getEmpresas, engine);
+		Spark.post("/proyecto/cuentas",controller::mostrarTabla,engine);
+		Spark.post("proyecto/cuentas/periodos", controller::elegirPeriodo, engine);
 	}
 
 }
