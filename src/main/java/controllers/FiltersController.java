@@ -12,4 +12,11 @@ public class FiltersController {
 	public static void after(Request req, Response res){
 		TransactionManager.instance().cerrarTransaccion();
 	}
+	
+	public static void estaLogeado(Request req, Response res){
+		if(null == req.session().attribute("usuario")) { 
+			req.session().attribute("RedirectLuegoDelLogin", req.pathInfo());
+			res.redirect("/html/login.html");
+		}
+	}
 }

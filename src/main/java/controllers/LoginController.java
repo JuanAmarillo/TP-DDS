@@ -19,7 +19,6 @@ public class LoginController {
 		}
 		catch(RuntimeException e) {
 			res.redirect("/html/login.html");
-			Spark.halt(401, "Datos incorrectos.");
 		}
 		return new ModelAndView(null, "home/home.hbs");
 	}

@@ -13,12 +13,7 @@ public class Router {
 		Spark.staticFiles.location("/public");
 		
 		Spark.before(FiltersController::before);
-		Spark.before("/proyecto/*", (request, response) -> {
-			if(null == request.session().attribute("usuario")) { 
-				request.session().attribute("RedirectLuegoDelLogin", request.pathInfo());
-				response.redirect("/html/login.html");
-			}
-		});
+		Spark.before("/proyecto/*", FiltersController::estaLogeado);
 		Spark.get("/", HomeController::home, engine);
 		Spark.post("/login", LoginController::loguearse, engine);
 		Spark.get("/proyecto/cuentas", CuentasController::get, engine);
