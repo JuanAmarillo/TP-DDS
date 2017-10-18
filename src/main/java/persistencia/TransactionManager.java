@@ -44,7 +44,7 @@ public class TransactionManager {
 	public void cerrarTransaccion() {
 		EntityTransaction tx = entityManager.getTransaction();
 		terminarTransaccion(tx);
-		resetEntityManager();
+		resetEntityManager(tx);
 	}
 
 	private void terminarTransaccion(EntityTransaction tx) {
@@ -61,11 +61,12 @@ public class TransactionManager {
 	}
 
 	private void commit(EntityTransaction tx) {
-		if (!tx.isActive())
+		if (tx.isActive())
 			tx.commit();
 	}
 
-	public void resetEntityManager() {
+	public void resetEntityManager(EntityTransaction tx) {
+		if (tx.isActive())
 		entityManager.flush();
 	}
 }

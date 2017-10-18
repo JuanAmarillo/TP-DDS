@@ -14,6 +14,9 @@ import domain.indicadores.indicadoresPredeterminados.ROE;
 import domain.repositorios.RepositorioIndicadores;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import exceptions.YaExisteElIndicadorException;
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
+import persistencia.TransactionManager;
 
 public class RepositorioIndicadoresTest extends AbstractPersistenceTest{
 	
@@ -55,7 +58,9 @@ public class RepositorioIndicadoresTest extends AbstractPersistenceTest{
 	
 	@Test
 	public void testAgregarUnIndicadorCustom(){
+		TransactionManager.instance().crearTransaccion();
 		agregar("hola");
+		TransactionManager.instance().cerrarTransaccion();
 		//verificarExistencia("hola", true);
 	}
 	
