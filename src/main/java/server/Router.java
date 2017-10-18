@@ -15,7 +15,7 @@ public class Router {
 		
 		Spark.before(FiltersController::before);
 		Spark.before("/proyecto/*", (request, response) -> {
-			if(!Authenticator.isLoggedIn()) { 
+			if(null == request.session().attribute("usuario")) { 
 				response.redirect("/html/login.html");
 			}
 		});

@@ -15,17 +15,13 @@ public class LoginController {
 		String password = req.queryParams("password");
 		try {
 			Usuario usuario = Authenticator.login(username, password);
-			saveUser(usuario);
+			req.session().attribute("usuario", usuario);
 		}
 		catch(RuntimeException e) {
 			res.redirect("/html/login.html");
 			Spark.halt(401, "Datos incorrectos.");
 		}
 		return new ModelAndView(null, "home/home.hbs");
-	}
-	
-	private static void saveUser(Usuario usuario) {
-		Authenticator.saveUser(usuario);
 	}
 	
 }
