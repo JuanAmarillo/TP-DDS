@@ -34,6 +34,8 @@ public class Usuario {
 		this.password = password;
 	}
 
+	public Usuario() {}
+	
 	public void agregarMetodologia(Metodologia met) {
 		metodologias.add(met);
 	}

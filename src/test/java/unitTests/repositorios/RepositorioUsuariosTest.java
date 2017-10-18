@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
+import domain.login.Authenticator;
 import domain.login.Usuario;
 import domain.repositorios.RepositorioMetodologias;
 import domain.repositorios.RepositorioUsuarios;
@@ -31,17 +32,17 @@ public class RepositorioUsuariosTest extends AbstractPersistenceTest{
 	
 	@Test
 	public void login() {
-		RepositorioUsuarios.instance().login("gabrielElCapo", "jajajaja");
+		Authenticator.login("gabrielElCapo", "jajajaja");
 	}
 	
 	@Test(expected = RuntimeException.class)
 	public void nombreIncorrecto() {
-		RepositorioUsuarios.instance().login("NoSoyGabriel", "jajajaja");
+		Authenticator.login("NoSoyGabriel", "jajajaja");
 	}
 	
 	@Test(expected = RuntimeException.class)
 	public void contraseñaIncorrecta() {
-		RepositorioUsuarios.instance().login("gabrielElCapo", "MalaPassword");
+		Authenticator.login("gabrielElCapo", "MalaPassword");
 	}
 	
 	@Override

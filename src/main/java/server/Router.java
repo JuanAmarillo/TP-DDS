@@ -11,15 +11,19 @@ public class Router {
 		HandlebarsTemplateEngine engine = HandlebarsTemplateEngineBuilder.create().withDefaultHelpers().build();
 
 		Spark.staticFiles.location("/public");
-
+		
 		Spark.before(FiltersController::before);
+		Spark.before("/proyecto/*", (request, response) -> {
+			
+		});
 		Spark.get("/", HomeController::home, engine);
-		Spark.get("/cuentas", CuentasController::get, engine);
-		Spark.get("/indicadores", IndicadoresController::get, engine);
-		Spark.get("/indicadores/new", IndicadoresController::nuevo, engine);
-		Spark.get("/condiciones", CondicionesController::get, engine);
-		Spark.get("/condiciones/new", CondicionesController::nuevo, engine);
-		Spark.get("/metodologias", MetodologiasController::get, engine);
+		Spark.post("/login", LoginController::loguearse, engine);
+		Spark.get("/proyecto/cuentas", CuentasController::get, engine);
+		Spark.get("/proyecto/indicadores", IndicadoresController::get, engine);
+		Spark.get("/proyecto/indicadores/new", IndicadoresController::nuevo, engine);
+		Spark.get("/proyecto/condiciones", CondicionesController::get, engine);
+		Spark.get("/proyecto/condiciones/new", CondicionesController::nuevo, engine);
+		Spark.get("/proyecto/metodologias", MetodologiasController::get, engine);
 		Spark.after(FiltersController::after);
 
 	}

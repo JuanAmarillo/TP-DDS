@@ -26,14 +26,6 @@ public class RepositorioUsuarios extends Repositorio<Usuario> {
 	public static void resetSingleton() {
 		instance = null;
 	}
-	
-	public void login(String nombreCuenta, String Password) {
-		//Encriptar pw
-		Optional<Usuario> usuario = encontrarUsuario(nombreCuenta);
-		if(!usuario.isPresent() || !usuario.get().getPassword().equals(Password)) {
-			throw new RuntimeException("Datos incorrectos");
-		}
-	}
 
 	public Optional<Usuario> encontrarUsuario(String nombreCuenta){
 		return find("nombreCuenta", nombreCuenta);
