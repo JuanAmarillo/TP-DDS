@@ -45,8 +45,8 @@ public abstract class Repositorio<T> {
 		return obtenerLista("from " + clase.getSimpleName(), clase);
 	}
 	
-	public <G> List<G> getElementosDelUsuarioID(Class<G> clase, Integer id) {
-		return obtenerLista("from " + clase.getSimpleName() + where("usuario_id", id.toString()), clase);
+	public List<T> getElementosDelUsuarioID(Integer id) {
+		return obtenerLista("from " + getEntityName() + where("usuario_id", id.toString()),getEntity());
 	}
 
 	public List<String> getNombres() {

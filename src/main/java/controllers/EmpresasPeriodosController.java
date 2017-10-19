@@ -7,48 +7,44 @@ import java.util.Map;
 import java.util.Set;
 
 import domain.Empresa;
+import domain.login.Usuario;
 import domain.repositorios.RepositorioEmpresas;
+import domain.repositorios.RepositorioIndicadores;
 import persistencia.LevantaArchivoEmpresa;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 
 public abstract class EmpresasPeriodosController {
-	protected Map<String, Object> model = new HashMap<>();
-
-	public ModelAndView getEmpresas(Request req, Response res) {
-		cargarEmpresas();
+	protected Map<String,Object> model = new HashMap<>();
+	
+	public ModelAndView getEmpresas(Request req, Response res){
 		List<Empresa> empresas = RepositorioEmpresas.instance().getElementos();
 		model.put("empresas", empresas);
-		return ModelAndViewEmpresas();
+		return modelAndView();
 	}
 
-	private void cargarEmpresas() {
-		try {
-			new LevantaArchivoEmpresa(
-					"/home/juan/Documentos/programacion/workspace/Java/2017-jm-group-04/src/test/resources/Coca-Cola.json")
-							.cargarArchivo();
-			new LevantaArchivoEmpresa(
-					"/home/juan/Documentos/programacion/workspace/Java/2017-jm-group-04/src/test/resources/LG.json")
-							.cargarArchivo();
-		} catch (IOException e) {
-			e.printStackTrace();
-
-		}
-	}
-
-	public ModelAndView elegirPeriodo(Request req, Response res) {
+	public ModelAndView elegirPeriodo(Request req,Response res){
 		String empresa = req.queryParams("empresa");
 		Set<String> periodos = RepositorioEmpresas.instance().findByName(empresa).get().getPeriodos();
 		model.put("periodos", periodos);
-		return ModelAndViewPeriodos();
-
+		return new ModelAndView(model,"proyectos/selectores/select-periodos.hbs" );
+		
 	}
-
-	public abstract ModelAndView ModelAndViewEmpresas();
-
-	public abstract ModelAndView ModelAndViewPeriodos();
-
-	public abstract ModelAndView mostrarTabla(Request req, Response res);
-
+	public ModelAndView mostrarTabla(Request req, Response res){
+		String empresa = req.queryParams("empresa");
+		String periodo = req.queryParams("periodo");
+		Usuario usuario = req.session().attribute("usuario");
+		agregarAlModel(RepositorioEmpresas.instance().findByName(empresa).get(),periodo,usuario);
+		return modelAndView();
+		
+	}
+	
+	public ModelAndView modelAndView() {
+		return new ModelAndView(model,ruta());
+	}
+	
+	public abstract String ruta();
+	public abstract void agregarAlModel(Empresa empresa,String periodo,Usuario usuario);
+	
 }

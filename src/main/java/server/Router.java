@@ -41,16 +41,26 @@ public class Router {
 	}
 
 	public static void indicadoresViews(HandlebarsTemplateEngine engine) {
-		Spark.get("/proyecto/indicadores", IndicadoresController::get, engine);
-		Spark.get("/proyecto/indicadores/new", IndicadoresController::nuevo, engine);
-		Spark.post("/proyecto/indicadores/new", IndicadoresController::agregar, engine);
+		evaluacionDeIndicadores(engine);
+		cargaDeNuevosIndicadores(engine);
+	}
+
+	public static void cargaDeNuevosIndicadores(HandlebarsTemplateEngine engine) {
+		Spark.get("/proyecto/indicadores/new", IndicadoresNuevosController::nuevo, engine);
+		Spark.post("/proyecto/indicadores/new", IndicadoresNuevosController::agregar, engine);
+	}
+
+	public static void evaluacionDeIndicadores(HandlebarsTemplateEngine engine) {
+		IndicadoresController controller = new IndicadoresController();
+		Spark.get("/proyecto/indicadores", controller::getEmpresas, engine);
+		Spark.post("/proyecto/indicadores", controller::mostrarTabla,engine);
 	}
 
 	public static void cuentasViews(HandlebarsTemplateEngine engine) {
 		CuentasController controller = new CuentasController();
 		Spark.get("/proyecto/cuentas", controller::getEmpresas, engine);
 		Spark.post("/proyecto/cuentas", controller::mostrarTabla, engine);
-		Spark.post("proyecto/cuentas/periodos", controller::elegirPeriodo, engine);
+		Spark.post("/proyecto/periodos", controller::elegirPeriodo, engine);
 	}
 
 }
