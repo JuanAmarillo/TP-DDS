@@ -11,7 +11,7 @@ public class Router {
 		HandlebarsTemplateEngine engine = HandlebarsTemplateEngineBuilder.create().withDefaultHelpers().build();
 
 		Spark.staticFiles.location("/public");
-		
+
 		filters();
 		views(engine);
 
@@ -26,6 +26,7 @@ public class Router {
 
 	public static void metodologiasViews(HandlebarsTemplateEngine engine) {
 		Spark.get("/proyecto/metodologias", MetodologiasController::get, engine);
+		Spark.post("proyecto/metodologias", MetodologiasController::aplicarMetodologia, engine);
 	}
 
 	public static void generalViews(HandlebarsTemplateEngine engine) {
@@ -48,7 +49,7 @@ public class Router {
 	public static void cuentasViews(HandlebarsTemplateEngine engine) {
 		CuentasController controller = new CuentasController();
 		Spark.get("/proyecto/cuentas", controller::getEmpresas, engine);
-		Spark.post("/proyecto/cuentas",controller::mostrarTabla,engine);
+		Spark.post("/proyecto/cuentas", controller::mostrarTabla, engine);
 		Spark.post("proyecto/cuentas/periodos", controller::elegirPeriodo, engine);
 	}
 

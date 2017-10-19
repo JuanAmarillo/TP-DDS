@@ -34,7 +34,7 @@ public class Metodologia {
 		this.condiciones = condiciones;
 	}
 
-	public List<Empresa> aplicarCondiciones(List<Empresa> empresas, String periodo) {
+	public List<Empresa> aplicarCondiciones(List<Empresa> empresas) {
 		List<EmpresaConPeso> empresasConPeso = empresas.stream().map(empresa -> new EmpresaConPeso(empresa, 0.0))
 				.collect(Collectors.toList());
 		List<EmpresaConPeso> empr = condiciones.stream().reduce(empresasConPeso,
