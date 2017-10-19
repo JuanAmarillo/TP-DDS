@@ -8,10 +8,10 @@
 		
 			<div class="form-group">
 				<label for="metodologia-select">Seleccione una metodologia:</label>
-					<select class="form-control col-3" id="metodologia-select">
-					{{#each metodologias}}
-						<option>{{nombre}}</option>
-					{{/each}}						
+					<select class="form-control col-3" name="metodologias">
+						{{#each metodologias}}
+							<option>{{nombre}}</option>
+						{{/each}}						
 					</select>
 			</div>
 						
@@ -29,19 +29,12 @@
 		</thead>
 		
 		<tbody>
+			{{#each empresasOrdenadas}}
 		    <tr>
-				<th scope="row">1</th>
-		      	<td>Empresa 1</td>
+				<th>Nombre</th>
 		    </tr>
-    		<tr>
-		        <th scope="row">2</th>
-		     	<td>Empresa 2</td>
-		    </tr>
-    		<tr>
-			     <th scope="row">3</th>
-			     <td>Empresa 3</td>
-			</tr>
-  		</tbody>
+		    {{/each}}
+    	</tbody>
 	</table>
 	</div>
 	

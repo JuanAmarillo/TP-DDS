@@ -14,37 +14,41 @@ import spark.Request;
 import spark.Response;
 
 public abstract class EmpresasPeriodosController {
-	protected Map<String,Object> model = new HashMap<>();
-	
-	public ModelAndView getEmpresas(Request req, Response res){
+	protected Map<String, Object> model = new HashMap<>();
+
+	public ModelAndView getEmpresas(Request req, Response res) {
 		cargarEmpresas();
 		List<Empresa> empresas = RepositorioEmpresas.instance().getElementos();
 		model.put("empresas", empresas);
 		return ModelAndViewEmpresas();
 	}
-	
 
-	private void cargarEmpresas(){
+	private void cargarEmpresas() {
 		try {
-			new LevantaArchivoEmpresa("/home/juan/Documentos/programacion/workspace/Java/2017-jm-group-04/src/test/resources/Coca-Cola.json").cargarArchivo();
-			new LevantaArchivoEmpresa("/home/juan/Documentos/programacion/workspace/Java/2017-jm-group-04/src/test/resources/LG.json").cargarArchivo();
+			new LevantaArchivoEmpresa(
+					"/home/juan/Documentos/programacion/workspace/Java/2017-jm-group-04/src/test/resources/Coca-Cola.json")
+							.cargarArchivo();
+			new LevantaArchivoEmpresa(
+					"/home/juan/Documentos/programacion/workspace/Java/2017-jm-group-04/src/test/resources/LG.json")
+							.cargarArchivo();
 		} catch (IOException e) {
 			e.printStackTrace();
-			
+
 		}
 	}
 
-
-	public ModelAndView elegirPeriodo(Request req,Response res){
+	public ModelAndView elegirPeriodo(Request req, Response res) {
 		String empresa = req.queryParams("empresa");
 		Set<String> periodos = RepositorioEmpresas.instance().findByName(empresa).get().getPeriodos();
 		model.put("periodos", periodos);
 		return ModelAndViewPeriodos();
-		
+
 	}
-	
-	public abstract  ModelAndView ModelAndViewEmpresas();
-	public abstract  ModelAndView ModelAndViewPeriodos();
-	public abstract  ModelAndView mostrarTabla(Request req,Response res);
-	
+
+	public abstract ModelAndView ModelAndViewEmpresas();
+
+	public abstract ModelAndView ModelAndViewPeriodos();
+
+	public abstract ModelAndView mostrarTabla(Request req, Response res);
+
 }
