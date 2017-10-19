@@ -76,4 +76,8 @@ public class Usuario {
 	public String getId() {
 		return String.valueOf(id);
 	}
+	
+	public int id() {
+		return id;
+	}
 }

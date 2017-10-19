@@ -44,6 +44,10 @@ public abstract class Repositorio<T> {
 	public <G> List<G> getElementosDe(Class<G> clase) {
 		return obtenerLista("from " + clase.getSimpleName(), clase);
 	}
+	
+	public <G> List<G> getElementosDelUsuarioID(Class<G> clase, Integer id) {
+		return obtenerLista("from " + clase.getSimpleName() + where("usuario_id", id.toString()), clase);
+	}
 
 	public List<String> getNombres() {
 		return obtenerLista("select nombre" + from(),String.class);
@@ -68,7 +72,7 @@ public abstract class Repositorio<T> {
 	public Optional<T> findByName(String nombre) {
 		return find("nombre", nombre);
 	}
-
+	
 	public Optional<T> find(String donde, String elemento) {
 		return obtenerLista(from() + where(donde, elemento),getEntity()).stream().findFirst();
 	}
