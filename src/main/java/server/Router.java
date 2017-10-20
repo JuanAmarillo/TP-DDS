@@ -25,8 +25,8 @@ public class Router {
 	}
 
 	public static void metodologiasViews(HandlebarsTemplateEngine engine) {
-		Spark.get("/proyecto/metodologias", MetodologiasController::get, engine);
-		Spark.post("proyecto/metodologias", MetodologiasController::aplicarMetodologia, engine);
+		Spark.get("/metodologias", MetodologiasController::get, engine);
+		Spark.post("/metodologias", MetodologiasController::aplicarMetodologia, engine);
 	}
 
 	public static void generalViews(HandlebarsTemplateEngine engine) {
@@ -36,7 +36,7 @@ public class Router {
 
 	public static void filters() {
 		Spark.before(FiltersController::before);
-		Spark.before("/proyecto/*", FiltersController::estaLogeado);
+		Spark.before("/*", FiltersController::estaLogeado);
 		Spark.after(FiltersController::after);
 	}
 
@@ -46,21 +46,21 @@ public class Router {
 	}
 
 	public static void cargaDeNuevosIndicadores(HandlebarsTemplateEngine engine) {
-		Spark.get("/proyecto/indicadores/new", IndicadoresNuevosController::nuevo, engine);
-		Spark.post("/proyecto/indicadores/new", IndicadoresNuevosController::agregar, engine);
+		Spark.get("/indicadores/new", IndicadoresNuevosController::nuevo, engine);
+		Spark.post("/indicadores/new", IndicadoresNuevosController::agregar, engine);
 	}
 
 	public static void evaluacionDeIndicadores(HandlebarsTemplateEngine engine) {
 		IndicadoresController controller = new IndicadoresController();
-		Spark.get("/proyecto/indicadores", controller::getEmpresas, engine);
-		Spark.post("/proyecto/indicadores", controller::mostrarTabla,engine);
+		Spark.get("/indicadores", controller::getEmpresas, engine);
+		Spark.post("/indicadores", controller::mostrarTabla,engine);
 	}
 
 	public static void cuentasViews(HandlebarsTemplateEngine engine) {
 		CuentasController controller = new CuentasController();
-		Spark.get("/proyecto/cuentas", controller::getEmpresas, engine);
-		Spark.post("/proyecto/cuentas", controller::mostrarTabla, engine);
-		Spark.post("/proyecto/periodos", controller::elegirPeriodo, engine);
+		Spark.get("/cuentas", controller::getEmpresas, engine);
+		Spark.post("/cuentas", controller::mostrarTabla, engine);
+		Spark.post("/periodos", controller::elegirPeriodo, engine);
 	}
 
 }
