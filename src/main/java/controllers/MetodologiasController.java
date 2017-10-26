@@ -29,8 +29,11 @@ public class MetodologiasController {
 		Optional<Metodologia> metodologia = RepositorioMetodologias.instance().findByName(nombreMetodologia);
 		List<Empresa> empresasCargadas = RepositorioEmpresas.instance().getElementos();
 		List<Empresa> empresasOrdenadas = metodologia.get().aplicarCondiciones(empresasCargadas);
+		List<Empresa> empresasEliminadas = empresasCargadas;
+		empresasEliminadas.removeAll(empresasOrdenadas);
 		Map<String, List<Empresa>> model = new HashMap<>();
 		model.put("empresasOrdenadas",empresasOrdenadas);
+		model.put("empresasEliminadas", empresasEliminadas);
 		return new ModelAndView(model, "proyectos/metodologias.hbs");
 	}
 

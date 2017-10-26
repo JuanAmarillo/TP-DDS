@@ -19,24 +19,25 @@
 			
 		</div>
 	</form> 
-	<div class="col-6">
-	<table class="table table-striped">
-		<thead>
-    		<tr>
-      			<th style="width:10px">#</th>
-			    <th>Empresa</th>			    
-			</tr>
-		</thead>
-		
-		<tbody>
+	{{#if empresasordenadas.length}}
+	<div >
+	<br />
+	<br />
+	<ol>
+		<label > Empresas ordenadas </label>
 			{{#each empresasOrdenadas}}
-		    <tr>
-				<th>Nombre</th>
-		    </tr>
+				<li>{{Nombre}}</li>
 		    {{/each}}
-    	</tbody>
-	</table>
+	</ol>
+	<ol>
+		<label > Empresas eliminadas por la metodologia </label>
+			{{#each empresasEliminadas}}
+				<li>{{Nombre}}</li>
+		    {{/each}}
+	</ol>
 	</div>
+	{{/if}}
+	
 	
 {{/partial}}
 {{>layout.hbs}}
