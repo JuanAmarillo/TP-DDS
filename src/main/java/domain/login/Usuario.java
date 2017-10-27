@@ -3,6 +3,7 @@ package domain.login;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -23,7 +24,7 @@ public class Usuario {
 	private String nombreUsuario; // "Hola " + nombreUsuario
 	private String nombreCuenta; // login credential
 	private String password;
-	@OneToMany(fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(name = "usuario_id", nullable = false)
 	private Set<Metodologia> metodologias = new HashSet<Metodologia>();
 

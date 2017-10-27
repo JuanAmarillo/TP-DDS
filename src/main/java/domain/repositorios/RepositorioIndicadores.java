@@ -16,6 +16,7 @@ import domain.indicadores.indicadoresPredeterminados.ROE;
 import domain.indicadores.indicadoresPredeterminados.Solvencia;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import exceptions.YaExisteElIndicadorException;
+import persistencia.TransactionManager;
 
 public class RepositorioIndicadores extends Repositorio<Indicador> {
 	private static RepositorioIndicadores instance = null;
@@ -28,8 +29,9 @@ public class RepositorioIndicadores extends Repositorio<Indicador> {
 
 	private static void cargarNuevaInstancia() {
 		instance = new RepositorioIndicadores();
-		//instance.leerBD();
-		//instance.agregarPredeterminados();
+		/*TransactionManager.instance().crearTransaccion();
+		instance.agregarPredeterminados();
+		TransactionManager.instance().cerrarTransaccion();*/
 	}
 
 	private static boolean noHayInstanciaCargada() {
@@ -73,8 +75,10 @@ public class RepositorioIndicadores extends Repositorio<Indicador> {
 
 	@Override
 	public void agregar(Indicador indicadorNuevo) {
+		TransactionManager.instance().crearTransaccion();
 		verificarSiExiste(indicadorNuevo);
 		super.agregar(indicadorNuevo);
+		TransactionManager.instance().cerrarTransaccion();
 	}
 
 	private void verificarSiExiste(Indicador indicador) {

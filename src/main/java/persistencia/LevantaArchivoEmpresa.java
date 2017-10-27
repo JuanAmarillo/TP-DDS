@@ -26,9 +26,7 @@ public class LevantaArchivoEmpresa{
 	}
 	
 	public void cargarArchivo() throws IOException {
-		TransactionManager.instance().crearTransaccion();
 		RepositorioEmpresas.instance().agregar(getEmpresaDelArchivo());
-		TransactionManager.instance().cerrarTransaccion();
 	}
 	
 }

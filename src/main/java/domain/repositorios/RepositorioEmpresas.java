@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import domain.Empresa;
+import persistencia.TransactionManager;
 
 public class RepositorioEmpresas extends Repositorio<Empresa> {
 
@@ -34,11 +35,13 @@ public class RepositorioEmpresas extends Repositorio<Empresa> {
 
 	@Override
 	public void agregar(Empresa empresa) {
+		TransactionManager.instance().crearTransaccion();
 		try {
 			agregarCuentas(empresa);
 		} catch (NoSuchElementException e) {
 			super.agregar(empresa);
 		}
+		TransactionManager.instance().cerrarTransaccion();
 	}
 
 	public void agregarCuentas(Empresa unaEmpresa) {

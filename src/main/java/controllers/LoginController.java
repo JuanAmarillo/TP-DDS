@@ -16,10 +16,11 @@ public class LoginController {
 		try {
 			Usuario usuario = Authenticator.login(username, password);
 			req.session().attribute("usuario", usuario);
+			
 		}
 		catch(RuntimeException e) {
 			res.redirect("/html/login.html");
 		}
-		return new ModelAndView(null, "home/home.hbs");
+		return new ModelAndView(null,"proyectos/newIndicador.hbs");
 	}
 }
