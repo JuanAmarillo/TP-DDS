@@ -99,7 +99,4 @@ public class RepositorioIndicadoresTest extends AbstractPersistenceTest{
 		borrar(new ROA());
 	}
 
-
-	
-
 }
