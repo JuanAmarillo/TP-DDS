@@ -48,9 +48,7 @@ public class RepositorioCondiciones extends Repositorio<Condicion> {
 	@Override
 	public void agregar(Condicion condicion) {
 		verificarQueNoExista(condicion.getNombre());
-		TransactionManager.instance().crearTransaccion();
 		super.agregar(condicion);
-		TransactionManager.instance().cerrarTransaccion();
 	}
 
 	private void verificarQueNoExista(String nombre) {

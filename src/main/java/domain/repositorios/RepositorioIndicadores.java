@@ -75,10 +75,8 @@ public class RepositorioIndicadores extends Repositorio<Indicador> {
 
 	@Override
 	public void agregar(Indicador indicadorNuevo) {
-		TransactionManager.instance().crearTransaccion();
 		verificarSiExiste(indicadorNuevo);
 		super.agregar(indicadorNuevo);
-		TransactionManager.instance().cerrarTransaccion();
 	}
 
 	private void verificarSiExiste(Indicador indicador) {
