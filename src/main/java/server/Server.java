@@ -11,14 +11,14 @@ import spark.debug.DebugScreen;
 
 public class Server {
 	public static void main(String[] args) {
-		/*TransactionManager.instance().crearTransaccion();
+		TransactionManager.instance().crearTransaccion();
 		RepositorioUsuarios.instance().agregar(new Usuario("pepito", "login", "password"));
 		TransactionManager.instance().cerrarTransaccion();
 		RepositorioIndicadores.instance();
-		RepositorioCondiciones.instance();*/
-		Spark.port(9000);
+		RepositorioCondiciones.instance();
+		/*Spark.port(9000);
 		DebugScreen.enableDebugScreen();
-		Router.configure();
+		Router.configure();*/
 		new InversionesApp().start();
 	}
 
