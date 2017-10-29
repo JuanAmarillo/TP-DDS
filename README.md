@@ -17,18 +17,3 @@ Link al DDC : https://www.lucidchart.com/invitations/accept/c5aaf15b-1457-4510-b
 Link al DER : https://www.lucidchart.com/invitations/accept/bff221b8-1751-4510-966e-5533cde4b47d
 
 Link al Doc con las decisiones de diseño para la entrega 4 : https://docs.google.com/document/d/1HkfWzwfjkDglGoWMx1h7K8qa2w8cbHxjowyMaFvFn4s/edit?usp=sharing
-
-En la clase Server:
-	Descomentar las 5 lineas del metodo Main
-En la clase RepositorioIndicadores
-	Descomentar las 3 lineas del metodo cargarNuevaInstancia
-En la clase RepositorioCondiciones
-	Descomentar las 3 lineas del metodo cargarNuevaInstancia
-
-Levantar el servidor
-
-Cargar una metodologia, utiliza el mismo usuario que veniamos usando en la pagina
-
-Fijarse en el workbench que este cargado
-
-Voltear el server y comentar de nuevo todas las lineas mencionadas
