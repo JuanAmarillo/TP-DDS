@@ -8,11 +8,19 @@ import spark.Response;
 
 public class FiltersController {
 	public static void before(Request req, Response res){
-		TransactionManager.instance().crearTransaccion();
+		String verbo = req.requestMethod();
+		if(!verbo.equals("GET")) {
+			TransactionManager.instance().crearTransaccion();
+			req.session().attribute("utilizaTransac", true);
+		}
 	}
 	
 	public static void after(Request req, Response res){
-		TransactionManager.instance().cerrarTransaccion();
+		boolean utilizaTran= req.attribute("utilizaTransac");
+		if(utilizaTran) {
+			TransactionManager.instance().cerrarTransaccion();
+			req.session().removeAttribute("utilizaTransac");
+		}
 	}
 	
 	public static void estaLogeado(Request req, Response res){

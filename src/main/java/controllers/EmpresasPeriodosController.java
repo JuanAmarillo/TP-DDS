@@ -16,15 +16,16 @@ import spark.Request;
 import spark.Response;
 
 public abstract class EmpresasPeriodosController {
-	protected Map<String,Object> model = new HashMap<>();
 	
 	public ModelAndView getEmpresas(Request req, Response res){
+		Map<String,Object> model = new HashMap<>();
 		List<Empresa> empresas = RepositorioEmpresas.instance().getElementos();
 		model.put("empresas", empresas);
-		return modelAndView();
+		return modelAndView(model);
 	}
 
 	public ModelAndView elegirPeriodo(Request req,Response res){
+		Map<String,Object> model = new HashMap<>();
 		String empresa = req.queryParams("empresa");
 		Set<String> periodos = RepositorioEmpresas.instance().findByName(empresa).get().getPeriodos();
 		model.put("periodos", periodos);
@@ -32,19 +33,19 @@ public abstract class EmpresasPeriodosController {
 		
 	}
 	public ModelAndView mostrarTabla(Request req, Response res){
+		Map<String,Object> model = new HashMap<>();
 		String empresa = req.queryParams("empresa");
 		String periodo = req.queryParams("periodo");
 		Usuario usuario = req.session().attribute("usuario");
-		agregarAlModel(RepositorioEmpresas.instance().findByName(empresa).get(),periodo,usuario);
-		return modelAndView();
-		
+		agregarAlModel(RepositorioEmpresas.instance().findByName(empresa).get(),periodo,model, usuario);
+		return modelAndView(model);
 	}
 	
-	public ModelAndView modelAndView() {
+	public ModelAndView modelAndView(Map<String,Object> model) {
 		return new ModelAndView(model,ruta());
 	}
 	
 	public abstract String ruta();
-	public abstract void agregarAlModel(Empresa empresa,String periodo,Usuario usuario);
+	public abstract void agregarAlModel(Empresa empresa,String periodo, Map<String,Object> model, Usuario usuario);
 	
 }

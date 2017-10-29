@@ -24,7 +24,7 @@ public class CuentasController extends EmpresasPeriodosController {
 
 	
 	@Override
-	public void agregarAlModel(Empresa empresa,String periodo,Usuario usuario){
+	public void agregarAlModel(Empresa empresa,String periodo, Map<String,Object> model, Usuario usuario){
 		Set<Cuenta> cuentas = empresa.getCuentasSegun(periodo);
 		model.put("cuentas", cuentas);
 	}
