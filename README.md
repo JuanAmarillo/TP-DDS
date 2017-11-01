@@ -17,3 +17,5 @@ Link al DDC : https://www.lucidchart.com/invitations/accept/c5aaf15b-1457-4510-b
 Link al DER : https://www.lucidchart.com/invitations/accept/bff221b8-1751-4510-966e-5533cde4b47d
 
 Link al Doc con las decisiones de diseño para la entrega 4 : https://docs.google.com/document/d/1HkfWzwfjkDglGoWMx1h7K8qa2w8cbHxjowyMaFvFn4s/edit?usp=sharing
+
+Link al Doc con las decisiones de diseño para la re-entrega 5: https://docs.google.com/document/d/1hEnLw4OS90bFUDMc5v_5JIDnBqMwkaVr2hvUKwlWO7Y/edit?usp=sharing
