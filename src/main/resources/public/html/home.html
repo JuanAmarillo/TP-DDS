@@ -19,10 +19,7 @@
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   	<script src="http://cdn.intercoolerjs.org/intercooler-1.1.2.min.js"></script>
     
-	<title>
-		{{#block "title"}}
-		{{/block}}
-	</title>
+	<title>Home</title>
   </head>
   <body>
     
@@ -30,7 +27,7 @@
 		<div class="col-2" id="menu">
 			<ul class="nav flex-column">
 				<li class="nav-item">
-					<a class="nav-link active" href="html/home.html">Inicio</a>
+					<a class="nav-link active" href="/">Inicio</a>
 					<a class="nav-link" href="/cuentas">Cuentas</a>			
 					
 					<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">Indicadores<span class="caret"></span></a>
@@ -44,8 +41,9 @@
 		</div>
 	
 	    <div class="col-10 jumbotron" id="content">
-			{{#block "body"}}
-			{{/block}}
+			<h1>TP DDS</h1>
+			<h2>Grupo 4</h2>
+			<video autoplay loop style="border-color: #dc3545; border-style: solid; border-radius: 15px;"><source src="osito.mp4" type="video/mp4"></video>
 		</div>
 		
 	</div>

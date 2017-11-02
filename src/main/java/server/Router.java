@@ -30,7 +30,6 @@ public class Router {
 	}
 
 	public static void generalViews(HandlebarsTemplateEngine engine) {
-		Spark.get("/", HomeController::home, engine);
 		Spark.post("/login", LoginController::loguearse, engine);
 	}
 
