@@ -27,7 +27,7 @@ public class FiltersController {
 	
 	public static void estaLogeado(Request req, Response res){
 		
-		if(null == req.session().attribute("usuario") ) { 
+		if(null == req.session().attribute("usuario") && !req.pathInfo().equals("/login")) { 
 			res.redirect("/html/login.html");
 		}
 	}
