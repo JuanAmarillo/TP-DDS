@@ -19,8 +19,10 @@ public class LoginController {
 			
 		}
 		catch(RuntimeException e) {
+			e.printStackTrace();
 			res.redirect("/html/login.html");
 		}
-		return new ModelAndView(null,"proyectos/newIndicador.hbs");
+		res.redirect("/html/home.html");
+		return null;
 	}
 }

@@ -11,20 +11,23 @@ public class FiltersController {
 		String verbo = req.requestMethod();
 		if(!verbo.equals("GET")) {
 			TransactionManager.instance().crearTransaccion();
-			req.session().attribute("utilizaTransac", true);
+			req.session().attribute("utilizaTransac", "ye");
 		}
+		TransactionManager.instance().crearTransaccion();
 	}
 	
 	public static void after(Request req, Response res){
-		boolean utilizaTran= req.attribute("utilizaTransac");
-		if(utilizaTran) {
+		String utilizaTran= req.session().attribute("utilizaTransac");
+		if(utilizaTran != null) {
 			TransactionManager.instance().cerrarTransaccion();
 			req.session().removeAttribute("utilizaTransac");
 		}
+		TransactionManager.instance().cerrarTransaccion();
 	}
 	
 	public static void estaLogeado(Request req, Response res){
-		if(null == req.session().attribute("usuario")) { 
+		
+		if(null == req.session().attribute("usuario") ) { 
 			res.redirect("/html/login.html");
 		}
 	}
