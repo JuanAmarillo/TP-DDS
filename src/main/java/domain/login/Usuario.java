@@ -29,7 +29,6 @@ public class Usuario {
 	private Set<Metodologia> metodologias = new HashSet<Metodologia>();
 
 	public Usuario(String nombreUsuario, String nombreCuenta, String password) {
-		super();
 		this.nombreUsuario = nombreUsuario;
 		this.nombreCuenta = nombreCuenta;
 		this.password = password;
