@@ -11,7 +11,7 @@ import domain.condiciones.condicionesPredeterminadas.CMaximizarROE;
 import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import exceptions.YaExisteLaCondicionException;
-import persistencia.TransactionManager;
+import persistencia.Transaction;
 
 public class RepositorioCondiciones extends Repositorio<Condicion> {
 	private static RepositorioCondiciones instance = null;

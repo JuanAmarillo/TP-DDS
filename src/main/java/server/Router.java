@@ -1,6 +1,8 @@
 package server;
 
 import controllers.*;
+import controllers.filters.FilterLoginController;
+import controllers.filters.FilterTransactionController;
 import spark.Spark;
 import spark.template.handlebars.HandlebarsTemplateEngine;
 import spark.utils.HandlebarsTemplateEngineBuilder;
@@ -34,9 +36,9 @@ public class Router {
 	}
 
 	public static void filters() {
-		Spark.before(FiltersController::before);
-		Spark.before("/*", FiltersController::estaLogeado);
-		Spark.after(FiltersController::after);
+		Spark.before(FilterTransactionController::before);
+		Spark.after(FilterTransactionController::after);
+		Spark.before("/*", FilterLoginController::estaLogeado);
 	}
 
 	public static void indicadoresViews(HandlebarsTemplateEngine engine) {

@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import persistencia.TransactionManager;
+import persistencia.Transaction;
 
 public abstract class Repositorio<T> {
 
@@ -15,7 +15,7 @@ public abstract class Repositorio<T> {
 	// nombre (deletebyid repoIndicadores=
 
 	public EntityManager getEntityManager() {
-		return TransactionManager.instance().getEntityManager();
+		return Transaction.instance().getEntityManager();
 	}
 	
 	

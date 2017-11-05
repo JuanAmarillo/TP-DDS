@@ -8,19 +8,19 @@ import org.uqbarproject.jpa.java8.extras.PerThreadEntityManagers;
 
 import exceptions.NoSePudoCargarAlRepositorioException;
 
-public class TransactionManager {
+public class Transaction {
 	
-	private static TransactionManager instance = null;
+	private static Transaction instance = null;
 	protected EntityManager entityManager = PerThreadEntityManagers.getEntityManager();
 
-	public static TransactionManager instance() {
+	public static Transaction instance() {
 		if (noHayInstanciaCargada())
 			cargarNuevaInstancia();
 		return instance;
 	}
 
 	private static void cargarNuevaInstancia() {
-		instance = new TransactionManager();
+		instance = new Transaction();
 	}
 
 	private static boolean noHayInstanciaCargada() {
@@ -35,13 +35,13 @@ public class TransactionManager {
 		return entityManager;
 	}
 
-	public void crearTransaccion() {
+	public void crear() {
 		EntityTransaction tx = entityManager.getTransaction();
 		if (!tx.isActive())
 			tx.begin();
 	}
 
-	public void cerrarTransaccion() {
+	public void cerrar() {
 		EntityTransaction tx = entityManager.getTransaction();
 		terminarTransaccion(tx);
 		resetEntityManager(tx);

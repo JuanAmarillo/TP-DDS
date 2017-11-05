@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import domain.Empresa;
-import persistencia.TransactionManager;
+import persistencia.Transaction;
 
 public class RepositorioEmpresas extends Repositorio<Empresa> {
 

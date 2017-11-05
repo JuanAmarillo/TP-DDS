@@ -16,7 +16,7 @@ import domain.indicadores.indicadoresPredeterminados.ROE;
 import domain.indicadores.indicadoresPredeterminados.Solvencia;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import exceptions.YaExisteElIndicadorException;
-import persistencia.TransactionManager;
+import persistencia.Transaction;
 
 public class RepositorioIndicadores extends Repositorio<Indicador> {
 	private static RepositorioIndicadores instance = null;
