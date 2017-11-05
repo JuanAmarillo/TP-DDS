@@ -1,7 +1,5 @@
 package controllers.filters;
 
-import org.junit.Test;
-
 import persistencia.Transaction;
 import spark.Request;
 import spark.Response;

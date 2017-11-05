@@ -1,15 +1,9 @@
 package controllers;
 
-import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-
-import domain.Empresa;
-import domain.indicadores.IndicadorCalculado;
-import domain.indicadores.IndicadorCustom;
-import domain.indicadores.calculoIndicadores.Numero;
-import domain.login.Usuario;
-import domain.repositorios.RepositorioIndicadores;
+import controllers.builders.BuilderControllerIndicador;
+import spark.ModelAndView;
+import spark.Request;
+import spark.Response;
 
 public class IndicadoresController extends EmpresasPeriodosController {
 
@@ -19,15 +13,8 @@ public class IndicadoresController extends EmpresasPeriodosController {
 	}
 
 	@Override
-	public void agregarAlModel(Empresa empresa, String periodo, Map<String,Object> model, Usuario usuario) {
-		List<IndicadorCalculado> indicadoresCalculados = indicadoresCalculadosDeUna(empresa, periodo, usuario);
-		model.put("indicadores", indicadoresCalculados);
-	}
-
-	public List<IndicadorCalculado> indicadoresCalculadosDeUna(Empresa empresa, String periodo, Usuario usuario) {
-		return RepositorioIndicadores.instance()
-				.getElementosDelUsuarioID(usuario.id()).stream().map(indicador -> indicador.calcular(empresa, periodo))
-				.collect(Collectors.toList());
+	public ModelAndView mostrarTabla(Request req, Response res) {
+		return new BuilderControllerIndicador(req, res).indicadoresCalculados().empresas().periodos().build(ruta());
 	}
 
 }
