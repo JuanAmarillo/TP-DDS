@@ -3,6 +3,8 @@ package unitTests.repositorios;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
+import java.util.function.Function;
+
 import javax.persistence.EntityManager;
 
 import org.junit.Before;

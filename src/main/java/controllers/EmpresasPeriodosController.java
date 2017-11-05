@@ -1,6 +1,5 @@
 package controllers;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,8 +8,6 @@ import java.util.Set;
 import domain.Empresa;
 import domain.login.Usuario;
 import domain.repositorios.RepositorioEmpresas;
-import domain.repositorios.RepositorioIndicadores;
-import persistencia.LevantaArchivoEmpresa;
 import spark.ModelAndView;
 import spark.Request;
 import spark.Response;

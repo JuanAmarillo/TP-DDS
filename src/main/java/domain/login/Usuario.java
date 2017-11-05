@@ -24,6 +24,7 @@ public class Usuario {
 	private String nombreUsuario; // "Hola " + nombreUsuario
 	private String nombreCuenta; // login credential
 	private String password;
+	
 	@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinColumn(name = "usuario_id", nullable = false)
 	private Set<Metodologia> metodologias = new HashSet<Metodologia>();

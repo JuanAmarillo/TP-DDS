@@ -20,10 +20,14 @@ public class IndicadoresController extends EmpresasPeriodosController {
 
 	@Override
 	public void agregarAlModel(Empresa empresa, String periodo, Map<String,Object> model, Usuario usuario) {
-		List<IndicadorCalculado> indicadoresCalculados = RepositorioIndicadores.instance()
+		List<IndicadorCalculado> indicadoresCalculados = indicadoresCalculadosDeUna(empresa, periodo, usuario);
+		model.put("indicadores", indicadoresCalculados);
+	}
+
+	public List<IndicadorCalculado> indicadoresCalculadosDeUna(Empresa empresa, String periodo, Usuario usuario) {
+		return RepositorioIndicadores.instance()
 				.getElementosDelUsuarioID(usuario.id()).stream().map(indicador -> indicador.calcular(empresa, periodo))
 				.collect(Collectors.toList());
-		model.put("indicadores", indicadoresCalculados);
 	}
 
 }
