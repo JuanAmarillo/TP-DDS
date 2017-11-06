@@ -32,9 +32,7 @@ public class Empresa {
 	@JoinColumn(name = "empresa_id",  nullable=false)
 	private Set<Cuenta> cuentas = new HashSet<>();
 
-	public String getNombre() {
-		return nombre;
-	}
+	
 
 	public Empresa(){}
 	public Empresa(String nombre){
@@ -99,6 +97,10 @@ public class Empresa {
 
 	public Double getValorDeLaCuenta(String nombre, String periodo) {
 		return buscarCuentaDe(nombre, periodo).get().getBalance();
+	}
+	
+	public String getNombre() {
+		return nombre;
 	}
 
 	public Optional<Cuenta> buscarCuentaDe(String nombre, String periodo) {
