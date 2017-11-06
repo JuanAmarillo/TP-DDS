@@ -24,9 +24,9 @@ public class RepositorioCondiciones extends Repositorio<Condicion> {
 
 	private static void cargarNuevaInstancia() {
 		instance = new RepositorioCondiciones();
-		/*TransactionManager.instance().crearTransaccion();
+		TransactionManager.instance().crearTransaccion();
 		instance.agregarPredeterminados();
-		TransactionManager.instance().cerrarTransaccion();*/
+		TransactionManager.instance().cerrarTransaccion();
 	}
 
 	private static boolean noHayInstanciaCargada() {

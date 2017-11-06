@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.uqbar.commons.utils.Observable;
 
 import persistencia.LevantaArchivoEmpresa;
+import persistencia.TransactionManager;
 
 @Observable
 public class CargarCuentaVM {
@@ -33,8 +34,11 @@ public class CargarCuentaVM {
 	}
 
 	public void cargarEmpresa() throws IOException {
-		if(!filePath.isEmpty())
+		if(!filePath.isEmpty()) {
+			TransactionManager.instance().crearTransaccion();
 			new LevantaArchivoEmpresa(filePath).cargarArchivo();
+			TransactionManager.instance().cerrarTransaccion();
+		}
 		else
 			throw new RuntimeException("No hay ningun archivo seleccionado");
 	}

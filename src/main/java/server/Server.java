@@ -12,10 +12,13 @@ import spark.debug.DebugScreen;
 public class Server {
 	public static void main(String[] args) {
 		TransactionManager.instance().crearTransaccion();
-		RepositorioUsuarios.instance().agregar(new Usuario("pepito", "login", "password"));
+		Usuario pepito = new Usuario("pepito", "login", "password");
+		RepositorioUsuarios.instance().agregar(pepito);
 		TransactionManager.instance().cerrarTransaccion();
-		RepositorioIndicadores.instance();
+		TransactionManager.instance().crearTransaccion();
+		RepositorioIndicadores.instance().agregarPredeterminados(pepito);;
 		RepositorioCondiciones.instance();
+		TransactionManager.instance().cerrarTransaccion();
 		/*Spark.port(9000);
 		DebugScreen.enableDebugScreen();
 		Router.configure();*/

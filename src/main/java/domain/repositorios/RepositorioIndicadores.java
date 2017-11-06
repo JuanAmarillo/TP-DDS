@@ -14,6 +14,7 @@ import domain.indicadores.indicadoresPredeterminados.RAC;
 import domain.indicadores.indicadoresPredeterminados.ROA;
 import domain.indicadores.indicadoresPredeterminados.ROE;
 import domain.indicadores.indicadoresPredeterminados.Solvencia;
+import domain.login.Usuario;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import exceptions.YaExisteElIndicadorException;
 import persistencia.TransactionManager;
@@ -29,11 +30,7 @@ public class RepositorioIndicadores extends Repositorio<Indicador> {
 
 	private static void cargarNuevaInstancia() {
 		instance = new RepositorioIndicadores();
-		/*TransactionManager.instance().crearTransaccion();
-		instance.agregarPredeterminados();
-		TransactionManager.instance().cerrarTransaccion();*/
 	}
-
 	private static boolean noHayInstanciaCargada() {
 		return instance == null;
 	}
@@ -84,23 +81,17 @@ public class RepositorioIndicadores extends Repositorio<Indicador> {
 			throw new YaExisteElIndicadorException();
 	}
 
-	public void agregarPredeterminados() {
-		 agregar(new Leverage());
-		 agregar(new ROA());
-		 agregar(new ROE());
-		 agregar(new Antiguedad());
-		 agregar(new Solvencia());
-		 agregar(new Endeudamiento());
-		 agregar(new RAC());
+	public void agregarPredeterminados(Usuario usuario) {
+		 usuario.agregarIndicador(new Leverage());
+		 usuario.agregarIndicador(new Leverage());
+		 usuario.agregarIndicador(new ROA());
+		 usuario.agregarIndicador(new ROE());
+		 usuario.agregarIndicador(new Antiguedad());
+		 usuario.agregarIndicador(new Solvencia());
+		 usuario.agregarIndicador(new Endeudamiento());
+		 usuario.agregarIndicador(new RAC());
 	}
-
-	public void leerBD() {
-		BuilderIndicadorCustom buildercito = new BuilderIndicadorCustom(null);
-		List<IndicadorCustom> indicadoresCompletos = obtenerCustoms().stream()
-				.map(indicadorIncompleto -> buildercito.generarCalculo(indicadorIncompleto))
-				.collect(Collectors.toList());
-	}
-
+	
 	public IndicadorCustom crearIndicador(String ecuacion) {
 		return new BuilderIndicadorCustom(ecuacion).analizar().setEcuacion().setCalculo().build();
 	}
