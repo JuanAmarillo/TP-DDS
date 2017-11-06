@@ -32,11 +32,8 @@ public class Empresa {
 	@JoinColumn(name = "empresa_id",  nullable=false)
 	private Set<Cuenta> cuentas = new HashSet<>();
 
-	public String getNombre() {
-		return nombre;
-	}
-
 	public Empresa(){}
+	
 	public Empresa(String nombre){
 		this.nombre = nombre;
 	}
@@ -67,6 +64,10 @@ public class Empresa {
 	
 	public Boolean suNombreEs(String nombre){
 		return this.getNombre().equals(nombre);
+	}
+	
+	public String getNombre() {
+		return nombre;
 	}
 	
 	public void agregarCuentas(Set<Cuenta> cuentas) {
