@@ -28,7 +28,7 @@ public class Router {
 
 	public static void metodologiasViews(HandlebarsTemplateEngine engine) {
 		Spark.get("/metodologias", MetodologiasController::get, engine);
-		Spark.post("/metodologias", MetodologiasController::aplicarMetodologia, engine);
+		Spark.get("/metodologias/tabla", MetodologiasController::aplicarMetodologia, engine);
 	}
 
 	public static void generalViews(HandlebarsTemplateEngine engine) {
@@ -42,21 +42,12 @@ public class Router {
 	}
 
 	public static void indicadoresViews(HandlebarsTemplateEngine engine) {
-		evaluacionDeIndicadores(engine);
-		cargaDeNuevosIndicadores(engine);
-	}
-
-	public static void cargaDeNuevosIndicadores(HandlebarsTemplateEngine engine) {
-		Spark.get("/indicadores/new", IndicadoresNuevosController::nuevo, engine);
-		Spark.post("/indicadores/new", IndicadoresNuevosController::agregar, engine);
-	}
-
-	public static void evaluacionDeIndicadores(HandlebarsTemplateEngine engine) {
 		IndicadoresController controller = new IndicadoresController();
 		Spark.get("/indicadores", controller::getEmpresas, engine);
-		Spark.post("/indicadores", controller::mostrarTabla,engine);
+		Spark.get("/indicadores/tabla", controller::mostrarTabla,engine);
+		Spark.post("/indicadores", controller::agregar, engine);
 	}
-
+	
 	public static void cuentasViews(HandlebarsTemplateEngine engine) {
 		CuentasController controller = new CuentasController();
 		Spark.get("/cuentas", controller::getEmpresas, engine);

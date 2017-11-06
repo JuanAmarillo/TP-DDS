@@ -1,11 +1,11 @@
-{{#partial "title"}}Cuentas{{/partial}}
+{{#partial "title"}}Indicadores{{/partial}}
 
 {{#partial "presentacion"}}
 	<h3>Evaluar indicadores cargados en el sistema</h3>
 {{/partial}}
 
 {{#partial "ruta-formulario"}}
-	"/indicadores"
+	"/indicadores/tabla"
 {{/partial}}
 
 {{#partial "tabla"}}
@@ -27,6 +27,17 @@
 	  	</tbody>
 	  	
 	</table>
+	<h3>Cree un nuevo indicador</h3>
+	<br/>
+	<form method="POST" action="/indicadores" name="form-indicador">
+		<div class="form-row">
+			<div class="form-group col-4">
+				<label for="nuevoIndicador">Introduzca un nuevo indicador:</label>
+				<input type="text" name="nuevoIndicador" class="form-control" id="nuevoIndicador" placeholder="Nombre = Ecuación" required autofocus></input>
+			</div>
+		</div>
+		<button type="submit" class="btn btn-md btn-primary">Agregar</button>
+	</form> 
 
 {{/partial}}
 {{>proyectos/selectores/select-empresa-periodo.hbs}}
