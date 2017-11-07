@@ -2,16 +2,22 @@ package unitTests.repositorios;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.HashSet;
+
 import javax.persistence.EntityManager;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import domain.indicadores.Indicador;
 import domain.indicadores.IndicadorCustom;
+import domain.indicadores.IndicadorPredeterminado;
 import domain.indicadores.indicadoresPredeterminados.ROA;
 import domain.indicadores.indicadoresPredeterminados.ROE;
+import domain.login.Usuario;
 import domain.repositorios.RepositorioIndicadores;
+import domain.repositorios.RepositorioUsuarios;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import exceptions.YaExisteElIndicadorException;
 import javax.persistence.EntityManager;
@@ -20,6 +26,7 @@ import persistencia.Transaction;
 
 public class RepositorioIndicadoresTest extends AbstractPersistenceTest{
 	
+	private Usuario usuario = new Usuario("pepito", "Mangito", "hunter2");
 	private RepositorioIndicadores repositorio =  new RepositorioIndicadores();
 	
 	public IndicadorCustom indicador(String nombreIndicador){
@@ -31,7 +38,12 @@ public class RepositorioIndicadoresTest extends AbstractPersistenceTest{
 	}
 	
 	public void agregar(IndicadorCustom indicador){
-		repositorio.agregar(indicador);
+		usuario.agregarIndicador(indicador);
+		//repositorio.agregar(indicador);
+	}
+	
+	public void agregarPredeterminado(IndicadorPredeterminado ind) {
+		usuario.agregarIndicador(ind);
 	}
 	
 	public void borrar(String nombreIndicador){
@@ -55,13 +67,16 @@ public class RepositorioIndicadoresTest extends AbstractPersistenceTest{
 		return repositorio.getEntityManager();
 	}
 	
+	@Before
+	public void antes() {
+		RepositorioUsuarios.instance().agregar(usuario);
+		usuario.setIndicadores(new HashSet<Indicador>());
+	}
 	
 	@Test
 	public void testAgregarUnIndicadorCustom(){
-		Transaction.instance().crear();
 		agregar("hola");
-		Transaction.instance().cerrar();
-		//verificarExistencia("hola", true);
+		verificarExistencia("hola", true);
 	}
 	
 	@Test
@@ -71,15 +86,18 @@ public class RepositorioIndicadoresTest extends AbstractPersistenceTest{
 	
 	@Test
 	public void testAgregarUnIndicadorPredeterminador(){
-		repositorio.agregar(new ROE());
+		agregarPredeterminado(new ROE());
 		verificarExistencia("ROE", true);
 	}
 	
-	@Test(expected = YaExisteElIndicadorException.class)
+	// Este test pierde sentido, ya que dos usuarios pueden tener indicadores iguales, pero los ids van a ser distintos, 
+	// por lo tanto van a ser distitnos indicadores
+	
+	/*@Test(expected = YaExisteElIndicadorException.class)
 	public void testAgregarUnIndicadorYaExistenteFalla(){
 		agregar("No tuve vacaciones");
 		agregar("No tuve vacaciones");
-	}
+	}*/
 	
 	@Test
 	public void testEliminarUnIndicador(){
@@ -95,8 +113,9 @@ public class RepositorioIndicadoresTest extends AbstractPersistenceTest{
 	
 	@Test(expected = NoSePuedeBorrarUnPredeterminadoException.class)
 	public void testEliminarUnPredeterminadorFalla(){
-		repositorio.agregar(new ROA());
-		borrar(new ROA());
+		ROA roa = new ROA();
+		agregarPredeterminado(roa);
+		borrar(roa);
 	}
 
 }

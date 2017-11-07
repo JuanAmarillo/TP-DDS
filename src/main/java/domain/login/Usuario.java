@@ -34,6 +34,10 @@ public class Usuario {
 	@JoinColumn(name = "usuario_id", nullable = false)
 	private Set<Indicador> indicadores = new HashSet<Indicador>();
 	
+	public void setIndicadores(Set<Indicador> indicadores) {
+		this.indicadores = indicadores;
+	}
+
 	public Usuario(String nombreUsuario, String nombreCuenta, String password) {
 		this.nombreUsuario = nombreUsuario;
 		this.nombreCuenta = nombreCuenta;
