@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import domain.indicadores.Indicador;
 import domain.metodologias.Metodologia;
 
 @Entity
@@ -29,6 +30,10 @@ public class Usuario {
 	@JoinColumn(name = "usuario_id", nullable = false)
 	private Set<Metodologia> metodologias = new HashSet<Metodologia>();
 
+	@OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+	@JoinColumn(name = "usuario_id", nullable = false)
+	private Set<Indicador> indicadores = new HashSet<Indicador>();
+	
 	public Usuario(String nombreUsuario, String nombreCuenta, String password) {
 		this.nombreUsuario = nombreUsuario;
 		this.nombreCuenta = nombreCuenta;
@@ -41,6 +46,10 @@ public class Usuario {
 		metodologias.add(met);
 	}
 
+	public void agregarIndicador(Indicador ind) {
+			indicadores.add(ind);
+	}
+	
 	// GETTERS Y SETTERS
 	public String getNombreUsuario() {
 		return nombreUsuario;
