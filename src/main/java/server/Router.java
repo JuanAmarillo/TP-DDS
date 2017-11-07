@@ -51,7 +51,7 @@ public class Router {
 	public static void cuentasViews(HandlebarsTemplateEngine engine) {
 		CuentasController controller = new CuentasController();
 		Spark.get("/cuentas", controller::getEmpresas, engine);
-		Spark.post("/cuentas", controller::mostrarTabla, engine);
+		Spark.get("/cuentas/tabla", controller::mostrarTabla, engine);
 		Spark.post("/periodos", controller::elegirPeriodo, engine);
 	}
 
