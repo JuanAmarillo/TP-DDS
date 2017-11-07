@@ -27,7 +27,7 @@ public class Empresa {
 	@Column(length=30)
 	private String nombre;
 	@Column
-	private Integer anio_fundacion;
+	private Integer anioFundacion;
 	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
 	@JoinColumn(name = "empresa_id",  nullable=false)
 	private Set<Cuenta> cuentas = new HashSet<>();
@@ -46,11 +46,11 @@ public class Empresa {
 	}
 
 	public Integer getAnioFundacion() {
-		return anio_fundacion;
+		return anioFundacion;
 	}
 
 	public void setAnioFundacion(Integer anioFundacion) {
-		this.anio_fundacion = anioFundacion;
+		this.anioFundacion = anioFundacion;
 	}
 
 	public Set<Cuenta> getCuentas() {
