@@ -21,6 +21,8 @@ import org.uqbar.commons.utils.Observable;
 @Entity
 @Table(name = "empresas")
 public class Empresa {
+
+
 	@Id
 	@GeneratedValue
 	private Integer id;
@@ -65,6 +67,10 @@ public class Empresa {
 	
 	public Boolean suNombreEs(String nombre){
 		return this.getNombre().equals(nombre);
+	}
+	
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	
 	public void agregarCuentas(Set<Cuenta> cuentas) {
