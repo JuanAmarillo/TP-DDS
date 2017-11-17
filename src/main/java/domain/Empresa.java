@@ -74,9 +74,33 @@ public class Empresa {
 	}
 	
 	public void agregarCuentas(Set<Cuenta> cuentas) {
-		this.cuentas.addAll(cuentasSinRepetidos(cuentas));
+		Cuenta cuentaExistente;
+		for(Cuenta cuenta : cuentas) {
+			cuentaExistente = buscarCuenta(cuenta);
+			if(cuentaExistente != null)
+				actualizarValores(cuenta, cuentaExistente);
+			else
+				agregarCuenta(cuenta);
+		}
 	}
 
+	private Cuenta buscarCuenta(Cuenta cuentaABuscar) {
+		Optional<Cuenta> cuentaBuscada = cuentas.stream().filter(cuenta -> compararNombreYPeriodo(cuenta, cuentaABuscar)).findFirst();
+		return cuentaBuscada.orElse(null);
+	}
+	
+	private Boolean compararNombreYPeriodo(Cuenta cuenta, Cuenta cuentaABuscar) {
+		return cuenta.getNombre().equals(cuentaABuscar.getNombre()) && cuenta.getPeriodo().equals(cuentaABuscar.getPeriodo());
+	}
+	
+	private void actualizarValores(Cuenta cuenta, Cuenta cuentaExistente) {
+		cuentaExistente.setBalance(cuenta.getBalance());
+	}
+	
+	private void agregarCuenta(Cuenta cuenta) {
+		cuentas.add(cuenta);
+	}
+	
 	public Set<Cuenta> cuentasSinRepetidos(Set<Cuenta> cuentas) {
 		return cuentas.stream().filter(cuenta -> !contieneLaCuenta(cuenta)).collect(Collectors.toSet());
 	}
