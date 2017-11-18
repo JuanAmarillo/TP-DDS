@@ -1,7 +1,7 @@
 body {
   padding-top: 40px;
   padding-bottom: 40px;
-  background-color: #FF977F;
+  background-color: #FF9779;
 }
 
 .form-signin {
@@ -46,7 +46,7 @@ body {
 }
 
 .modal{
-    display: none; 
+    display: block; 
     position: fixed; 
     z-index: 1; 
     left: 0;

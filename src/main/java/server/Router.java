@@ -20,19 +20,20 @@ public class Router {
 	}
 
 	public static void views(HandlebarsTemplateEngine engine) {
-		generalViews(engine);
 		cuentasViews(engine);
+		loginViews(engine);
 		indicadoresViews(engine);
 		metodologiasViews(engine);
+	}
+
+	private static void loginViews(HandlebarsTemplateEngine engine) {
+		Spark.get("/login", LoginController::get, engine);
+		Spark.post("/login", LoginController::loguearse, engine);
 	}
 
 	public static void metodologiasViews(HandlebarsTemplateEngine engine) {
 		Spark.get("/metodologias", MetodologiasController::get, engine);
 		Spark.get("/metodologias/tabla", MetodologiasController::aplicarMetodologia, engine);
-	}
-
-	public static void generalViews(HandlebarsTemplateEngine engine) {
-		Spark.post("/login", LoginController::loguearse, engine);
 	}
 
 	public static void filters() {

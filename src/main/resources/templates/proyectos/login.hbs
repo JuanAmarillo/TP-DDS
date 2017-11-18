@@ -7,10 +7,9 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-	<link rel="stylesheet" href="../css/login.css">
+	<link rel="stylesheet" href="/css/login.css">
 	<title>Iniciar sesion</title>  
   </head>
-  <body onload="verificarDeDondeViene()">
   
   <div class="container">
   
@@ -21,28 +20,17 @@
   <input type="password" name="password" class="form-control" id="inputPass" placeholder="Contraseña" required>
   <input type="submit" class="btn btn-lg btn-primary btn-block" value="Ingresar">
   </form>
-    
+  
+  {{#if esRelogueo}}
   <div id="modalCredencialIncorrecta" class="modal" role="dialog">
-  	
-  	<!-- Modal content -->
   	<div class="modal-content">
-	    <p>Las credenciales ingresadas son incorrectas. Intente nuevamente</p>
+	    <p>Las credenciales ingresadas son incorrectas. Intente nuevamente</p> 
 	    <button type="button" onclick="cerrarModal()" class="btn" data-dismiss="modal" >Cerrar</button>
 	</div>
-	
-	
   </div>
+  {{/if}}
   
    <script>
-        function verificarDeDondeViene() {
-          var previousPage = document.referrer;
-          var relativa = previousPage.split('/').pop();
-          var miModal = document.getElementById('modalCredencialIncorrecta');
-          if(relativa == "login.html") {
-        	  miModal.style.display= "block";
-          }
-        }
-        
         function cerrarModal() {
         	document.getElementById('modalCredencialIncorrecta').style.display = "none";
         }
