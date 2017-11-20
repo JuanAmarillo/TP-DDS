@@ -35,7 +35,7 @@ public class Router {
 		Spark.get("/metodologias", MetodologiasController::get, engine);
 		Spark.get("/metodologias/tabla", MetodologiasController::aplicarMetodologia, engine);
 	}
-
+         
 	public static void filters() {
 		Spark.before(FilterTransactionController::before);
 		Spark.after(FilterTransactionController::after);
