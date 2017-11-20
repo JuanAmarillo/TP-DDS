@@ -22,7 +22,6 @@ import domain.condiciones.OperadoresCondicion.OperadorConverter;
 import domain.indicadores.Indicador;
 import domain.metodologias.EmpresaConPeso;
 
-@Observable
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Table(name = "condiciones")

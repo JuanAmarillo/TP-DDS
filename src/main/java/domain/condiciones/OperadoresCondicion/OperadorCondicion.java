@@ -4,7 +4,6 @@ import javax.persistence.MappedSuperclass;
 
 import org.uqbar.commons.utils.Observable;
 
-@Observable
 @MappedSuperclass
 public abstract class OperadorCondicion {
 	protected String nombreDelOperador;

@@ -16,7 +16,6 @@ import org.uqbar.commons.utils.Observable;
 import domain.Empresa;
 import domain.condiciones.Condicion;
 
-@Observable
 @Entity
 @Table(name = "metodologias")
 public class Metodologia {

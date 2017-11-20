@@ -2,24 +2,31 @@ package domain.indicadores;
 
 import java.util.Optional;
 
+import org.hibernate.annotations.Entity;
 import org.uqbar.commons.utils.Observable;
 
-@Observable
+import domain.Empresa;
+
+@Entity
 public class IndicadorCalculado {
 	private Optional<Double> valorExito;
-	private String nombreIndicador;
+	private Empresa empresa;
+	private String periodo;
+	private Indicador indicador;
 
-	private void setIndicadorCalculado(String nombre,Optional<Double> valorExito) {
-		this.valorExito = valorExito;;
-		this.nombreIndicador = nombre;
+	private void setIndicadorCalculado(Indicador indicador,Empresa empresa, String periodo, Optional<Double> valorExito) {
+		this.valorExito = valorExito;
+		this.empresa = empresa;
+		this.periodo = periodo;
+		this.indicador = indicador;
 	}
 
-	public IndicadorCalculado(String nombre,Double value) {
-		setIndicadorCalculado(nombre,Optional.of(value));
+	public IndicadorCalculado(Indicador indicador, Empresa empresa, String periodo, Double value) {
+		setIndicadorCalculado(indicador,empresa, periodo, Optional.of(value));
 	}
 
-	public IndicadorCalculado(String nombre) {
-		setIndicadorCalculado(nombre,Optional.empty());
+	public IndicadorCalculado(Indicador indicador, Empresa empresa, String periodo) {
+		setIndicadorCalculado(indicador,empresa, periodo, Optional.empty());
 	}
 
 	public String getValorString() {
@@ -35,7 +42,6 @@ public class IndicadorCalculado {
 	}
 	
 	public String getNombre(){
-		return nombreIndicador;
+		return indicador.getNombre();
 	}
-
 }

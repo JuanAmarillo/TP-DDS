@@ -9,7 +9,6 @@ import javax.persistence.Entity;
 
 import org.uqbar.commons.utils.Observable;
 
-@Observable
 @Entity
 public class CMaximizarROE extends CondicionComparativa implements CondicionPredeterminada {
 	
