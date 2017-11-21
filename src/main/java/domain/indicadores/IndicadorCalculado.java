@@ -49,7 +49,7 @@ public class IndicadorCalculado {
 	}
 
 	public Optional<Double> getValorCalculado() {
-		return Optional.of(valorExito);
+		return Optional.ofNullable(valorExito);
 	}
 	
 	public String getValorString() {
