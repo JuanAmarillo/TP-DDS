@@ -15,8 +15,11 @@ import java.util.stream.Stream;
 
 import javax.persistence.EntityManager;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.internal.matchers.Any;
@@ -42,9 +45,28 @@ public class CargaEmpresaTest extends AbstractPersistenceTest {
 		return RepositorioEmpresas.instance().cantidadElementosCargados();
 	}
 	
+	@BeforeClass
+	public static void creacionDeCarpetas() {
+		crearCarpeta(DIRECTORIO_PRUEBAS);
+		crearCarpeta(DIRECTORIO_PRUEBAS + "/Carga Correcta");
+		crearCarpeta(DIRECTORIO_PRUEBAS + "/Sin Procesar");
+		crearCarpeta(DIRECTORIO_PRUEBAS + "/Carga Incorrecta");
+	}
+
+	private static void crearCarpeta(String path) {
+		File file = new File(path);
+		file.mkdir();
+	}
+	
+	@AfterClass
+	public static void eliminarCarpetas() throws IOException {
+		File file = new File(DIRECTORIO_PRUEBAS);
+		FileUtils.deleteDirectory(file);
+	}
+	
 	private int cantidadDeArchivosEn(String destino) {
-		File[] asd = new File(destino).listFiles();
-		int longitud = asd.length;
+		File[] file = new File(destino).listFiles();
+		int longitud = file.length;
 		return longitud;
 	}
 	
@@ -110,9 +132,7 @@ public class CargaEmpresaTest extends AbstractPersistenceTest {
 		assertEquals(1, cantidadDeArchivosEn(DIRECTORIO_PRUEBAS + "/Carga Incorrecta/"));
 		assertEquals(3, cantidadDeArchivosEn(DIRECTORIO_PRUEBAS + "/Carga Correcta/"));
 	}
-
 	
-
 	@Override
 	public EntityManager entityManager() {
 		return repositorio.getEntityManager();

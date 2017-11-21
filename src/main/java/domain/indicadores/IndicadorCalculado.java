@@ -3,12 +3,14 @@ package domain.indicadores;
 import java.util.Optional;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Entity;
 import org.uqbar.commons.utils.Observable;
-
 
 import domain.Empresa;
 
@@ -20,8 +22,12 @@ public class IndicadorCalculado {
 	@GeneratedValue
 	private Integer id;
 	private Double valorExito;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "empresa_id",  nullable=false)
 	private Empresa empresa;
 	private String periodo;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "indicadorcalculado_id",  nullable=false)
 	private Indicador indicador;
 
 
