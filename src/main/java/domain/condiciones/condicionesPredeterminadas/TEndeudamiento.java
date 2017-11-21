@@ -9,7 +9,6 @@ import domain.condiciones.CondicionTaxativa;
 import domain.condiciones.OperadoresCondicion.Menor;
 import domain.indicadores.indicadoresPredeterminados.Endeudamiento;
 
-@Observable
 @Entity
 public class TEndeudamiento extends CondicionTaxativa implements CondicionPredeterminada{
 	

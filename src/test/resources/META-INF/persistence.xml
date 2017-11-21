@@ -19,6 +19,7 @@
     	<class>domain.indicadores.indicadoresPredeterminados.ROA</class>
     	<class>domain.indicadores.indicadoresPredeterminados.ROE</class>
     	<class>domain.indicadores.indicadoresPredeterminados.Solvencia</class>
+    	<class>domain.indicadores.IndicadorCalculado</class>
     	<class>domain.metodologias.Metodologia</class>
     	<class>domain.condiciones.OperadoresCondicion.Mayor</class>
     	<class>domain.condiciones.OperadoresCondicion.Menor</class>

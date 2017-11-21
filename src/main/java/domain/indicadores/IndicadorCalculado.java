@@ -2,32 +2,53 @@ package domain.indicadores;
 
 import java.util.Optional;
 
-import org.uqbar.commons.utils.Observable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Observable
+import domain.Empresa;
+
+@Entity
+@Table(name = "indicadores_precalculados")
 public class IndicadorCalculado {
-	private Optional<Double> valorExito;
-	private String nombreIndicador;
+	
+	@Id 
+	@GeneratedValue
+	private Integer id;
 
-	private void setIndicadorCalculado(String nombre,Optional<Double> valorExito) {
-		this.valorExito = valorExito;;
-		this.nombreIndicador = nombre;
+	private Double valorExito;
+	private Empresa empresa;
+	private String periodo;
+	private Indicador indicador;
+
+	private void setIndicadorCalculado(Indicador indicador,Empresa empresa, String periodo, Double valorExito) {
+		this.valorExito = valorExito;
+		this.empresa = empresa;
+		this.periodo = periodo;
+		this.indicador = indicador;
+	}
+	
+	public IndicadorCalculado(){}
+
+	public IndicadorCalculado(Indicador indicador, Empresa empresa, String periodo, Double value) {
+		setIndicadorCalculado(indicador,empresa, periodo, value);
 	}
 
-	public IndicadorCalculado(String nombre,Double value) {
-		setIndicadorCalculado(nombre,Optional.of(value));
+	public IndicadorCalculado(Indicador indicador, Empresa empresa, String periodo) {
+		setIndicadorCalculado(indicador,empresa, periodo, null);
 	}
 
-	public IndicadorCalculado(String nombre) {
-		setIndicadorCalculado(nombre,Optional.empty());
+	public Optional<Double> getValorCalculado() {
+		return Optional.of(valorExito);
 	}
-
+	
 	public String getValorString() {
 		return getValorExito().orElse(getValorFalla());
 	}
 
 	public Optional<String> getValorExito() {
-		return valorExito.map(valor-> valor.toString());
+		return getValorCalculado().map(valor-> valor.toString());
 	}
 
 	public String getValorFalla() {
@@ -35,7 +56,6 @@ public class IndicadorCalculado {
 	}
 	
 	public String getNombre(){
-		return nombreIndicador;
+		return indicador.getNombre();
 	}
-
 }

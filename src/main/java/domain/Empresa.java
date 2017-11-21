@@ -17,7 +17,6 @@ import javax.persistence.Table;
 
 import org.uqbar.commons.utils.Observable;
 
-@Observable
 @Entity
 @Table(name = "empresas")
 public class Empresa {
