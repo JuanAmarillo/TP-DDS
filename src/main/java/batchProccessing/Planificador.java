@@ -34,7 +34,6 @@ public class Planificador {
 
 	private static void planificarHorarios() throws SchedulerException {
 		planificar(CargaArchivosProgramada.class, CincoAMTodosLosDias(), archivos());
-		planificar(CalculoDeIndicadoresProgramado.class, CincoAMTodosLosDomingos(), recalculo());
 	}
   
 	private static void planificar (Class<? extends Job> clase, String schedule, String identidad) throws SchedulerException {

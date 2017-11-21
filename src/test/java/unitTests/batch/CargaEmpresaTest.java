@@ -133,6 +133,12 @@ public class CargaEmpresaTest extends AbstractPersistenceTest {
 		assertEquals(3, cantidadDeArchivosEn(DIRECTORIO_PRUEBAS + "/Carga Correcta/"));
 	}
 	
+	@Test
+	public void seCargaElArchivoDeConfiguracion() {
+		LevantaArchivoEmpresa prueba = new LevantaArchivoEmpresa();
+		assertTrue(prueba.getSinProcesarFilepath().equals("src/main/resources/directorioDeArchivos/Sin Procesar/"));
+	}
+	
 	@Override
 	public EntityManager entityManager() {
 		return repositorio.getEntityManager();

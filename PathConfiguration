@@ -1,0 +1,3 @@
+sinProcesar=src/main/resources/directorioDeArchivos/Sin Procesar/
+procCorrectos=src/main/resources/directorioDeArchivos/Carga Correcta/
+procErroneos=src/main/resources/directorioDeArchivos/Carga Incorrecta/

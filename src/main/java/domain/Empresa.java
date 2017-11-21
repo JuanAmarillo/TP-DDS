@@ -98,11 +98,15 @@ public class Empresa {
 	
 	public void actualizarValores(Cuenta cuenta, Cuenta cuentaExistente) {
 		cuentaExistente.setBalance(cuenta.getBalance());
-		ContenedorValoresARecalcular.instance().agregarEmpresaPeriodo(new EmpresaPeriodoARecalcular(this, cuenta.getPeriodo()));
+		agregarARecalcular(cuenta);
+	}
+	private void agregarARecalcular(Cuenta cuenta) {
+		ContenedorValoresARecalcular.instance().agregarEmpresaPeriodo(this, cuenta.getPeriodo());
 	}
 	
 	private void agregarCuenta(Cuenta cuenta) {
 		cuentas.add(cuenta);
+		agregarARecalcular(cuenta);
 	}
 	
 	public Set<Cuenta> cuentasSinRepetidos(Set<Cuenta> cuentas) {

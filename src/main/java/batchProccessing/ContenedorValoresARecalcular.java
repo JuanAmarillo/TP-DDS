@@ -3,6 +3,8 @@ package batchProccessing;
 import java.util.ArrayList;
 import java.util.List;
 
+import domain.Empresa;
+
 public class ContenedorValoresARecalcular {
 	
 	private static ContenedorValoresARecalcular instance = null;
@@ -31,10 +33,8 @@ public class ContenedorValoresARecalcular {
 		aRecalcular.forEach(it -> System.out.println(it.getEmpresa().getNombre() + " ACA " + it.getPeriodo()));
 		return aRecalcular.size();
 	}
-
-
 	
-	public  void agregarEmpresaPeriodo(EmpresaPeriodoARecalcular empresaPeriodoARecalcular) {
-		aRecalcular.add(empresaPeriodoARecalcular);
+	public  void agregarEmpresaPeriodo(Empresa empresa, String periodo) {
+		aRecalcular.add(new EmpresaPeriodoARecalcular(empresa, periodo));
 	}
 }
