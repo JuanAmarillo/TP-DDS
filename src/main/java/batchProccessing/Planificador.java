@@ -18,12 +18,20 @@ public class Planificador {
 	public static void begin() {
 		try {
 			planificador = StdSchedulerFactory.getDefaultScheduler();
-			planificar(CargaArchivosProgramada.class, "0 0 5 * * ?");  // A las 5 AM todos los dias
-			planificar(CalculoDeIndicadoresProgramado.class, "0 0 5 * * 1"); // A las 5 AM de los domingos
+			planificar(CargaArchivosProgramada.class, CincoAMTodosLosDias());  // A las 5 AM todos los dias
+			planificar(CalculoDeIndicadoresProgramado.class, CincoDeLaMananaTodosLosDomingos()); // A las 5 AM de los domingos
 			planificador.start();
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private static String CincoDeLaMananaTodosLosDomingos() {
+		return "0 0 5 * * 1";
+	}
+
+	private static String CincoAMTodosLosDias() {
+		return "0 0 5 * * ?";
 	}
 
 	private static void planificar (Class<? extends Job> clase, String schedule) throws SchedulerException {
