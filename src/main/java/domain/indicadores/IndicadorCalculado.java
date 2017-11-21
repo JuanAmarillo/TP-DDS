@@ -33,9 +33,9 @@ public class IndicadorCalculado {
 
 	private void setIndicadorCalculado(Indicador indicador,Empresa empresa, String periodo, Double valorExito) {
 		this.valorExito = valorExito;
-		this.empresa = empresa;
-		this.periodo = periodo;
-		this.indicador = indicador;
+		this.empresa    = empresa;
+		this.periodo    = periodo;
+		this.indicador  = indicador;
 	}
 	
 	public IndicadorCalculado(){}

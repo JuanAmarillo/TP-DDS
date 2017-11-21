@@ -34,14 +34,14 @@ public class LevantaArchivoEmpresa {
 	private void cargarArchivo(File empresa) {
 		try {
 			cargaExitosa(empresa);
-		} catch (IOException e) {
-			cargaFallida(empresa, e);
+		} catch (IOException error) {
+			cargaFallida(empresa, error);
 		}
 	}
 
-	private void cargaFallida(File archivoDeLaEmpresa, IOException e) {
+	private void cargaFallida(File archivoDeLaEmpresa, IOException error) {
 		moverArchivoCargaIncorrecta(archivoDeLaEmpresa);
-		LOGGER.log(Level.WARNING, e.toString(), e);
+		LOGGER.log(Level.WARNING, error.toString(), error);
 	}
 
 	private void cargaExitosa(File archivoDeLaEmpresa) throws IOException {
