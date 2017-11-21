@@ -1,4 +1,4 @@
-package unitTests.cargaDeArchivos;
+package unitTests.batch;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -131,6 +131,12 @@ public class CargaEmpresaTest extends AbstractPersistenceTest {
 		assertEquals(2.0, cantidadEmpresasCargadas(), 0.0);
 		assertEquals(1, cantidadDeArchivosEn(DIRECTORIO_PRUEBAS + "/Carga Incorrecta/"));
 		assertEquals(3, cantidadDeArchivosEn(DIRECTORIO_PRUEBAS + "/Carga Correcta/"));
+	}
+	
+	@Test
+	public void seCargaElArchivoDeConfiguracion() {
+		LevantaArchivoEmpresa prueba = new LevantaArchivoEmpresa();
+		assertTrue(prueba.getSinProcesarFilepath().equals("src/main/resources/directorioDeArchivos/Sin Procesar/"));
 	}
 	
 	@Override

@@ -10,7 +10,6 @@ public class CargaArchivosProgramada implements Job {
 
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
-		new LevantaArchivoEmpresa(null, null, null).execute();
+		new LevantaArchivoEmpresa().execute();
 	}
-	
 }

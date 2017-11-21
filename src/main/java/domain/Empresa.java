@@ -17,6 +17,10 @@ import javax.persistence.Table;
 
 import org.uqbar.commons.utils.Observable;
 
+import batchProccessing.CalculoDeIndicadoresProgramado;
+import batchProccessing.ContenedorValoresARecalcular;
+import batchProccessing.EmpresaPeriodoARecalcular;
+
 @Entity
 @Table(name = "empresas")
 public class Empresa {
@@ -92,12 +96,17 @@ public class Empresa {
 		return cuenta.getNombre().equals(cuentaABuscar.getNombre()) && cuenta.getPeriodo().equals(cuentaABuscar.getPeriodo());
 	}
 	
-	private void actualizarValores(Cuenta cuenta, Cuenta cuentaExistente) {
+	public void actualizarValores(Cuenta cuenta, Cuenta cuentaExistente) {
 		cuentaExistente.setBalance(cuenta.getBalance());
+		agregarARecalcular(cuenta);
+	}
+	private void agregarARecalcular(Cuenta cuenta) {
+		ContenedorValoresARecalcular.instance().agregarEmpresaPeriodo(this, cuenta.getPeriodo());
 	}
 	
 	private void agregarCuenta(Cuenta cuenta) {
 		cuentas.add(cuenta);
+		agregarARecalcular(cuenta);
 	}
 	
 	public Set<Cuenta> cuentasSinRepetidos(Set<Cuenta> cuentas) {
