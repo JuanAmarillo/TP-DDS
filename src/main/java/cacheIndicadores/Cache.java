@@ -10,6 +10,7 @@ import domain.indicadores.IndicadorCalculado;
 public class Cache {
 	public static Cache instance = null;
 	private Map<String, IndicadorCalculado> indicadoresEnCache = new HashMap<>();
+	private AlgortimoDeReemplazo reemplazo;
 
 	public static Cache instance() {
 		if (noHayInstanciaCargada())

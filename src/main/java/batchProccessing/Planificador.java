@@ -1,12 +1,9 @@
 package batchProccessing;
 
-<<<<<<< HEAD
-=======
 import org.quartz.JobDetail;
 import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
->>>>>>> eff19c5baaee96c9e75739b12f2568f17af5a719
 import org.quartz.CronScheduleBuilder;
 import org.quartz.Job;
 import org.quartz.JobBuilder;
