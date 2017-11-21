@@ -17,16 +17,24 @@ public class Planificador {
 	
 	public static void begin() {
 		try {
-			planificador = StdSchedulerFactory.getDefaultScheduler();
-			planificar(CargaArchivosProgramada.class, CincoAMTodosLosDias());  // A las 5 AM todos los dias
-			planificar(CalculoDeIndicadoresProgramado.class, CincoDeLaMananaTodosLosDomingos()); // A las 5 AM de los domingos
-			planificador.start();
+			planificarHorarios(); 
+			empezarPlanificador();
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}
 	}
 
-	private static String CincoDeLaMananaTodosLosDomingos() {
+	private static void empezarPlanificador() throws SchedulerException {
+		planificador = StdSchedulerFactory.getDefaultScheduler();
+		planificador.start();
+	}
+
+	private static void planificarHorarios() throws SchedulerException {
+		planificar(CargaArchivosProgramada.class, CincoAMTodosLosDias());
+		planificar(CalculoDeIndicadoresProgramado.class, CincoAMTodosLosDomingos());
+	}
+
+	private static String CincoAMTodosLosDomingos() {
 		return "0 0 5 * * 1";
 	}
 
