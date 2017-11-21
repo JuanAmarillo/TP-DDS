@@ -20,19 +20,12 @@ public class Planificador {
 	public static void begin() {
 		try {
 			planificarHorarios(); 
-      chainJobs(archivos(),recalculo());
+			chainJobs(archivos(),recalculo());
 			empezarPlanificador();
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}
-	}
-
-	private static void chainJobs(String primerEvento, String segundoEvento) {
-		JobChainingJobListener chain = new JobChainingJobListener("encadenador");
-		JobKey primer = new JobKey(primerEvento, "Grupo1");
-		JobKey segundo = new JobKey(segundoEvento, "Grupo1");
-		chain.addJobChainLink(primer, segundo);
-	}
+	}	
 
 	private static void empezarPlanificador() throws SchedulerException {
 		planificador = StdSchedulerFactory.getDefaultScheduler();
@@ -44,19 +37,26 @@ public class Planificador {
 		planificar(CalculoDeIndicadoresProgramado.class, CincoAMTodosLosDomingos(), recalculo());
 	}
   
-  private static void planificar (Class<? extends Job> clase, String schedule, String identidad) throws SchedulerException {
+	private static void planificar (Class<? extends Job> clase, String schedule, String identidad) throws SchedulerException {
 		JobDetail job = JobBuilder.newJob(clase).build();
 		Trigger trigger = TriggerBuilder.newTrigger().withSchedule(CronScheduleBuilder.cronSchedule(schedule)).withIdentity(identidad).build();
 		planificador.scheduleJob(job, trigger);
 	}
 
+	private static void chainJobs(String primerEvento, String segundoEvento) {
+		JobChainingJobListener chain = new JobChainingJobListener("encadenador");
+		JobKey primer = new JobKey(primerEvento, "Grupo1");
+		JobKey segundo = new JobKey(segundoEvento, "Grupo1");
+		chain.addJobChainLink(primer, segundo);
+	}
+  
 	private static String CincoAMTodosLosDomingos() {
 		return "0 0 5 * * 1";
 	}
 
 	private static String CincoAMTodosLosDias() {
 		return "0 0 5 * * ?";
-  }
+	}
   	
 	private static String archivos() {
 		return "CargaArchivos";
