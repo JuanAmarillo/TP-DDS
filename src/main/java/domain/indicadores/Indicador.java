@@ -43,9 +43,9 @@ public abstract class Indicador {
 
 	public IndicadorCalculado calcular(Empresa empresa, String periodo) {
 		try {
-			return new IndicadorCalculado(nombre, calcularIndicador(empresa, periodo));
+			return new IndicadorCalculado(this, empresa, periodo, calcularIndicador(empresa, periodo));
 		} catch (RuntimeException e) {
-			return new IndicadorCalculado(nombre);
+			return new IndicadorCalculado(this, empresa, periodo);
 		}
 	}
 

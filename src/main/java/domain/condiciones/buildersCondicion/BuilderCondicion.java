@@ -10,7 +10,6 @@ import domain.condiciones.buildersCondicion.Validador;
 import exceptions.ValidadorException;
 import exceptions.BuilderCondicionesException;
 
-@Observable
 public abstract class BuilderCondicion {
 	protected String etiquetaBuilder;
 	protected String nombre;

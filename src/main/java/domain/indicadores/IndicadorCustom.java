@@ -9,7 +9,6 @@ import domain.Empresa;
 import domain.indicadores.calculoIndicadores.Calculable;
 import domain.indicadores.calculoIndicadores.Token;
 
-@Observable
 @Entity
 public class IndicadorCustom extends Indicador {
 	protected String expresion;

@@ -1,4 +1,4 @@
-package usuarios;
+package unitTests.usuarios;
 
 import static org.junit.Assert.assertEquals;
 

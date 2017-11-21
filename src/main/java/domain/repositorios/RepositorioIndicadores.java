@@ -29,9 +29,6 @@ public class RepositorioIndicadores extends Repositorio<Indicador> {
 
 	private static void cargarNuevaInstancia() {
 		instance = new RepositorioIndicadores();
-		/*TransactionManager.instance().crearTransaccion();
-		instance.agregarPredeterminados();
-		TransactionManager.instance().cerrarTransaccion();*/
 	}
 
 	private static boolean noHayInstanciaCargada() {
@@ -82,23 +79,6 @@ public class RepositorioIndicadores extends Repositorio<Indicador> {
 	private void verificarSiExiste(Indicador indicador) {
 		if (verificarExistencia(indicador.getNombre()))
 			throw new YaExisteElIndicadorException();
-	}
-
-	public void agregarPredeterminados() {
-		 agregar(new Leverage());
-		 agregar(new ROA());
-		 agregar(new ROE());
-		 agregar(new Antiguedad());
-		 agregar(new Solvencia());
-		 agregar(new Endeudamiento());
-		 agregar(new RAC());
-	}
-
-	public void leerBD() {
-		BuilderIndicadorCustom buildercito = new BuilderIndicadorCustom(null);
-		List<IndicadorCustom> indicadoresCompletos = obtenerCustoms().stream()
-				.map(indicadorIncompleto -> buildercito.generarCalculo(indicadorIncompleto))
-				.collect(Collectors.toList());
 	}
 
 	public IndicadorCustom crearIndicador(String ecuacion) {

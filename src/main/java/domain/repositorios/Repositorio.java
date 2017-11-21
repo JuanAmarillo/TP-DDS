@@ -30,8 +30,7 @@ public abstract class Repositorio<T> {
 
 	protected <G> Query createQuery(String query,Class<G> clase) {
 		return getEntityManager().createQuery(query,clase);
-	}
-
+	}	
 	
 	protected <G> Query createQuery(String query) {
 		return getEntityManager().createQuery(query);
@@ -52,7 +51,7 @@ public abstract class Repositorio<T> {
 	public List<String> getNombres() {
 		return obtenerLista("select nombre" + from(),String.class);
 	}
-
+	
 	public void agregar(T elemento) {
 		persistir(elemento);
 	}
