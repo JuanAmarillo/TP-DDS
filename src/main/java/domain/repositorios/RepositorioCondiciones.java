@@ -24,9 +24,6 @@ public class RepositorioCondiciones extends Repositorio<Condicion> {
 
 	private static void cargarNuevaInstancia() {
 		instance = new RepositorioCondiciones();
-		/*TransactionManager.instance().crearTransaccion();
-		instance.agregarPredeterminados();
-		TransactionManager.instance().cerrarTransaccion();*/
 	}
 
 	private static boolean noHayInstanciaCargada() {
@@ -66,13 +63,6 @@ public class RepositorioCondiciones extends Repositorio<Condicion> {
 			deleteById(condicion.getId());
 		else
 			throw new NoSePuedeBorrarUnPredeterminadoException();
-	}
-
-	public void agregarPredeterminados() {
-		agregar(new TEmpresaMas10Años());
-		agregar(new CEmpresaMayorAntiguedad());
-		agregar(new CEndeudamiento());
-		agregar(new CMaximizarROE());
 	}
 
 	@Override
