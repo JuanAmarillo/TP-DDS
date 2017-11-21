@@ -6,6 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Entity;
+import org.uqbar.commons.utils.Observable;
+
 
 import domain.Empresa;
 
@@ -16,11 +19,11 @@ public class IndicadorCalculado {
 	@Id 
 	@GeneratedValue
 	private Integer id;
-
 	private Double valorExito;
 	private Empresa empresa;
 	private String periodo;
 	private Indicador indicador;
+
 
 	private void setIndicadorCalculado(Indicador indicador,Empresa empresa, String periodo, Double valorExito) {
 		this.valorExito = valorExito;
