@@ -19,11 +19,9 @@ public class Planificador {
 	
 	public static void begin() {
 		try {
-			planificador = StdSchedulerFactory.getDefaultScheduler();
-			planificar(CargaArchivosProgramada.class, "0 0 5 * * ?", "CargaArchivos");  // A las 5 AM todos los dias
-			planificar(CalculoDeIndicadoresProgramado.class, "0 0 5 * * 1", "CalculoIndicadores"); // A las 5 AM de los domingos
-			chainJobs("CargaArchivos",  "CalculoIndicadores");
-			planificador.start();
+			planificarHorarios(); 
+      chainJobs(archivos(),recalculo());
+			empezarPlanificador();
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}
@@ -36,9 +34,35 @@ public class Planificador {
 		chain.addJobChainLink(primer, segundo);
 	}
 
-	private static void planificar (Class<? extends Job> clase, String schedule, String identidad) throws SchedulerException {
+	private static void empezarPlanificador() throws SchedulerException {
+		planificador = StdSchedulerFactory.getDefaultScheduler();
+		planificador.start();
+	}
+
+	private static void planificarHorarios() throws SchedulerException {
+		planificar(CargaArchivosProgramada.class, CincoAMTodosLosDias(), archivos());
+		planificar(CalculoDeIndicadoresProgramado.class, CincoAMTodosLosDomingos(), recalculo());
+	}
+  
+  private static void planificar (Class<? extends Job> clase, String schedule, String identidad) throws SchedulerException {
 		JobDetail job = JobBuilder.newJob(clase).build();
 		Trigger trigger = TriggerBuilder.newTrigger().withSchedule(CronScheduleBuilder.cronSchedule(schedule)).withIdentity(identidad).build();
 		planificador.scheduleJob(job, trigger);
+	}
+
+	private static String CincoAMTodosLosDomingos() {
+		return "0 0 5 * * 1";
+	}
+
+	private static String CincoAMTodosLosDias() {
+		return "0 0 5 * * ?";
+  }
+  	
+	private static String archivos() {
+		return "CargaArchivos";
+	}
+	
+	private static String recalculo() {
+		return "RecalculoIndicadores";
 	}
 }
