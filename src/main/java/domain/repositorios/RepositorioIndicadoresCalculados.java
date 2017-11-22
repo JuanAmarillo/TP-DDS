@@ -55,5 +55,4 @@ public class RepositorioIndicadoresCalculados extends Repositorio<IndicadorCalcu
 		query += and("indicador_id", calcular.getIndicador().getId());
 		return query;
 	}
-
 }

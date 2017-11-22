@@ -15,11 +15,23 @@ import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 import org.quartz.listeners.JobChainingJobListener;
 
+import domain.repositorios.RepositorioIndicadoresCalculados;
+
 public class Planificador {
 
-	public static Scheduler planificador;
+	public Scheduler scheduler ;
+	private static Planificador instance = null;
 	
-	public static void begin() {
+	public Planificador() {
+		try {
+			scheduler = new StdSchedulerFactory().getScheduler();
+		} catch (SchedulerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void begin() {
 		try {
 			planificarHorarios(); 
 			chainJobs(archivos(),recalculo());
@@ -27,43 +39,56 @@ public class Planificador {
 		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}
-	}	
-
-	private static void empezarPlanificador() throws SchedulerException {
-		planificador = StdSchedulerFactory.getDefaultScheduler();
-		planificador.start();
 	}
 
-	private static void planificarHorarios() throws SchedulerException {
+	public void empezarPlanificador() throws SchedulerException {
+		scheduler.start();
+	}
+
+	public void planificarHorarios() throws SchedulerException {
 		planificar(CargaArchivosProgramada.class, CincoAMTodosLosDias(), archivos());
 	}
   
-	private static void planificar (Class<? extends Job> clase, String schedule, String identidad) throws SchedulerException {
-		JobDetail job = JobBuilder.newJob(clase).build();
-		Trigger trigger = TriggerBuilder.newTrigger().withSchedule(CronScheduleBuilder.cronSchedule(schedule)).withIdentity(identidad).build();
-		planificador.scheduleJob(job, trigger);
+	private void planificar (Class<? extends Job> clase, String schedule, String identidad) throws SchedulerException {
+		JobDetail job = JobBuilder.newJob(clase).withIdentity(identidad).build();
+		Trigger trigger = TriggerBuilder.newTrigger().withSchedule(CronScheduleBuilder.cronSchedule(schedule)).build();
+		addToSchedule(job, trigger);
 	}
 
-	private static void chainJobs(String primerEvento, String segundoEvento) {
+	public void addToSchedule(JobDetail job, Trigger trigger) throws SchedulerException {
+		scheduler.scheduleJob(job, trigger);
+	}
+
+	private void chainJobs(String primerEvento, String segundoEvento) {
 		JobChainingJobListener chain = new JobChainingJobListener("encadenador");
 		JobKey primer = new JobKey(primerEvento, "Grupo1");
 		JobKey segundo = new JobKey(segundoEvento, "Grupo1");
 		chain.addJobChainLink(primer, segundo);
 	}
-  
-	private static String CincoAMTodosLosDomingos() {
-		return "0 0 5 * * 1";
-	}
 
-	private static String CincoAMTodosLosDias() {
+	private String CincoAMTodosLosDias() {
 		return "0 0 5 * * ?";
 	}
   	
-	private static String archivos() {
+	private String archivos() {
 		return "CargaArchivos";
 	}
 	
-	private static String recalculo() {
+	private String recalculo() {
 		return "RecalculoIndicadores";
+	}
+	
+	public static Planificador instance() {
+		if (noHayInstanciaCargada())
+			cargarNuevaInstancia();
+		return instance;
+	}
+
+	public static void cargarNuevaInstancia() {
+		instance = new Planificador();
+	}
+
+	private static boolean noHayInstanciaCargada() {
+		return instance == null;
 	}
 }
