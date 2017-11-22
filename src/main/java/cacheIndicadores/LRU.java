@@ -2,26 +2,23 @@ package cacheIndicadores;
 
 import java.util.LinkedHashMap;
 
-import domain.indicadores.IndicadorCalculado;
-
-public class LRU extends AlgortimoDeReemplazo {
+public class LRU<T> extends AlgortimoDeReemplazo<T> {
 
 	@Override
-	public void huboAcceso(LinkedHashMap<String, IndicadorCalculado> enCache, String clave,IndicadorCalculado calculado) {
+	public void huboAcceso(LinkedHashMap<String, T> enCache, String clave, T valor) {
 		enCache.remove(clave);
-		enCache.put(clave, calculado);
+		enCache.put(clave, valor);
 	}
 
 	@Override
-	public void set(LinkedHashMap<String, IndicadorCalculado> enCache, String clave, IndicadorCalculado calculado) {
-		if(estaConCapacidadMaxima(enCache))
+	public void set(LinkedHashMap<String, T> enCache, String clave, T valor) {
+		if (estaConCapacidadMaxima(enCache))
 			enCache.remove(claveMenosUsada(enCache));
-		enCache.put(clave, calculado);
+		enCache.put(clave, valor);
 	}
 
-	private String claveMenosUsada(LinkedHashMap<String, IndicadorCalculado> enCache) {
+	private String claveMenosUsada(LinkedHashMap<String, T> enCache) {
 		return (String) enCache.keySet().toArray()[0];
 	}
-
 
 }

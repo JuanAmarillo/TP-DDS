@@ -10,7 +10,7 @@ import exceptions.NoEstaEnCacheException;
 public class Cache {
 	public static Cache instance = null;
 	private LinkedHashMap<String, IndicadorCalculado> indicadoresEnCache = new LinkedHashMap<>();
-	private AlgortimoDeReemplazo algoritmoDeReemplazo;
+	private AlgortimoDeReemplazo<IndicadorCalculado> algoritmoDeReemplazo;
 
 	public static Cache instance() {
 		if (noHayInstanciaCargada())
@@ -20,19 +20,18 @@ public class Cache {
 
 	private static void cargarNuevaInstancia() {
 		instance =  new Cache();
-		instance.setAlgoritmoDeReemplazo(null);
-		instance.setCapacidad(10);
+		instance.setAlgoritmoDeReemplazo(new LRU<IndicadorCalculado>());
 	}
 	
 	private static boolean noHayInstanciaCargada() {
 		return instance == null;
 	}
 	
-	private void setAlgoritmoDeReemplazo(AlgortimoDeReemplazo algoritmoDeReemplazo) {
+	private void setAlgoritmoDeReemplazo(AlgortimoDeReemplazo<IndicadorCalculado> algoritmoDeReemplazo) {
 		this.algoritmoDeReemplazo = algoritmoDeReemplazo;
 	}
 	
-	private void setCapacidad(Integer capacidad) {
+	public void setCapacidad(Integer capacidad) {
 		algoritmoDeReemplazo.setCapacidad(capacidad);
 	}
 	
@@ -58,7 +57,7 @@ public class Cache {
 	}
 	
 	public String getClave(IndicadorCalculado calculado){
-		return calculado.getNombre()+calculado.getEmpresa().getNombre()+calculado.getPeriodo();
+		return getClave(calculado.getIndicador(),calculado.getEmpresa(),calculado.getPeriodo());
 	}
 	
 	public void set(IndicadorCalculado calculado) {

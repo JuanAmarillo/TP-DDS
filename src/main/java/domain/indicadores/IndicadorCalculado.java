@@ -75,4 +75,8 @@ public class IndicadorCalculado {
 	public String getPeriodo() {
 		return periodo;
 	}
+	
+	public Indicador getIndicador() {
+		return indicador;
+	}
 }
