@@ -2,6 +2,7 @@ package domain.indicadores;
 
 import java.util.Optional;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -26,11 +27,12 @@ public class IndicadorCalculado {
 	@JoinColumn(name = "empresa_id", nullable = false)
 	private Empresa empresa;
 	private String periodo;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "indicadorcalculado_id", nullable = false)
+
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@JoinColumn(name = "indicador_id",  nullable=false)
 	private Indicador indicador;
 
-	private void setIndicadorCalculado(Indicador indicador, Empresa empresa, String periodo, Double valorExito) {
+	private void setIndicadorCalculado(Indicador indicador,Empresa empresa, String periodo, Double valorExito) {
 		this.valorExito = valorExito;
 		this.empresa = empresa;
 		this.periodo = periodo;
@@ -64,19 +66,42 @@ public class IndicadorCalculado {
 		return "No pudo calcularse";
 	}
 
-	public String getNombre() {
-		return indicador.getNombre();
+	
+	public Indicador getIndicador(){
+		return indicador;
 	}
-
+	
 	public Empresa getEmpresa() {
 		return empresa;
 	}
-	
+
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
+
 	public String getPeriodo() {
 		return periodo;
 	}
+<<<<<<< HEAD
 	
 	public Indicador getIndicador() {
 		return indicador;
+=======
+
+	public void setPeriodo(String periodo) {
+		this.periodo = periodo;
+	}
+	
+	public void setValorExito(Double valorExito) {
+		this.valorExito = valorExito;
+	}
+
+	public String getId() {
+		return id.toString();
+	}
+	
+	public String getNombre() {
+		return indicador.getNombre();
+>>>>>>> b6c273f7f7b2e65f427d990a8069bf3170cb399f
 	}
 }

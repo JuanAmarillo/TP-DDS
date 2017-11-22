@@ -1,6 +1,5 @@
 package domain.repositorios;
 
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import domain.login.Usuario;

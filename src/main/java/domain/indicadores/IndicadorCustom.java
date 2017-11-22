@@ -3,8 +3,6 @@ package domain.indicadores;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
-import org.uqbar.commons.utils.Observable;
-
 import domain.Empresa;
 import domain.indicadores.calculoIndicadores.Calculable;
 import domain.indicadores.calculoIndicadores.Token;

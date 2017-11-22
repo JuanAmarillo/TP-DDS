@@ -11,8 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
-import org.uqbar.commons.utils.Observable;
-
 import domain.Empresa;
 import domain.condiciones.Condicion;
 

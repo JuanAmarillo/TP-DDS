@@ -9,21 +9,20 @@ import org.quartz.JobExecutionException;
 
 import domain.Empresa;
 import domain.indicadores.Indicador;
+import domain.indicadores.IndicadorCalculado;
 import domain.repositorios.RepositorioIndicadores;
 import domain.repositorios.RepositorioIndicadoresCalculados;
 
 public class CalculoDeIndicadoresProgramado implements Job {
 	
-	private List<EmpresaPeriodoARecalcular> empresasARecalcular;
-	
 	@Override
 	public void execute(JobExecutionContext arg0) throws JobExecutionException {
 		List<Indicador> indicadores = RepositorioIndicadores.instance().getElementos();
-		empresasARecalcular = ContenedorValoresARecalcular.instance().getList();
-		indicadores.stream().forEach(it -> calcularIndicadores(it));
+		List<EmpresaPeriodoARecalcular> empresasARecalcular = ContenedorValoresARecalcular.instance().getList();
+		indicadores.stream().forEach(it -> calcularIndicador(it, empresasARecalcular));
 	}
 
-	private void calcularIndicadores(Indicador it) {
+	public void calcularIndicador(Indicador it, List<EmpresaPeriodoARecalcular> empresasARecalcular) {
 		empresasARecalcular.stream().forEach(empresa -> calcularLosPeriodos(empresa, it));
 	}
 
@@ -32,7 +31,7 @@ public class CalculoDeIndicadoresProgramado implements Job {
 		empresa.getPeriodos().stream().forEach(periodo -> agregarAlRepositorio(empresa, periodo, it));
 	}
 
-	private void agregarAlRepositorio(Empresa empresa, String periodo, Indicador indicador) {
-		RepositorioIndicadoresCalculados.instance().agregar(indicador.calcular(empresa, periodo));
+	public void agregarAlRepositorio(Empresa empresa, String periodo, Indicador indicador) {
+		RepositorioIndicadoresCalculados.instance().agregarValores(indicador.calcular(empresa, periodo));
 	}
 }
