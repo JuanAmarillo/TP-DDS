@@ -17,6 +17,7 @@ import org.quartz.listeners.JobChainingJobListener;
 
 import batchProccessing.cargaDeArchivos.CargaArchivosProgramada;
 import domain.repositorios.RepositorioIndicadoresCalculados;
+import utils.PropertyReader;
 
 public class Planificador {
 
@@ -38,6 +39,15 @@ public class Planificador {
 			chainJobs(archivos(),recalculo());
 			empezarPlanificador();
 		} catch (SchedulerException e) {
+			cerrarPlanificador();
+			e.printStackTrace();
+		}
+	}
+
+	private void cerrarPlanificador() {
+		try {
+			scheduler.shutdown();
+		} catch (SchedulerException e) {
 			e.printStackTrace();
 		}
 	}
@@ -47,7 +57,7 @@ public class Planificador {
 	}
 
 	public void planificarHorarios() throws SchedulerException {
-		planificar(CargaArchivosProgramada.class, CincoAMTodosLosDias(), archivos());
+		planificar(CargaArchivosProgramada.class, horarioCargaEmpresas(), archivos());
 	}
   
 	private void planificar (Class<? extends Job> clase, String schedule, String identidad) throws SchedulerException {
@@ -67,8 +77,8 @@ public class Planificador {
 		chain.addJobChainLink(primer, segundo);
 	}
 
-	private String CincoAMTodosLosDias() {
-		return "0 0 5 * * ?";
+	private String horarioCargaEmpresas() {
+		return PropertyReader.readProperty("horarioCarga");
 	}
   	
 	private String archivos() {

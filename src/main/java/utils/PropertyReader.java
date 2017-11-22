@@ -13,11 +13,11 @@ public class PropertyReader {
 		try {
 			in = new FileInputStream("SystemConfiguration");
 			defaultProps.load(in);
-			resultado = defaultProps.getProperty(propertyName);
 		} catch (IOException e) {
-			
+			e.printStackTrace();
 		}
+		resultado = defaultProps.getProperty(propertyName);
 		return resultado;
 	}
-	
 }
+  
