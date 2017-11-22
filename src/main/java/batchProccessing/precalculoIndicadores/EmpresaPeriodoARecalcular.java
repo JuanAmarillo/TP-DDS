@@ -1,4 +1,4 @@
-package batchProccessing;
+package batchProccessing.precalculoIndicadores;
 
 import domain.Empresa;
 

@@ -1,4 +1,4 @@
-package batchProccessing;
+package batchProccessing.precalculoIndicadores;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +20,7 @@ public class CalculoDeIndicadoresProgramado implements Job {
 		List<Indicador> indicadores = RepositorioIndicadores.instance().getElementos();
 		List<EmpresaPeriodoARecalcular> empresasARecalcular = ContenedorValoresARecalcular.instance().getList();
 		indicadores.stream().forEach(it -> calcularIndicador(it, empresasARecalcular));
+		ContenedorValoresARecalcular.instance().borrarEntradas();
 	}
 
 	public void calcularIndicador(Indicador it, List<EmpresaPeriodoARecalcular> empresasARecalcular) {

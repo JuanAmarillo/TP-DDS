@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -15,20 +14,17 @@ import org.junit.Test;
 import org.quartz.JobExecutionException;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
-import batchProccessing.CalculoDeIndicadoresProgramado;
-import batchProccessing.ContenedorValoresARecalcular;
-import batchProccessing.EmpresaPeriodoARecalcular;
+import batchProccessing.precalculoIndicadores.CalculoDeIndicadoresProgramado;
+import batchProccessing.precalculoIndicadores.ContenedorValoresARecalcular;
 import domain.Cuenta;
 import domain.Empresa;
 import domain.indicadores.Indicador;
 import domain.indicadores.IndicadorCalculado;
-import domain.indicadores.IndicadorPredeterminado;
-import domain.indicadores.indicadoresPredeterminados.Antiguedad;
+
 import domain.indicadores.indicadoresPredeterminados.ROA;
 import domain.indicadores.indicadoresPredeterminados.ROE;
 import domain.login.Usuario;
 import domain.repositorios.RepositorioEmpresas;
-import domain.repositorios.RepositorioIndicadores;
 import domain.repositorios.RepositorioIndicadoresCalculados;
 import domain.repositorios.RepositorioUsuarios;
 

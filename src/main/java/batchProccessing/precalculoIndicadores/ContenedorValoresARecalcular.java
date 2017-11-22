@@ -1,4 +1,4 @@
-package batchProccessing;
+package batchProccessing.precalculoIndicadores;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,5 +35,9 @@ public class ContenedorValoresARecalcular {
 	
 	public void agregarEmpresaPeriodo(Empresa empresa, String periodo) {
 		aRecalcular.add(new EmpresaPeriodoARecalcular(empresa, periodo));
+	}
+
+	public void borrarEntradas() {
+		aRecalcular = new ArrayList<EmpresaPeriodoARecalcular>();
 	}
 }

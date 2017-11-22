@@ -12,6 +12,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 
 import domain.*;
 import domain.repositorios.RepositorioEmpresas;
+import utils.PropertyReader;
 
 public class LevantaArchivoEmpresa {
 
@@ -31,17 +32,9 @@ public class LevantaArchivoEmpresa {
 	}
 
 	private static void cargarPaths() {
-		Properties defaultProps = new Properties();
-		FileInputStream in;
-		try {
-			in = new FileInputStream("PathConfiguration");
-			defaultProps.load(in);
-			sinProcesar = obtenerPropiedad(defaultProps, "sinProcesar", "src/main/resources/directorioDeArchivos/Sin Procesar/");
-			procesadosCorrectamente = obtenerPropiedad(defaultProps, "procCorrectos", "src/main/resources/directorioDeArchivos/Carga Correcta/");;
-			procesadosErroneos = obtenerPropiedad(defaultProps, "procErroneos", "src/main/resources/directorioDeArchivos/Carga Incorrecta/");;
-		} catch (IOException e) {
-			
-		}
+		sinProcesar = PropertyReader.readProperty("sinProcesar");
+		procesadosCorrectamente = PropertyReader.readProperty("procCorrectos");
+		procesadosErroneos = PropertyReader.readProperty("procErroneos");
 	}
 
 	private static String obtenerPropiedad(Properties defaultProps, String key, String defaultValue) {
@@ -51,8 +44,6 @@ public class LevantaArchivoEmpresa {
 	public void execute() {
 		Arrays.asList(empresasSinProcesar()).stream().forEach(empresa -> cargarArchivo(empresa));
 	}
-
-	
 
 	private File[] empresasSinProcesar() {
 		return new File(sinProcesar).listFiles();

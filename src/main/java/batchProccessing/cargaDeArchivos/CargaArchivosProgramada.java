@@ -1,4 +1,4 @@
-package batchProccessing;
+package batchProccessing.cargaDeArchivos;
 
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;

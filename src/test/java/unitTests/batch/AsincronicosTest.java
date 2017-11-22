@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.time.LocalDateTime;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.quartz.JobKey;
@@ -22,6 +23,11 @@ public class AsincronicosTest {
 		planificador = new Planificador();
 	}
 	
+	@After
+	public void despues() throws SchedulerException {
+		planificador.scheduler.shutdown();
+	}
+	
 	@Test
 	public void seAgregaAlPlanificador() throws SchedulerException {
 		planificador.planificarHorarios();
@@ -30,11 +36,32 @@ public class AsincronicosTest {
 	
 	@Test
 	public void seEjecutaEn3Segundos() throws SchedulerException, InterruptedException {
-		ProcesoAsincronicoMock proc = new ProcesoAsincronicoMock();
-		planificador.addToSchedule(proc.job(), proc.trigger());
+		ProcesoAsincronicoMock proc = nuevoMock();
+		agregarAlPlanificador(proc, "Uno");
 		planificador.empezarPlanificador();
-		Thread.sleep(4 * 1000);
+		Thread.sleep(2 * 1000);
 		assertTrue(proc.booleanoDePrueba);		
+	}
+	
+	@Test
+	public void encadenarTrabajos() throws SchedulerException, InterruptedException {
+		ProcesoAsincronicoMock proc1 = nuevoMock();
+		ProcesoAsincronicoMock proc2 = nuevoMock();
+		agregarAlPlanificador(proc1, "Uno");
+		agregarAlPlanificador(proc2, "Dos");
+		planificador.chainJobs("Uno", "Dos");
+		planificador.empezarPlanificador();
+		Thread.sleep(3*1000);
+		assertTrue(ProcesoAsincronicoMock.booleanoDePrueba);
+		assertTrue(ProcesoAsincronicoMock.paraChains);
+	}
+
+	private void agregarAlPlanificador(ProcesoAsincronicoMock proc1, String identidad) throws SchedulerException {
+		planificador.addToSchedule(proc1.job(identidad), proc1.trigger());
+	}
+
+	private ProcesoAsincronicoMock nuevoMock() {
+		return new ProcesoAsincronicoMock();
 	}
 	
 	private JobKey nuevoJobKey(String key) {

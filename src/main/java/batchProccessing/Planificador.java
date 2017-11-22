@@ -15,6 +15,7 @@ import org.quartz.TriggerBuilder;
 import org.quartz.impl.StdSchedulerFactory;
 import org.quartz.listeners.JobChainingJobListener;
 
+import batchProccessing.cargaDeArchivos.CargaArchivosProgramada;
 import domain.repositorios.RepositorioIndicadoresCalculados;
 
 public class Planificador {
@@ -59,7 +60,7 @@ public class Planificador {
 		scheduler.scheduleJob(job, trigger);
 	}
 
-	private void chainJobs(String primerEvento, String segundoEvento) {
+	public void chainJobs(String primerEvento, String segundoEvento) {
 		JobChainingJobListener chain = new JobChainingJobListener("encadenador");
 		JobKey primer = new JobKey(primerEvento, "Grupo1");
 		JobKey segundo = new JobKey(segundoEvento, "Grupo1");
