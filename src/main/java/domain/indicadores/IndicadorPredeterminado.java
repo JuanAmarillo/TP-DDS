@@ -28,4 +28,8 @@ public abstract class IndicadorPredeterminado extends Indicador {
 		return empresa.getValorDeLaCuenta(cuenta, periodo);
 	}
 
+	public void setId(int i) {
+		this.id = i;
+	}
+
 }

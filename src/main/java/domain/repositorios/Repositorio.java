@@ -92,12 +92,16 @@ public abstract class Repositorio<T> {
 		createQuery("delete" + from() + where(donde, elemento)).executeUpdate();
 	}
 
-	private String from() {
+	protected String from() {
 		return " from " + getEntityName() + " ";
 	}
 
-	private String where(String donde, String elemento) {
-		return " where " + donde + "= '" + elemento + "'";
+	protected String where(String donde, String elemento) {
+		return " where " + donde + "='" + elemento + "'";
+	}
+	
+	protected String and(String donde, Integer elemento) {
+		return " AND " + donde + "=" + elemento.toString();
 	}
 	
 	private String getEntityName(){

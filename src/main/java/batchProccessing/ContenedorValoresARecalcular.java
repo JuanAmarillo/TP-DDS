@@ -30,11 +30,10 @@ public class ContenedorValoresARecalcular {
 	}
 	
 	public int cantidadDeValoresARecalcular() {
-		aRecalcular.forEach(it -> System.out.println(it.getEmpresa().getNombre() + " ACA " + it.getPeriodo()));
 		return aRecalcular.size();
 	}
 	
-	public  void agregarEmpresaPeriodo(Empresa empresa, String periodo) {
+	public void agregarEmpresaPeriodo(Empresa empresa, String periodo) {
 		aRecalcular.add(new EmpresaPeriodoARecalcular(empresa, periodo));
 	}
 }
