@@ -1,9 +1,6 @@
 package cacheIndicadores;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.management.RuntimeErrorException;
+import java.util.LinkedHashMap;
 
 import domain.Empresa;
 import domain.indicadores.Indicador;
@@ -12,7 +9,7 @@ import exceptions.NoEstaEnCacheException;
 
 public class Cache {
 	public static Cache instance = null;
-	private Map<String, IndicadorCalculado> indicadoresEnCache = new HashMap<>();
+	private LinkedHashMap<String, IndicadorCalculado> indicadoresEnCache = new LinkedHashMap<>();
 	private AlgortimoDeReemplazo algoritmoDeReemplazo;
 
 	public static Cache instance() {
