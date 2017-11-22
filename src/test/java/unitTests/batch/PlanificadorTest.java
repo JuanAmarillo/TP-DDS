@@ -14,7 +14,7 @@ import batchProccessing.Planificador;
 import domain.repositorios.RepositorioIndicadores;
 import mocks.ProcesoAsincronicoMock;
 
-public class AsincronicosTest {
+public class PlanificadorTest {
 	
 	Planificador planificador;
 	
