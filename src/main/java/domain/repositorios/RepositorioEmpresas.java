@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 import domain.Empresa;
-import persistencia.Transaction;
 
 public class RepositorioEmpresas extends Repositorio<Empresa> {
 
@@ -51,6 +50,7 @@ public class RepositorioEmpresas extends Repositorio<Empresa> {
 		return verificarExistencia(empresa.getNombre());
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<String> getPeriodos() {
 		return getEntityManager().createQuery("select unique periodo from Cuenta").getResultList();
 	}

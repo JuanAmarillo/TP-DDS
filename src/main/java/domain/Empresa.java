@@ -15,11 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.uqbar.commons.utils.Observable;
-
-import batchProccessing.CalculoDeIndicadoresProgramado;
 import batchProccessing.ContenedorValoresARecalcular;
-import batchProccessing.EmpresaPeriodoARecalcular;
 
 @Entity
 @Table(name = "empresas")

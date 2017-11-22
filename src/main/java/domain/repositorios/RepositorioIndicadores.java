@@ -2,21 +2,12 @@
 package domain.repositorios;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import domain.indicadores.BuilderIndicadorCustom;
 import domain.indicadores.Indicador;
 import domain.indicadores.IndicadorCustom;
-import domain.indicadores.indicadoresPredeterminados.Antiguedad;
-import domain.indicadores.indicadoresPredeterminados.Endeudamiento;
-import domain.indicadores.indicadoresPredeterminados.Leverage;
-import domain.indicadores.indicadoresPredeterminados.RAC;
-import domain.indicadores.indicadoresPredeterminados.ROA;
-import domain.indicadores.indicadoresPredeterminados.ROE;
-import domain.indicadores.indicadoresPredeterminados.Solvencia;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import exceptions.YaExisteElIndicadorException;
-import persistencia.Transaction;
 
 public class RepositorioIndicadores extends Repositorio<Indicador> {
 	private static RepositorioIndicadores instance = null;

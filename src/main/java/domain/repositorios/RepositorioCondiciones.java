@@ -5,13 +5,8 @@ import java.util.List;
 import domain.condiciones.Condicion;
 import domain.condiciones.CondicionComparativa;
 import domain.condiciones.CondicionTaxativa;
-import domain.condiciones.condicionesPredeterminadas.CEmpresaMayorAntiguedad;
-import domain.condiciones.condicionesPredeterminadas.CEndeudamiento;
-import domain.condiciones.condicionesPredeterminadas.CMaximizarROE;
-import domain.condiciones.condicionesPredeterminadas.TEmpresaMas10Años;
 import exceptions.NoSePuedeBorrarUnPredeterminadoException;
 import exceptions.YaExisteLaCondicionException;
-import persistencia.Transaction;
 
 public class RepositorioCondiciones extends Repositorio<Condicion> {
 	private static RepositorioCondiciones instance = null;

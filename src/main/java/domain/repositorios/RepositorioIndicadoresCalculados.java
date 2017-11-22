@@ -1,11 +1,8 @@
 package domain.repositorios;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
-import domain.Empresa;
-import domain.indicadores.Indicador;
 import domain.indicadores.IndicadorCalculado;
 
 public class RepositorioIndicadoresCalculados extends Repositorio<IndicadorCalculado> {
@@ -24,6 +21,11 @@ public class RepositorioIndicadoresCalculados extends Repositorio<IndicadorCalcu
 
 	private static boolean noHayInstanciaCargada() {
 		return instance == null;
+	}
+	
+	@Override
+	public Optional<IndicadorCalculado> findByName(String nombre) {
+		return find("nombre + empresa.getNombre() +", nombre);
 	}
 
 	@Override

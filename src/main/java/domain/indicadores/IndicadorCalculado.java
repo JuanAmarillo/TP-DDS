@@ -18,15 +18,16 @@ import domain.Empresa;
 @Entity
 @Table(name = "indicadores_precalculados")
 public class IndicadorCalculado {
-	
-	@Id 
+
+	@Id
 	@GeneratedValue
 	private Integer id;
 	private Double valorExito;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "empresa_id",  nullable=false)
+	@JoinColumn(name = "empresa_id", nullable = false)
 	private Empresa empresa;
 	private String periodo;
+
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "indicador_id",  nullable=false)
 	private Indicador indicador;
@@ -37,32 +38,34 @@ public class IndicadorCalculado {
 		this.periodo = periodo;
 		this.indicador = indicador;
 	}
-	
-	public IndicadorCalculado(){}
+
+	public IndicadorCalculado() {
+	}
 
 	public IndicadorCalculado(Indicador indicador, Empresa empresa, String periodo, Double value) {
-		setIndicadorCalculado(indicador,empresa, periodo, value);
+		setIndicadorCalculado(indicador, empresa, periodo, value);
 	}
 
 	public IndicadorCalculado(Indicador indicador, Empresa empresa, String periodo) {
-		setIndicadorCalculado(indicador,empresa, periodo, null);
+		setIndicadorCalculado(indicador, empresa, periodo, null);
 	}
 
 	public Optional<Double> getValorCalculado() {
 		return Optional.ofNullable(valorExito);
 	}
-	
+
 	public String getValorString() {
 		return getValorExito().orElse(getValorFalla());
 	}
 
 	public Optional<String> getValorExito() {
-		return getValorCalculado().map(valor-> valor.toString());
+		return getValorCalculado().map(valor -> valor.toString());
 	}
 
 	public String getValorFalla() {
 		return "No pudo calcularse";
 	}
+
 	
 	public Indicador getIndicador(){
 		return indicador;
@@ -90,5 +93,9 @@ public class IndicadorCalculado {
 
 	public String getId() {
 		return id.toString();
+	}
+	
+	public String getNombre() {
+		return indicador.getNombre();
 	}
 }
