@@ -10,8 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Entity;
-import org.uqbar.commons.utils.Observable;
 
 import domain.Empresa;
 
@@ -82,11 +80,6 @@ public class IndicadorCalculado {
 	public String getPeriodo() {
 		return periodo;
 	}
-<<<<<<< HEAD
-	
-	public Indicador getIndicador() {
-		return indicador;
-=======
 
 	public void setPeriodo(String periodo) {
 		this.periodo = periodo;
@@ -102,6 +95,5 @@ public class IndicadorCalculado {
 	
 	public String getNombre() {
 		return indicador.getNombre();
->>>>>>> b6c273f7f7b2e65f427d990a8069bf3170cb399f
 	}
 }
