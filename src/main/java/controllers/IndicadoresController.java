@@ -28,7 +28,6 @@ public class IndicadoresController extends EmpresasPeriodosController {
 		String indicadorNuevo = req.queryParams("nuevoIndicador");		
 		Usuario usuarioConNuevoIndicador = req.session().attribute("usuario");
 		usuarioConNuevoIndicador.agregarIndicador(crearIndicador(indicadorNuevo));
-		res.redirect("/indicadores");
-		return null;
+		return new ModelAndView(null, "proyectos/indicadores.hbs");
 	}
 }
