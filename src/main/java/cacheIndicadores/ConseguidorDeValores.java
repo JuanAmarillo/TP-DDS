@@ -5,6 +5,7 @@ import domain.indicadores.Indicador;
 import domain.indicadores.IndicadorCalculado;
 import domain.repositorios.RepositorioIndicadoresCalculados;
 import exceptions.NoEstaEnCacheException;
+import exceptions.NoEstaEnLaBDException;
 import persistencia.Transaction;
 
 public class ConseguidorDeValores {
@@ -13,7 +14,15 @@ public class ConseguidorDeValores {
 		try {
 			return buscarEnCache(indicador, empresa, periodo);
 		} catch (NoEstaEnCacheException e) {
-			return buscarEnRepositorio(indicador, empresa, periodo);
+			return buscarEnRepoOCalcularlo(indicador, empresa, periodo);
+		}
+	}
+
+	private static IndicadorCalculado buscarEnRepoOCalcularlo(Indicador indicador, Empresa empresa, String periodo) {
+		try {
+			return buscarEnRepositorio(indicador,empresa,periodo);
+		} catch (NoEstaEnLaBDException e) {
+			return calcularValor(indicador, empresa, periodo);
 		}
 	}
 
@@ -25,6 +34,10 @@ public class ConseguidorDeValores {
 
 	private static void agregarACache(IndicadorCalculado calculado) {
 		Cache.instance().set(calculado);
+	}
+
+	private static IndicadorCalculado calcularValor(Indicador indicador, Empresa empresa, String periodo) {
+		return indicador.calcular(empresa, periodo);
 	}
 
 	private static IndicadorCalculado buscarEnCache(Indicador indicador, Empresa empresa, String periodo) {
