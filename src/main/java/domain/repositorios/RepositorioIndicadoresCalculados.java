@@ -40,7 +40,7 @@ public class RepositorioIndicadoresCalculados extends Repositorio<IndicadorCalcu
 
 	public void agregarValores(Indicador indicador, Empresa empresa, String periodo) {
 		IndicadorCalculado actualizado = indicador.calcular(empresa, periodo);
-		System.out.println("nombre " + actualizado.getNombre() + " valor " + actualizado.getValorString());
+		System.out.println("nombre " + actualizado.getNombre() + " valor " + actualizado.getValorString() + " periodo " + actualizado.getPeriodo() + " empresa " + actualizado.getEmpresa());
 		try {
 			IndicadorCalculado desactualizado = findBy(indicador, empresa, periodo);		
 			actualizarValor(actualizado, desactualizado);
