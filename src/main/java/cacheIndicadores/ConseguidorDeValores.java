@@ -18,7 +18,7 @@ public class ConseguidorDeValores {
 	}
 
 	private static IndicadorCalculado buscarEnRepositorio(Indicador indicador, Empresa empresa, String periodo) {
-		IndicadorCalculado calculado = RepositorioIndicadoresCalculados.instance().agregarValores(indicador,empresa,periodo);
+		IndicadorCalculado calculado = RepositorioIndicadoresCalculados.instance().findBy(indicador,empresa,periodo);
 		agregarACache(calculado);
 		return calculado;
 	}

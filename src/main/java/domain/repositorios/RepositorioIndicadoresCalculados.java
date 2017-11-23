@@ -39,7 +39,7 @@ public class RepositorioIndicadoresCalculados extends Repositorio<IndicadorCalcu
 	public IndicadorCalculado agregarValores(Indicador indicador, Empresa empresa, String periodo) {
 		IndicadorCalculado actualizado = indicador.calcular(empresa, periodo);
 		try {
-			IndicadorCalculado desactualizado = obtenerIndicador(indicador, empresa, periodo);		
+			IndicadorCalculado desactualizado = findBy(indicador, empresa, periodo);		
 			desactualizado.setValorExito(actualizado.getValorCalculado().orElse(null));
 		} catch (NoEstaEnLaBDException e) {
 			agregar(actualizado);
@@ -48,7 +48,7 @@ public class RepositorioIndicadoresCalculados extends Repositorio<IndicadorCalcu
 
 	}
 
-	private IndicadorCalculado obtenerIndicador(Indicador indicador, Empresa empresa, String periodo) {
+	public IndicadorCalculado findBy(Indicador indicador, Empresa empresa, String periodo) {
 		return obtenerLista(query(indicador,empresa,periodo), IndicadorCalculado.class).stream().findFirst()
 				.orElseThrow(NoEstaEnLaBDException::new);
 	}
