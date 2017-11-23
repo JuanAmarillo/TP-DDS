@@ -27,8 +27,11 @@ public class ProcesoAsincronicoMock implements Job {
 		return JobBuilder.newJob().ofType(ProcesoAsincronicoMock.class).withIdentity(identidad).build();
 	}
 	
-	public Trigger trigger() {
-		return TriggerBuilder.newTrigger().withSchedule(CronScheduleBuilder.cronSchedule(enTresSegundos())).build();
+	public Trigger trigger(Boolean conCrono) {
+		if(conCrono)
+			return TriggerBuilder.newTrigger().withSchedule(CronScheduleBuilder.cronSchedule(enTresSegundos())).build();
+		else
+			return TriggerBuilder.newTrigger().build();
 	}
 
 	private String enTresSegundos() {

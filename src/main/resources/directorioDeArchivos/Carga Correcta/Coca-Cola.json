@@ -1,0 +1,41 @@
+{
+  "nombre": "Coca-Cola",
+  "anioFundacion": "1886",
+  "cuentas": [
+    {
+      "nombre": "FDS",
+      "periodo": "2do semestre 2017",
+      "balance": 98
+    },
+    {
+      "nombre": "EBITDA",
+      "periodo": "2do semestre 2017",
+      "balance": 10000
+    },
+    {
+      "nombre": "ActivoTotal",
+      "periodo": "1er semestre 2017",
+      "balance": 12345
+    },
+    {
+      "nombre": "PasivoTotal",
+      "periodo": "1er semestre 2017",
+      "balance": 5432
+    },
+    {
+      "nombre": "Activo Cte",
+      "periodo": "2do semestre 2017",
+      "balance": 6000
+    },
+    {
+      "nombre": "Pasivo Cte",
+      "periodo": "2do semestre 2017",
+      "balance": 3500
+    },
+    {
+      "nombre": "Ventas",
+      "periodo": "2do semestre 2016",
+      "balance": 5001
+    }
+  ]
+}

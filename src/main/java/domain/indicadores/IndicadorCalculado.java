@@ -89,8 +89,8 @@ public class IndicadorCalculado {
 		this.valorExito = valorExito;
 	}
 
-	public String getId() {
-		return id.toString();
+	public Integer getId() {
+		return id;
 	}
 	
 	public String getNombre() {

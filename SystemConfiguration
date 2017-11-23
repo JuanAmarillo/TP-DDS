@@ -1,4 +1,4 @@
 sinProcesar=src/main/resources/directorioDeArchivos/Sin Procesar/
 procCorrectos=src/main/resources/directorioDeArchivos/Carga Correcta/
 procErroneos=src/main/resources/directorioDeArchivos/Carga Incorrecta/
-horarioCarga=0 0 5 * * ?
+horarioCarga=0 15 6 * * ?

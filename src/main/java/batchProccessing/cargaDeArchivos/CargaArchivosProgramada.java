@@ -6,6 +6,7 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
+import batchProccessing.precalculoIndicadores.CalculoDeIndicadoresProgramado;
 import persistencia.LevantaArchivoEmpresa;
 
 public class CargaArchivosProgramada implements Job {
@@ -15,5 +16,6 @@ public class CargaArchivosProgramada implements Job {
 		Transaction.instance().crear();
 		new LevantaArchivoEmpresa().execute();
 		Transaction.instance().cerrar();
+		new CalculoDeIndicadoresProgramado().execute(null);
 	}
 }

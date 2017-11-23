@@ -29,15 +29,10 @@ public class CalculoDeIndicadoresProgramado implements Job {
 	}
 
 	public void calcularIndicador(Indicador it, List<EmpresaPeriodoARecalcular> empresasARecalcular) {
-		empresasARecalcular.stream().forEach(empresa -> calcularLosPeriodos(empresa, it));
-	}
-
-	private void calcularLosPeriodos(EmpresaPeriodoARecalcular empresaARecalcular, Indicador it) {
-		Empresa empresa = empresaARecalcular.getEmpresa();
-		empresa.getPeriodos().stream().forEach(periodo -> agregarAlRepositorio(empresa, periodo, it));
+		empresasARecalcular.stream().forEach(empresa -> agregarAlRepositorio(empresa.getEmpresa(), empresa.getPeriodo() , it));
 	}
 
 	public void agregarAlRepositorio(Empresa empresa, String periodo, Indicador indicador) {
-		RepositorioIndicadoresCalculados.instance().agregarValores(indicador,empresa, periodo);
+		RepositorioIndicadoresCalculados.instance().agregarValores(indicador,empresa, periodo);	
 	}
 }

@@ -8,6 +8,7 @@ import domain.Empresa;
 import domain.indicadores.Indicador;
 import domain.indicadores.IndicadorCalculado;
 import exceptions.NoEstaEnLaBDException;
+import persistencia.Transaction;
 
 public class RepositorioIndicadoresCalculados extends Repositorio<IndicadorCalculado> {
 
@@ -37,8 +38,9 @@ public class RepositorioIndicadoresCalculados extends Repositorio<IndicadorCalcu
 		return IndicadorCalculado.class;
 	}
 
-	public IndicadorCalculado agregarValores(Indicador indicador, Empresa empresa, String periodo) {
+	public void agregarValores(Indicador indicador, Empresa empresa, String periodo) {
 		IndicadorCalculado actualizado = indicador.calcular(empresa, periodo);
+		System.out.println("nombre " + actualizado.getNombre() + " valor " + actualizado.getValorString());
 		try {
 			IndicadorCalculado desactualizado = findBy(indicador, empresa, periodo);		
 			actualizarValor(actualizado, desactualizado);
@@ -46,12 +48,11 @@ public class RepositorioIndicadoresCalculados extends Repositorio<IndicadorCalcu
 		} catch (NoEstaEnLaBDException e) {
 			agregar(actualizado);
 		}
-		return actualizado;
-
 	}
 
 	private void actualizarValor(IndicadorCalculado actualizado, IndicadorCalculado desactualizado) {
-		desactualizado.setValorExito(actualizado.getValorCalculado().orElse(null));
+		deleteById(desactualizado.getId());
+		agregar(actualizado);
 	}
 
 	private void eliminarDeCache(IndicadorCalculado desactualizado) {

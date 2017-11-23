@@ -76,8 +76,11 @@ public class Empresa {
 		Cuenta cuentaExistente;
 		for(Cuenta cuenta : cuentas) {
 			cuentaExistente = buscarCuenta(cuenta);
-			if(cuentaExistente != null)
-				actualizarValores(cuenta, cuentaExistente);
+			if(cuentaExistente != null) {
+				if(cuentaExistente.getBalance().compareTo(cuenta.getBalance()) != 0) {
+					actualizarValores(cuenta, cuentaExistente);
+				}
+			}
 			else
 				agregarCuenta(cuenta);
 		}
@@ -96,6 +99,7 @@ public class Empresa {
 		cuentaExistente.setBalance(cuenta.getBalance());
 		agregarARecalcular(cuenta);
 	}
+	
 	private void agregarARecalcular(Cuenta cuenta) {
 		ContenedorValoresARecalcular.instance().agregarEmpresaPeriodo(this, cuenta.getPeriodo());
 	}

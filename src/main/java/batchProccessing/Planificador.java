@@ -16,6 +16,7 @@ import org.quartz.impl.StdSchedulerFactory;
 import org.quartz.listeners.JobChainingJobListener;
 
 import batchProccessing.cargaDeArchivos.CargaArchivosProgramada;
+import batchProccessing.precalculoIndicadores.CalculoDeIndicadoresProgramado;
 import domain.repositorios.RepositorioIndicadoresCalculados;
 import utils.PropertyReader;
 
@@ -36,7 +37,6 @@ public class Planificador {
 	public void begin() {
 		try {
 			planificarHorarios(); 
-			chainJobs(archivos(),recalculo());
 			empezarPlanificador();
 		} catch (SchedulerException e) {
 			cerrarPlanificador();
@@ -57,11 +57,11 @@ public class Planificador {
 	}
 
 	public void planificarHorarios() throws SchedulerException {
-		planificar(CargaArchivosProgramada.class, horarioCargaEmpresas(), archivos());
+		planificarProcesoConHorario(CargaArchivosProgramada.class, horarioCargaEmpresas(), archivos());
 	}
   
-	private void planificar (Class<? extends Job> clase, String schedule, String identidad) throws SchedulerException {
-		JobDetail job = JobBuilder.newJob(clase).withIdentity(identidad).build();
+	private void planificarProcesoConHorario (Class<? extends Job> clase, String schedule, String identidad) throws SchedulerException {
+		JobDetail job = JobBuilder.newJob().ofType(clase).withIdentity(identidad).build();
 		Trigger trigger = TriggerBuilder.newTrigger().withSchedule(CronScheduleBuilder.cronSchedule(schedule)).build();
 		addToSchedule(job, trigger);
 	}
@@ -70,23 +70,12 @@ public class Planificador {
 		scheduler.scheduleJob(job, trigger);
 	}
 
-	public void chainJobs(String primerEvento, String segundoEvento) {
-		JobChainingJobListener chain = new JobChainingJobListener("encadenador");
-		JobKey primer = new JobKey(primerEvento, "Grupo1");
-		JobKey segundo = new JobKey(segundoEvento, "Grupo1");
-		chain.addJobChainLink(primer, segundo);
-	}
-
 	private String horarioCargaEmpresas() {
 		return PropertyReader.readProperty("horarioCarga");
 	}
   	
 	private String archivos() {
 		return "CargaArchivos";
-	}
-	
-	private String recalculo() {
-		return "RecalculoIndicadores";
 	}
 	
 	public static Planificador instance() {
