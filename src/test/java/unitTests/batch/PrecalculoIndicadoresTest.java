@@ -60,7 +60,7 @@ public class PrecalculoIndicadoresTest extends AbstractPersistenceTest{
 	}
 
 	private void agregarIndicadorCalculado(Indicador ind) {
-		RepositorioIndicadoresCalculados.instance().agregarValores(ind.calcular(empresa, "Siempre"));
+		RepositorioIndicadoresCalculados.instance().agregarValores(ind,empresa, "Siempre");
 	}
 
 	private IndicadorCalculado obtenerDelIndicador(Indicador indicador) {
