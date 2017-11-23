@@ -22,10 +22,14 @@ public class ConseguidorDeValores {
 		try {
 			return buscarEnRepositorio(indicador,empresa,periodo);
 		} catch (NoEstaEnLaBDException e) {
-			IndicadorCalculado indicadorCalculado = calcularValor(indicador, empresa, periodo);
-			RepositorioIndicadoresCalculados.instance().agregar(indicadorCalculado);
-			return indicadorCalculado;
+			return crearCalculo(indicador, empresa, periodo);
 		}
+	}
+
+	private static IndicadorCalculado crearCalculo(Indicador indicador, Empresa empresa, String periodo) {
+		IndicadorCalculado indicadorCalculado = calcularValor(indicador, empresa, periodo);
+		RepositorioIndicadoresCalculados.instance().agregar(indicadorCalculado);
+		return indicadorCalculado;
 	}
 
 	private static IndicadorCalculado buscarEnRepositorio(Indicador indicador, Empresa empresa, String periodo) {

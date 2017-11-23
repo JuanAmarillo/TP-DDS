@@ -1,6 +1,5 @@
 package batchProccessing.precalculoIndicadores;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.quartz.Job;
@@ -9,7 +8,6 @@ import org.quartz.JobExecutionException;
 
 import domain.Empresa;
 import domain.indicadores.Indicador;
-import domain.indicadores.IndicadorCalculado;
 import domain.repositorios.RepositorioIndicadores;
 import domain.repositorios.RepositorioIndicadoresCalculados;
 import persistencia.Transaction;

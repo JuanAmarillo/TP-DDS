@@ -64,4 +64,8 @@ public class Cache {
 		algoritmoDeReemplazo.set(indicadoresEnCache,getClave(calculado),calculado);
 	}
 	
+	public void eliminarEntradaDesactualizada(IndicadorCalculado calculado) {
+		indicadoresEnCache.remove(getClave(calculado));
+	}
+	
 }

@@ -3,6 +3,7 @@ package domain.repositorios;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import cacheIndicadores.Cache;
 import domain.Empresa;
 import domain.indicadores.Indicador;
 import domain.indicadores.IndicadorCalculado;
@@ -40,12 +41,21 @@ public class RepositorioIndicadoresCalculados extends Repositorio<IndicadorCalcu
 		IndicadorCalculado actualizado = indicador.calcular(empresa, periodo);
 		try {
 			IndicadorCalculado desactualizado = findBy(indicador, empresa, periodo);		
-			desactualizado.setValorExito(actualizado.getValorCalculado().orElse(null));
+			actualizarValor(actualizado, desactualizado);
+			eliminarDeCache(desactualizado);
 		} catch (NoEstaEnLaBDException e) {
 			agregar(actualizado);
 		}
 		return actualizado;
 
+	}
+
+	private void actualizarValor(IndicadorCalculado actualizado, IndicadorCalculado desactualizado) {
+		desactualizado.setValorExito(actualizado.getValorCalculado().orElse(null));
+	}
+
+	private void eliminarDeCache(IndicadorCalculado desactualizado) {
+		Cache.instance().eliminarEntradaDesactualizada(desactualizado);
 	}
 
 	public IndicadorCalculado findBy(Indicador indicador, Empresa empresa, String periodo) {
