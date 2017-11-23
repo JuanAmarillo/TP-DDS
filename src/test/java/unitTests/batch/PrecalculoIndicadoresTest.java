@@ -25,7 +25,6 @@ import domain.indicadores.indicadoresPredeterminados.ROA;
 import domain.indicadores.indicadoresPredeterminados.ROE;
 import domain.login.Usuario;
 import domain.repositorios.RepositorioEmpresas;
-import domain.repositorios.RepositorioIndicadores;
 import domain.repositorios.RepositorioIndicadoresCalculados;
 import domain.repositorios.RepositorioUsuarios;
 
@@ -121,7 +120,7 @@ public class PrecalculoIndicadoresTest extends AbstractPersistenceTest{
 		Cuenta cuenta2 = new Cuenta("ActivoTotal", "Siempre", 1000.0);
 		Cuenta cuenta3 = new Cuenta("Beneficio", "Siempre", 50.0);
 		empresa.agregarCuentas(Arrays.asList(cuenta,cuenta2, cuenta3).stream().collect(Collectors.toSet()));
-		proc.execute(null);
+		proc.ejecutarProceso();
 		RepositorioIndicadoresCalculados.instance().getElementos().stream().forEach(it -> print(it));
 		assertTrue(obtenerDelIndicador(roa).getValorString().equals("5.0"));
 		assertEquals(50.0/1000.0, obtenerDelIndicador(roe).getValorCalculado().get(), 0.0);

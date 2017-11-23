@@ -3,31 +3,20 @@ package unitTests.batch;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.io.BufferedWriter;
-import java.io.EOFException;
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.util.Scanner;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import javax.persistence.EntityManager;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.AfterClass;
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockito.Mockito;
-import org.mockito.internal.matchers.Any;
 import org.uqbarproject.jpa.java8.extras.test.AbstractPersistenceTest;
 
 import com.google.common.io.Files;
 
-import domain.Cuenta;
 import domain.Empresa;
 import domain.repositorios.RepositorioEmpresas;
 import persistencia.LevantaArchivoEmpresa;
