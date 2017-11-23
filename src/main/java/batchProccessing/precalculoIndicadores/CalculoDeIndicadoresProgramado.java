@@ -26,7 +26,7 @@ public class CalculoDeIndicadoresProgramado implements Job {
 	public void ejecutarProceso() {
 		List<Indicador> indicadores = RepositorioIndicadores.instance().getElementos();
 		List<EmpresaPeriodoARecalcular> empresasARecalcular = ContenedorValoresARecalcular.instance().getList();
-		indicadores.stream().forEach(it -> calcularIndicador(it, empresasARecalcular));
+		indicadores.stream().forEach(indicador -> calcularIndicador(indicador, empresasARecalcular));
 		ContenedorValoresARecalcular.instance().borrarEntradas();
 	}
 
@@ -40,6 +40,6 @@ public class CalculoDeIndicadoresProgramado implements Job {
 	}
 
 	public void agregarAlRepositorio(Empresa empresa, String periodo, Indicador indicador) {
-		RepositorioIndicadoresCalculados.instance().agregarValores(indicador.calcular(empresa, periodo));
+		RepositorioIndicadoresCalculados.instance().agregarValores(indicador,empresa, periodo);
 	}
 }

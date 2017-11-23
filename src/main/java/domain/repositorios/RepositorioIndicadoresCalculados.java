@@ -3,7 +3,10 @@ package domain.repositorios;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import domain.Empresa;
+import domain.indicadores.Indicador;
 import domain.indicadores.IndicadorCalculado;
+import exceptions.NoEstaEnLaBDException;
 
 public class RepositorioIndicadoresCalculados extends Repositorio<IndicadorCalculado> {
 
@@ -22,7 +25,7 @@ public class RepositorioIndicadoresCalculados extends Repositorio<IndicadorCalcu
 	private static boolean noHayInstanciaCargada() {
 		return instance == null;
 	}
-	
+
 	@Override
 	public Optional<IndicadorCalculado> findByName(String nombre) {
 		return find("nombre + empresa.getNombre() +", nombre);
@@ -33,26 +36,25 @@ public class RepositorioIndicadoresCalculados extends Repositorio<IndicadorCalcu
 		return IndicadorCalculado.class;
 	}
 
-	public void agregarValores(IndicadorCalculado indicadorCalculado) {
-		Optional<IndicadorCalculado> indicador = obtenerIndicador(indicadorCalculado);
-		Double valorCalculado = indicadorCalculado.getValorCalculado().orElse(null);
+	public IndicadorCalculado agregarValores(Indicador indicador, Empresa empresa, String periodo) {
+		IndicadorCalculado actualizado = indicador.calcular(empresa, periodo);
 		try {
-			indicador.get().setValorExito(valorCalculado);
+			IndicadorCalculado desactualizado = obtenerIndicador(indicador, empresa, periodo);		
+			desactualizado.setValorExito(actualizado.getValorCalculado().orElse(null));
+		} catch (NoEstaEnLaBDException e) {
+			agregar(actualizado);
 		}
-		catch(NoSuchElementException e) {
-			agregar(indicadorCalculado);
-		}
+		return actualizado;
+
 	}
 
-	private Optional<IndicadorCalculado> obtenerIndicador(IndicadorCalculado calcular) {
-		return obtenerLista(query(calcular), IndicadorCalculado.class).stream().findFirst();
+	private IndicadorCalculado obtenerIndicador(Indicador indicador, Empresa empresa, String periodo) {
+		return obtenerLista(query(indicador,empresa,periodo), IndicadorCalculado.class).stream().findFirst()
+				.orElseThrow(NoEstaEnLaBDException::new);
 	}
 
-	private String query(IndicadorCalculado calcular) {
-		String query = from() ;
-		query += where("periodo", calcular.getPeriodo());
-		query += and("empresa_id", calcular.getEmpresa().getId());
-		query += and("indicador_id", calcular.getIndicador().getId());
-		return query;
+	private String query(Indicador indicador, Empresa empresa, String periodo) {
+		return from() + where("periodo", periodo) + and("empresa_id", empresa.getId())
+				+ and("indicador_id", indicador.getId());
 	}
 }
