@@ -31,6 +31,7 @@ import domain.Cuenta;
 import domain.Empresa;
 import domain.repositorios.RepositorioEmpresas;
 import persistencia.LevantaArchivoEmpresa;
+import utils.PropertyReader;
 
 public class CargaEmpresaTest extends AbstractPersistenceTest {
 
@@ -137,6 +138,12 @@ public class CargaEmpresaTest extends AbstractPersistenceTest {
 	public void seCargaElArchivoDeConfiguracion() {
 		LevantaArchivoEmpresa prueba = new LevantaArchivoEmpresa();
 		assertTrue(prueba.getSinProcesarFilepath().equals("src/main/resources/directorioDeArchivos/Sin Procesar/"));
+	}
+	
+	@Test
+	public void traeCorrectamenteElHorarioCron() {
+		String property = PropertyReader.readProperty("horarioCarga");
+		assertTrue(property.equals("0 0 5 * * ?"));
 	}
 	
 	@Override
