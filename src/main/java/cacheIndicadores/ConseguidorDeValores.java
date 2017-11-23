@@ -22,7 +22,9 @@ public class ConseguidorDeValores {
 		try {
 			return buscarEnRepositorio(indicador,empresa,periodo);
 		} catch (NoEstaEnLaBDException e) {
-			return calcularValor(indicador, empresa, periodo);
+			IndicadorCalculado indicadorCalculado = calcularValor(indicador, empresa, periodo);
+			RepositorioIndicadoresCalculados.instance().agregar(indicadorCalculado);
+			return indicadorCalculado;
 		}
 	}
 
