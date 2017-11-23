@@ -51,8 +51,7 @@ public class RepositorioIndicadoresCalculados extends Repositorio<IndicadorCalcu
 	}
 
 	private void actualizarValor(IndicadorCalculado actualizado, IndicadorCalculado desactualizado) {
-		deleteById(desactualizado.getId());
-		agregar(actualizado);
+		desactualizado.setValorExito(actualizado.getValorCalculado().orElse(null));
 	}
 
 	private void eliminarDeCache(IndicadorCalculado desactualizado) {
