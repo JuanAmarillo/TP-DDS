@@ -45,14 +45,14 @@ public class Router {
 	public static void indicadoresViews(HandlebarsTemplateEngine engine) {
 		IndicadoresController controller = new IndicadoresController();
 		Spark.get("/indicadores", controller::getEmpresas, engine);
-		Spark.get("/indicadores/tabla", controller::mostrarTabla,engine);
+		Spark.post("/indicadores/tabla", controller::mostrarTabla,engine);
 		Spark.post("/indicadores", controller::agregar, engine);
 	}
 	
 	public static void cuentasViews(HandlebarsTemplateEngine engine) {
 		CuentasController controller = new CuentasController();
 		Spark.get("/cuentas", controller::getEmpresas, engine);
-		Spark.get("/cuentas/tabla", controller::mostrarTabla, engine);
+		Spark.post("/cuentas/tabla", controller::mostrarTabla, engine);
 		Spark.post("/periodos", controller::elegirPeriodo, engine);
 	}
 
