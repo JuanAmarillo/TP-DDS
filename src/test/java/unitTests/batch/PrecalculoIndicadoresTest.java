@@ -25,6 +25,7 @@ import domain.indicadores.indicadoresPredeterminados.ROA;
 import domain.indicadores.indicadoresPredeterminados.ROE;
 import domain.login.Usuario;
 import domain.repositorios.RepositorioEmpresas;
+import domain.repositorios.RepositorioIndicadores;
 import domain.repositorios.RepositorioIndicadoresCalculados;
 import domain.repositorios.RepositorioUsuarios;
 
@@ -112,8 +113,26 @@ public class PrecalculoIndicadoresTest extends AbstractPersistenceTest{
 		assertTrue(obtenerDelIndicador(roa).getValorString().equals("2.0"));
 	}
 	
+	@Test
+	public void execute() throws JobExecutionException {
+		ContenedorValoresARecalcular.instance().agregarEmpresaPeriodo(empresa, "Siempre");
+		CalculoDeIndicadoresProgramado proc = new CalculoDeIndicadoresProgramado();
+		Cuenta cuenta = new Cuenta("BeneficioEconomico", "Siempre", 5000.0);
+		Cuenta cuenta2 = new Cuenta("ActivoTotal", "Siempre", 1000.0);
+		Cuenta cuenta3 = new Cuenta("Beneficio", "Siempre", 50.0);
+		empresa.agregarCuentas(Arrays.asList(cuenta,cuenta2, cuenta3).stream().collect(Collectors.toSet()));
+		proc.execute(null);
+		RepositorioIndicadoresCalculados.instance().getElementos().stream().forEach(it -> print(it));
+		assertTrue(obtenerDelIndicador(roa).getValorString().equals("5.0"));
+		assertEquals(50.0/1000.0, obtenerDelIndicador(roe).getValorCalculado().get(), 0.0);
+	}
+	
 	@Override
 	public EntityManager entityManager() {
 		return RepositorioIndicadoresCalculados.instance().getEntityManager();
+	}
+	
+	public void print(IndicadorCalculado ind) {
+		System.out.println("Nombre " + ind.getIndicador().getNombre()+ " empresa " +  ind.getEmpresa().getNombre()+ "periodo "+ ind.getPeriodo() + " valor " + ind.getValorString());
 	}
 }

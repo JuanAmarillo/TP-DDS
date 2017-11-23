@@ -36,10 +36,6 @@ public class LevantaArchivoEmpresa {
 		procesadosCorrectamente = PropertyReader.readProperty("procCorrectos");
 		procesadosErroneos = PropertyReader.readProperty("procErroneos");
 	}
-
-	private static String obtenerPropiedad(Properties defaultProps, String key, String defaultValue) {
-		return defaultProps.getProperty(key, defaultValue);
-	}
 	
 	public void execute() {
 		Arrays.asList(empresasSinProcesar()).stream().forEach(empresa -> cargarArchivo(empresa));

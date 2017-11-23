@@ -142,6 +142,5 @@ public class CargaEmpresaTest extends AbstractPersistenceTest {
 	@Override
 	public EntityManager entityManager() {
 		return repositorio.getEntityManager();
-	}
-	
+	}	
 }
